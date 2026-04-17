@@ -13,131 +13,97 @@ export default function ArticleLayout({ article, children }: Props) {
     article.lang === 'pt' ? 'pt-PT' : 'en-US',
     { year: 'numeric', month: 'long', day: 'numeric' }
   )
+  const category = article.tags[0] ?? ''
 
   return (
-    <article style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
-      <header style={{ paddingTop: '56px' }}>
+    <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 32px' }}>
+
+      {/* Back */}
+      <div style={{ padding: '40px 0 0' }}>
         <Link href={`/${article.lang}`} style={{
-          fontFamily: 'var(--font-dm-mono)',
-          fontSize: '11px',
-          letterSpacing: '0.08em',
-          textTransform: 'uppercase',
-          color: '#5A5A5F',
-          textDecoration: 'none',
+          fontSize: '13px',
+          color: '#52525B',
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '6px',
-          marginBottom: '40px',
-          transition: 'color 150ms',
+          gap: '4px',
         }}>
-          ← {article.lang === 'pt' ? 'Artigos' : 'Articles'}
+          ← {article.lang === 'pt' ? 'Todos os artigos' : 'All articles'}
         </Link>
+      </div>
 
-        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
-          {article.tags.slice(0, 3).map(tag => (
-            <span key={tag} className="tag">{tag}</span>
-          ))}
-        </div>
-
+      {/* Header */}
+      <header style={{ padding: '40px 0 0', maxWidth: '760px' }}>
+        {category && <p className="category" style={{ marginBottom: '16px' }}>{category}</p>}
         <h1 style={{
           fontFamily: 'var(--font-instrument-serif)',
-          fontSize: 'clamp(32px, 5vw, 58px)',
-          lineHeight: 1.08,
+          fontSize: 'clamp(32px, 5vw, 54px)',
           letterSpacing: '-0.03em',
-          color: '#F2F2EF',
-          maxWidth: '860px',
-          marginBottom: '28px',
+          lineHeight: 1.1,
+          color: '#F4F4F5',
+          marginBottom: '24px',
         }}>
           {article.title}
         </h1>
-
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '16px',
-          paddingBottom: '40px',
-          borderBottom: '1px solid #252528',
-        }}>
-          <time style={{
-            fontFamily: 'var(--font-dm-mono)',
-            fontSize: '11px',
-            letterSpacing: '0.08em',
-            color: '#5A5A5F',
-          }}>
-            {date}
-          </time>
-          <span style={{ color: '#252528', fontSize: '12px' }}>—</span>
-          <span style={{
-            fontFamily: 'var(--font-dm-mono)',
-            fontSize: '11px',
-            letterSpacing: '0.08em',
-            color: '#5A5A5F',
-          }}>
-            {article.readingTime}
-          </span>
+        <div className="post-meta" style={{ marginBottom: '40px' }}>
+          <time>{date}</time>
+          <span>·</span>
+          <span>{article.readingTime}</span>
         </div>
-
-        {article.image && (
-          <div style={{
-            position: 'relative',
-            height: 'clamp(240px, 38vw, 520px)',
-            width: '100%',
-            marginTop: '48px',
-            overflow: 'hidden',
-          }}>
-            <Image
-              src={article.image}
-              alt={article.imageAlt}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 1200px) 100vw, 1200px"
-            />
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(to top, rgba(12,12,14,0.5) 0%, transparent 50%)',
-            }} />
-            {article.imageCredit && (
-              <p style={{
-                position: 'absolute',
-                bottom: '12px',
-                right: '16px',
-                fontFamily: 'var(--font-dm-mono)',
-                fontSize: '10px',
-                letterSpacing: '0.05em',
-                color: 'rgba(255,255,255,0.45)',
-                background: 'rgba(0,0,0,0.45)',
-                padding: '4px 8px',
-                backdropFilter: 'blur(4px)',
-              }}>
-                {article.imageCredit} / Unsplash
-              </p>
-            )}
-          </div>
-        )}
-
-        <AdUnit slot="top-article" />
       </header>
 
-      <div style={{ maxWidth: '680px', margin: '56px auto 0', paddingBottom: '80px' }}>
+      {/* Hero image */}
+      {article.image && (
+        <div style={{ position: 'relative', width: '100%', aspectRatio: '21/9', overflow: 'hidden', marginBottom: '56px' }}>
+          <Image
+            src={article.image}
+            alt={article.imageAlt}
+            fill
+            className="object-cover"
+            priority
+            sizes="(max-width: 1100px) 100vw, 1100px"
+          />
+          {article.imageCredit && (
+            <p style={{
+              position: 'absolute',
+              bottom: '10px',
+              right: '14px',
+              fontSize: '11px',
+              color: 'rgba(255,255,255,0.4)',
+              background: 'rgba(0,0,0,0.35)',
+              padding: '3px 7px',
+              backdropFilter: 'blur(4px)',
+            }}>
+              {article.imageCredit} / Unsplash
+            </p>
+          )}
+        </div>
+      )}
+
+      <AdUnit slot="top-article" />
+
+      {/* Body */}
+      <article style={{ maxWidth: '680px', margin: '0 auto', paddingBottom: '80px' }}>
         <div className="prose article-prose max-w-none">
           {children}
         </div>
 
-        <footer style={{
-          marginTop: '64px',
-          paddingTop: '32px',
-          borderTop: '1px solid #252528',
-        }}>
+        <footer style={{ marginTop: '56px', paddingTop: '32px', borderTop: '1px solid #232326' }}>
           <AdUnit slot="bottom-article" />
-          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '24px' }}>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '20px' }}>
             {article.tags.map(tag => (
-              <span key={tag} className="tag">{tag}</span>
+              <span key={tag} style={{
+                fontSize: '12px',
+                color: '#52525B',
+                background: '#131315',
+                border: '1px solid #232326',
+                padding: '4px 10px',
+              }}>
+                {tag}
+              </span>
             ))}
           </div>
         </footer>
-      </div>
-    </article>
+      </article>
+    </div>
   )
 }
