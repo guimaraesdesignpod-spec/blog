@@ -16,18 +16,22 @@ const LABELS: Record<Lang, {
   featured: string; read: string; topics: string; all: string;
   newsletter_label: string; newsletter_title: string; newsletter_em: string;
   newsletter_placeholder: string; newsletter_btn: string; back: string;
+  recent: string; productivity: string; tools: string;
+  footer_about: string; footer_contact: string;
 }> = {
   en: {
     featured: 'Featured', read: 'Read article', topics: 'Topics', all: 'All',
-    newsletter_label: 'Newsletter', newsletter_title: 'Stay ahead on AI tools',
-    newsletter_em: 'weekly', newsletter_placeholder: 'your@email.com', newsletter_btn: 'Subscribe',
-    back: 'Home',
+    newsletter_label: 'Newsletter', newsletter_title: 'Artificial intelligence,',
+    newsletter_em: 'filtered for you.', newsletter_placeholder: 'your@email.com', newsletter_btn: 'Subscribe',
+    back: 'Home', recent: 'Recent articles', productivity: 'Productivity', tools: 'Tools',
+    footer_about: 'About', footer_contact: 'Contact',
   },
   pt: {
     featured: 'Destaque', read: 'Ler artigo', topics: 'Tópicos', all: 'Todos',
-    newsletter_label: 'Newsletter', newsletter_title: 'Fique a par das ferramentas de IA',
-    newsletter_em: 'semanalmente', newsletter_placeholder: 'o.seu@email.com', newsletter_btn: 'Subscrever',
-    back: 'Início',
+    newsletter_label: 'Newsletter', newsletter_title: 'Inteligência artificial,',
+    newsletter_em: 'filtrada para você.', newsletter_placeholder: 'o.seu@email.com', newsletter_btn: 'Subscrever',
+    back: 'Início', recent: 'Artigos recentes', productivity: 'Produtividade', tools: 'Ferramentas',
+    footer_about: 'Sobre', footer_contact: 'Contacto',
   },
 }
 
@@ -175,7 +179,8 @@ export default async function LangPage({ params }: Props) {
         <ul className="nav-links">
           <li><Link href={`/${lang}`} className="active">{labels.back}</Link></li>
           <li><Link href={`/${lang}`}>IA</Link></li>
-          <li><Link href={`/${lang}`}>{lang === 'pt' ? 'Ferramentas' : 'Tools'}</Link></li>
+          <li><Link href={`/${lang}`}>{labels.productivity}</Link></li>
+          <li><Link href={`/${lang}`}>{labels.tools}</Link></li>
         </ul>
 
         <Link href={`/${otherLang}`} className="nav-lang">
@@ -200,7 +205,7 @@ export default async function LangPage({ params }: Props) {
       {rest.length > 0 && (
         <div className="home-grid-wrap">
           <div className="section-label-row">
-            <span>{lang === 'pt' ? 'Mais artigos' : 'More articles'}</span>
+            <span>{labels.recent}</span>
           </div>
           <div className="cards-grid">
             {rest.map((article, i) => (
@@ -224,7 +229,7 @@ export default async function LangPage({ params }: Props) {
           <div>
             <div className="newsletter-label">{labels.newsletter_label}</div>
             <div className="newsletter-title">
-              {labels.newsletter_title} — <em>{labels.newsletter_em}</em>
+              {labels.newsletter_title}<br /><em>{labels.newsletter_em}</em>
             </div>
           </div>
           <form className="newsletter-form" onSubmit={undefined}>
@@ -242,8 +247,9 @@ export default async function LangPage({ params }: Props) {
         </Link>
         <span>© {new Date().getFullYear()} Brainwire</span>
         <ul className="f-links">
-          <li><Link href={`/${lang}`}>{lang === 'pt' ? 'Início' : 'Home'}</Link></li>
-          <li><Link href={`/${otherLang}`}>{otherLang.toUpperCase()}</Link></li>
+          <li><Link href={`/${lang}`}>{labels.footer_about}</Link></li>
+          <li><Link href={`/${lang}`}>{labels.newsletter_label}</Link></li>
+          <li><Link href={`/${lang}`}>{labels.footer_contact}</Link></li>
         </ul>
       </footer>
 

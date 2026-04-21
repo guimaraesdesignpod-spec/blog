@@ -41,7 +41,7 @@ export interface Article extends ArticleMeta {
   content: string
 }
 
-export function getArticleSlugs(lang: Lang): string[] {
+export function  getArticleSlugs(lang: Lang): string[] {
   const dir = path.join(contentDir(), lang)
   if (!fs.existsSync(dir)) return []
   return fs.readdirSync(dir)
@@ -66,6 +66,9 @@ export function getArticle(lang: Lang, slug: string): Article {
     imageCredit: data.imageCredit ?? '',
     imageCreditUrl: data.imageCreditUrl ?? '',
     keywords: data.keywords ?? [],
-    readingTime: readingTime(content).text,
+    readingTime: (() => {
+      const mins = Math.ceil(readingTime(content).minutes)
+      return lang === 'pt' ? `${mins} min de leitura` : `${mins} min read`
+    })(),
   }
 }
