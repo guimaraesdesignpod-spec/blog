@@ -65,7 +65,21 @@ export default function ArticleLayout({ article, children }: Props) {
       <div id="progress-bar" />
 
       <nav>
-        <Link href={`/${article.lang}`} className="nav-logo">Blog</Link>
+        <Link href={`/${article.lang}`} className="nav-logo">
+          <div className="logo-mark">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="3" cy="6.5" r="1.5" fill="white" />
+              <circle cx="6.5" cy="3" r="1.5" fill="white" />
+              <circle cx="10" cy="6.5" r="1.5" fill="white" />
+              <circle cx="6.5" cy="10" r="1.5" fill="white" />
+              <line x1="3" y1="6.5" x2="6.5" y2="3" stroke="white" strokeWidth="1" opacity="0.5" />
+              <line x1="6.5" y1="3" x2="10" y2="6.5" stroke="white" strokeWidth="1" opacity="0.5" />
+              <line x1="10" y1="6.5" x2="6.5" y2="10" stroke="white" strokeWidth="1" opacity="0.5" />
+              <line x1="6.5" y1="10" x2="3" y2="6.5" stroke="white" strokeWidth="1" opacity="0.5" />
+            </svg>
+          </div>
+          <span className="logo-text">Brain<em>wire</em></span>
+        </Link>
         <span className="nav-meta">{category}{category ? ' · ' : ''}{article.readingTime}</span>
         <Link href={`/${article.lang}`} className="nav-back">
           ← {article.lang === 'pt' ? 'Todos os artigos' : 'All articles'}

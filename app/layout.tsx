@@ -26,8 +26,8 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Blog',
-    default: 'Blog',
+    template: '%s | Brainwire',
+    default: 'Brainwire',
   },
   description: 'Bilingual blog about AI productivity tools and technology',
 }
