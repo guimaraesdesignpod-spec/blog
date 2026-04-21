@@ -355,6 +355,8 @@ nav {
   width: 4px; height: 100%;
   background: var(--accent);
 }
+.tool-card h3,
+.article-prose .tool-card h3 { margin-top: 0; }
 
 /* ── Callout ───────────────────────────────────────────── */
 .callout {
@@ -365,7 +367,7 @@ nav {
 }
 
 /* ── Table ─────────────────────────────────────────────── */
-.table-wrap { overflow-x: auto; margin: 2rem 0; }
+.table-wrap { overflow-x: auto; margin: 2rem 0; border: 1px solid var(--rule); border-radius: 8px; }
 table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
 th {
   background: var(--bg-warm);
@@ -373,8 +375,14 @@ th {
   padding: 0.75rem 1rem;
   text-align: left;
   border-bottom: 2px solid var(--rule);
+  white-space: nowrap;
 }
 td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--rule); }
+tr:last-child td { border-bottom: none; }
+.article-prose table { border-collapse: collapse; }
+.article-prose th { background: var(--bg-warm); padding: 0.75rem 1rem; border-bottom: 2px solid var(--rule); white-space: nowrap; }
+.article-prose td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--rule); }
+.article-prose tr:last-child td { border-bottom: none; }
 .verdict-yes { color: var(--accent); font-weight: 600; }
 .verdict-maybe { color: var(--accent-warm); font-weight: 600; }
 
