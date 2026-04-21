@@ -17,9 +17,9 @@ export default function ArticleCard({ article, featured = false }: Props) {
 
   if (featured) {
     return (
-      <Link href={href} className="post-card" style={{ display: 'block' }}>
+      <Link href={href} className="article-card" style={{ display: 'block', textDecoration: 'none' }}>
         {article.image && (
-          <div style={{ position: 'relative', width: '100%', aspectRatio: '21/9', overflow: 'hidden', marginBottom: '28px' }}>
+          <div style={{ position: 'relative', width: '100%', aspectRatio: '21/9', overflow: 'hidden' }}>
             <Image
               src={article.image}
               alt={article.imageAlt}
@@ -30,23 +30,23 @@ export default function ArticleCard({ article, featured = false }: Props) {
             />
           </div>
         )}
-        <div style={{ maxWidth: '720px' }}>
-          {category && <p className="category" style={{ marginBottom: '12px' }}>{category}</p>}
+        <div className="article-card-body" style={{ maxWidth: '720px' }}>
+          {category && <p className="category">{category}</p>}
           <h2 style={{
-            fontFamily: 'var(--font-instrument-serif)',
-            fontSize: 'clamp(28px, 4vw, 48px)',
-            letterSpacing: '-0.025em',
+            fontFamily: 'var(--serif)',
+            fontSize: 'clamp(1.6rem, 4vw, 2.8rem)',
             lineHeight: 1.12,
-            color: '#F4F4F5',
-            marginBottom: '16px',
+            color: 'var(--ink)',
+            marginBottom: '0.75rem',
+            fontWeight: 700,
           }}>
             {article.title}
           </h2>
           <p style={{
             fontSize: '15px',
             lineHeight: 1.65,
-            color: '#A1A1AA',
-            marginBottom: '20px',
+            color: 'var(--ink-mid)',
+            marginBottom: '1.25rem',
             maxWidth: '560px',
           }}>
             {article.description}
@@ -62,9 +62,9 @@ export default function ArticleCard({ article, featured = false }: Props) {
   }
 
   return (
-    <Link href={href} className="post-card" style={{ display: 'block' }}>
+    <Link href={href} className="article-card" style={{ display: 'block', textDecoration: 'none' }}>
       {article.image && (
-        <div style={{ position: 'relative', width: '100%', aspectRatio: '4/3', overflow: 'hidden', marginBottom: '20px' }}>
+        <div style={{ position: 'relative', width: '100%', aspectRatio: '4/3', overflow: 'hidden' }}>
           <Image
             src={article.image}
             alt={article.imageAlt}
@@ -74,33 +74,35 @@ export default function ArticleCard({ article, featured = false }: Props) {
           />
         </div>
       )}
-      {category && <p className="category" style={{ marginBottom: '10px' }}>{category}</p>}
-      <h2 style={{
-        fontFamily: 'var(--font-instrument-serif)',
-        fontSize: '22px',
-        letterSpacing: '-0.02em',
-        lineHeight: 1.2,
-        color: '#F4F4F5',
-        marginBottom: '10px',
-      }}>
-        {article.title}
-      </h2>
-      <p style={{
-        fontSize: '14px',
-        lineHeight: 1.6,
-        color: '#A1A1AA',
-        marginBottom: '14px',
-        display: '-webkit-box',
-        WebkitLineClamp: 2,
-        WebkitBoxOrient: 'vertical',
-        overflow: 'hidden',
-      } as React.CSSProperties}>
-        {article.description}
-      </p>
-      <div className="post-meta">
-        <time>{date}</time>
-        <span>·</span>
-        <span>{article.readingTime}</span>
+      <div className="article-card-body">
+        {category && <p className="category">{category}</p>}
+        <h2 style={{
+          fontFamily: 'var(--serif)',
+          fontSize: '1.25rem',
+          lineHeight: 1.25,
+          color: 'var(--ink)',
+          marginBottom: '0.6rem',
+          fontWeight: 700,
+        }}>
+          {article.title}
+        </h2>
+        <p style={{
+          fontSize: '14px',
+          lineHeight: 1.6,
+          color: 'var(--ink-mid)',
+          marginBottom: '1rem',
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+        } as React.CSSProperties}>
+          {article.description}
+        </p>
+        <div className="post-meta">
+          <time>{date}</time>
+          <span>·</span>
+          <span>{article.readingTime}</span>
+        </div>
       </div>
     </Link>
   )

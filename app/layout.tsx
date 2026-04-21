@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import { Instrument_Serif, DM_Mono, DM_Sans } from 'next/font/google'
+import { Lora, DM_Mono, DM_Sans } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 
-const instrumentSerif = Instrument_Serif({
+const lora = Lora({
   subsets: ['latin'],
-  weight: ['400'],
+  weight: ['400', '700'],
   style: ['normal', 'italic'],
-  variable: '--font-instrument-serif',
+  variable: '--font-lora',
   display: 'swap',
 })
 
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${dmMono.variable} ${dmSans.variable}`}
+      className={`${lora.variable} ${dmMono.variable} ${dmSans.variable}`}
     >
       <head>
         {publisherId && (

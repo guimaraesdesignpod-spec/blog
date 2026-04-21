@@ -27,45 +27,44 @@ export default async function LangPage({ params }: Props) {
   const [featured, ...rest] = articles
 
   return (
-    <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 32px' }}>
-
-      {/* Hero label */}
-      <div style={{ padding: '56px 0 40px', borderBottom: '1px solid #232326' }}>
-        <p style={{ fontSize: '13px', color: '#52525B', letterSpacing: '0.06em' }}>
+    <>
+      <nav className="home-nav">
+        <span className="nav-logo">Blog</span>
+        <span className="nav-meta">
           {lang === 'en' ? 'AI · Productivity · Tools' : 'IA · Produtividade · Ferramentas'}
-        </p>
+        </span>
+      </nav>
+
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
+        {articles.length === 0 ? (
+          <div style={{ padding: '80px 0', textAlign: 'center' }}>
+            <p style={{ fontSize: '14px', color: 'var(--ink-light)' }}>
+              {lang === 'en' ? 'First article coming soon.' : 'Primeiro artigo em breve.'}
+            </p>
+          </div>
+        ) : (
+          <>
+            {featured && (
+              <div style={{ padding: '3.5rem 0', borderBottom: '1px solid var(--rule)' }}>
+                <ArticleCard article={featured} featured />
+              </div>
+            )}
+
+            {rest.length > 0 && (
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                gap: '2rem',
+                padding: '3.5rem 0 5rem',
+              }}>
+                {rest.map(article => (
+                  <ArticleCard key={`${article.lang}-${article.slug}`} article={article} />
+                ))}
+              </div>
+            )}
+          </>
+        )}
       </div>
-
-      {articles.length === 0 ? (
-        <div style={{ padding: '80px 0', textAlign: 'center' }}>
-          <p style={{ fontSize: '14px', color: '#52525B' }}>
-            {lang === 'en' ? 'First article coming soon.' : 'Primeiro artigo em breve.'}
-          </p>
-        </div>
-      ) : (
-        <>
-          {/* Featured */}
-          {featured && (
-            <div style={{ padding: '56px 0', borderBottom: '1px solid #232326' }}>
-              <ArticleCard article={featured} featured />
-            </div>
-          )}
-
-          {/* Grid */}
-          {rest.length > 0 && (
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-              gap: '48px 40px',
-              padding: '56px 0 80px',
-            }}>
-              {rest.map(article => (
-                <ArticleCard key={`${article.lang}-${article.slug}`} article={article} />
-              ))}
-            </div>
-          )}
-        </>
-      )}
-    </div>
+    </>
   )
 }
