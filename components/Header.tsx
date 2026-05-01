@@ -27,34 +27,15 @@ function LogoMark() {
 
 export default function Header({ lang }: { lang: Lang }) {
   return (
-    <header style={{ borderBottom: '1px solid #232326', background: '#0D0D0F' }}>
-      <div style={{
-        maxWidth: '1100px',
-        margin: '0 auto',
-        padding: '0 32px',
-        height: '64px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      }}>
-        <Link href={`/${lang}`} style={{
-          display: 'flex', alignItems: 'center', gap: '0.5em',
-          fontFamily: 'var(--sans)',
-          fontSize: '1.05rem',
-          fontWeight: 600,
-          letterSpacing: '-0.02em',
-          color: '#F4F4F5',
-        }}>
+    <header className="border-b border-[#232326] bg-[#0D0D0F]">
+      <div className="mx-auto max-w-[1100px] px-4 md:px-8 h-16 flex items-center justify-between">
+        <Link href={`/${lang}`} className="flex items-center gap-2 font-sans text-base font-semibold tracking-tight text-[#F4F4F5]">
           <LogoMark />
-          <span>Brain<em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>wire</em></span>
+          <span>Brain<em className="font-normal text-[var(--accent)]">wire</em></span>
         </Link>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-          <Link href={`/${lang === 'en' ? 'pt' : 'en'}`} style={{
-            fontSize: '13px',
-            color: '#52525B',
-            letterSpacing: '0.04em',
-          }}>
+        <div className="flex items-center gap-6">
+          <Link href={`/${lang === 'en' ? 'pt' : 'en'}`} className="text-[13px] text-[#52525B] tracking-wide">
             {lang === 'en' ? 'PT' : 'EN'}
           </Link>
         </div>
