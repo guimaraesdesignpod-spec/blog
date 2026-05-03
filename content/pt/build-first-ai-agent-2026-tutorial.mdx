@@ -37,12 +37,17 @@ Ao contrário de um chatbot (que responde uma vez), um agente funciona em ciclo:
 
 Testei quatro frameworks na mesma tarefa: "Encontra repositórios de IA em tendência no GitHub, escolhe os 3 melhores e escreve um ficheiro markdown com um resumo."
 
-| Framework | Tempo de Conclusão | Chamadas API | Linhas de Configuração | Melhor Para |
-|-----------|-------------------|--------------|------------------------|-------------|
-| **LangChain v2** | 48s | 7 | 22 | Controlo máximo, pipelines em produção |
-| **CrewAI v2** | 35s | 11 | 12 | Equipas multi-agente, prototipagem rápida |
-| **AutoGPT Forge** | 62s | 18 | 8 | Missões autónomas de longa duração |
-| **Hermes Agent (CLI)** | 28s | 5 | 4 | Terminal nativo, bash + ferramentas |
+<table className="comparison-table">
+  <thead>
+    <tr><th>Framework</th><th>Tempo de Conclusão</th><th>Chamadas API</th><th>Linhas de Configuração</th><th>Melhor Para</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>LangChain v2</strong></td><td>48s</td><td>7</td><td>22</td><td>Controlo máximo, pipelines em produção</td></tr>
+    <tr><td><strong>CrewAI v2</strong></td><td>35s</td><td>11</td><td>12</td><td>Equipas multi-agente, prototipagem rápida</td></tr>
+    <tr><td><strong>AutoGPT Forge</strong></td><td>62s</td><td>18</td><td>8</td><td>Missões autónomas de longa duração</td></tr>
+    <tr><td><strong>Hermes Agent (CLI)</strong></td><td>28s</td><td>5</td><td>4</td><td>Terminal nativo, bash + ferramentas</td></tr>
+  </tbody>
+</table>
 
 O "melhor" depende inteiramente do que se está a construir.
 

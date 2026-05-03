@@ -37,12 +37,17 @@ Unlike a chatbot (which answers once), an agent loops: it reads the result of it
 
 I tested four frameworks on the same task: "Find trending AI repos on GitHub, pick the top 3, and write a summary markdown file."
 
-| Framework | Time to Complete | API Calls | Lines of Setup | Best For |
-|-----------|-----------------|-----------|----------------|----------|
-| **LangChain v2** | 48s | 7 | 22 | Maximum control, production pipelines |
-| **CrewAI v2** | 35s | 11 | 12 | Multi-agent teams, quick prototyping |
-| **AutoGPT Forge** | 62s | 18 | 8 | Autonomous long-running missions |
-| **Hermes Agent (CLI)** | 28s | 5 | 4 | Terminal-native, bash + tools |
+<table className="comparison-table">
+  <thead>
+    <tr><th>Framework</th><th>Time to Complete</th><th>API Calls</th><th>Lines of Setup</th><th>Best For</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>LangChain v2</strong></td><td>48s</td><td>7</td><td>22</td><td>Maximum control, production pipelines</td></tr>
+    <tr><td><strong>CrewAI v2</strong></td><td>35s</td><td>11</td><td>12</td><td>Multi-agent teams, quick prototyping</td></tr>
+    <tr><td><strong>AutoGPT Forge</strong></td><td>62s</td><td>18</td><td>8</td><td>Autonomous long-running missions</td></tr>
+    <tr><td><strong>Hermes Agent (CLI)</strong></td><td>28s</td><td>5</td><td>4</td><td>Terminal-native, bash + tools</td></tr>
+  </tbody>
+</table>
 
 The "best" depends entirely on what you're building.
 
