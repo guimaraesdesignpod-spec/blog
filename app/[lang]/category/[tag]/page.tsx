@@ -26,10 +26,15 @@ const LABELS: Record<Lang, {
 }
 
 export async function generateStaticParams() {
-  // We can generate params based on all articles' tags
   const articlesEn = getAllArticles('en')
   const articlesPt = getAllArticles('pt')
-  const allTags = [...new Set([...articlesEn.flatMap(a => a.tags), ...articlesPt.flatMap(a => a.tags)])]
+  
+  const allTags = [
+    ...new Set([
+      ...articlesEn.flatMap(a => a.tags || []), 
+      ...articlesPt.flatMap(a => a.tags || [])
+    ])
+  ].filter((tag): tag is string => typeof tag === 'string' && tag.length > 0)
   
   return allTags.flatMap(tag => [
     { lang: 'en', tag: tag.toLowerCase().replace(/\s+/g, '-') },
@@ -44,13 +49,13 @@ export default async function CategoryPage({ params }: Props) {
   const currentLang = lang as Lang
   const labels = LABELS[currentLang]
   const articles = getAllArticles(currentLang).filter(a => 
-    a.tags.some(t => t.toLowerCase().replace(/\s+/g, '-') === tag)
+    (a.tags || []).some(t => typeof t === 'string' && t.toLowerCase().replace(/\s+/g, '-') === tag)
   )
 
   if (articles.length === 0) {
     return (
       <div className="max-w-[1200px] mx-auto p-8 text-center">
-        <h1 className="text-2xl font-serif mb-4">{labels.title}: {tag}</h1>
+        <h1 className="text-2xl font-serif mb-4">Category: {tag}</h1>
         <p className="mb-8 text-zinc-500">{labels.no_articles}</p>
         <Link href={`/${currentLang}`} className="text-accent underline">{labels.back}</Link>
       </div>
@@ -63,7 +68,7 @@ export default async function CategoryPage({ params }: Props) {
         <Link href={`/${currentLang}`} className="text-xs uppercase tracking-widest text-zinc-500 hover:text-accent transition-colors">
           ← {labels.back}
         </Link>
-        <h1 className="text-4xl font-serif mt-4 capitalize">{labels.title}: {tag.replace(/-/g, ' ')}</h1>
+        <h1 className="text-4xl font-serif mt-4 capitalize">Category: {tag.replace(/-/g, ' ')}</h1>
       </header>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
