@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
 import { Lora, DM_Mono, DM_Sans } from 'next/font/google'
 import Script from 'next/script'
+import { headers } from 'next/headers'
 import './globals.css'
 
 const lora = Lora({
@@ -33,12 +34,14 @@ export const metadata: Metadata = {
   description: 'Bilingual blog about AI productivity tools and technology',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID
+  const headersList = await headers()
+  const lang = headersList.get('x-lang') || 'en'
 
   return (
     <html
-      lang="en"
+      lang={lang}
       className={`${lora.variable} ${dmMono.variable} ${dmSans.variable}`}
     >
       <head>
