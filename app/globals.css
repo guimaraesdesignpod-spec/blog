@@ -457,11 +457,15 @@ nav {
 /* ── Home responsive ─────────────────────────────────────── */
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; }
-  .hero-img { display: none; }
+  .hero-content { border-right: none; border-bottom: 1px solid var(--rule); padding: 2rem 1.5rem; }
+  .hero-img { position: relative; aspect-ratio: 16/9; min-height: 200px; }
+  .hero-title { font-size: 1.5rem; }
+  .hero-excerpt { font-size: 0.9rem; }
+  .hero-bottom { flex-direction: column; gap: 1rem; align-items: flex-start; }
   .cards-grid { grid-template-columns: 1fr; }
   .card-wide { flex-direction: column; grid-column: span 1; }
-  .card-wide .card-img-wrap { width: 100%; aspect-ratio: 16/9; }
-  .newsletter-inner { grid-template-columns: 1fr; }
+  .card-wide .card-img-wrap { width: 100%; aspect-ratio: 16/9; display: block; }
+  .newsletter-inner { grid-template-columns: 1fr; padding: 1.5rem; }
   .newsletter-form { min-width: 0; }
   .nav-links { display: none; }
 }

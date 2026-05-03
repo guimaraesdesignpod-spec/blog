@@ -196,9 +196,12 @@ export default async function LangPage({ params }: Props) {
       {allTags.length > 0 && (
         <div className="topics-row">
           <span className="topic-pill active">{labels.all}</span>
-          {allTags.map(tag => (
-            <span key={tag} className="topic-pill">{tag}</span>
-          ))}
+          {allTags.map(tag => {
+            const tagSlug = (typeof tag === 'string' ? tag : '').toLowerCase().replace(/\s+/g, '-')
+            return (
+              <Link key={tag} href={`/${lang}/category/${tagSlug}`} className="topic-pill">{tag}</Link>
+            )
+          })}
         </div>
       )}
 
