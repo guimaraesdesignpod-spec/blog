@@ -76,19 +76,29 @@ Há um ano, o melhor modelo open-source (Llama 3 70B) era mais ou menos equivale
 
 ### Passo 1: Classifica as Tuas Cargas de Trabalho de AI
 
-| Nível de Risco | Exemplos | Abordagem |
-|-----------|----------|----------|
-| **Baixo** | Chatbots internos, copy de marketing | Cloud APIs são aceitáveis |
-| **Médio** | Apoio ao cliente, analytics | Híbrido: dados sensíveis locais, restante na cloud |
-| **Alto** | Scoring de crédito, recrutamento, médico | Totalmente interno, alojado na UE |
+<table className="comparison-table">
+  <thead>
+    <tr><th>Nível de Risco</th><th>Exemplos</th><th>Abordagem</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Baixo</strong></td><td>Chatbots internos, copy de marketing</td><td>Cloud APIs são aceitáveis</td></tr>
+    <tr><td><strong>Médio</strong></td><td>Apoio ao cliente, analytics</td><td>Híbrido: dados sensíveis locais, restante na cloud</td></tr>
+    <tr><td><strong>Alto</strong></td><td>Scoring de crédito, recrutamento, médico</td><td>Totalmente interno, alojado na UE</td></tr>
+  </tbody>
+</table>
 
 ### Passo 2: Escolhe a Tua Infraestrutura
 
-| Opção | Custo | Conformidade | Manutenção |
-|--------|------|-----------|-------------|
-| **Hardware próprio** (DGX/H100) | Alto investimento inicial | Controlo total | A tua equipa |
-| **Cloud soberana da UE** (OVH, Scaleway, Hetzner) | Mensalidade | Certificada | O provedor gere |
-| **Híbrido** | Misto | Parcial | Partilhada |
+<table className="comparison-table">
+  <thead>
+    <tr><th>Opção</th><th>Custo</th><th>Conformidade</th><th>Manutenção</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Hardware próprio</strong> (DGX/H100)</td><td>Alto investimento inicial</td><td>Controlo total</td><td>A tua equipa</td></tr>
+    <tr><td><strong>Cloud soberana da UE</strong> (OVH, Scaleway, Hetzner)</td><td>Mensalidade</td><td>Certificada</td><td>O provedor gere</td></tr>
+    <tr><td><strong>Híbrido</strong></td><td>Misto</td><td>Parcial</td><td>Partilhada</td></tr>
+  </tbody>
+</table>
 
 ### Passo 3: Seleciona Modelos Open-Source
 
@@ -112,11 +122,16 @@ Cada sistema de sovereign AI precisa de:
 
 A sovereign AI é mais cara no ano 1. A diferença fecha rapidamente:
 
-| | Ano 1 | Ano 2 | Ano 3 |
-|---|--------|--------|--------|
-| **Cloud API** (GPT-5) | $120.000 | $150.000 | $180.000 |
-| **Interno** (cluster H100) | $280.000 | $140.000 | $110.000 |
-| **Cloud soberana** (OVH) | $160.000 | $165.000 | $170.000 |
+<table className="comparison-table">
+  <thead>
+    <tr><th></th><th>Ano 1</th><th>Ano 2</th><th>Ano 3</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Cloud API</strong> (GPT-5)</td><td>$120.000</td><td>$150.000</td><td>$180.000</td></tr>
+    <tr><td><strong>Interno</strong> (cluster H100)</td><td>$280.000</td><td>$140.000</td><td>$110.000</td></tr>
+    <tr><td><strong>Cloud soberana</strong> (OVH)</td><td>$160.000</td><td>$165.000</td><td>$170.000</td></tr>
+  </tbody>
+</table>
 
 Ao ano 3, o interno é mais barato. O ponto de viragem é cerca de 50.000 pedidos de inferência por mês.
 

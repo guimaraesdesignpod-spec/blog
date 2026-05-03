@@ -76,19 +76,29 @@ A year ago, the best open-source model (Llama 3 70B) was roughly equivalent to G
 
 ### Step 1: Classify Your AI Workloads
 
-| Risk Level | Examples | Approach |
-|-----------|----------|----------|
-| **Low** | Internal chatbots, marketing copy | Cloud APIs are fine |
-| **Medium** | Customer support, analytics | Hybrid: sensitive data local, rest cloud |
-| **High** | Credit scoring, hiring, medical | Fully in-house, EU-hosted |
+<table className="comparison-table">
+  <thead>
+    <tr><th>Risk Level</th><th>Examples</th><th>Approach</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Low</strong></td><td>Internal chatbots, marketing copy</td><td>Cloud APIs are fine</td></tr>
+    <tr><td><strong>Medium</strong></td><td>Customer support, analytics</td><td>Hybrid: sensitive data local, rest cloud</td></tr>
+    <tr><td><strong>High</strong></td><td>Credit scoring, hiring, medical</td><td>Fully in-house, EU-hosted</td></tr>
+  </tbody>
+</table>
 
 ### Step 2: Choose Your Infrastructure
 
-| Option | Cost | Compliance | Maintenance |
-|--------|------|-----------|-------------|
-| **Own hardware** (DGX/H100) | High upfront | Full control | Your team |
-| **EU sovereign cloud** (OVH, Scaleway, Hetzner) | Monthly fee | Certified | Provider handles |
-| **Hybrid** | Mixed | Partial | Shared |
+<table className="comparison-table">
+  <thead>
+    <tr><th>Option</th><th>Cost</th><th>Compliance</th><th>Maintenance</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Own hardware</strong> (DGX/H100)</td><td>High upfront</td><td>Full control</td><td>Your team</td></tr>
+    <tr><td><strong>EU sovereign cloud</strong> (OVH, Scaleway, Hetzner)</td><td>Monthly fee</td><td>Certified</td><td>Provider handles</td></tr>
+    <tr><td><strong>Hybrid</strong></td><td>Mixed</td><td>Partial</td><td>Shared</td></tr>
+  </tbody>
+</table>
 
 ### Step 3: Select Open-Source Models
 
@@ -112,11 +122,16 @@ Every sovereign AI system needs:
 
 Sovereign AI is more expensive in year 1. The gap closes fast:
 
-| | Year 1 | Year 2 | Year 3 |
-|---|--------|--------|--------|
-| **Cloud API** (GPT-5) | $120,000 | $150,000 | $180,000 |
-| **In-house** (H100 cluster) | $280,000 | $140,000 | $110,000 |
-| **Sovereign cloud** (OVH) | $160,000 | $165,000 | $170,000 |
+<table className="comparison-table">
+  <thead>
+    <tr><th></th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Cloud API</strong> (GPT-5)</td><td>$120,000</td><td>$150,000</td><td>$180,000</td></tr>
+    <tr><td><strong>In-house</strong> (H100 cluster)</td><td>$280,000</td><td>$140,000</td><td>$110,000</td></tr>
+    <tr><td><strong>Sovereign cloud</strong> (OVH)</td><td>$160,000</td><td>$165,000</td><td>$170,000</td></tr>
+  </tbody>
+</table>
 
 By year 3, in-house is cheaper. The crossover point is around 50,000 inference requests per month.
 
