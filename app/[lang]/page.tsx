@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { getAllArticles } from '@/lib/articles'
 import { ArticleMeta } from '@/lib/mdx'
 import type { Metadata } from 'next'
+import Footer from '@/components/Footer'
 
 type Lang = 'en' | 'pt'
 
@@ -12,26 +13,30 @@ const META: Record<Lang, { title: string; description: string }> = {
   pt: { title: 'Brainwire', description: 'Ferramentas de IA para produtividade profissional' },
 }
 
-const LABELS: Record<Lang, {
+type LabelsType = {
   featured: string; read: string; topics: string; all: string;
   newsletter_label: string; newsletter_title: string; newsletter_em: string;
   newsletter_placeholder: string; newsletter_btn: string; back: string;
   recent: string; productivity: string; tools: string;
-  footer_about: string; footer_contact: string;
-}> = {
+  footer_about: string; footer_copyright: string;
+}
+
+const LABELS: Record<Lang, LabelsType> = {
   en: {
     featured: 'Featured', read: 'Read article', topics: 'Topics', all: 'All',
     newsletter_label: 'Newsletter', newsletter_title: 'Artificial intelligence,',
     newsletter_em: 'filtered for you.', newsletter_placeholder: 'your@email.com', newsletter_btn: 'Subscribe',
     back: 'Home', recent: 'Recent articles', productivity: 'Productivity', tools: 'Tools',
-    footer_about: 'About', footer_contact: 'Contact',
+    footer_about: 'Brainwire is a bilingual blog about AI-powered productivity tools.',
+    footer_copyright: 'All rights reserved.',
   },
   pt: {
     featured: 'Destaque', read: 'Ler artigo', topics: 'Tópicos', all: 'Todos',
     newsletter_label: 'Newsletter', newsletter_title: 'Inteligência artificial,',
     newsletter_em: 'filtrada para você.', newsletter_placeholder: 'o.seu@email.com', newsletter_btn: 'Subscrever',
     back: 'Início', recent: 'Artigos recentes', productivity: 'Produtividade', tools: 'Ferramentas',
-    footer_about: 'Sobre', footer_contact: 'Contacto',
+    footer_about: 'Brainwire é um blog bilingue sobre ferramentas de produtividade com IA.',
+    footer_copyright: 'Todos os direitos reservados.',
   },
 }
 
@@ -65,7 +70,7 @@ function LogoMark({ size = 22 }: { size?: number }) {
   )
 }
 
-function HeroCard({ article, lang, labels }: { article: ArticleMeta; lang: Lang; labels: typeof LABELS[Lang] }) {
+function HeroCard({ article, lang, labels }: { article: ArticleMeta; lang: Lang; labels: LabelsType }) {
   const date = new Date(article.date).toLocaleDateString(
     lang === 'pt' ? 'pt-PT' : 'en-US',
     { day: 'numeric', month: 'short', year: 'numeric' }
@@ -164,10 +169,10 @@ export default async function LangPage({ params }: Props) {
   const otherLang = lang === 'en' ? 'pt' : 'en'
   const labels = LABELS[lang as Lang]
 
-  const allTags = [...new Set(articles.flatMap(a => a.tags))].slice(0, 6)
+  const allTags = [...new Set(articles.flatMap(a => a.tags || []))].slice(0, 6)
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', flexDirection: 'column' }}>
       <nav className="home-page-nav">
         <Link href={`/${lang}`} className="nav-logo">
           <LogoMark />
@@ -197,26 +202,30 @@ export default async function LangPage({ params }: Props) {
         </div>
       )}
 
-      {rest.length > 0 && (
-        <div className="home-grid-wrap">
-          <div className="section-label-row">
-            <span>{labels.recent}</span>
+      <div style={{ flex: 1 }}>
+        {rest.length > 0 && (
+          <div className="home-grid-wrap">
+            <div className="section-label-row">
+              <span>{labels.recent}</span>
+            </div>
+            <div className="cards-grid">
+              {rest.map((article, i) => (
+                <ArticleCard key={article.slug} article={article} lang={lang as Lang} wide={i === 0 && rest.length > 1} />
+              ))}
+            </div>
           </div>
-          <div className="cards-grid">
-            {rest.map((article, i) => (
-              <ArticleCard key={article.slug} article={article} lang={lang as Lang} wide={i === 0 && rest.length > 1} />
-            ))}
-          </div>
-        </div>
-      )}
+        )}
 
-      {articles.length === 0 && (
-        <div style={{ padding: '80px 2.5rem', textAlign: 'center' }}>
-          <p style={{ fontSize: '14px', color: 'var(--ink-light)' }}>
-            {lang === 'en' ? 'First article coming soon.' : 'Primeiro artigo em breve.'}
-          </p>
-        </div>
-      )}
+        {articles.length === 0 && (
+          <div style={{ padding: '80px 2.5rem', textAlign: 'center' }}>
+            <p style={{ fontSize: '14px', color: 'var(--ink-light)' }}>
+              {lang === 'en' ? 'First article coming soon.' : 'Primeiro artigo em breve.'}
+            </p>
+          </div>
+        )}
+      </div>
+
+      <Footer labels={labels} />
     </div>
   )
 }
