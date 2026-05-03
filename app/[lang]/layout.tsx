@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import HtmlLang from '@/components/HtmlLang'
 
 const VALID_LANGS = ['en', 'pt'] as const
 type Lang = typeof VALID_LANGS[number]
@@ -16,5 +17,10 @@ export default async function LangLayout({ children, params }: Props) {
   const { lang } = await params
   if (!VALID_LANGS.includes(lang as Lang)) notFound()
 
-  return <>{children}</>
+  return (
+    <>
+      <HtmlLang lang={lang} />
+      {children}
+    </>
+  )
 }
