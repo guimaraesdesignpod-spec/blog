@@ -19,14 +19,19 @@ Everyone talks about running LLMs locally to save money. Almost nobody publishes
 
 I run a small AI consultancy. My workload: ~500 agent tasks per month, averaging 8,000 tokens each (prompt + response). That's 4 million tokens per month. Here's what that costs across three scenarios:
 
-| | Local (RTX 4090) | OpenAI (GPT-5.3) | Anthropic (Claude 4.6) | Hybrid |
-|---|---|---|---|---|
-| **Monthly tokens** | Unlimited | 4M | 4M | 4M |
-| **Hardware** | $1,800 (one-time) | $0 | $0 | $1,800 |
-| **Electricity** | $45/month | $0 | $0 | $45/month |
-| **API cost** | $0 | $240/month | $360/month | $60/month |
-| **TCO (1 year)** | $2,340 | $2,880 | $4,320 | $2,520 |
-| **TCO (3 years)** | $3,420 | $8,640 | $12,960 | $5,940 |
+<table className="comparison-table">
+  <thead>
+    <tr><th></th><th>Local (RTX 4090)</th><th>OpenAI (GPT-5.3)</th><th>Anthropic (Claude 4.6)</th><th>Hybrid</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Monthly tokens</strong></td><td>Unlimited</td><td>4M</td><td>4M</td><td>4M</td></tr>
+    <tr><td><strong>Hardware</strong></td><td>$1,800 (one-time)</td><td>$0</td><td>$0</td><td>$1,800</td></tr>
+    <tr><td><strong>Electricity</strong></td><td>$45/month</td><td>$0</td><td>$0</td><td>$45/month</td></tr>
+    <tr><td><strong>API cost</strong></td><td>$0</td><td>$240/month</td><td>$360/month</td><td>$60/month</td></tr>
+    <tr><td><strong>TCO (1 year)</strong></td><td>$2,340</td><td>$2,880</td><td>$4,320</td><td>$2,520</td></tr>
+    <tr><td><strong>TCO (3 years)</strong></td><td>$3,420</td><td>$8,640</td><td>$12,960</td><td>$5,940</td></tr>
+  </tbody>
+</table>
 
 ## When Local Wins
 
@@ -87,12 +92,17 @@ This hybrid setup costs 60% less than all-cloud and handles 95% as many tasks.
 
 ## Hardware Requirements (Updated May 2026)
 
-| Model | VRAM Required | GPU Recommendation | Cost | Tokens/sec |
-|-------|--------------|---------------------|------|------------|
-| Qwen 3.5 (9B) | 8 GB | RTX 4060 Ti 16GB | $500 | 45 |
-| Llama 4 (34B) | 24 GB | RTX 4090 24GB | $1,800 | 28 |
-| Qwen 3.5 (70B) | 48 GB | 2× RTX 4090 | $3,600 | 18 |
-| DeepSeek V4 (397B) | Not practical locally | — | — | — |
+<table className="comparison-table">
+  <thead>
+    <tr><th>Model</th><th>VRAM Required</th><th>GPU Recommendation</th><th>Cost</th><th>Tokens/sec</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Qwen 3.5 (9B)</td><td>8 GB</td><td>RTX 4060 Ti 16GB</td><td>$500</td><td>45</td></tr>
+    <tr><td>Llama 4 (34B)</td><td>24 GB</td><td>RTX 4090 24GB</td><td>$1,800</td><td>28</td></tr>
+    <tr><td>Qwen 3.5 (70B)</td><td>48 GB</td><td>2× RTX 4090</td><td>$3,600</td><td>18</td></tr>
+    <tr><td>DeepSeek V4 (397B)</td><td>Not practical locally</td><td>—</td><td>—</td><td>—</td></tr>
+  </tbody>
+</table>
 
 ## FAQ
 
