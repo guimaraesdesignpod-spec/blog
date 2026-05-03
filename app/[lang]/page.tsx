@@ -3,15 +3,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getAllArticles } from '@/lib/articles'
 import { ArticleMeta } from '@/lib/mdx'
+import type { Metadata } from 'next'
 
 type Lang = 'en' | 'pt'
 
-const META: Record<<LangLang, { title: string; description: string }> = {
+const META: Record<Lang, { title: string; description: string }> = {
   en: { title: 'Brainwire', description: 'AI productivity tools for professionals' },
   pt: { title: 'Brainwire', description: 'Ferramentas de IA para produtividade profissional' },
 }
 
-const LABELS: Record<<LangLang, {
+const LABELS: Record<Lang, {
   featured: string; read: string; topics: string; all: string;
   newsletter_label: string; newsletter_title: string; newsletter_em: string;
   newsletter_placeholder: string; newsletter_btn: string; back: string;
@@ -36,7 +37,7 @@ const LABELS: Record<<LangLang, {
 
 interface Props { params: Promise<{ lang: string }> }
 
-export async function generateMetadata({ params }: Props): Promise<<MetadataMetadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params
   const meta = META[lang as Lang]
   if (!meta) return {}
@@ -46,19 +47,19 @@ export async function generateMetadata({ params }: Props): Promise<<MetadataMeta
 function LogoMark({ size = 22 }: { size?: number }) {
   const s = Math.round(size * 0.59)
   return (
-    <<divdiv style={{
+    <div style={{
       width: size, height: size, background: 'var(--accent)', borderRadius: 5,
       display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
     }}>
-      <<svgsvg width={s} height={s} viewBox="0 0 13 13" fill="none">
-        <<circlecircle cx="3" cy="6.5" r="1.5" fill="white" />
-        <<circlecircle cx="6.5" cy="3" r="1.5" fill="white" />
-        <<circlecircle cx="10" cy="6.5" r="1.5" fill="white" />
-        <<circlecircle cx="6.5" cy="10" r="1.5" fill="white" />
-        <<lineline x1="3" y1="6.5" x2="6.5" y2="3" stroke="white" strokeWidth="1" opacity="0.5" />
-        <<lineline x1="6.5" y1="3" x2="10" y2="6.5" stroke="white" strokeWidth="1" opacity="0.5" />
-        <<lineline x1="10" y1="6.5" x2="6.5" y2="10" stroke="white" strokeWidth="1" opacity="0.5" />
-        <<lineline x1="6.5" y1="10" x2="3" y2="6.5" stroke="white" strokeWidth="1" opacity="0.5" />
+      <svg width={s} height={s} viewBox="0 0 13 13" fill="none">
+        <circle cx="3" cy="6.5" r="1.5" fill="white" />
+        <circle cx="6.5" cy="3" r="1.5" fill="white" />
+        <circle cx="10" cy="6.5" r="1.5" fill="white" />
+        <circle cx="6.5" cy="10" r="1.5" fill="white" />
+        <line x1="3" y1="6.5" x2="6.5" y2="3" stroke="white" strokeWidth="1" opacity="0.5" />
+        <line x1="6.5" y1="3" x2="10" y2="6.5" stroke="white" strokeWidth="1" opacity="0.5" />
+        <line x1="10" y1="6.5" x2="6.5" y2="10" stroke="white" strokeWidth="1" opacity="0.5" />
+        <line x1="6.5" y1="10" x2="3" y2="6.5" stroke="white" strokeWidth="1" opacity="0.5" />
       </svg>
     </div>
   )
@@ -73,33 +74,33 @@ function HeroCard({ article, lang, labels }: { article: ArticleMeta; lang: Lang;
   const href = `/${lang}/${article.slug}`
 
   return (
-    <<divdiv className="home-hero">
-      <<divdiv className="hero-inner">
-        <<divdiv className="hero-content">
+    <div className="home-hero">
+      <div className="hero-inner">
+        <div className="hero-content">
           <div>
-            <<divdiv className="hero-tag">{labels.featured}</div>
-            <<hh1 className="hero-title">{article.title}</h1>
-            <<pp className="hero-excerpt">{article.description}</p>
+            <div className="hero-tag">{labels.featured}</div>
+            <h1 className="hero-title">{article.title}</h1>
+            <p className="hero-excerpt">{article.description}</p>
           </div>
-          <<divdiv className="hero-bottom">
-            <<divdiv className="hero-meta">
+          <div className="hero-bottom">
+            <div className="hero-meta">
               <span>{date}</span>
               <span>·</span>
               <strong>{article.readingTime}</strong>
-              {category && <<>><span>·</span><span>{category}</span>></>}
+              {category && <><span>·</span><span>{category}</span></>}
             </div>
-            <<LinkLink href={href} className="btn-read">
+            <Link href={href} className="btn-read">
               {labels.read}
-              <<svgsvg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <<pathpath d="M3 7h8M7.5 4l3.5 3-3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M3 7h8M7.5 4l3.5 3-3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
           </div>
         </div>
         {article.image && (
-          <<divdiv className="hero-img">
-            <<spanspan className="hero-img-label">{lang === 'pt' ? 'Novo' : 'New'}</span>
-            <<ImageImage
+          <div className="hero-img">
+            <span className="hero-img-label">{lang === 'pt' ? 'Novo' : 'New'}</span>
+            <Image
               src={article.image}
               alt={article.imageAlt}
               fill
@@ -124,10 +125,10 @@ function ArticleCard({ article, lang, wide }: { article: ArticleMeta; lang: Lang
   const href = `/${lang}/${article.slug}`
 
   return (
-    <<LinkLink href={href} className={`home-card${wide ? ' card-wide' : ''}`}>
+    <Link href={href} className={`home-card${wide ? ' card-wide' : ''}`}>
       {article.image && (
-        <<divdiv className="card-img-wrap">
-          <<ImageImage
+        <div className="card-img-wrap">
+          <Image
             src={article.image}
             alt={article.imageAlt}
             fill
@@ -136,16 +137,16 @@ function ArticleCard({ article, lang, wide }: { article: ArticleMeta; lang: Lang
           />
         </div>
       )}
-      <<divdiv className="card-body">
-        {category && <<divdiv className="card-tag">{category}</div>}
-        <<divdiv className="card-title">{article.title}</div>
-        <<divdiv className="card-excerpt">{article.description}</div>
-        <<divdiv className="card-footer">
-          <<spanspan className="card-date">{date}</span>
-          <<spanspan className="card-read">
+      <div className="card-body">
+        {category && <div className="card-tag">{category}</div>}
+        <div className="card-title">{article.title}</div>
+        <div className="card-excerpt">{article.description}</div>
+        <div className="card-footer">
+          <span className="card-date">{date}</span>
+          <span className="card-read">
             {article.readingTime}
-            <<svgsvg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <<pathpath d="M2 6h8M6.5 3.5L9 6l-2.5 2.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M2 6h8M6.5 3.5L9 6l-2.5 2.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </span>
         </div>
@@ -166,52 +167,52 @@ export default async function LangPage({ params }: Props) {
   const allTags = [...new Set(articles.flatMap(a => a.tags))].slice(0, 6)
 
   return (
-    <<divdiv style={{ minHeight: '100vh', background: 'var(--bg)' }}>
-      <<navnav className="home-page-nav">
-        <<LinkLink href={`/${lang}`} className="nav-logo">
-          <<LogoLogoMark />
-          <<spanspan className="logo-text">Brain<<emem style={{ fontStyle: 'italic' }}>wire</em></span>
+    <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
+      <nav className="home-page-nav">
+        <Link href={`/${lang}`} className="nav-logo">
+          <LogoMark />
+          <span className="logo-text">Brain<em style={{ fontStyle: 'italic' }}>wire</em></span>
         </Link>
 
-        <<ulul className="nav-links">
-          <<lili><<LinkLink href={`/${lang}`} className="active">{labels.back}</Link></li>
-          <<lili><<LinkLink href={`/${lang}/category/ia`}>IA</Link></li>
-          <<lili><<LinkLink href={`/${lang}/category/productivity`}>{labels.productivity}</Link></li>
-          <<lili><<LinkLink href={`/${lang}/category/tools`}>{labels.tools}</Link></li>
+        <ul className="nav-links">
+          <li><Link href={`/${lang}`} className="active">{labels.back}</Link></li>
+          <li><Link href={`/${lang}/category/ia`}>IA</Link></li>
+          <li><Link href={`/${lang}/category/productivity`}>{labels.productivity}</Link></li>
+          <li><Link href={`/${lang}/category/tools`}>{labels.tools}</Link></li>
         </ul>
 
-        <<LinkLink href={`/${otherLang}`} className="nav-lang">
+        <Link href={`/${otherLang}`} className="nav-lang">
           {lang === 'en' ? 'EN · PT' : 'PT · EN'}
         </Link>
       </nav>
 
-      {featured && <<HeroHeroCard article={featured} lang={lang as Lang} labels={labels} />}
+      {featured && <HeroCard article={featured} lang={lang as Lang} labels={labels} />}
 
       {allTags.length > 0 && (
-        <<divdiv className="topics-row">
-          <<spanspan className="topic-pill active">{labels.all}</span>
+        <div className="topics-row">
+          <span className="topic-pill active">{labels.all}</span>
           {allTags.map(tag => (
-            <<spanspan key={tag} className="topic-pill">{tag}</span>
+            <span key={tag} className="topic-pill">{tag}</span>
           ))}
         </div>
       )}
 
       {rest.length > 0 && (
-        <<divdiv className="home-grid-wrap">
-          <<divdiv className="section-label-row">
+        <div className="home-grid-wrap">
+          <div className="section-label-row">
             <span>{labels.recent}</span>
           </div>
-          <<divdiv className="cards-grid">
+          <div className="cards-grid">
             {rest.map((article, i) => (
-              <<ArticleArticleCard key={article.slug} article={article} lang={lang as Lang} wide={i === 0 && rest.length > 1} />
+              <ArticleCard key={article.slug} article={article} lang={lang as Lang} wide={i === 0 && rest.length > 1} />
             ))}
           </div>
         </div>
       )}
 
       {articles.length === 0 && (
-        <<divdiv style={{ padding: '80px 2.5rem', textAlign: 'center' }}>
-          <<pp style={{ fontSize: '14px', color: 'var(--ink-light)' }}>
+        <div style={{ padding: '80px 2.5rem', textAlign: 'center' }}>
+          <p style={{ fontSize: '14px', color: 'var(--ink-light)' }}>
             {lang === 'en' ? 'First article coming soon.' : 'Primeiro artigo em breve.'}
           </p>
         </div>
