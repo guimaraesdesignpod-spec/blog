@@ -48,14 +48,18 @@ export default async function CategoryPage({ params }: Props) {
   
   const currentLang = lang as Lang
   const labels = LABELS[currentLang]
+  
+  // Decode URL-encoded tag (e.g. programa%C3%A7%C3%A3o -> programação)
+  const decodedTag = decodeURIComponent(tag)
+  
   const articles = getAllArticles(currentLang).filter(a => 
-    (a.tags || []).some(t => typeof t === 'string' && t.toLowerCase().replace(/\s+/g, '-') === tag)
+    (a.tags || []).some(t => typeof t === 'string' && t.toLowerCase().replace(/\s+/g, '-') === decodedTag.toLowerCase().replace(/\s+/g, '-'))
   )
 
   if (articles.length === 0) {
     return (
       <div className="max-w-[1200px] mx-auto p-8 text-center">
-        <h1 className="text-2xl font-serif mb-4">Category: {tag}</h1>
+        <h1 className="text-2xl font-serif mb-4">{labels.title}: {decodedTag}</h1>
         <p className="mb-8 text-zinc-500">{labels.no_articles}</p>
         <Link href={`/${currentLang}`} className="text-accent underline">{labels.back}</Link>
       </div>
@@ -68,7 +72,7 @@ export default async function CategoryPage({ params }: Props) {
         <Link href={`/${currentLang}`} className="text-xs uppercase tracking-widest text-zinc-500 hover:text-accent transition-colors">
           ← {labels.back}
         </Link>
-        <h1 className="text-4xl font-serif mt-4 capitalize">Category: {tag.replace(/-/g, ' ')}</h1>
+        <h1 className="text-4xl font-serif mt-4 capitalize">{labels.title}: {decodedTag.replace(/-/g, ' ')}</h1>
       </header>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
