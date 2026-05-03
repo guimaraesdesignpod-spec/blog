@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getArticle, getArticleSlugs } from '@/lib/mdx'
 import ArticleLayout from '@/components/ArticleLayout'
+import ArticleJsonLd from '@/components/ArticleJsonLd'
 
 type Lang = 'en' | 'pt'
 
@@ -22,6 +23,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (lang !== 'en' && lang !== 'pt') return {}
   try {
     const article = getArticle(lang as Lang, slug)
+    const otherLang = lang === 'en' ? 'pt' : 'en'
+    // Find corresponding slug in other language
+    const otherSlug = article.slug // simplified: same slug across EN/PT
     return {
       title: article.title,
       description: article.description,
@@ -35,7 +39,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         tags: article.tags,
       },
       alternates: {
-        languages: { en: '/en', pt: '/pt' },
+        languages: {
+          en: `/en/${otherSlug}`,
+          pt: `/pt/${otherSlug}`,
+        },
       },
     }
   } catch {
@@ -48,10 +55,22 @@ export default async function ArticlePage({ params }: Props) {
   if (lang !== 'en' && lang !== 'pt') notFound()
   try {
     const article = getArticle(lang as Lang, slug)
+    const url = `/${lang}/${slug}`
     return (
-      <ArticleLayout article={article}>
-        <MDXRemote source={article.content} />
-      </ArticleLayout>
+      <>
+        <ArticleJsonLd
+          data={{
+            headline: article.title,
+            description: article.description,
+            datePublished: article.date,
+            image: article.image,
+            url,
+          }}
+        />
+        <ArticleLayout article={article}>
+          <MDXRemote source={article.content} />
+        </ArticleLayout>
+      </>
     )
   } catch {
     notFound()
