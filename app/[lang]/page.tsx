@@ -181,9 +181,12 @@ export default async function LangPage({ params }: Props) {
 
         <ul className="nav-links">
           <li><Link href={`/${lang}`} className="active">{labels.back}</Link></li>
-          <li><Link href={`/${lang}/category/ia`}>IA</Link></li>
-          <li><Link href={`/${lang}/category/productivity`}>{labels.productivity}</Link></li>
-          <li><Link href={`/${lang}/category/tools`}>{labels.tools}</Link></li>
+          {allTags.slice(0, 3).map(tag => {
+            const tagSlug = (typeof tag === 'string' ? tag : '').toLowerCase().replace(/\s+/g, '-')
+            return (
+              <li key={tag}><Link href={`/${lang}/category/${tagSlug}`}>{tag}</Link></li>
+            )
+          })}
         </ul>
 
         <Link href={`/${otherLang}`} className="nav-lang">
