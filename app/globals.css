@@ -455,6 +455,9 @@ nav {
 }
 
 /* ── Home responsive ─────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; }
   .hero-content { border-right: none; border-bottom: 1px solid var(--rule); padding: 2rem 1.5rem; }
@@ -468,6 +471,78 @@ nav {
   .newsletter-inner { grid-template-columns: 1fr; padding: 1.5rem; }
   .newsletter-form { min-width: 0; }
   .nav-links { display: none; }
+}
+
+/* ── Article responsive ────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 3rem 1.25rem 2rem;
+    gap: 2rem;
+  }
+  .hero-img-wrap { order: -1; }
+}
+
+@media (max-width: 480px) {
+  .article-prose { font-size: 0.97rem; line-height: 1.75; }
+  .article-prose h2 { font-size: 1.35rem; margin: 2.5rem 0 1rem; }
+  .article-prose h3 { font-size: 1.1rem; margin: 2rem 0 0.6rem; }
+}
+
+/* ── Tool card responsive ──────────────────────────────── */
+@media (max-width: 600px) {
+  .tool-specs { grid-template-columns: 1fr; }
+  .tool-header { flex-direction: column; gap: 0.75rem; }
+  .tool-card { padding: 1.25rem; }
+  .tool-name { font-size: 1.1rem; }
+}
+
+/* ── Nav mobile menu toggle ────────────────────────────── */
+.nav-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: var(--ink);
+}
+.nav-mobile-toggle svg {
+  width: 24px;
+  height: 24px;
+}
+@media (max-width: 900px) {
+  .nav-mobile-toggle { display: block; }
+}
+
+/* ── Nav mobile dropdown ──────────────────────────────── */
+.nav-mobile-menu {
+  display: none;
+  position: absolute;
+  top: 58px;
+  left: 0;
+  right: 0;
+  background: oklch(97% 0.008 75 / 0.98);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--rule);
+  padding: 1rem 2rem;
+  z-index: 49;
+}
+.nav-mobile-menu.open {
+  display: block;
+}
+.nav-mobile-menu a {
+  display: block;
+  padding: 0.75rem 0;
+  font-size: 0.9rem;
+  color: var(--ink-mid);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  transition: color 0.18s;
+}
+.nav-mobile-menu a:last-child { border-bottom: none; }
+.nav-mobile-menu a:hover { color: var(--accent); }
+@media (max-width: 600px) {
+  .nav-mobile-menu { padding: 1rem 1.25rem; }
 }
 
 /* ── Article card (legacy) ──────────────────────────────────────── */

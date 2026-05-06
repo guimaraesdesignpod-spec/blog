@@ -5,6 +5,7 @@ import { getAllArticles } from '@/lib/articles'
 import { ArticleMeta } from '@/lib/mdx'
 import type { Metadata } from 'next'
 import Footer from '@/components/Footer'
+import MobileNav from '@/components/MobileNav'
 
 type Lang = 'en' | 'pt'
 
@@ -171,7 +172,16 @@ export default async function LangPage({ params }: Props) {
 
   const allTags = [...new Set(articles.flatMap(a => a.tags || []))].slice(0, 6)
 
-  return (
+      const mobileLinks = [
+        { href: `/${lang}`, label: labels.back },
+        ...allTags.slice(0, 3).map(tag => {
+          const tagSlug = (typeof tag === 'string' ? tag : '').toLowerCase().replace(/\s+/g, '-')
+          return { href: `/${lang}/category/${tagSlug}`, label: tag }
+        }),
+        { href: `/${otherLang}`, label: lang === 'en' ? 'Português' : 'English' },
+      ]
+
+      return (
     <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', flexDirection: 'column' }}>
       <nav className="home-page-nav">
         <Link href={`/${lang}`} className="nav-logo">
@@ -188,6 +198,8 @@ export default async function LangPage({ params }: Props) {
             )
           })}
         </ul>
+
+        <MobileNav lang={lang as Lang} links={mobileLinks} />
 
         <Link href={`/${otherLang}`} className="nav-lang">
           {lang === 'en' ? 'EN · PT' : 'PT · EN'}
