@@ -863,3 +863,72 @@ article footer {
     padding-top: 1.5rem;
   }
 }
+
+/* ══ Tables in article prose responsive ══════════════════════ */
+.article-prose table,
+.comparison-table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+
+.article-prose table thead th,
+.comparison-table thead th {
+  white-space: nowrap;
+}
+
+.article-prose table tbody td,
+.comparison-table tbody td {
+  min-width: 120px;
+}
+
+/* Pre blocks responsive */
+.article-prose pre,
+pre {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+
+.article-prose pre code {
+  word-break: normal;
+  white-space: pre;
+}
+
+/* Images responsive */
+.article-prose img {
+  max-width: 100%;
+  height: auto;
+}
+
+.article-prose h1 {
+  font-family: var(--serif);
+  font-size: 1.85rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 2rem 0 1.2rem;
+}
+
+/* Mobile sidebar hiding */
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+}
+
+/* Additional mobile prose fixes */
+@media (max-width: 600px) {
+  .article-prose {
+    font-size: 0.97rem;
+    line-height: 1.75;
+  }
+  .article-prose h2 {
+    font-size: 1.35rem;
+    margin: 2.5rem 0 1rem;
+  }
+  .article-prose h3 {
+    font-size: 1.1rem;
+    margin: 2rem 0 0.6rem;
+  }
+}
