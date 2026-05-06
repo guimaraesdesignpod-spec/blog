@@ -64,7 +64,7 @@ export default function ArticleLayout({ article, children }: Props) {
     <>
       <div id="progress-bar" />
 
-      <nav>
+      <nav className="article-nav">
         <Link href={`/${article.lang}`} className="nav-logo">
           <div className="logo-mark">
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -86,7 +86,7 @@ export default function ArticleLayout({ article, children }: Props) {
         </Link>
       </nav>
 
-      <div className={`hero${!article.image ? ' hero--no-image' : ''}`} style={!article.image ? { gridTemplateColumns: '1fr' } : undefined}>
+      <div className={`hero${!article.image ? ' hero--no-image' : ''}`}>
         <div className="hero-left">
           {category && <span className="hero-tag">{category}</span>}
           <h1>{article.title}</h1>
@@ -119,18 +119,11 @@ export default function ArticleLayout({ article, children }: Props) {
           <div className="prose article-prose max-w-none">
             {children}
           </div>
-          <footer style={{ marginTop: '3.5rem', paddingTop: '2rem', borderTop: '1px solid var(--rule)' }}>
+          <footer>
             <AdUnit slot="bottom-article" />
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginTop: '1.25rem' }}>
+            <div className="article-footer-tags">
               {article.tags.map(tag => (
-                <span key={tag} style={{
-                  fontSize: '12px',
-                  color: 'var(--ink-light)',
-                  background: 'white',
-                  border: '1px solid var(--rule)',
-                  padding: '4px 10px',
-                  borderRadius: '4px',
-                }}>
+                <span key={tag} className="article-tag">
                   {tag}
                 </span>
               ))}

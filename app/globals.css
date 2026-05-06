@@ -836,3 +836,30 @@ tbody td:first-child { font-weight: 600; color: var(--ink); font-family: var(--s
   .article-prose blockquote { padding: 0.8rem 1.2rem; }
   .article-prose pre { overflow-x: auto; }
 }
+
+/* Article footer + tags */
+article footer {
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+}
+.article-footer-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+.article-tag {
+  font-size: 12px;
+  color: var(--ink-light);
+  background: white;
+  border: 1px solid var(--rule);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+@media (max-width: 600px) {
+  article footer {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+  }
+}
