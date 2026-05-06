@@ -791,3 +791,48 @@ tbody td:first-child { font-weight: 600; color: var(--ink); font-family: var(--s
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--rule); }
+
+/* ══ Article Layout Responsive Fixes ══════════════════════ */
+
+/* Nav article responsive */
+@media (max-width: 768px) {
+  nav { padding: 0 1rem; height: 52px; }
+  .nav-back { font-size: 0.78rem; }
+}
+
+/* Article hero responsive */
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 3rem 2rem 2rem;
+  }
+  .hero-img-wrap { order: -1; max-width: 400px; margin: 0 auto; }
+}
+@media (max-width: 600px) {
+  .hero {
+    padding: 2.5rem 1.25rem 1.5rem;
+    gap: 1.5rem;
+  }
+  .hero h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+  .hero-byline {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    gap: 1rem;
+    font-size: 0.78rem;
+  }
+}
+
+/* Content wrap responsive */
+@media (max-width: 600px) {
+  .content-wrap {
+    padding: 0 1.25rem 3rem;
+    gap: 2rem;
+  }
+}
+
+/* Article prose mobile tweaks */
+@media (max-width: 600px) {
+  .article-prose blockquote { padding: 0.8rem 1.2rem; }
+  .article-prose pre { overflow-x: auto; }
+}
