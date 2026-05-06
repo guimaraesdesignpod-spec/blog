@@ -942,7 +942,7 @@ pre {
 .prose.article-prose > h1,
 .article-prose > h1 {
   font-family: var(--serif);
-  font-size: 1.7rem;
+  font-size: clamp(1.55rem, 3.5vw, 2rem);
   font-weight: 700;
   line-height: 1.25;
   margin: 2rem 0 1.2rem;
