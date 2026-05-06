@@ -59,7 +59,7 @@ export function getArticle(lang: Lang, slug: string): Article {
     content,
     title: data.title ?? '',
     description: data.description ?? '',
-    date: data.date ?? '',
+    date: data.date ?? new Date().toISOString().split('T')[0],
     tags: data.tags ?? [],
     image: data.image ?? '',
     imageAlt: data.imageAlt ?? data.title ?? '',
