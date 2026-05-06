@@ -938,7 +938,27 @@ pre {
   height: auto;
 }
 
-/* h1 dentro de article: precisa de maior especificidade do que .prose :where(h1) do Tailwind Typography */
+/* ══ Catch-all: novos elementos gerados nunca transbordam ════════════════════ */
+.article-prose iframe,
+.article-prose video,
+.article-prose svg,
+.article-prose embed,
+.article-prose object {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.article-prose > figure {
+  max-width: 100%;
+  margin: 2rem 0;
+}
+
+.article-prose > div:not(.tool-card):not([class*="table"]) {
+  max-width: 100%;
+}
+
+/* ══ h1 dentro de article: maior especificidade do que Tailwind Typography ══ */
 .prose.article-prose > h1,
 .article-prose > h1 {
   font-family: var(--serif);
@@ -947,6 +967,7 @@ pre {
   line-height: 1.25;
   margin: 2rem 0 1.2rem;
 }
+
 
 /* Mobile sidebar hiding */
 @media (max-width: 1024px) {
