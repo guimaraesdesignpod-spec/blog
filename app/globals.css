@@ -882,7 +882,41 @@ article footer {
 
 .article-prose table tbody td,
 .comparison-table tbody td {
-  min-width: 120px;
+  min-width: 100px;
+  font-size: 0.88rem;
+  padding: 0.75rem 1rem;
+}
+
+/* ══ Tool cards responsive ══════════════════════ */
+@media (max-width: 600px) {
+  .tool-card {
+    padding: 1rem;
+    margin: 1.5rem 0;
+  }
+  .tool-card .tool-name {
+    font-size: 1.1rem;
+  }
+  .tool-card .tool-specs {
+    grid-template-columns: 1fr;
+  }
+  .tool-card .tool-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .tool-card .tool-savings strong {
+    font-size: 0.95rem;
+  }
+}
+
+/* ══ Blockquote responsive ══════════════════════ */
+@media (max-width: 600px) {
+  .article-prose blockquote {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    margin: 1.5rem 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
 }
 
 /* Pre blocks responsive */
@@ -904,9 +938,11 @@ pre {
   height: auto;
 }
 
-.article-prose h1 {
+/* h1 dentro de article: precisa de maior especificidade do que .prose :where(h1) do Tailwind Typography */
+.prose.article-prose > h1,
+.article-prose > h1 {
   font-family: var(--serif);
-  font-size: 1.85rem;
+  font-size: 1.7rem;
   font-weight: 700;
   line-height: 1.25;
   margin: 2rem 0 1.2rem;
