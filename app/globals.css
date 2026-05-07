@@ -181,6 +181,13 @@ nav {
   grid-template-columns: 680px 1fr;
   gap: 5rem;
   align-items: start;
+  min-width: 0;
+}
+
+.content-wrap > article,
+.hero,
+.hero-left {
+  min-width: 0;
 }
 
 @media (max-width: 1024px) {
@@ -581,7 +588,15 @@ nav {
 .article-prose p,
 .article-prose li,
 .article-prose td,
-.article-prose th {
+.article-prose th,
+.article-prose a,
+.article-prose h1,
+.article-prose h2,
+.article-prose h3,
+.article-prose h4,
+.article-prose h5,
+.article-prose h6,
+.intro-text {
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -592,7 +607,6 @@ nav {
 /* Prevent prose container from expanding beyond grid cell */
 .article-prose {
   max-width: 100%;
-  overflow-x: hidden;
   min-width: 0;
 }
 
@@ -957,6 +971,13 @@ pre {
 .article-prose pre code {
   word-break: normal;
   white-space: pre;
+}
+
+@media (max-width: 600px) {
+  .article-prose pre code {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
 }
 
 /* Images responsive */
