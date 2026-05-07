@@ -577,6 +577,31 @@ nav {
   gap: 6px;
 }
 
+/* Force text wrapping on all prose elements — prevents overflow on mobile */
+.article-prose p,
+.article-prose li,
+.article-prose td,
+.article-prose th {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Prevent prose container from expanding beyond grid cell */
+.article-prose {
+  max-width: 100%;
+  overflow-x: hidden;
+  min-width: 0;
+}
+
+/* Code blocks: pre-wrap on mobile instead of hard pre */
+@media (max-width: 600px) {
+  .article-prose pre code {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
 /* ── Prose ─────────────────────────────────────────────── */
 .article-prose {
   --tw-prose-body:          var(--ink-mid);
