@@ -116,7 +116,7 @@ export default function ArticleLayout({ article, children }: Props) {
           {article.description && (
             <p className="intro-text">{article.description}</p>
           )}
-          <div className="prose article-prose max-w-none">
+          <div className="prose article-prose">
             {children}
           </div>
           <footer>
