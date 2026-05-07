@@ -474,7 +474,7 @@ nav {
   .hero-bottom { flex-direction: column; gap: 1rem; align-items: flex-start; }
   .cards-grid { grid-template-columns: 1fr; }
   .card-wide { flex-direction: column; grid-column: span 1; }
-  .card-wide .card-img-wrap { width: 100%; aspect-ratio: 16/9; display: block; }
+  .home-card.card-wide .card-img-wrap { width: 100%; aspect-ratio: 16/9; display: block; }
   .newsletter-inner { grid-template-columns: 1fr; padding: 1.5rem; }
   .newsletter-form { min-width: 0; }
   .nav-links { display: none; }
