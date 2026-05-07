@@ -20,7 +20,7 @@
 /* ── Base ──────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { background: var(--bg); color: var(--ink); }
+html { background: var(--bg); color: var(--ink); overflow-x: hidden; }
 
 body {
   background: var(--bg);
@@ -28,6 +28,7 @@ body {
   font-family: var(--sans);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 a { color: inherit; text-decoration: none; }
