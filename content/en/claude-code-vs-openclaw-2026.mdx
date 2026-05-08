@@ -16,7 +16,9 @@ author: "Elisio Oliveira"
 
 Something unusual happened on Hacker News last week that caught the attention of every developer paying attention to the AI tooling space. Claude Code — Anthropic's AI-powered coding assistant — started refusing to process requests when it detected the string "OpenClaw" in commit messages. Or, in some cases, charging users extra for the privilege of having their code analyzed.
 
-This isn't a bug. It's a feature — and it signals something deeper about how AI companies are starting to view each other.
+> **Disclaimer:** This article analyzes developer reports from Hacker News. Anthropic has not officially confirmed the described behavior.
+
+This appears to be a feature — and it signals something deeper about how AI companies are starting to view each other.
 
 ## The Story
 
@@ -37,11 +39,11 @@ This has several implications:
 
 **1. AI Tool Recognition is Real**
 
-Claude Code isn't just scanning commit messages randomly. It's specifically looking for "OpenClaw" and treating it as a signal. This means the model or the system around it has been explicitly programmed (or fine-tuned) to identify a competitor and adjust behavior accordingly.
+Claude Code isn't just scanning commit messages randomly. It's specifically looking for "OpenClaw" and treating it as a signal. This suggests the model or the system around it may have been explicitly programmed (or fine-tuned) to identify a competitor and adjust behavior accordingly.
 
 **2. Pricing by Association**
 
-The fact that mentioning OpenClaw triggers a surcharge tells us something important: someone has done the math on OpenClaw's market position and decided that a user who also uses OpenClaw is worth more — or less — than a user who doesn't. This is competitor-based pricing, and it's new territory for API products.
+The fact that mentioning OpenClaw triggers a surcharge tells us something important: it appears someone may have analyzed OpenClaw's market position and decided that a user who also uses OpenClaw is worth more — or less — than a user who doesn't. This could be competitor-based pricing, which would be new territory for API products.
 
 **3. Developer Workflows Are Now Contested**
 
