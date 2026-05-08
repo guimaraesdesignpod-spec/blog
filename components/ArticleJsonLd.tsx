@@ -6,9 +6,11 @@ export interface ArticleSchema {
   authorName?: string
   image: string
   url: string
+  lang?: string
 }
 
 export default function ArticleJsonLd({ data }: { data: ArticleSchema }) {
+  const lang = data.lang || 'en'
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -26,7 +28,7 @@ export default function ArticleJsonLd({ data }: { data: ArticleSchema }) {
       name: 'Brainwire',
     },
     url: data.url,
-    inLanguage: data.url.startsWith('/pt') ? 'pt-PT' : 'en-US',
+    inLanguage: lang === 'pt' ? 'pt-BR' : 'en-US',
   }
 
   return (

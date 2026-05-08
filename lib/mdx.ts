@@ -24,6 +24,7 @@ export type Lang = 'en' | 'pt'
 
 export interface ArticleMeta {
   slug: string
+  translationKey?: string
   title: string
   description: string
   date: string
@@ -55,6 +56,7 @@ export function getArticle(lang: Lang, slug: string): Article {
   const { data, content } = matter(raw)
   return {
     slug,
+    translationKey: data.translationKey,
     lang,
     content,
     title: data.title ?? '',

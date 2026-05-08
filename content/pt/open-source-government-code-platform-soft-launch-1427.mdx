@@ -2,6 +2,7 @@
 title: "Plataforma Open-Source no Governo: Guia de Lançamento"
 description: "Lançamento faseado de uma plataforma open-source para o governo com arquitetura segura, governação por políticas e adoção mensurável."
 date: "2026-04-29"
+translationKey: "open-source-government-code-platform-soft-launch-1427"
 lang: "pt"
 tags: ["Open Source", "Governo Digital", "DevSecOps", "Engenharia de Plataforma", "Transformação Digital", "2026"]
 image: "https://images.unsplash.com/photo-1653213096280-57d895842861?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY5Mzl8MHwxfHNlYXJjaHwxfHxvcGVuLXNvdXJjZSUyMGNvZGUlMjBwbGF0Zm9ybSUyMGZvciUyMGdvdmVybm1lbnR8ZW58MHwwfHx8MTc3NzQ4NzI4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
@@ -14,7 +15,7 @@ keywords: ["plataforma codigo aberto governo", "modernizacao software governo", 
 
 # Plataforma Open-Source no Governo: Guia de Lançamento
 
-As equipas de tecnologia do setor público estão sob pressão de todos os lados: modernizar sistemas legados, disponibilizar serviços digitais seguros mais rapidamente, reduzir a dependência de fornecedores e provar valor com orçamentos limitados. Uma plataforma de código open source pode ajudar em tudo isto — mas apenas se a adoção acontecer de facto.
+As equipas de tecnologia do setor público estão sob pressão de todos os lados: modernizar sistemas legados, disponibilizar serviços digitais seguros mais rapidamente, reduzir a dependência de fornecedores e provar valor com orçamentos limitados. Uma plataforma de código open source pode ajudar em tudo isto — mas apenas se a adoção acontecer de fato.
 
 É por isso que um lançamento faseado é importante. Em vez de lançar uma nova plataforma para todos os organismos e equipas ao mesmo tempo, um lançamento faseado permite validar arquitetura, políticas, workflows e suporte num ambiente controlado. Pode corrigir fricções cedo, criar confiança junto de stakeholders técnicos e não técnicos e escalar com base em evidência real.
 
@@ -41,7 +42,7 @@ Um enquadramento útil é separar os resultados em três categorias:
 
 ### Resultados de garantia
 - Controlos de base aplicados de forma obrigatória (proteção de branches, revisões obrigatórias, commits assinados quando exigido).
-- Builds reprodutíveis e rastreabilidade de artefactos.
+- Builds reprodutíveis e rastreabilidade de artefatos.
 - Postura auditável de dependências e vulnerabilidades.
 
 ### Resultados económicos
@@ -52,7 +53,7 @@ Um enquadramento útil é separar os resultados em três categorias:
 Para um lançamento faseado, defina métricas-alvo realistas para 60 a 90 dias. Exemplos:
 
 - 5 a 10 equipas-piloto com onboarding concluído.
-- 80% dos repositórios-piloto a usar templates standard de CI.
+- 80% dos repositórios-piloto usando templates standard de CI.
 - Redução de 20% no tempo mediano de ciclo de pull requests.
 - Redução de 30% no tempo médio de remediação de vulnerabilidades críticas.
 - Publicação de, pelo menos, 3 componentes internos open source reutilizáveis.
@@ -61,7 +62,7 @@ Se não conseguir definir resultados mensuráveis nesta fase, pare e corrija iss
 
 ## 2) Construa uma arquitetura de plataforma segura e orientada por políticas desde a origem
 
-As plataformas governamentais precisam de mais do que uma UI de alojamento de código. A arquitetura tem de aplicar controlos por defeito, mantendo ao mesmo tempo um percurso fluido para os developers.
+As plataformas governamentais precisam de mais do que uma UI de alojamento de código. A arquitetura tem que aplicar controlos por defeito, mantendo ao mesmo tempo um percurso fluido para os developers.
 
 No mínimo, a arquitetura de lançamento faseado deve incluir:
 
@@ -79,7 +80,7 @@ No mínimo, a arquitetura de lançamento faseado deve incluir:
 
 ### Controlos da cadeia de fornecimento de software
 - Deteção de dependências e validação de políticas de licenças em CI.
-- Geração de SBOM para artefactos de build.
+- Geração de SBOM para artefatos de build.
 - Artefactos de release assinados e metadados de proveniência.
 - Controlos de package registry para dependências internas aprovadas.
 
@@ -118,7 +119,7 @@ Evite pilotos compostos apenas por “early adopters amigáveis”. Esses piloto
 Defina uma sequência de onboarding com checkpoints explícitos:
 
 1. Semana 0 — revisão de prontidão
-   - Confirmar service owner, ponto de contacto de segurança e product lead.
+   - Confirmar service owner, ponto de contato de segurança e product lead.
    - Mapear classificação de dados e sensibilidade do repositório.
    - Confirmar plano de migração (novo projeto vs importação de código existente).
 
@@ -130,7 +131,7 @@ Defina uma sequência de onboarding com checkpoints explícitos:
 3. Semana 2 — validação
    - Executar um pull request de exemplo através de todos os controlos.
    - Simular deteção de vulnerabilidade e workflow de remediação.
-   - Verificar trilho de auditoria desde o commit até ao artefacto de deploy.
+   - Verificar trilho de auditoria desde o commit até ao artefato de deploy.
 
 4. Gate de go-live
    - Checklist de go-live assinada por plataforma, segurança e service owner.
@@ -190,13 +191,13 @@ Acompanhe métricas em quatro dashboards:
 - Módulos partilhados adotados em serviços de produção.
 - Estimativa de horas poupadas por reutilização.
 
-Para comunicação, faça uma revisão mensal de governação com três artefactos:
+Para comunicação, faça uma revisão mensal de governação com três artefatos:
 
 1. O que funcionou (ganhos sustentados por evidência).
 2. O que falhou ou gerou fricção (com causas-raiz).
 3. Que alterações fazer antes da próxima vaga (política, tooling, staffing).
 
-Seja transparente sobre os compromissos. Por exemplo, proteções de branch mais rígidas podem aumentar o tempo de revisão numa fase inicial. Se reduzirem defeitos em produção e melhorarem a confiança da auditoria, esse compromisso pode continuar a ser favorável. Decisores respeitam mais relatórios equilibrados do que dashboards com aparência perfeita.
+Seja transparente sobre os compromissos. Por exemplo, proteções de branch mais rígidas podem aumentar o tempo de revisão numa fase inicial. Se reduzirem defeitos em produção e melhorarem a confiança da auditoria, esse compromisso pode continuar sendo favorável. Decisores respeitam mais relatórios equilibrados do que dashboards com aparência perfeita.
 
 ### Checklist de prontidão para escalar
 

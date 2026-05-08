@@ -1,7 +1,8 @@
 ---
 date: "2026-05-08"
+translationKey: "agents-control-flow"
 title: "Agentes Precisam de Fluxo de Controle, Não de Mais Prompts: Por que o Futuro da Confiabilidade em IA Está no Código Determinístico"
-description: "Um post #1 no Hacker News com 500+ pontos argumenta que agentes de IA precisam de fluxo de controle determinístico, não de prompts cada vez mais elaborados. Eis por que a indústria está a atingir o teto da engenharia de prompts."
+description: "Um post #1 no Hacker News com 500+ pontos argumenta que agentes de IA precisam de fluxo de controle determinístico, não de prompts cada vez mais elaborados. Eis por que a indústria está atingindo o teto da engenharia de prompts."
 keywords: ["agentes IA", "fluxo de controle", "engenharia de prompts", "orquestração determinística", "vibe coding", "engenharia agentica", "confiabilidade LLM", "arquitetura de software", "infraestrutura IA"]
 tags: ["Tendências IA", "Engenharia"]
 image: "https://images.unsplash.com/photo-1518770660439-4636190af475"
@@ -16,7 +17,7 @@ imageCreditUrl: "https://unsplash.com"
 
 Se você já digitou **"MANDATÓRIO"** ou **"NÃO PULE"** em um prompt de sistema, já tocou no teto do que a engenharia de prompts sozinha pode alcançar. Uma nova onda de pensamento na comunidade de engenharia de IA—cristalizada em um post que alcançou o #1 no Hacker News com mais de 500 pontos—argumenta que estamos nos aproximando de um ponto de inflexão arquitetural fundamental. Agentes de IA confiáveis que executam tarefas complexas e multi-etapas precisam de fluxo de controle determinístico codificado em software, não de cadeias cada vez mais elaboradas de instruções em linguagem natural.
 
-O argumento é deceptivamente simples, mas profundo: software escala através de composicionalidade recursiva. Bibliotecas dependem de módulos, que dependem de funções, que dependem de comportamento previsível e determinístico. Código expõe comportamento previsível, permitindo raciocínio local. Quando você lê uma função, sabe o que ela faz. Cadeias de prompt, por outro lado, são não-determinísticas, fracamente especificadas e difíceis de verificar. Toda vez que um LLM processa um prompt, ele está efetivamente jogando dados ponderados por dados de treinamento. O resultado geralmente está certo, às vezes errado, e ocasionalmente catastroficamente errado de formas silenciosas e difíceis de detectar.
+O argumento é deceptivamente simples, mas profundo: software escala através de composicionalidade recursiva. Bibliotecas dependem de módulos, que dependem de funções, que dependem de comportamento previsível e determinístico. Código expõe comportamento previsível, permitindo raciocínio local. Quando você lê uma função, sabe o que ela faz. Cadeias de prompt, por outro lado, são não-determinísticas, fracamente especificadas e difíceis de verificar. Toda vez que um LLM processa um prompt, ele está efetivamente jogando dados ponderados por dados de treinamento. O resultado geralmente está certo, às vezes errado, e ocasionalmente catastroficamente errado de formas silenciosas e difíceis de detetar.
 
 Imagine uma linguagem de programação onde cada declaração é meramente uma sugestão, e funções podem retornar "Sucesso" enquanto internamente alucinam uma computação completamente diferente. Raciocinar sobre tal sistema torna-se impossível; a confiabilidade desaba à medida que a complexidade cresce. Esse, argumenta-se, é precisamente o mundo que habitamos quando construímos sistemas agenticos puramente sobre cadeias de prompt.
 
@@ -30,7 +31,7 @@ Simon Willison, uma das vozes mais influentes na engenharia prática de IA, tem 
 
 ## O Caso pelo Fluxo de Controle Determinístico
 
-A alternativa é mover a lógica para fora da prosa e para dentro do runtime. Em vez de esperar que o LLM se lembre de validar sua saída, codifique essa validação como uma função determinística. Em vez de rezar para que o agente faça loop até a conclusão, envolva a chamada ao LLM em uma máquina de estados explícita com transições definidas. Em vez de confiar no modelo para auto-correção, implemente detecção programática de erros e lógica de retry com backoff exponencial.
+A alternativa é mover a lógica para fora da prosa e para dentro do runtime. Em vez de esperar que o LLM se lembre de validar sua saída, codifique essa validação como uma função determinística. Em vez de rezar para que o agente faça loop até a conclusão, envolva a chamada ao LLM em uma máquina de estados explícita com transições definidas. Em vez de confiar no modelo para auto-correção, implemente deteção programática de erros e lógica de retry com backoff exponencial.
 
 Essa não é uma ideia nova. Motores de workflow, máquinas de estados e orquestração determinística existem há décadas. O que é novo é a necessidade de hibridizá-los com capacidades de LLM. O padrão emergente trata o LLM não como o sistema, mas como um componente dentro de um andaime determinístico. A camada de orquestração—escrita em código, não em prompts—lida com transições de estado, checkpoints de validação, recuperação de erros e logging. O LLM lida com as partes em que é genuinamente bom: raciocínio não-estruturado, compreensão de linguagem natural, síntese criativa e interação humanizada.
 
@@ -38,7 +39,7 @@ O próprio Codex CLI da OpenAI, lançado na versão 0.128.0, insinua essa direç
 
 ## Três Estratégias de Sobrevivência Pós-Prompt
 
-O post no HN identificou três abordagens para lidar com um agente sem detecção agressiva de erros, cada uma com seus próprios problemas:
+O post no HN identificou três abordagens para lidar com um agente sem deteção agressiva de erros, cada uma com seus próprios problemas:
 
 **1. A Babá:** Mantenha um humano no loop para capturar erros antes que se propaguem. Funciona em pequena escala, mas falha assim que você precisa que o agente rode autonomamente durante a noite, em centenas de tarefas, ou em produção onde a latência importa.
 

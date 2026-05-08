@@ -2,6 +2,7 @@
 title: "Como Criar o Primeiro Agente de IA em 2026: Um Guia Passo a Passo"
 description: "Aprenda a construir agentes de IA autonomos com frameworks de código aberto como LangChain, CrewAI e AutoGPT. Guia prático com código Python real e uma tabela de comparação de frameworks."
 date: "2026-05-02"
+translationKey: "build-first-ai-agent-2026-tutorial"
 lang: "pt"
 tags: ["Agentes de IA", "Tutorial", "Python", "Código Aberto", "LangChain", "CrewAI", "2026"]
 image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1024&h=576&fit=crop"
@@ -36,7 +37,7 @@ Ao contrário de um chatbot (que responde uma vez), um agente funciona em ciclo:
 
 ## Escolher o Framework: Uma Comparação Real
 
-Testei quatro frameworks na mesma tarefa: "Encontra repositórios de IA em tendência no GitHub, escolhe os 3 melhores e escreve um ficheiro markdown com um resumo."
+Testei quatro frameworks na mesma tarefa: "Encontra repositórios de IA em tendência no GitHub, escolhe os 3 melhores e escreve um arquivo markdown com um resumo."
 
 <table className="comparison-table">
   <thead>
@@ -50,11 +51,11 @@ Testei quatro frameworks na mesma tarefa: "Encontra repositórios de IA em tend�
   </tbody>
 </table>
 
-O "melhor" depende inteiramente do que se está a construir.
+O "melhor" depende inteiramente do que se está construindo.
 
 ## Vamos Criar Um: Um Agente de Investigação com LangChain
 
-Aqui está um agente completo que recebe um tema, pesquisa na web, extrai conteúdo e escreve um ficheiro de resumo.
+Aqui está um agente completo que recebe um tema, pesquisa na web, extrai conteúdo e escreve um arquivo de resumo.
 
 ### Passo 1: Instalar
 
@@ -115,7 +116,7 @@ Este é um agente real e funcional. Em 22 linhas de Python.
 
 ## A Arquitetura Que Funciona em Produção
 
-Depois de construir dezenas de agentes, eis o padrão que sobrevive ao contacto com a realidade:
+Depois de construir dezenas de agentes, eis o padrão que sobrevive ao contato com a realidade:
 
 ```
 ┌─────────────┐     ┌──────────────┐     ┌────────────┐
@@ -124,7 +125,7 @@ Depois de construir dezenas de agentes, eis o padrão que sobrevive ao contacto 
 └─────────────┘     └──────────────┘     └────────────┘
        │                    │                    │
        ▼                    ▼                    ▼
-  Objetivos de alto    Sub-tarefas em         Sistema de ficheiros
+  Objetivos de alto    Sub-tarefas em         Sistema de arquivos
   nível                paralelo               APIs, navegador
   Decomposição de      Contextos              
   tarefas              independentes
@@ -136,7 +137,7 @@ Depois de construir dezenas de agentes, eis o padrão que sobrevive ao contacto 
 
 ### P: Preciso do GPT-5 ou posso usar modelos locais?
 
-**R:** Para orquestração e planeamento, sim — convém o modelo mais inteligente que o orçamento permitir. Para chamadas individuais de ferramentas (como "pesquisar na web" ou "ler este ficheiro"), modelos locais como o Qwen 3.5 ou o Llama 4 funcionam bem. A abordagem híbrida é o ponto ideal: GPT-5/Claude para raciocínio, local para execução.
+**R:** Para orquestração e planeamento, sim — convém o modelo mais inteligente que o orçamento permitir. Para chamadas individuais de ferramentas (como "pesquisar na web" ou "ler este arquivo"), modelos locais como o Qwen 3.5 ou o Llama 4 funcionam bem. A abordagem híbrida é o ponto ideal: GPT-5/Claude para raciocínio, local para execução.
 
 ### P: Quanto custa correr um agente em produção?
 
@@ -163,4 +164,4 @@ Os agentes não são a ferramenta certa quando:
 
 A melhor forma de aprender é construir algo de que tu próprio precises. O agente que uso com mais frequência é um simples que lê as minhas notas, pesquisa na web o contexto em falta e escreve um resumo limpo. Poupa-me 30 minutos por dia e demorou 15 minutos a construir.
 
-As ferramentas estão prontas. Os modelos são suficientemente bons. Só falta o teu primeiro agente.
+As ferramentas estão prontas. Os modelos são suficientemente bons. Só falta seu primeiro agente.

@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getArticle, getArticleSlugs } from '@/lib/mdx'
+import { getArticleAlternates } from '@/lib/articles'
+import { SITE_ORIGIN } from '@/lib/config'
 import ArticleLayout from '@/components/ArticleLayout'
 import ArticleJsonLd from '@/components/ArticleJsonLd'
 
@@ -23,13 +25,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (lang !== 'en' && lang !== 'pt') return {}
   try {
     const article = getArticle(lang as Lang, slug)
-    const otherLang = lang === 'en' ? 'pt' : 'en'
-    // Find corresponding slug in other language
-    const otherSlug = article.slug // simplified: same slug across EN/PT
+    const canonical = `${SITE_ORIGIN}/${lang}/${slug}`
+    const alternates = getArticleAlternates(slug, lang as Lang)
+
+    // Build hreflang map when a counterpart exists
+    let languages: Record<string, string> | undefined
+    if (alternates?.alternate) {
+      const alt = alternates.alternate
+      const enSlug = lang === 'en' ? alternates.self.slug : alt.slug
+      const ptSlug = lang === 'pt' ? alternates.self.slug : alt.slug
+      languages = {
+        'en-US': `${SITE_ORIGIN}/en/${enSlug}`,
+        'pt-BR': `${SITE_ORIGIN}/pt/${ptSlug}`,
+        'x-default': `${SITE_ORIGIN}/en/${enSlug}`,
+      }
+    }
+
     return {
       title: article.title,
       description: article.description,
       keywords: article.keywords,
+      metadataBase: new URL(SITE_ORIGIN),
+      alternates: {
+        canonical,
+        ...(languages ? { languages } : {}),
+      },
       openGraph: {
         title: article.title,
         description: article.description,
@@ -37,12 +57,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         type: 'article',
         publishedTime: article.date,
         tags: article.tags,
-      },
-      alternates: {
-        languages: {
-          en: `/en/${otherSlug}`,
-          pt: `/pt/${otherSlug}`,
-        },
       },
     }
   } catch {
@@ -55,7 +69,7 @@ export default async function ArticlePage({ params }: Props) {
   if (lang !== 'en' && lang !== 'pt') notFound()
   try {
     const article = getArticle(lang as Lang, slug)
-    const url = `/${lang}/${slug}`
+    const url = `${SITE_ORIGIN}/${lang}/${slug}`
     return (
       <>
         <ArticleJsonLd
@@ -65,6 +79,7 @@ export default async function ArticlePage({ params }: Props) {
             datePublished: article.date,
             image: article.image,
             url,
+            lang,
           }}
         />
         <ArticleLayout article={article}>
