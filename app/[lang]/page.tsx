@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params
   const meta = META[lang as Lang]
   if (!meta) return {}
-  return { title: `${meta.title} — ${meta.tagline}`, description: meta.description, alternates: { languages: { en: '/en', pt: '/pt' } } }
+  return { title: { absolute: `${meta.title} — ${meta.tagline}` }, description: meta.description, alternates: { languages: { en: '/en', pt: '/pt' } } }
 }
 
 function LogoMark({ size = 22 }: { size?: number }) {
