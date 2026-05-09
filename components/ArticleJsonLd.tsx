@@ -21,7 +21,7 @@ export default function ArticleJsonLd({ data }: { data: ArticleSchema }) {
     dateModified: data.dateModified || data.datePublished,
     author: {
       '@type': 'Person',
-      name: data.authorName || 'Brainwire',
+      name: data.authorName || 'Elisio Guimarães',
     },
     publisher: {
       '@type': 'Organization',

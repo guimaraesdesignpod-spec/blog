@@ -5,6 +5,7 @@ import { getAllArticles } from '@/lib/articles'
 import { ArticleMeta } from '@/lib/mdx'
 import type { Metadata } from 'next'
 import Footer from '@/components/Footer'
+import NewsletterForm from '@/components/NewsletterForm'
 import MobileNav from '@/components/MobileNav'
 
 type Lang = 'en' | 'pt'
@@ -73,7 +74,7 @@ function LogoMark({ size = 22 }: { size?: number }) {
 
 function HeroCard({ article, lang, labels }: { article: ArticleMeta; lang: Lang; labels: LabelsType }) {
   const date = new Date(article.date).toLocaleDateString(
-    lang === 'pt' ? 'pt-PT' : 'en-US',
+    lang === 'pt' ? 'pt-BR' : 'en-US',
     { day: 'numeric', month: 'short', year: 'numeric' }
   )
   const category = article.tags[0] ?? ''
@@ -124,7 +125,7 @@ function HeroCard({ article, lang, labels }: { article: ArticleMeta; lang: Lang;
 
 function ArticleCard({ article, lang, wide }: { article: ArticleMeta; lang: Lang; wide?: boolean }) {
   const date = new Date(article.date).toLocaleDateString(
-    lang === 'pt' ? 'pt-PT' : 'en-US',
+    lang === 'pt' ? 'pt-BR' : 'en-US',
     { day: 'numeric', month: 'short', year: 'numeric' }
   )
   const category = article.tags[0] ?? ''
@@ -243,7 +244,9 @@ export default async function LangPage({ params }: Props) {
         )}
       </div>
 
-      <Footer labels={labels} />
+      <NewsletterForm labels={labels} />
+
+      <Footer labels={labels} lang={lang as Lang} />
     </div>
   )
 }

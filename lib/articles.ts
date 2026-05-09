@@ -9,6 +9,7 @@ export function getAllArticles(lang?: Lang): ArticleMeta[] {
         return meta
       })
     )
+    .filter(a => a.type !== 'page')
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 

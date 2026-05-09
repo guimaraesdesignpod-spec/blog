@@ -3,13 +3,13 @@ title: "Plataforma Open-Source no Governo: Guia de Lançamento"
 description: "Lançamento faseado de uma plataforma open-source para o governo com arquitetura segura, governação por políticas e adoção mensurável."
 date: "2026-04-29"
 translationKey: "open-source-government-code-platform-soft-launch-1427"
-lang: "pt"
+lang: "pt-BR"
 tags: ["Open Source", "Governo Digital", "DevSecOps", "Engenharia de Plataforma", "Transformação Digital", "2026"]
 image: "https://images.unsplash.com/photo-1653213096280-57d895842861?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY5Mzl8MHwxfHNlYXJjaHwxfHxvcGVuLXNvdXJjZSUyMGNvZGUlMjBwbGF0Zm9ybSUyMGZvciUyMGdvdmVybm1lbnR8ZW58MHwwfHx8MTc3NzQ4NzI4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
 imageAlt: "Programadores governamentais a colaborar numa plataforma de código open-source com dashboards de segurança"
 imageCredit: "Markus Winkler"
 imageCreditUrl: "https://unsplash.com/@markuswinkler"
-author: "Elisio Oliveira"
+author: "Elisio Guimarães"
 keywords: ["plataforma codigo aberto governo", "modernizacao software governo", "estrategia lancamento suave", "devsecops setor publico", "seguranca cadeia suprimento software"]
 ---
 
@@ -41,7 +41,7 @@ Um enquadramento útil é separar os resultados em três categorias:
 - Maior reutilização de código entre organismos.
 
 ### Resultados de garantia
-- Controlos de base aplicados de forma obrigatória (proteção de branches, revisões obrigatórias, commits assinados quando exigido).
+- Controles de base aplicados de forma obrigatória (proteção de branches, revisões obrigatórias, commits assinados quando exigido).
 - Builds reprodutíveis e rastreabilidade de artefatos.
 - Postura auditável de dependências e vulnerabilidades.
 
@@ -62,13 +62,13 @@ Se não conseguir definir resultados mensuráveis nesta fase, pare e corrija iss
 
 ## 2) Construa uma arquitetura de plataforma segura e orientada por políticas desde a origem
 
-As plataformas governamentais precisam de mais do que uma UI de alojamento de código. A arquitetura tem que aplicar controlos por defeito, mantendo ao mesmo tempo um percurso fluido para os developers.
+As plataformas governamentais precisam de mais do que uma UI de alojamento de código. A arquitetura tem que aplicar controles por defeito, mantendo ao mesmo tempo um percurso fluido para os developers.
 
 No mínimo, a arquitetura de lançamento faseado deve incluir:
 
 ### Base de identidade e acesso
 - Single sign-on através do fornecedor de identidade governamental (OIDC/SAML).
-- Controlos de acesso baseados em funções (RBAC) alinhados com unidades organizacionais.
+- Controles de acesso baseados em funções (RBAC) alinhados com unidades organizacionais.
 - Privilégios elevados just-in-time para operações de administração.
 - Logs de auditoria de acesso imutáveis.
 
@@ -78,11 +78,11 @@ No mínimo, a arquitetura de lançamento faseado deve incluir:
 - Pull requests obrigatórios e número mínimo de revisores.
 - Rulesets para deteção de segredos e proteção de push.
 
-### Controlos da cadeia de fornecimento de software
+### Controles da cadeia de fornecimento de software
 - Deteção de dependências e validação de políticas de licenças em CI.
 - Geração de SBOM para artefatos de build.
 - Artefactos de release assinados e metadados de proveniência.
-- Controlos de package registry para dependências internas aprovadas.
+- Controles de package registry para dependências internas aprovadas.
 
 ### Observabilidade e operações
 - Logs centralizados para autenticação, eventos de repositório e ações de CI.
@@ -94,10 +94,10 @@ Um erro comum é customizar em excesso na fase 1. Evite-o. Use integrações sta
 
 Outra decisão de design importante: o modelo de governação multi-tenant. No contexto governamental, os organismos precisam frequentemente de autonomia, mas isolamento total mata a reutilização. Um compromisso prático é:
 
-- Plano de controlo partilhado da plataforma.
+- Plano de controle compartilhado da plataforma.
 - Namespaces por organismo com herança de políticas.
 - Baseline central de segurança que não pode ser reduzida.
-- Controlos opcionais locais que cada organismo pode acrescentar.
+- Controles opcionais locais que cada organismo pode acrescentar.
 
 Esta estrutura equilibra standards nacionais com realidades operacionais específicas de cada organismo.
 
@@ -129,7 +129,7 @@ Defina uma sequência de onboarding com checkpoints explícitos:
    - Ativar deteção de segredos, deteção de dependências e proteções de branch.
 
 3. Semana 2 — validação
-   - Executar um pull request de exemplo através de todos os controlos.
+   - Executar um pull request de exemplo através de todos os controles.
    - Simular deteção de vulnerabilidade e workflow de remediação.
    - Verificar trilho de auditoria desde o commit até ao artefato de deploy.
 
@@ -176,7 +176,7 @@ Acompanhe métricas em quatro dashboards:
 ### Dashboard de segurança e conformidade
 - Backlog de vulnerabilidades por severidade e antiguidade.
 - Eventos de prevenção de fuga de segredos.
-- Cobertura dos controlos obrigatórios nos repositórios-piloto.
+- Cobertura dos controles obrigatórios nos repositórios-piloto.
 - Verificações de completude e retenção de logs de auditoria.
 
 ### Dashboard de produtividade de developers
@@ -220,8 +220,15 @@ Percurso prático:
 - Semana 0-2: fechar missão, métricas, papéis de governação e limites de risco.
 - Semana 2-6: fazer onboarding de equipas-piloto cuidadosamente selecionadas com templates orientados por políticas.
 - Semana 6-10: recolher evidência operacional, de segurança e de produtividade; corrigir rapidamente as áreas de maior fricção.
-- Semana 10-12: realizar revisão de prontidão para escalar e aprovar a vaga seguinte apenas quando controlos e suporte forem repetíveis.
+- Semana 10-12: realizar revisão de prontidão para escalar e aprovar a vaga seguinte apenas quando controles e suporte forem repetíveis.
 
 Se fizer isto bem, obtém mais do que uma plataforma de código. Cria uma capacidade partilhada de software governamental: auditável, reutilizável e resiliente. As equipas entregam mais depressa sem contornar a segurança. Os organismos colaboram sem perder responsabilização. O procurement ganha poder negocial porque os standards são portáveis. E os cidadãos beneficiam, em última análise, de serviços digitais mais fiáveis, entregues com melhor gestão dos fundos públicos.
 
 A chave é simples: não optimize para a imagem do dia de lançamento. Optimize para adoção sustentada, sob restrições reais do setor público. Comece pequeno, imponha os defaults certos, meça com honestidade e escale o que funciona.
+
+---
+
+**Leia também:**
+
+- [IA Soberana: Empresas Brasileiras Querem Fuga à Nuvem Americana](/pt/ia-soberana-empresas-interna-2026)
+- [SDK Agentes OpenAI: Workflows Autônomos com IA](/pt/sdk-agentes-openai-workflows-autonomos-ia)

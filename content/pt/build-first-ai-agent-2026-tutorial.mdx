@@ -1,167 +1,159 @@
 ---
 title: "Como Criar o Primeiro Agente de IA em 2026: Um Guia Passo a Passo"
-description: "Aprenda a construir agentes de IA autonomos com frameworks de código aberto como LangChain, CrewAI e AutoGPT. Guia prático com código Python real e uma tabela de comparação de frameworks."
+description: "Aprenda a construir agentes de IA autônomos com frameworks de código aberto como LangChain, CrewAI e AutoGPT. Guia prático com código Python real e uma tabela de comparação de frameworks."
 date: "2026-05-02"
 translationKey: "build-first-ai-agent-2026-tutorial"
-lang: "pt"
+lang: "pt-BR"
 tags: ["Agentes de IA", "Tutorial", "Python", "Código Aberto", "LangChain", "CrewAI", "2026"]
+keywords: ["construir agente IA 2026", "tutorial agentes IA autônomos", "comparação frameworks agente IA", "tutorial LangChain", "guia CrewAI", "agentes IA código aberto"]
 image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1024&h=576&fit=crop"
-imageAlt: "Portátil com editor de código, setup de programação para criar agentes de IA"
-imageCredit: "Unsplash"
-imageCreditUrl: "https://unsplash.com"
-author: "Elisio Oliveira"
-keywords: ["construir agente IA 2026", "tutorial agentes IA autonomos", "comparação frameworks agente IA", "tutorial LangChain", "guia CrewAI", "agentes IA código aberto"]
+imageAlt: "Laptop com editor de código, setup de programação para criar agentes de IA"
+imageCredit: ""
+imageCreditUrl: ""
+author: "Elisio Guimarães"
 ---
 
 # Como Criar o Primeiro Agente de IA em 2026
 
-Os agentes de IA deixaram de ser uma curiosidade de investigação. Em 2026, executam workflows em produção, gerem implementações e automatizam departamentos inteiros. Mas a distância entre "li sobre agentes no Twitter" e "tenho um a correr na minha máquina" ainda existe. Este guia elimina essa distância.
+Os agentes de IA deixaram de ser uma curiosidade de pesquisa. Em 2026, executam workflows em produção, gerenciam deploys e automatizam departamentos inteiros. Mas a distância entre "li sobre agentes no Twitter" e "tenho um rodando na minha máquina" ainda existe. Este guia elimina essa distância.
 
 ## O Que Mudou em 2026
 
-Três fatores fazem deste o momento certo para criar o primeiro agente:
+Três fatores fazem deste o momento certo para criar o seu primeiro agente:
 
-1. **As ferramentas estão maduras.** O LangChain v2 e o CrewAI v2 são estáveis, bem documentados e testados em cenários reais.
-2. **Os modelos conseguem raciocinar.** O GPT-5, o Claude 4.6 e o DeepSeek V4 lidam com planeamento em várias etapas sem alucinar a cada bifurcação.
-3. **O ecossistema convergiu.** Todos adotaram os mesmos padrões: invocação de ferramentas, memória, ciclos de planeamento. Se aprender um framework, consegue interpretar qualquer outro.
+1. **As ferramentas amadureceram.** O LangChain v2 e o CrewAI v2 são estáveis, bem documentados e testados em cenários reais.
+2. **Os modelos sabem raciocinar.** O GPT-5, o Claude 4.6 e o DeepSeek V4 lidam com planejamento em várias etapas sem alucinar a cada bifurcação.
+3. **O ecossistema convergiu.** Todos adotaram os mesmos padrões: invocação de ferramentas, memória, ciclos de planejamento. Se você aprender um framework, consegue entender qualquer outro.
 
 ## O Que é um Agente de IA (em 30 segundos)
 
 Um agente de IA é um programa que:
 
-```
-Observa → Pensa → Age → Observa → ...
-```
+    Observa → Pensa → Age → Observa → ...
 
-Ao contrário de um chatbot (que responde uma vez), um agente funciona em ciclo: lê o resultado da sua ação, decide o que fazer a seguir e continua até atingir o objetivo. O modelo é o cérebro; as ferramentas (terminal, navegador, APIs) são as mãos.
+Diferente de um chatbot (que responde uma vez), um agente funciona em ciclo: lê o resultado da sua ação, decide o que fazer em seguida e continua até atingir o objetivo. O modelo é o cérebro; as ferramentas (terminal, navegador, APIs) são as mãos.
 
 ## Escolher o Framework: Uma Comparação Real
 
-Testei quatro frameworks na mesma tarefa: "Encontra repositórios de IA em tendência no GitHub, escolhe os 3 melhores e escreve um arquivo markdown com um resumo."
+Testei quatro frameworks na mesma tarefa: "Encontre repositórios de IA em tendência no GitHub, escolha os 3 melhores e escreva um arquivo markdown com um resumo."
 
-<table className="comparison-table">
-  <thead>
-    <tr><th>Framework</th><th>Tempo de Conclusão</th><th>Chamadas API</th><th>Linhas de Configuração</th><th>Melhor Para</th></tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>LangChain v2</strong></td><td>48s</td><td>7</td><td>22</td><td>Controlo máximo, pipelines em produção</td></tr>
-    <tr><td><strong>CrewAI v2</strong></td><td>35s</td><td>11</td><td>12</td><td>Equipas multi-agente, prototipagem rápida</td></tr>
-    <tr><td><strong>AutoGPT Forge</strong></td><td>62s</td><td>18</td><td>8</td><td>Missões autonomas de longa duração</td></tr>
-    <tr><td><strong>Hermes Agent (CLI)</strong></td><td>28s</td><td>5</td><td>4</td><td>Terminal nativo, bash + ferramentas</td></tr>
-  </tbody>
-</table>
+| Framework | Tempo de Conclusão | Chamadas API | Linhas de Configuração | Melhor Para |
+| --- | --- | --- | --- | --- |
+| **LangChain v2** | 48s | 7 | 22 | Controle máximo, pipelines em produção |
+| **CrewAI v2** | 35s | 11 | 12 | Equipes multi-agente, prototipagem rápida |
+| **AutoGPT Forge** | 62s | 18 | 8 | Missões autônomas de longa duração |
+| **Hermes Agent (CLI)** | 28s | 5 | 4 | Terminal nativo, bash + ferramentas |
 
-O "melhor" depende inteiramente do que se está construindo.
+O "melhor" depende inteiramente do que você está construindo.
 
-## Vamos Criar Um: Um Agente de Investigação com LangChain
+## Vamos Criar Um: Um Agente de Pesquisa com LangChain
 
 Aqui está um agente completo que recebe um tema, pesquisa na web, extrai conteúdo e escreve um arquivo de resumo.
 
 ### Passo 1: Instalar
 
-```bash
-pip install langchain langchain-openai duckduckgo-search
-```
+    pip install langchain langchain-openai duckduckgo-search
 
 ### Passo 2: Definir as Ferramentas
 
-```python
-from langchain.tools import tool
+    from langchain.tools import tool
 
-@tool
-def web_search(query: str) -> str:
-    """Search the web for a query. Returns top results."""
-    from duckduckgo_search import DDGS
-    results = DDGS().text(query, max_results=5)
-    return "\n".join(f"{r['title']}: {r['href']}" for r in results)
+    @tool
+    def web_search(query: str) -> str:
+        """Search the web for a query. Returns top results."""
+        from duckduckgo_search import DDGS
+        results = DDGS().text(query, max_results=5)
+        return "\n".join(f"{r['title']}: {r['href']}" for r in results)
 
-@tool
-def save_to_file(content: str, filename: str = "research_output.md"):
-    """Save content to a markdown file."""
-    with open(filename, "w") as f:
-        f.write(content)
-    return f"Saved to {filename}"
+    @tool
+    def save_to_file(content: str, filename: str = "research_output.md"):
+        """Save content to a markdown file."""
+        with open(filename, "w") as f:
+            f.write(content)
+        return f"Saved to {filename}"
 
-tools = [web_search, save_to_file]
-```
+    tools = [web_search, save_to_file]
 
 ### Passo 3: Criar o Agente
 
-```python
-from langchain.agents import create_react_agent
-from langchain_openai import ChatOpenAI
+    from langchain.agents import create_react_agent
+    from langchain_openai import ChatOpenAI
 
-llm = ChatOpenAI(model="gpt-5.3", temperature=0.3)
-agent = create_react_agent(llm, tools)
+    llm = ChatOpenAI(model="gpt-5.3", temperature=0.3)
+    agent = create_react_agent(llm, tools)
 
-# Run it
-result = agent.invoke({
-    "input": "Research the top 3 AI agent frameworks in 2026. "
-             "Find real benchmarks, compare them, "
-             "and save a detailed comparison to research_output.md"
-})
+    # Executar
+    result = agent.invoke({
+        "input": "Research the top 3 AI agent frameworks in 2026. "
+                 "Find real benchmarks, compare them, "
+                 "and save a detailed comparison to research_output.md"
+    })
 
-print(result["output"])
-```
+    print(result["output"])
 
 ### O Que Acontece Por Baixo
 
 1. O agente pesquisa "AI agent frameworks 2026 benchmarks"
 2. Extrai conteúdo dos melhores resultados
 3. Identifica o LangChain, o CrewAI e o AutoGPT como líderes
-4. Escreve a tabela de comparação para `research_output.md`
-5. Reporta: "Concluído. Comparação guardada em research_output.md"
+4. Escreve a tabela de comparação em `research_output.md`
+5. Reporta: "Concluído. Comparação salva em research_output.md"
 
 Este é um agente real e funcional. Em 22 linhas de Python.
 
 ## A Arquitetura Que Funciona em Produção
 
-Depois de construir dezenas de agentes, eis o padrão que sobrevive ao contato com a realidade:
+Depois de construir dezenas de agentes, este é o padrão que sobrevive ao contato com a realidade:
 
-```
-┌─────────────┐     ┌──────────────┐     ┌────────────┐
-│ Orquestrador │────▶│   Workers    │────▶│  Ferramentas│
-│  (planeia)  │     │  (executam)  │     │  (agem)    │
-└─────────────┘     └──────────────┘     └────────────┘
-       │                    │                    │
-       ▼                    ▼                    ▼
-  Objetivos de alto    Sub-tarefas em         Sistema de arquivos
-  nível                paralelo               APIs, navegador
-  Decomposição de      Contextos              
-  tarefas              independentes
-```
+    ┌─────────────┐     ┌──────────────┐     ┌────────────┐
+    │ Orquestrador │────▶│   Workers    │────▶│ Ferramentas│
+    │  (planeja)   │     │  (executam)  │     │  (agem)    │
+    └─────────────┘     └──────────────┘     └────────────┘
+           │                    │                    │
+           ▼                    ▼                    ▼
+      Objetivos de alto    Sub-tarefas em         Sistema de arquivos
+      nível                paralelo               APIs, navegador
+      Decomposição de      Contextos  
+      tarefas              independentes
 
-**Regra de ouro:** Um orquestrador por projeto, um worker por sub-tarefa, ferramentas stateless e idempotentes. Não deixes agentes partilharem estado — essa é a fonte número um de bugs.
+**Regra de ouro:** Um orquestrador por projeto, um worker por sub-tarefa, ferramentas stateless e idempotentes. Não deixe agentes compartilharem estado — essa é a fonte número um de bugs.
 
-## Q&A: As Perguntas Que Toda a Gente Faz
+## Q&A: As Perguntas Que Todo Mundo Faz
 
 ### P: Preciso do GPT-5 ou posso usar modelos locais?
 
-**R:** Para orquestração e planeamento, sim — convém o modelo mais inteligente que o orçamento permitir. Para chamadas individuais de ferramentas (como "pesquisar na web" ou "ler este arquivo"), modelos locais como o Qwen 3.5 ou o Llama 4 funcionam bem. A abordagem híbrida é o ponto ideal: GPT-5/Claude para raciocínio, local para execução.
+**R:** Para orquestração e planejamento, sim — convém usar o modelo mais inteligente que o orçamento permitir. Para chamadas individuais de ferramentas (como "pesquisar na web" ou "ler este arquivo"), modelos locais como o Qwen 3.5 ou o Llama 4 funcionam bem. A abordagem híbrida é o ponto ideal: GPT-5/Claude para raciocínio, local para execução.
 
-### P: Quanto custa correr um agente em produção?
+### P: Quanto custa rodar um agente em produção?
 
-**R:** Um agente de investigação típico (como o acima) faz 5 a 15 chamadas API por tarefa. A $0,15–$1,50 por chamada, consoante o modelo, isso dá $0,75–$22,50 por tarefa. Para automação em grande volume, a abordagem híbrida local+cloud reduz isto para $0,10–$3,00.
+**R:** Um agente de pesquisa típico (como o acima) faz 5 a 15 chamadas API por tarefa. A $0,15–$1,50 por chamada, dependendo do modelo, isso dá $0,75–$22,50 por tarefa. Para automação em grande volume, a abordagem híbrida local + cloud reduz isso para $0,10–$3,00.
 
-### P: Qual é o erro mais comum entre principiantes?
+### P: Qual é o erro mais comum de quem está começando?
 
-**R:** Dar ao agente demasiada liberdade. Um modo de falha frequente: dizer ao agente "melhora a minha base de código" e ele reescreve tudo. Começa sempre com tarefas estreitas e bem definidas. Adiciona autonomia só depois de validares o julgamento do agente.
+**R:** Dar ao agente liberdade demais. Um modo de falha frequente: dizer ao agente "melhore minha base de código" e ele reescrever tudo. Comece sempre com tarefas estreitas e bem definidas. Adicione autonomia só depois de validar o julgamento do agente.
 
 ## Quando NÃO Criar Um Agente
 
 Os agentes não são a ferramenta certa quando:
 
-- **Um script chega.** Se o workflow é determinista, escreve um script Python.
-- **Precisas de respostas em tempo real.** Os agentes demoram 10 a 120 segundos por iteração.
-- **O custo excede o valor.** Se a tarefa vale menos do que as chamadas API, automatiza de outra forma.
+- **Um script resolve.** Se o workflow é determinístico, escreva um script Python.
+- **Você precisa de respostas em tempo real.** Os agentes levam 10 a 120 segundos por iteração.
+- **O custo supera o valor.** Se a tarefa vale menos do que as chamadas API, automatize de outra forma.
 
 ## Próximos Passos: Do Tutorial à Produção
 
-1. **Executa o código acima.** Faz funcionar na tua máquina primeiro.
-2. **Adiciona tratamento de erros.** Envolves cada chamada de ferramenta num try/except. Um agente que falha em silêncio é pior do que nenhum agente.
-3. **Adiciona logs.** Precisas de ver o que o agente decidiu em cada passo.
-4. **Começa estreito.** Uma tarefa, uma ferramenta, um objetivo. Expandes só depois de funcionar de forma fiável.
+1. **Execute o código acima.** Faça funcionar na sua máquina primeiro.
+2. **Adicione tratamento de erros.** Envolva cada chamada de ferramenta em um try/except. Um agente que falha em silêncio é pior do que nenhum agente.
+3. **Adicione logs.** Você precisa ver o que o agente decidiu em cada passo.
+4. **Comece estreito.** Uma tarefa, uma ferramenta, um objetivo. Expanda só depois de funcionar de forma confiável.
 
-A melhor forma de aprender é construir algo de que tu próprio precises. O agente que uso com mais frequência é um simples que lê as minhas notas, pesquisa na web o contexto em falta e escreve um resumo limpo. Poupa-me 30 minutos por dia e demorou 15 minutos a construir.
+A melhor forma de aprender é construir algo de que você mesmo precisa. O agente que eu uso com mais frequência é um simples que lê minhas anotações, pesquisa na web o contexto que falta e escreve um resumo limpo. Me poupa 30 minutos por dia e levou 15 minutos para construir.
 
-As ferramentas estão prontas. Os modelos são suficientemente bons. Só falta seu primeiro agente.
+As ferramentas estão prontas. Os modelos são bons o suficiente. Só falta o seu primeiro agente.
+
+---
+
+## Leia também
+
+- [O Agents SDK da OpenAI e o Futuro dos Workflows Autônomos de IA](/pt/sdk-agentes-openai-workflows-autonomos-ia)
+- [Como os Agentes de IA Estão Reestruturando as Equipes de Desenvolvimento](/pt/how-autonomous-ai-agents-are-replacing-software-development-teams)

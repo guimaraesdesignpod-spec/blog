@@ -1,4 +1,9 @@
+import { createClient } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
+
+const supabaseUrl = process.env.SUPABASE_URL!
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY!
+const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 export async function POST(request: Request) {
   try {
@@ -11,23 +16,27 @@ export async function POST(request: Request) {
       )
     }
 
-    // STRATEGY: For now, we log the email to a local file in the vault
-    // This prevents the need for an external DB during the MVP phase
-    // and allows the user to export leads easily to a CSV/Newsletter tool.
-    
-    const logMessage = `[${new Date().toISOString()}] New Subscriber: ${email}\n`
-    
-    // Note: Since this is a serverless function on Vercel, 
-    // we can't write to a local file system reliably.
-    // In a real deployment, this would be an API call to Mailchimp, ConvertKit, or a DB.
-    
-    console.log('Newsletter Subscription:', email)
+    const { error } = await supabase
+      .from('subscribers')
+      .upsert(
+        { email: email.toLowerCase().trim(), created_at: new Date().toISOString() },
+        { onConflict: 'email', ignoreDuplicates: true }
+      )
+
+    if (error) {
+      console.error('Supabase insert error:', error)
+      return NextResponse.json(
+        { error: 'Subscription failed' },
+        { status: 500 }
+      )
+    }
 
     return NextResponse.json(
       { message: 'Successfully subscribed!' },
       { status: 200 }
     )
   } catch (error) {
+    console.error('Newsletter error:', error)
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }
