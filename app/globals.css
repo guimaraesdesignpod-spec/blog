@@ -414,6 +414,7 @@ nav {
   border-radius: 12px; padding: 3rem;
   display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 3rem;
 }
+.newsletter-copy { display: flex; flex-direction: column; }
 .newsletter-label {
   font-size: 0.68rem; font-weight: 600; letter-spacing: 0.10em;
   text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;

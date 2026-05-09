@@ -4,6 +4,9 @@ import { useState } from 'react'
 
 interface NewsletterFormProps {
   labels: {
+    newsletter_label: string;
+    newsletter_title: string;
+    newsletter_em: string;
     newsletter_placeholder: string;
     newsletter_btn: string;
   }
@@ -36,23 +39,33 @@ export default function NewsletterForm({ labels }: NewsletterFormProps) {
   }
 
   return (
-    <form className="newsletter-form" onSubmit={handleSubmit}>
-      <input
-        type="email"
-        placeholder={labels.newsletter_placeholder}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <button type="submit" disabled={status === 'loading'}>
-        {status === 'loading' ? '...' : labels.newsletter_btn}
-      </button>
-      {status === 'success' && (
-        <span className="newsletter-success">✓</span>
-      )}
-      {status === 'error' && (
-        <span className="newsletter-error">✕</span>
-      )}
-    </form>
+    <div className="newsletter-strip">
+      <div className="newsletter-inner">
+        <div className="newsletter-copy">
+          <div className="newsletter-label">{labels.newsletter_label}</div>
+          <p className="newsletter-title">
+            {labels.newsletter_title} <em>{labels.newsletter_em}</em>
+          </p>
+        </div>
+        <form className="newsletter-form" onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder={labels.newsletter_placeholder}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <button type="submit" disabled={status === 'loading'}>
+            {status === 'loading' ? '...' : labels.newsletter_btn}
+          </button>
+          {status === 'success' && (
+            <span className="newsletter-success">✓</span>
+          )}
+          {status === 'error' && (
+            <span className="newsletter-error">✕</span>
+          )}
+        </form>
+      </div>
+    </div>
   )
 }
