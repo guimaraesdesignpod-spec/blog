@@ -450,14 +450,14 @@ nav {
 .newsletter-error { color: oklch(55% 0.18 25); }
 
 /* ── Site footer ────────────────────────────────────────── */
-/* Vercel-inspired: clean grid, thin rule, brand weight, shadow-as-border on inner sections */
+/* Vercel-inspired: clean grid, thin rule, brand weight, logo with icon */
 .site-footer {
   max-width: 1280px; margin: 5rem auto 0;
   padding: 3rem 2.5rem 2rem;
   border-top: 1px solid var(--rule);
 }
 .footer-grid {
-  display: grid; grid-template-columns: 2fr 1fr 1fr;
+  display: grid; grid-template-columns: 2.5fr 1fr;
   gap: 3rem; padding-bottom: 2.5rem;
   border-bottom: 1px solid var(--rule);
 }
@@ -473,10 +473,14 @@ nav {
 .footer-brand .f-logo .logo-text em { font-style: normal; color: var(--accent); }
 .footer-brand .f-logo .logo-mark {
   width: 20px; height: 20px; background: var(--accent); border-radius: 5px;
-  display: inline-flex;
+  display: flex; align-items: center; justify-content: center;
 }
 .footer-desc {
   font-size: 0.84rem; color: var(--ink-mid); line-height: 1.7; max-width: 36ch; margin: 0;
+}
+.footer-links-row { display: flex; gap: 2.5rem; }
+@media (max-width: 480px) {
+  .footer-links-row { flex-direction: column; gap: 1.5rem; }
 }
 .footer-col { display: flex; flex-direction: column; gap: 0.55rem; }
 .footer-col-label {
