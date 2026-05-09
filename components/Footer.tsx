@@ -36,7 +36,7 @@ export default function Footer({ labels, lang }: FooterProps) {
         <div className="footer-brand">
           <a href={lang === 'pt' ? '/pt' : '/en'} className="f-logo">
             <LogoMark />
-            <span className="logo-text">brain<em>wire</em></span>
+            <span className="logo-text">Brain<em>wire</em></span>
           </a>
           <p className="footer-desc">{labels.footer_about}</p>
         </div>

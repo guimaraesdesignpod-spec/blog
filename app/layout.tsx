@@ -45,6 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       className={`${lora.variable} ${dmMono.variable} ${dmSans.variable}`}
     >
       <head>
+        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
         {publisherId && (
           <Script
             async
