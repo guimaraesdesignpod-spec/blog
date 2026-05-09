@@ -479,9 +479,6 @@ nav {
   font-size: 0.84rem; color: var(--ink-mid); line-height: 1.7; max-width: 36ch; margin: 0;
 }
 .footer-links-row { display: flex; gap: 2.5rem; }
-@media (max-width: 480px) {
-  .footer-links-row { flex-direction: column; gap: 1.5rem; }
-}
 .footer-col { display: flex; flex-direction: column; gap: 0.55rem; }
 .footer-col-label {
   font-size: 0.68rem; font-weight: 600; letter-spacing: 0.10em;
