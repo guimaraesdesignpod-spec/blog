@@ -10,9 +10,9 @@ import MobileNav from '@/components/MobileNav'
 
 type Lang = 'en' | 'pt'
 
-const META: Record<Lang, { title: string; description: string }> = {
-  en: { title: 'Brainwire', description: 'AI productivity tools for professionals' },
-  pt: { title: 'Brainwire', description: 'Ferramentas de IA para produtividade profissional' },
+const META: Record<Lang, { title: string; tagline: string; description: string }> = {
+  en: { title: 'Brainwire', tagline: 'AI productivity tools', description: 'AI productivity tools for professionals' },
+  pt: { title: 'Brainwire', tagline: 'produtividade com IA', description: 'Ferramentas de IA para produtividade profissional' },
 }
 
 type LabelsType = {
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params
   const meta = META[lang as Lang]
   if (!meta) return {}
-  return { title: meta.title, description: meta.description, alternates: { languages: { en: '/en', pt: '/pt' } } }
+  return { title: `${meta.title} — ${meta.tagline}`, description: meta.description, alternates: { languages: { en: '/en', pt: '/pt' } } }
 }
 
 function LogoMark({ size = 22 }: { size?: number }) {
