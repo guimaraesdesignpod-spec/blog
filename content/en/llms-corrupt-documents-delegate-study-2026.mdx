@@ -1,0 +1,164 @@
+---
+date: "2026-05-10"
+translationKey: "llms-corrupt-documents-delegate-study-2026"
+lang: "en"
+title: "When AI Edits Your Documents, It Breaks Them. A New Study Shows Exactly How Bad It Gets."
+description: "Microsoft researchers put 19 frontier models through DELEGATE-52, a 52-domain document editing benchmark. Even the best models silently corrupted 25% of content during long workflows. The culprit isn't capability—it's how we ask them to work."
+keywords: ["LLM document corruption", "DELEGATE-52 benchmark", "AI document editing", "LLM delegation errors", "AI workflow degradation", "Microsoft AI research 2026", "vibe coding risks"]
+tags: ["AI Research", "Productivity", "Developer Tools"]
+image: "https://images.unsplash.com/photo-1544256718-3bcf237f3974"
+imageAlt: "Close-up of a glitchy text document on a dark screen, with corrupted characters and fragmented words fading into black"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+---
+
+# When AI Edits Your Documents, It Breaks Them. A New Study Shows Exactly How Bad It Gets.
+
+## 386 Upvotes. 148 Comments. And One Uncomfortable Truth About Delegation.
+
+On 9 May 2026, a paper from Microsoft researchers quietly hit the Hacker News front page and lit up the comments section faster than most security vulnerability disclosures. Titled "LLMs Corrupt Your Documents When You Delegate," the study — published as arXiv:2604.15597 — didn't find a new zero-day or jailbreak technique. It found something arguably worse: **even the best AI models on the market will quietly degrade your documents if you let them run long enough**.
+
+The numbers are sobering. Across 52 professional domains — from software engineering to crystallography, from music notation to legal drafting — frontier models including Gemini 3.1 Pro, Claude 4.6 Opus, and GPT 5.4 corrupted an average of **25% of document content** by the end of long workflows. Some models performed worse. None performed reliably well.
+
+The Hacker News community's reaction was immediate and divided. AI-native engineers dismissed the methodology as flawed. Everyday users said the paper confirmed their daily experience. The real question the debate raised — and the one I'll dig into here — is whether the problem lies in the models themselves, or in *how we've chosen to use them*.
+
+---
+
+## What the Researchers Actually Tested
+
+The team — Philippe Laban, Tobias Schnabel, and Jennifer Neville — designed a new benchmark they call **DELEGATE-52**. The premise is straightforward: simulate the real-world workflow where a human hands a complex, multi-step document editing task to an LLM and expects it to run autonomously.
+
+Each task spans **multiple turns** and requires in-depth document manipulation across a domain of professional knowledge. The model reads files, makes edits, applies formatting, restructures content, and writes output. Then the researchers measure how much of the original document's integrity survives.
+
+The 52 domains cover a deliberately wide range: Python codebases, LaTeX academic papers, MusicXML scores, legal contracts, patent filings, molecular data formats, and more. The goal wasn't to test whether models can write code or generate text from scratch. It was to test whether models can **faithfully edit existing documents without introducing silent errors** over extended interactions.
+
+The answer was a firm, statistically robust no.
+
+---
+
+## The Quantified Damage: 25% Average Corruption
+
+Across 19 tested LLMs, the average corruption rate landed at **25% of total document content**. Frontier models clustered in the 20-30% range. Smaller or older models sometimes exceeded 50% corruption.
+
+The paper breaks down the factors that make things worse:
+
+- **Document size matters.** Larger documents see proportionally higher degradation rates.
+- **Interaction length compounds the problem.** Each additional turn introduces more opportunities for corruption, and earlier errors act as compounding noise for later reasoning.
+- **Distractor files multiply errors.** If the context window contains files that aren't strictly relevant to the task — a common occurrence in real codebase interactions — corruption rates rise further.
+- **Agentic tool use didn't fix it.** In a follow-up experiment, the researchers hooked models up to a basic agentic harness with file reading and writing tools. The corruption problem persisted. The paper notes that future work could explore more sophisticated harnesses, but their finding stands: existing tool-augmented workflows don't solve the silent degradation issue.
+
+Perhaps most ominously, the paper describes the error pattern as **"sparse but severe"** — the LLM doesn't necessarily destroy the document in obvious ways. Instead, it introduces subtle errors that propagate: a wrong constant in a formula, a missing clause in a contract, a mislabelled section in a data file.
+
+---
+
+## Why the Hacker News Thread Exploded
+
+Within hours of hitting the front page, the discussion thread had generated **148 comments** and a deep split in interpretation. The divide maps almost perfectly onto whether a commenter is a power user of "agentic coding" tools — Claude Code, Cursor, OpenClaw — or someone who drops documents into a chat interface and asks for edits.
+
+### The "Harness is the Problem" Argument
+
+The most-upvoted technical response came from Simon Willison, who argued that the researchers' agentic harness was too primitive. Their setup gave the model `read_file()` and `write_file()` tools — essentially forcing the model to **round-trip the entire document through its context window on every edit**.
+
+Willison's point: modern coding agents don't do this. Tools like Claude's text-editor suite use **surgical edit operations** — `str_replace`, `insert`, and targeted deletions — that modify specific ranges without regenerating the full file. When you avoid round-tripping, you avoid the compounding noise problem.
+
+Other commenters extended this point: the experiment was testing a naive usage pattern that few experienced engineers would actually deploy. A human asked to memorise an entire document and regurgitate it from scratch would do poorly too.
+
+### The "Users Don't Know Better" Counterargument
+
+The second wave of comments flipped the debate entirely. Multiple commenters — including a lawyer and several non-technical professionals — noted that they are explicitly instructed by their organisations to use AI tools for document editing, and they have never heard of a "harness."
+
+One commenter put it bluntly: "Most people will not be 'frequent' anything users." Another said they see colleagues paste entire Excel spreadsheets as images into ChatGPT and ask for summaries.
+
+This is where the debate sharpens. The paper may have used a technically simple harness, but the behaviour it modelled — letting an LLM ingest a document and produce a rewritten version — is precisely how millions of people use these tools every day. They're not using Claude Code with a carefully designed tool suite. They're pasting contracts into a browser tab and clicking "Rewrite this."
+
+### The "Semantic Ablation" View
+
+A third strand of the discussion connected the paper to a broader phenomenon commenters called **"semantic ablation"** — the idea that each pass through an LLM strips away nuance, specificity, and factual precision, replacing them with statistically likely but generically safe alternatives.
+
+One HN user shared a Register article from February 2026 making exactly this case: AI writing is boring and dangerous not because it hallucinates dramatically, but because it "ablates" meaning — flattening original analysis into consensus-shaped mush. The DELEGATE-52 results suggest the same thing happens to structured documents and codebases, not just prose.
+
+---
+
+## The Real Problem: We've Confused Generation With Maintenance
+
+Step back from the technical specifics and a larger pattern emerges. The AI industry has spent years optimising models for **generation**: write a blog post, produce a code snippet, draft an email. But delegation — the act of asking an AI to **maintain and modify something that already exists** — is a fundamentally different problem.
+
+Generation has no fidelity constraint. Maintenance has a very strict one: **the parts of the document that aren't supposed to change must not change at all.**
+
+LLMs, as currently architected, are not designed for zero-fidelity-loss maintenance. Every token the model emits is generated from a probability distribution conditioned on the prompt. Even when the model is "correct," it may rephrase, restructure, or subtly alter content that wasn't meant to be touched. Over many turns in a long workflow, these micro-alterations compound into what the paper calls "silent corruption."
+
+This isn't a bug that better training data will fix. It's a structural property of transformer-based auto-regressive generation. The model doesn't "know" which parts of a document are sacred. It only knows which tokens are statistically likely to follow from the context.
+
+---
+
+## What This Means for Different Users
+
+The implications of DELEGATE-52 depend heavily on how you're using LLMs.
+
+### For Software Engineers Using Agentic Coding
+
+If you're using Claude Code, Cursor, or OpenClaw with proper tool harnesses, the 25% corruption figure probably overstates your risk — provided your tools use surgical edits rather than full-file regeneration. But the paper still serves as a critical warning: even with agentic tools, the researchers found no significant improvement. If your workflow ever involves "rewrite the whole file" operations, you're exposed.
+
+Practical takeaway: prefer patch-based and range-based editing tools. Avoid prompting for full-file rewrites unless the file is genuinely new content.
+
+### For Knowledge Workers Delegating Documents
+
+If you're a lawyer, analyst, consultant, or content professional using AI to edit reports, contracts, or slide decks, the paper should alarm you. Your documents are likely being corrupted in ways you're not noticing — not dramatic hallucinations, but silent substitutions, missing clauses, and restructured logic.
+
+Practical takeaway: never treat an AI-edited document as final without a full human review. For critical documents, constrain edits to specific sections with explicit instructions, and compare outputs against originals using diff tools.
+
+### For Organisations Deploying AI at Scale
+
+The paper highlights a governance problem. IT departments rolling out Microsoft Copilot, Google Duet, or similar tools are implicitly delegating document integrity to systems that degrade it by design. The errors are statistical, not catastrophic — which makes them harder to catch and more dangerous when they slip through.
+
+Practical takeaway: implement mandatory human review gates for AI-modified documents, especially in regulated industries. Treat AI-generated edits as drafts, never as final artefacts.
+
+---
+
+## What Can Actually Be Done About It
+
+The paper itself is careful not to overclaim. It frames DELEGATE-52 as a benchmark that exposes a real but solvable problem. The HN discussion, however, produced several directions that seem genuinely promising.
+
+### Better Tool Design
+
+Simon Willison and others suggested that **the harness matters more than the model**. Future tools should enforce deterministic editing primitives — AST-aware code manipulation, structured document diffs, database-update operations — rather than allowing the model to freestyle with raw text.
+
+Cloudflare and Anthropic have both been moving in this direction. Cloudflare's Agents SDK provides structured tool definitions that constrain model outputs to specific operations. Anthropic's text-editor suite for Claude Code uses line-range editing to minimise regeneration surface area.
+
+### Deterministic Verification Layers
+
+Another proposed solution: **separate the generation layer from the verification layer**. Don't let the LLM both propose and validate changes. Insert a deterministic checker — a parser, a type checker, a diff verifier, a theorem prover — between the model and the saved document.
+
+For code, this is already standard practice: lint, type-check, unit-test. For prose and contractual documents, it's less common but equally necessary. Legal tech startups like Ironclad are building contract parsers that flag deviations from approved language, regardless of whether a human or an AI introduced them.
+
+### Human-in-the-Loop Review
+
+The least glamorous but most immediately effective fix: **never let an AI system be the final editor of a document a human will sign, ship, or submit**. The 25% corruption rate drops to zero if a human reads the output.
+
+The friction here is cost. Document review is expensive. AI editing is cheap. But the DELEGATE-52 results suggest the cheap option carries a hidden cost — one measured in silently corrupted legal arguments, subtly wrong data analysis, and buggy deployed code.
+
+---
+
+## A Dose of Perspective: Are Humans Any Better?
+
+One of the most upvoted subthreads asked a fair question: what would a human baseline look like?
+
+Several commenters noted that if you asked a person to read an entire codebase, make a small edit, and then reproduce the full codebase from memory, they'd probably perform worse than the 25% corruption rate. Others pointed out that this misses the point: humans don't edit code from memory. They use editors, revision control, and surgical operations.
+
+The deeper question is whether LLMs, even with good tools, are inherently worse at maintenance than humans. The answer is probably "sometimes yes, sometimes no." Humans make typos, miss dependencies, and introduce regressions. But humans also understand *intent* — they know that a specific constant was chosen for a reason, that a contract clause was negotiated down to specific wording, that a data format has upstream consumers that will break if a field name changes.
+
+LLMs understand statistical regularity. They do not understand intent. That distinction is what makes silent corruption so dangerous: the model can produce a statistically plausible document that is structurally faithful but semantically wrong.
+
+---
+
+## The Bottom Line: Delegation Is Not the Same as Automation
+
+The DELEGATE-52 paper doesn't mean AI document editing is dead. But it does mean we need to stop speaking about it as if it's a solved problem. Every startup pitch deck that promises to "let AI handle your documents end-to-end" is betting against a 25% corruption rate that has now been independently measured and replicated.
+
+The path forward isn't to abandon AI-assisted editing. It's to **design different kinds of assistance** — where the AI proposes, the human decides, and the tooling enforces fidelity. Claude Code's surgical edit tools are a step. Deterministic verification layers are another. Mandatory human review for final outputs is a third.
+
+What we cannot do — what DELEGATE-52 proves we cannot do — is paste a document into a chat window, ask the model to "fix it," and trust what comes back. That workflow, which millions of people use every day, is silently breaking the documents it promises to improve.
+
+The AI didn't malfunction. It behaved exactly as designed. The problem is that we asked it to do something it was never built to do faithfully, and then we trusted the result.
+
+The paper's title says it plainly: **LLMs corrupt your documents when you delegate**. The question isn't whether the models are bad. The question is whether we'll keep delegating anyway.
