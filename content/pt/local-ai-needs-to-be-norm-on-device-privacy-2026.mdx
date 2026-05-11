@@ -25,7 +25,7 @@ Essa decisão — local por padrão, nuvem só quando genuinamente necessária �
 
 Abra o seu celular. Escolha praticamente qualquer aplicativo que adicionou uma "funcionalidade de IA" nos últimos dois anos. Existe uma boa chance de que ele funcione empacotando seus dados em um payload JSON, enviando via HTTPS para um endpoint de API, esperando uma resposta e rezando para que o servidor não esteja limitando taxas, fora do ar ou prestes a aumentar os preços em 300% porque o CEO tweetou alguma coisa.
 
-Isso não é uma crítica aos provedores de IA na nuvem. OpenAI, Anthropic e Google construem modelos extraordinários. O problema é como os desenvolvedores recorrem a eles de forma reflexiva. Precisa resumir texto? GPT-4. Precisa etiquetar imagens? Claude. Precisa classificar um ticket de suporte? Gemini. Cada um desses é um caso de uso *genuinamente necessário* para modelos na nuvem em alguns contextos. Mas a maioria das funcionalidades de aplicativos não precisa de um modelo que consiga escrever Shakespeare, explicar mecânica quântica e passar no exame da OAB. Elas precisam de um modelo que consiga fazer uma dessas coisas de forma confiável: resumir, classificar, extrair, reescrever ou normalizar.
+Isso não é uma crítica aos provedores de IA na nuvem. OpenAI, Anthropic e Google constroem modelos extraordinários. O problema é como os desenvolvedores recorrem a eles de forma reflexiva. Precisa resumir texto? GPT-4. Precisa etiquetar imagens? Claude. Precisa classificar um ticket de suporte? Gemini. Cada um desses é um caso de uso *genuinamente necessário* para modelos na nuvem em alguns contextos. Mas a maioria das funcionalidades de aplicativos não precisa de um modelo que consiga escrever Shakespeare, explicar mecânica quântica e passar no exame da OAB. Elas precisam de um modelo que consiga fazer uma dessas coisas de forma confiável: resumir, classificar, extrair, reescrever ou normalizar.
 
 E para essas tarefas, modelos locais podem ser excelentes.
 
@@ -63,7 +63,7 @@ A IA local inverte isso. Uma vez que o modelo roda no dispositivo, o grafo de de
 
 ## Para Que a IA Local É Realmente Boa
 
-A crítica honesta da IA local é que ela não é tão capaz quanto os modelos na nuvem. Isso é verdade. Mas capacidade não é binária. Um carro de Fórmula 1 é mais capaz que uma bicicleta, mas você não vai de bicicleta para o trabalho? Não, você não vai de F1 para o trabalho. Você combina a ferramenta com a tarefa. Modelos na nuvem para raciocínio complexo e geração criativa. Modelos locais para transformação de dados e tarefas sensíveis à privacidade.
+A crítica honesta da IA local é que ela não é tão capaz quanto os modelos na nuvem. Isso é verdade. Um modelo de 9B parâmetros não vai arquitetar um sistema distribuído sozinho nem escrever um romance. Mas a maioria das funcionalidades de aplicativos não precisa de superinteligência — precisa de transformação de dados confiável.
 
 Veja onde os modelos locais se destacam:
 
@@ -75,7 +75,7 @@ Veja onde os modelos locais se destacam:
 
 Essas são as funcionalidades de IA que realmente importam no dia a dia. E são exatamente onde os modelos locais brilham, porque os dados de entrada já estão no dispositivo, a saída é leve e a tarefa não exige conhecimento do mundo — apenas transformação confiável de dados pertencentes ao usuário.
 
-O app iOS The Brutalist Report é um caso de estudo perfeito. Ele oferece uma "vista de inteligência" que gera resumos de artigos. O resumo é produzido no dispositivo usando as APIs de modelo local da Apple. Sem desvios para servidores. Sem logs de prompts. Sem conta em fornecedor. Sem notas de rodapé do tipo "armazenamos seu conteúdo por 30 dias". O usuário recebe uma funcionalidade que parece mágica e se comporta como privacidade.
+O app iOS The Brutalist Report é um caso de estudo perfeito. Ele oferece uma "visualização inteligente" que gera resumos de artigos. O resumo é produzido no dispositivo usando as APIs de modelo local da Apple. Sem desvios para servidores. Sem logs de prompts. Sem conta em fornecedor. Sem notas de rodapé do tipo "armazenamos seu conteúdo por 30 dias". O usuário recebe uma funcionalidade que parece mágica e se comporta como privacidade.
 
 ## As Ferramentas Finalmente Estão Prontas
 
@@ -83,13 +83,13 @@ Um ano atrás, rodar modelos locais era um hobby de entusiastas. Você precisava
 
 Nas plataformas da Apple, o `FoundationModels` abstrai quase tudo. Você define um `struct` do Swift com anotações `@Guide` descrevendo cada campo, pede ao modelo para gerar uma instância e recebe dados tipados de volta. Sem parsing de JSON. Sem drift de schema. Sem "pedir JSON e rezar". Sua interface renderiza campos reais de um tipo real, de forma consistente, localmente.
 
-No desktop, LM Studio e Ollama tornaram o gerenciamento de modelos algo próximo de "apontar e clicar". Um desenvolvedor pode baixar um modelo quantizado, ajustar temperatura e top-p, e expor uma API compatível com OpenAI em `localhost:1234` em minutos. Ferramentas como `pi` e OpenCode consomem esse endpoint de forma transparente, dando a você uma experiência de codificação agentica movida inteiramente por silício local.
+No desktop, LM Studio e Ollama tornaram o gerenciamento de modelos algo próximo de "apontar e clicar". Um desenvolvedor pode baixar um modelo quantizado, ajustar temperatura e top-p, e expor uma API compatível com OpenAI em `localhost:1234` em minutos. Ferramentas como `pi` e OpenCode consomem esse endpoint de forma transparente, dando a você uma experiência de codificação agêntica movida inteiramente por silício local.
 
-O gap entre "eu quero IA local" e "eu tenho IA local funcionando" colapsou de semanas para minutos.
+A distância entre "eu quero IA local" e "eu tenho IA local funcionando" encolheu de semanas para minutos.
 
-## Os Contra-Argumentos (E Por Que Eles Se Fracam)
+## Os Contra-Argumentos (E Por Que Eles Perdem Força)
 
-**"Modelos locais não são tão capazes."** Correto. Mas capacidade não é binária. Um carro de Fórmula 1 é mais capaz que uma bicicleta, mas você não vai de F1 para o trabalho. Você combina a ferramenta com a tarefa. Modelos na nuvem para raciocínio complexo e geração criativa. Modelos locais para transformação de dados e tarefas sensíveis à privacidade.
+**"Modelos locais não são tão capazes."** Correto. Mas capacidade não é binária. Um carro de Fórmula 1 é mais capaz que uma bicicleta, mas ninguém vai de F1 para o trabalho. Você combina a ferramenta com a tarefa. Modelos na nuvem para raciocínio complexo e geração criativa. Modelos locais para transformação de dados e tarefas sensíveis à privacidade.
 
 **"Usuários não ligam para privacidade."** Alguns não ligam. Mas um número crescente liga, especialmente depois de vazamentos de dados de alto perfil e o ritmo constante de histórias do tipo "seus dados estão sendo usados para treinar IA". Mais importante ainda, *reguladores* ligam. GDPR, HIPAA e regulamentações emergentes específicas de IA tornam a nuvem por padrão um passivo legal em muitos contextos.
 

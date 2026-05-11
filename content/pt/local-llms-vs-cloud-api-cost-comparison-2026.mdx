@@ -15,120 +15,101 @@ keywords: ["comparação custo LLM local 2026", "custo Ollama vs OpenAI API", "r
 
 # LLMs Locais vs APIs Cloud: A Verdadeira Comparação de Custos em 2026
 
-Toda a gente fala em correr LLMs localmente para poupar dinheiro. Quase ninguém publica os números reais. Tenho acompanhado custos há 6 meses com Ollama (local), OpenAI e Anthropic. Eis o que as faturas realmente dizem.
+Todo mundo fala em rodar LLMs localmente para economizar. Quase ninguém publica os números reais. Acompanhei custos por 6 meses com Ollama (local), OpenAI e Anthropic. Aqui está o que as faturas realmente dizem.
 
 ## A Configuração
 
-Dirijo uma pequena consultoria de IA. A minha carga de trabalho: ~500 tarefas de agentes por mês, com uma média de 8.000 tokens cada (prompt + resposta). São 4 milhões de tokens por mês. Eis o que isso custa em três cenários:
+Eu dirijo uma pequena consultoria de IA. Minha carga de trabalho: ~500 tarefas de agentes por mês, com uma média de 8.000 tokens cada (prompt + resposta). São 4 milhões de tokens por mês. Veja o que isso custa em três cenários:
 
-<table className="comparison-table">
-  <thead>
-    <tr><th></th><th>Local (RTX 4090)</th><th>OpenAI (GPT-5.3)</th><th>Anthropic (Claude 4.6)</th><th>Híbrido</th></tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>Tokens mensais</strong></td><td>Ilimitados</td><td>4M</td><td>4M</td><td>4M</td></tr>
-    <tr><td><strong>Hardware</strong></td><td>$1.800 (único)</td><td>$0</td><td>$0</td><td>$1.800</td></tr>
-    <tr><td><strong>Eletricidade</strong></td><td>$45/mês</td><td>$0</td><td>$0</td><td>$45/mês</td></tr>
-    <tr><td><strong>Custo da API</strong></td><td>$0</td><td>$240/mês</td><td>$360/mês</td><td>$60/mês</td></tr>
-    <tr><td><strong>TCO (1 ano)</strong></td><td>$2.340</td><td>$2.880</td><td>$4.320</td><td>$2.520</td></tr>
-    <tr><td><strong>TCO (3 anos)</strong></td><td>$3.420</td><td>$8.640</td><td>$12.960</td><td>$5.940</td></tr>
-  </tbody>
-</table>
+|  | Local (RTX 4090) | OpenAI (GPT-5.3) | Anthropic (Claude 4.6) | Híbrido |
+| --- | --- | --- | --- | --- |
+| **Tokens mensais** | Ilimitados | 4M | 4M | 4M |
+| **Hardware** | $1.800 (único) | $0 | $0 | $1.800 |
+| **Eletricidade** | $45/mês | $0 | $0 | $45/mês |
+| **Custo da API** | $0 | $240/mês | $360/mês | $60/mês |
+| **TCO (1 ano)** | $2.340 | $2.880 | $4.320 | $2.520 |
+| **TCO (3 anos)** | $3.420 | $8.640 | $12.960 | $5.940 |
 
 ## Quando o Local Ganha
 
-Os LLMs locais vencem as APIs cloud quando:
+Os LLMs locais arrasam as APIs cloud quando:
 
-### 1. Volume Elevado, Tarefas Simples
+### 1. Volume Alto, Tarefas Simples
 
-Se os seus agentes fazem classificação, extração ou sumarização (as tarefas aborrecidas que representam 80% das cargas de trabalho de IA), um Qwen 3.5 ou Llama 4 a correr numa GPU de $2.000 processa mais de 100 pedidos por minuto. Às taxas da OpenAI, isso seria $0.50 por mil tokens. Localmente, é $0.00.
+Se seus agentes fazem classificação, extração ou sumarização (as tarefas chatas que representam 80% das cargas de trabalho de IA), um Qwen 3.5 ou Llama 4 rodando numa GPU de $2.000 processa mais de 100 requisições por minuto. Nas taxas da OpenAI, isso custaria $0,50 por mil tokens. Localmente, custa $0,00.
 
-Exemplo real: O meu agente de pipeline de conteúdos classifica 2.000 artigos por dia por tópico. Com GPT-5: $18/dia. Com Qwen 3.5 local: $0.45/dia (eletricidade). Poupança: $6.400/ano.
+Exemplo real: Meu agente de pipeline de conteúdo classifica 2.000 artigos por dia por tópico. Com GPT-5: $18/dia. Com Qwen 3.5 local: $0,45/dia (eletricidade). Economia: $6.400/ano.
 
-### 2. Dados Sensíveis à Privacidade
+### 2. Dados Sensíveis
 
-Saúde, jurídico, financeiro. Se os seus dados não podem sair da rede, a conversa termina aqui. O "custo" de uma violação HIPAA não é algo que se coloque numa folha de cálculo.
+Saúde, jurídico, financeiro. Se seus dados não podem sair da rede, a conversa acaba aqui. O "custo" de uma violação de dados não é algo que se coloca numa planilha.
 
-### 3. A Latência Importa
+### 3. Latência Importa
 
-Inferência local: 20-50ms por token. API OpenAI: 200-500ms por token. Para aplicações em tempo real, isto importa. Um chatbot que demora 3 segundos a responder perde utilizadores.
+Inferência local: 20-50ms por token. API OpenAI: 200-500ms por token. Para aplicações em tempo real, isso faz diferença. Um chatbot que demora 3 segundos para responder perde usuários.
 
 ## Quando a Cloud Ganha
 
 ### 1. Raciocínio Complexo
 
-Peça a um modelo local para planear uma implementação de software em 10 passos. Ele chega ao passo 4 e alucina um comando de Kubernetes que não existe. GPT-5 e Claude 4.6 lidam com isto de forma fiável. O custo extra é um seguro contra outputs incorretos.
+Peça a um modelo local para planejar uma implantação de software em 10 etapas. Ele chega na etapa 4 e alucina um comando de Kubernetes que não existe. GPT-5 e Claude 4.6 lidam com isso de forma confiável. O custo extra é um seguro contra outputs ruins.
 
 ### 2. Volume Baixo
 
-Se faz 50 chamadas de API por mês, as contas são triviais. Mesmo a $5 por chamada, são $250/mês — mais barato do que comprar e manter uma GPU.
+Se você faz 50 chamadas de API por mês, a conta é trivial. Mesmo a $5 por chamada, são $250/mês — mais barato do que comprar e manter uma GPU.
 
 ### 3. Manutenção Zero
 
-LLMs locais exigem: atualizar modelos, gerir quantização, debugar erros CUDA às 2 da manhã e explicar à equipa porque é que o servidor está em baixo. APIs cloud exigem: um cartão de crédito.
+LLMs locais exigem: atualizar modelos, gerenciar quantização, debugar erros CUDA às 2 da manhã e explicar para a equipe por que o servidor caiu. APIs cloud exigem: um cartão de crédito.
 
 ## A Abordagem Híbrida (O Que Realmente Funciona)
 
-Após 6 meses de experimentação, eis o que funcionou:
+Depois de 6 meses de experimentação, aqui está o que funcionou:
 
-```
-┌─────────────────────────────────────┐
-│           ORCHESTRATOR              │
-│         (Cloud: GPT-5/Claude)       │
-│   Plans, reasons, decomposes tasks  │
-└──────────────┬──────────────────────┘
-               │
-       ┌───────┴───────┐
-       ▼               ▼
-┌─────────────┐ ┌─────────────┐
-│  WORKER A   │ │  WORKER B   │
-│  (Local)    │ │  (Cloud)    │
-│  Qwen 3.5   │ │  GPT-5.3    │
-│  Extraction │ │  Generation │
-└─────────────┘ └─────────────┘
-```
+    ┌─────────────────────────────────────┐
+    │           ORQUESTRADOR              │
+    │         (Cloud: GPT-5/Claude)       │
+    │   Planeja, raciocina, decompõe      │
+    └──────────────┬──────────────────────┘
+                   │
+           ┌───────┴───────┐
+           ▼               ▼
+    ┌─────────────┐ ┌─────────────┐
+    │  WORKER A   │ │  WORKER B   │
+    │  (Local)    │ │  (Cloud)    │
+    │  Qwen 3.5   │ │  GPT-5.3    │
+    │  Extração   │ │  Geração    │
+    └─────────────┘ └─────────────┘
 
-**A regra:** Cloud para pensar, local para fazer. Planeamento, raciocínio, geração complexa → cloud. Extração, classificação, chamadas simples de ferramentas → local.
+**A regra:** Cloud para pensar, local para fazer. Planejamento, raciocínio, geração complexa → cloud. Extração, classificação, chamadas simples de ferramentas → local.
 
-Esta configuração híbrida custa 60% menos do que tudo cloud e processa 95% das tarefas.
+Essa configuração híbrida custa 60% menos do que usar só cloud e dá conta de 95% das tarefas.
 
-## Requisitos de Hardware (Atualizado Maio 2026)
+## Requisitos de Hardware (Atualizado em Maio de 2026)
 
-<table className="comparison-table">
-  <thead>
-    <tr><th>Modelo</th><th>VRAM Necessária</th><th>Recomendação de GPU</th><th>Custo</th><th>Tokens/seg</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>Qwen 3.5 (9B)</td><td>8 GB</td><td>RTX 4060 Ti 16GB</td><td>$500</td><td>45</td></tr>
-    <tr><td>Llama 4 (34B)</td><td>24 GB</td><td>RTX 4090 24GB</td><td>$1.800</td><td>28</td></tr>
-    <tr><td>Qwen 3.5 (70B)</td><td>48 GB</td><td>2× RTX 4090</td><td>$3.600</td><td>18</td></tr>
-    <tr><td>DeepSeek V4 (397B)</td><td>Não prático localmente</td><td>—</td><td>—</td><td>—</td></tr>
-  </tbody>
-</table>
+| Modelo | VRAM Necessária | GPU Recomendada | Custo | Tokens/seg |
+| --- | --- | --- | --- | --- |
+| Qwen 3.5 (9B) | 8 GB | RTX 4060 Ti 16GB | $500 | 45 |
+| Llama 4 (34B) | 24 GB | RTX 4090 24GB | $1.800 | 28 |
+| Qwen 3.5 (70B) | 48 GB | 2× RTX 4090 | $3.600 | 18 |
+| DeepSeek V4 (397B) | Inviável localmente | — | — | — |
 
 ## FAQ
 
 ### P: E o Apple Silicon?
 
-Macs M3/M4 com 64 GB+ de memória unificada correm Llama 4 34B a 15-22 tokens/seg. O hardware é caro ($4.000+), mas a eletricidade é negligenciável e é completamente silencioso. Boa opção se já tiver um.
+Macs M3/M4 com 64 GB+ de memória unificada rodam Llama 4 34B a 15-22 tokens/seg. O hardware é caro ($4.000+), mas a eletricidade é desprezível e o aparelho é totalmente silencioso. Boa opção se você já tem um.
 
-### P: A qualidade quantizada é aceitável?
+### P: A qualidade com quantização é aceitável?
 
-Quantização a 4-bit custa ~5% de qualidade por 50% menos VRAM. Para extração e classificação, é aceitável. Para geração, mantenha 8-bit ou superior.
+Quantização em 4-bit custa ~5% de qualidade por 50% menos VRAM. Para extração e classificação, funciona bem. Para geração, fique com 8-bit ou acima.
 
-### P: Posso usar GPUs cloud (Lambda, RunPod) em vez de comprar hardware?
+### P: Posso usar GPUs na cloud (Lambda, RunPod) em vez de comprar hardware?
 
-Sim, e isso altera as contas. Lambda Labs A100: $1.10/hora. Para 500 tarefas de agentes/mês (média de 3 segundos cada), são 25 minutos = $0.46/mês em tempo de GPU. Mas perde o benefício "sempre disponível" e adiciona latência de cold start.
+Sim, e isso muda as contas. Lambda Labs A100: $1,10/hora. Para 500 tarefas de agentes/mês (média de 3 segundos cada), são 25 minutos = $0,46/mês em tempo de GPU. Mas você perde o benefício de estar "sempre disponível" e adiciona latência de cold start.
 
 ## Conclusão
 
-Se processa mais de 1 milhão de tokens por mês, compre uma GPU e corra localmente. Se processa menos, use APIs cloud. Se processa mais de 10 milhões, compre duas GPUs e aprenda a amar os drivers CUDA.
+Se você processa mais de 1 milhão de tokens por mês, compre uma GPU e rode localmente. Se processa menos, use APIs cloud. Se processa mais de 10 milhões, compre duas GPUs e aprenda a amar os drivers CUDA.
 
-**O sweet spot híbrido:** GPT-5/Claude para orquestração e geração complexa. Qwen 3.5/Llama 4 local para todo o resto. É aqui que a maioria das equipas acaba após o primeiro ano.
-
----
-
-## Leia também
-
-- [Sovereign AI: Por Que as Empresas Estão Mudando a Infraestrutura de AI para Dentro de Casa em 2026](/pt/ia-soberana-empresas-interna-2026)
-- [Melhores Ferramentas de IA em 2026: As Que Eu Realmente Uso](/pt/best-ai-tools-in-2026-the-ones-i-actually-use)
+**O sweet spot híbrido:** GPT-5/Claude para orquestração e geração complexa. Qwen 3.5/Llama 4 local para todo o resto. É onde a maioria das equipes acaba depois do primeiro ano.
