@@ -20,15 +20,13 @@ Todo mundo fala em rodar LLMs localmente para economizar. Quase ninguém publica
 ## A Configuração
 
 Eu dirijo uma pequena consultoria de IA. Minha carga de trabalho: ~500 tarefas de agentes por mês, com uma média de 8.000 tokens cada (prompt + resposta). São 4 milhões de tokens por mês. Veja o que isso custa em três cenários:
-
-|  | Local (RTX 4090) | OpenAI (GPT-5.3) | Anthropic (Claude 4.6) | Híbrido |
-| --- | --- | --- | --- | --- |
-| **Tokens mensais** | Ilimitados | 4M | 4M | 4M |
-| **Hardware** | $1.800 (único) | $0 | $0 | $1.800 |
-| **Eletricidade** | $45/mês | $0 | $0 | $45/mês |
-| **Custo da API** | $0 | $240/mês | $360/mês | $60/mês |
-| **TCO (1 ano)** | $2.340 | $2.880 | $4.320 | $2.520 |
-| **TCO (3 anos)** | $3.420 | $8.640 | $12.960 | $5.940 |
+ | **Local (RTX 4090)** | **OpenAI (GPT-5.3)** | **Anthropic (Claude 4.6)** | **Híbrido**
+**Tokens mensais** | Ilimitados | 4M | 4M | 4M
+**Hardware** | $1.800 (único) | $0 | $0 | $1.800
+**Eletricidade** | $45/mês | $0 | $0 | $45/mês
+**Custo da API** | $0 | $240/mês | $360/mês | $60/mês
+**TCO (1 ano)** | $2.340 | $2.880 | $4.320 | $2.520
+**TCO (3 anos)** | $3.420 | $8.640 | $12.960 | $5.940
 
 ## Quando o Local Ganha
 
@@ -86,13 +84,11 @@ Depois de 6 meses de experimentação, aqui está o que funcionou:
 Essa configuração híbrida custa 60% menos do que usar só cloud e dá conta de 95% das tarefas.
 
 ## Requisitos de Hardware (Atualizado em Maio de 2026)
-
-| Modelo | VRAM Necessária | GPU Recomendada | Custo | Tokens/seg |
-| --- | --- | --- | --- | --- |
-| Qwen 3.5 (9B) | 8 GB | RTX 4060 Ti 16GB | $500 | 45 |
-| Llama 4 (34B) | 24 GB | RTX 4090 24GB | $1.800 | 28 |
-| Qwen 3.5 (70B) | 48 GB | 2× RTX 4090 | $3.600 | 18 |
-| DeepSeek V4 (397B) | Inviável localmente | — | — | — |
+**Modelo** | **VRAM Necessária** | **GPU Recomendada** | **Custo** | **Tokens/seg**
+Qwen 3.5 (9B) | 8 GB | RTX 4060 Ti 16GB | $500 | 45
+Llama 4 (34B) | 24 GB | RTX 4090 24GB | $1.800 | 28
+Qwen 3.5 (70B) | 48 GB | 2× RTX 4090 | $3.600 | 18
+DeepSeek V4 (397B) | Inviável localmente | — | — | —
 
 ## FAQ
 
