@@ -68,11 +68,34 @@ def invoke_claude(prompt: str, model_id: str = "anthropic.claude-4-5-sonnet-2026
 
 O Bedrock usa preços baseados em tokens que variam por modelo e comprimento do contexto. Em maio de 2026:
 
-| **Modelo** | **Entrada (por 1K tokens)** | **Saída (por 1K tokens)** |
-|---|---|---|
-| Claude 3.5 Sonnet | $0.003 | $0.015 |
-| Claude 4 | $0.015 | $0.075 |
-| Claude 4.5 Sonnet | $0.018 | $0.09 |
+<div className="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Modelo</th>
+        <th>Entrada (por 1K tokens)</th>
+        <th>Saída (por 1K tokens)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Claude 3.5 Sonnet</td>
+        <td>$0.003</td>
+        <td>$0.015</td>
+      </tr>
+      <tr>
+        <td>Claude 4</td>
+        <td>$0.015</td>
+        <td>$0.075</td>
+      </tr>
+      <tr>
+        <td>Claude 4.5 Sonnet</td>
+        <td>$0.018</td>
+        <td>$0.09</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 Essas taxas são aproximadamente 20-30% mais altas que o preço da API direta da Anthropic, refletindo o prêmio da infraestrutura gerenciada. Para workloads que já ficam dentro da AWS, a conveniência vale a pena. Para equipes com estratégias multi-cloud, é um imposto.
 
