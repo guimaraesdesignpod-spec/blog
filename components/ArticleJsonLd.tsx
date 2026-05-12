@@ -1,3 +1,21 @@
+export interface FAQItem {
+  question: string
+  answer: string
+}
+
+export interface HowToStep {
+  name: string
+  text: string
+  image?: string
+}
+
+export interface HowToSchema {
+  name: string
+  description?: string
+  totalTime?: string
+  steps: HowToStep[]
+}
+
 export interface ArticleSchema {
   headline: string
   description: string
@@ -7,12 +25,13 @@ export interface ArticleSchema {
   image: string
   url: string
   lang?: string
+  faq?: FAQItem[]
+  howTo?: HowToSchema
 }
 
-export default function ArticleJsonLd({ data }: { data: ArticleSchema }) {
+function buildArticleNode(data: ArticleSchema) {
   const lang = data.lang || 'en'
-  const schema = {
-    '@context': 'https://schema.org',
+  return {
     '@type': 'Article',
     headline: data.headline,
     description: data.description,
@@ -29,6 +48,58 @@ export default function ArticleJsonLd({ data }: { data: ArticleSchema }) {
     },
     url: data.url,
     inLanguage: lang === 'pt' ? 'pt-BR' : 'en-US',
+  }
+}
+
+function buildFAQPage(faq: FAQItem[]) {
+  return {
+    '@type': 'FAQPage',
+    mainEntity: faq.map(item => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  }
+}
+
+function buildHowTo(howTo: HowToSchema) {
+  return {
+    '@type': 'HowTo',
+    name: howTo.name,
+    description: howTo.description || '',
+    ...(howTo.totalTime ? { totalTime: howTo.totalTime } : {}),
+    step: howTo.steps.map(step => ({
+      '@type': 'HowToStep',
+      name: step.name,
+      text: step.text,
+      ...(step.image ? { image: step.image } : {}),
+    })),
+  }
+}
+
+export default function ArticleJsonLd({ data }: { data: ArticleSchema }) {
+  const article = buildArticleNode(data)
+  const hasFaq = data.faq && data.faq.length > 0
+  const hasHowTo = data.howTo && data.howTo.steps.length > 0
+
+  let schema: Record<string, unknown>
+
+  if (hasFaq || hasHowTo) {
+    const graph: Record<string, unknown>[] = [article]
+    if (hasFaq) graph.push(buildFAQPage(data.faq!))
+    if (hasHowTo) graph.push(buildHowTo(data.howTo!))
+    schema = {
+      '@context': 'https://schema.org',
+      '@graph': graph,
+    }
+  } else {
+    schema = {
+      '@context': 'https://schema.org',
+      ...article,
+    }
   }
 
   return (

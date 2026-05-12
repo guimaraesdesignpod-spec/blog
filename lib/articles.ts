@@ -17,6 +17,24 @@ export function getRecentArticles(limit: number = 6, lang?: Lang): ArticleMeta[]
   return getAllArticles(lang).slice(0, limit)
 }
 
+/** Return up to `limit` articles that share the most tags with `article`, excluding the article itself. */
+export function getRelatedArticles(article: ArticleMeta, limit: number = 3): ArticleMeta[] {
+  const all = getAllArticles(article.lang).filter(a => a.slug !== article.slug)
+  if (article.tags.length === 0) return all.slice(0, limit)
+
+  const tagSet = new Set(article.tags)
+  const scored = all.map(a => ({
+    article: a,
+    score: a.tags.filter(t => tagSet.has(t)).length,
+  }))
+
+  return scored
+    .filter(s => s.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(s => s.article)
+}
+
 export interface ArticleAlternates {
   self: ArticleMeta
   alternate?: ArticleMeta

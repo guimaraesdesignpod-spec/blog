@@ -16,11 +16,11 @@ imageCreditUrl: "https://unsplash.com"
 
 ## 386 Upvotes. 148 Comentários. E Uma Verdade Inconfortável Sobre Delegação.
 
-No dia 9 de maio de 2026, um artigo de pesquisadores da Microsoft chegou silenciosamente à página inicial do Hacker News e explodiu a seção de comentários mais rápido do que a maioria das divulgações de vulnerabilidades de segurança. Intitulado "LLMs Corrupt Your Documents When You Delegate" (LLMs corrompem seus documentos quando você delega), o estudo — publicado como arXiv:2604.15597 — não descobriu uma nova falha grave ou técnica de jailbreak. Encontrou algo, talvez, ainda pior: **mesmo os melhores modelos de IA do mercado vão degradar seus documentos silenciosamente se você deixá-los rodando tempo suficiente**.
+No dia 9 de maio de 2026, um artigo de pesquisadores da Microsoft chegou silenciosamente à página inicial do Hacker News e explodiu a seção de comentários mais rápido do que a maioria das divulgações de vulnerabilidades de segurança. Intitulado "LLMs Corrupt Your Documents When You Delegate" (LLMs corrompem seus documentos quando você delega), o estudo — publicado como [arXiv:2604.15597](https://arxiv.org/abs/2604.15597) — não descobriu uma nova falha grave ou técnica de jailbreak. Encontrou algo, talvez, ainda pior: **mesmo os melhores modelos de IA do mercado vão degradar seus documentos silenciosamente se você deixá-los rodando tempo suficiente**.
 
 Os números são preocupantes. Em 52 domínios de atuação profissional — desde engenharia de software até cristalografia, de partituras musicais até documentos jurídicos — os modelos de ponta, incluindo Gemini 3.1 Pro, Claude 4.6 Opus e GPT 5.4, corromperam uma média de **25% do conteúdo dos documentos** ao final de fluxos de trabalho longos. Alguns modelos foram ainda piores. Nenhum se saiu de forma realmente confiável.
 
-A reação da comunidade do Hacker News foi imediata e dividida. Engenheiros que usam ferramentas de codificação agentica descartaram a metodologia como falha. Usuários do dia a dia disseram que o artigo confirmava exatamente o que eles já vivenciam. A verdadeira questão que o debate trouxe — e a que eu vou mergulhar aqui — é se o problema está nos próprios modelos ou na *forma como escolhemos usá-los*.
+A [reação da comunidade do Hacker News](https://news.ycombinator.com/item?id=47981030) foi imediata e dividida. Engenheiros que usam ferramentas de codificação agentica descartaram a metodologia como falha. Usuários do dia a dia disseram que o artigo confirmava exatamente o que eles já vivenciam. A verdadeira questão que o debate trouxe — e a que eu vou mergulhar aqui — é se o problema está nos próprios modelos ou na *forma como escolhemos usá-los*.
 
 ---
 
@@ -75,7 +75,7 @@ Um comentador foi direto: "A maioria das pessoas não vai ser usuária experient
 
 Uma terceira vertente da discussão conectou o artigo a um fenômeno mais amplo que os comentadores chamaram de **"ablação semântica"** — a ideia de que cada passagem pelo LLM arranca nuances, especificidades e precisões factuais, substituindo-as por alternativas estatisticamente comuns, porém genericamente inodoras.
 
-Um usuário do HN compartilhou um artigo do The Register, de fevereiro de 2026, que trazia exatamente esse argumento: textos gerados por IA são entediantes e perigosos não porque alucinem de forma dramática, mas porque "ablam" o significado — achatando análises originais em massas de consenso. Os resultados do DELEGATE-52 sugerem que o mesmo acontece com documentos estruturados e bases de código, e não apenas com textos em prosa.
+Um usuário do HN compartilhou um [artigo do The Register, de fevereiro de 2026](https://www.theregister.com/2026/02/24/ai_semantic_ablation/), que trazia exatamente esse argumento: textos gerados por IA são entediantes e perigosos não porque alucinem de forma dramática, mas porque "ablam" o significado — achatando análises originais em massas de consenso. Os resultados do DELEGATE-52 sugerem que o mesmo acontece com documentos estruturados e bases de código, e não apenas com textos em prosa.
 
 ---
 

@@ -7,12 +7,13 @@ import type { Metadata } from 'next'
 import Footer from '@/components/Footer'
 import NewsletterForm from '@/components/NewsletterForm'
 import MobileNav from '@/components/MobileNav'
+import HomeArticles from '@/components/HomeArticles'
 
 type Lang = 'en' | 'pt'
 
-const META: Record<Lang, { title: string; tagline: string; description: string }> = {
-  en: { title: 'Brainwire', tagline: 'AI productivity tools', description: 'AI productivity tools for professionals' },
-  pt: { title: 'Brainwire', tagline: 'produtividade com IA', description: 'Ferramentas de IA para produtividade profissional' },
+const META: Record<Lang, { title: string; tagline: string; description: string; ogDescription: string }> = {
+  en: { title: 'Brainwire', tagline: 'AI productivity tools', description: 'AI productivity tools for professionals', ogDescription: 'Brainwire — honest reviews of AI tools, autonomous agents, and tech trends. Bilingual EN/PT-BR blog with real code and unfiltered opinions.' },
+  pt: { title: 'Brainwire', tagline: 'produtividade com IA', description: 'Ferramentas de IA para produtividade profissional', ogDescription: 'Brainwire — análises honestas de ferramentas de IA, agentes autônomos e tendências tech. Blog bilingue EN/PT-BR com código real e opiniões sem filtro.' },
 }
 
 type LabelsType = {
@@ -48,7 +49,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params
   const meta = META[lang as Lang]
   if (!meta) return {}
-  return { title: { absolute: 'Brainwire' }, description: meta.description, alternates: { languages: { en: '/en', pt: '/pt' } } }
+  return {
+    title: { absolute: 'Brainwire' },
+    description: meta.description,
+    alternates: { languages: { en: '/en', 'pt-BR': '/pt' } },
+    openGraph: {
+      title: 'Brainwire',
+      description: meta.ogDescription,
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://brainwire-blog.vercel.app'}/${lang}`,
+      siteName: 'Brainwire',
+      locale: lang === 'pt' ? 'pt_BR' : 'en_US',
+      type: 'website',
+      images: [{ url: '/icon.svg', width: 512, height: 512, alt: 'Brainwire logo' }],
+    },
+    twitter: {
+      card: 'summary',
+      title: 'Brainwire',
+      description: meta.ogDescription,
+      images: ['/icon.svg'],
+    },
+  }
 }
 
 function LogoMark({ size = 22 }: { size?: number }) {
@@ -223,16 +243,7 @@ export default async function LangPage({ params }: Props) {
 
       <div style={{ flex: 1 }}>
         {rest.length > 0 && (
-          <div className="home-grid-wrap">
-            <div className="section-label-row">
-              <span>{labels.recent}</span>
-            </div>
-            <div className="cards-grid">
-              {rest.map((article, i) => (
-                <ArticleCard key={article.slug} article={article} lang={lang as Lang} wide={i === 0 && rest.length > 1} />
-              ))}
-            </div>
-          </div>
+          <HomeArticles articles={rest} lang={lang as Lang} />
         )}
 
         {articles.length === 0 && (

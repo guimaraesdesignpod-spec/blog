@@ -11,6 +11,15 @@ imageAlt: "Laptop com editor de código, setup de programação para criar agent
 imageCredit: ""
 imageCreditUrl: ""
 author: "Elisio Guimarães"
+faq:
+  - q: "Qual o melhor framework para criar o primeiro agente de IA?"
+    a: "Depende do seu nível de experiência e objetivo. Para iniciantes, o artigo recomenda o CrewAI v2 pela simplicidade e documentação em português. Para quem já conhece Python, o LangChain v2 oferece mais flexibilidade. O AutoGPT é ideal para tarefas totalmente autônomas, enquanto o Agents SDK da OpenAI é o mais simples para protótipos rápidos."
+  - q: "Preciso de GPU para criar um agente de IA?"
+    a: "Não necessariamente. Pode criar agentes usando APIs cloud como OpenAI ou Anthropic, que não exigem hardware local além de um computador comum. O artigo mostra exemplos com a API da OpenAI que funcionam em qualquer máquina com Python instalado. GPU local só é necessária se optar por rodar modelos open-source localmente via Ollama."
+  - q: "Quanto tempo leva para criar o primeiro agente funcional?"
+    a: "Com o tutorial do artigo, entre 30 minutos e 2 horas, dependendo da familiaridade com Python. O exemplo prático — um agente que pesquisa repositórios no GitHub, seleciona os melhores e gera um resumo — é funcional com menos de 50 linhas de código."
+  - q: "Agentes de IA são seguros para usar em produção?"
+    a: "Com as devidas precauções, sim. O artigo recomenda: limitar o acesso a ferramentas (nunca dar acesso root ao terminal), definir budgets de tokens, validar outputs antes de executar ações e usar guardrails como os do Agents SDK da OpenAI. Em 2026, muitas empresas já usam agentes em produção para tarefas bem delimitadas como triagem de emails e geração de relatórios."
 ---
 
 # Como Criar o Primeiro Agente de IA em 2026

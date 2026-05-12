@@ -1,12 +1,12 @@
 ---
 title: "Plataforma Open-Source no Governo: Guia de Lançamento"
-description: "Lançamento faseado de uma plataforma open-source para o governo com arquitetura segura, governação por políticas e adoção mensurável."
+description: "Lançamento faseado de uma plataforma open-source para o governo com arquitetura segura, governança por políticas e adoção mensurável."
 date: "2026-04-29"
 translationKey: "open-source-government-code-platform-soft-launch-1427"
 lang: "pt-BR"
 tags: ["Open Source", "Governo Digital", "DevSecOps", "Engenharia de Plataforma", "Transformação Digital", "2026"]
 image: "https://images.unsplash.com/photo-1653213096280-57d895842861?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY5Mzl8MHwxfHNlYXJjaHwxfHxvcGVuLXNvdXJjZSUyMGNvZGUlMjBwbGF0Zm9ybSUyMGZvciUyMGdvdmVybm1lbnR8ZW58MHwwfHx8MTc3NzQ4NzI4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
-imageAlt: "Programadores governamentais a colaborar numa plataforma de código open-source com dashboards de segurança"
+imageAlt: "Programadores governamentais colaborando numa plataforma de código open-source com dashboards de segurança"
 imageCredit: "Markus Winkler"
 imageCreditUrl: "https://unsplash.com/@markuswinkler"
 author: "Elisio Guimarães"
@@ -72,7 +72,7 @@ No mínimo, a arquitetura de lançamento faseado deve incluir:
 - Privilégios elevados just-in-time para operações de administração.
 - Logs de auditoria de acesso imutáveis.
 
-### Baseline de governação de repositórios
+### Baseline de governança de repositórios
 - Templates de organização/repositório com definições de segurança por defeito.
 - Branches principais protegidas com verificações obrigatórias.
 - Pull requests obrigatórios e número mínimo de revisores.
@@ -92,7 +92,7 @@ No mínimo, a arquitetura de lançamento faseado deve incluir:
 
 Um erro comum é customizar em excesso na fase 1. Evite-o. Use integrações standard e middleware customizado mínimo, salvo se a regulação exigir o contrário. Cada extensão customizada acrescenta risco de manutenção e pode atrasar patches de segurança.
 
-Outra decisão de design importante: o modelo de governação multi-tenant. No contexto governamental, os organismos precisam frequentemente de autonomia, mas isolamento total mata a reutilização. Um compromisso prático é:
+Outra decisão de design importante: o modelo de governança multi-tenant. No contexto governamental, os organismos precisam frequentemente de autonomia, mas isolamento total mata a reutilização. Um compromisso prático é:
 
 - Plano de controle compartilhado da plataforma.
 - Namespaces por organismo com herança de políticas.
@@ -191,7 +191,7 @@ Acompanhe métricas em quatro dashboards:
 - Módulos partilhados adotados em serviços de produção.
 - Estimativa de horas poupadas por reutilização.
 
-Para comunicação, faça uma revisão mensal de governação com três artefatos:
+Para comunicação, faça uma revisão mensal de governança com três artefatos:
 
 1. O que funcionou (ganhos sustentados por evidência).
 2. O que falhou ou gerou fricção (com causas-raiz).
@@ -217,7 +217,7 @@ Um lançamento faseado de uma plataforma de código open source para o governo n
 
 Percurso prático:
 
-- Semana 0-2: fechar missão, métricas, papéis de governação e limites de risco.
+- Semana 0-2: fechar missão, métricas, papéis de governança e limites de risco.
 - Semana 2-6: fazer onboarding de equipas-piloto cuidadosamente selecionadas com templates orientados por políticas.
 - Semana 6-10: recolher evidência operacional, de segurança e de produtividade; corrigir rapidamente as áreas de maior fricção.
 - Semana 10-12: realizar revisão de prontidão para escalar e aprovar a vaga seguinte apenas quando controles e suporte forem repetíveis.

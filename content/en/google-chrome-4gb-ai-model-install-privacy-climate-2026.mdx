@@ -8,15 +8,16 @@ imageAlt: "Desert landscape with cracked earth and broken electronics symbolizin
 imageCredit: "Alexander Hanff / DrawThings"
 imageCreditUrl: "https://www.thatprivacyguy.com/blog/chrome-silent-nano-install"
 image: "https://images.unsplash.com/photo-1682687220742-aba13b6e50ba"
+tldr: "Google silently installed Gemini Nano — a 4GB on-device AI model — inside Chrome without user consent. The model re-downloads if deleted, has no opt-out, and at Chrome's scale (2 billion devices), each push costs 240–480 million kWh. Privacy researcher Alexander Hanff argues this violates EU ePrivacy law. The environmental and consent implications go far beyond one browser."
 ---
 
 # Google Chrome Installs a 4GB AI Model Without Asking — And the Climate Cost Is Insane
 
 ## 988 Upvotes. 670 Comments. One Very Angry Internet.
 
-On May 4, 2026, privacy researcher **Alexander Hanff** published a bombshell investigation that most Chrome users had no idea was already sitting on their machines: **Google has been silently installing a 4GB on-device AI model** inside Chrome. Not in the cloud. Not opt-in. Right on your SSD, using storage you never agreed to give up — and if you delete it, Chrome re-downloads it automatically.
+On May 4, 2026, privacy researcher **[Alexander Hanff](https://www.thatprivacyguy.com/blog/chrome-silent-nano-install)** published a bombshell investigation that most Chrome users had no idea was already sitting on their machines: **Google has been silently installing a 4GB on-device AI model** inside Chrome. Not in the cloud. Not opt-in. Right on your SSD, using storage you never agreed to give up — and if you delete it, Chrome re-downloads it automatically.
 
-The Hacker News discussion — scored a scorching **~990 points** with over **670 comments** — reveals a divided technical community. Some see "innovation." Others see something far more troubling: a pattern of corporate overreach where user consent is treated as a bug, not a feature.
+The [Hacker News discussion](https://news.ycombinator.com/item?id=48019219) — scored a scorching **~990 points** with over **670 comments** — reveals a divided technical community. Some see "innovation." Others see something far more troubling: a pattern of corporate overreach where user consent is treated as a bug, not a feature.
 
 But this story goes beyond privacy. Hanff's analysis digs into something most coverage missed: **the environmental cost of pushing AI to two billion devices without asking.**
 
@@ -129,7 +130,7 @@ Unlike browser extensions or feature flags, this model **reinstalls itself** aft
 
 ### Pattern Recognition: This Has Happened Before
 
-Hanff points out this isn't Google's first rodeo — and it isn't the only company doing it. Two weeks prior, he published about **Anthropic silently registering Native Messaging bridges** in seven Chromium-based browsers via Claude Desktop installations. The pattern:
+Hanff points out this isn't Google's first rodeo — and it isn't the only company doing it. Two weeks prior, he [published about Anthropic silently registering Native Messaging bridges](https://www.thatprivacyguy.com/blog/anthropic-native-messaging) in seven Chromium-based browsers via Claude Desktop installations. The pattern:
 
 1. Install Product A (with user consent)
 2. Write configuration into Products B, C, D, E, F, G, H (without asking)

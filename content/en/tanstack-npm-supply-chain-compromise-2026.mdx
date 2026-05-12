@@ -21,7 +21,7 @@ Between 19:20 and 19:26 UTC on May 11, an attacker published 84 malicious versio
 
 ## How the Attack Worked: A Three-Step Chain
 
-The postmortem published by TanStack maintainer Tanner Linsley is one of the most detailed and honest security disclosures I have ever read from an open-source project. It reveals a sophisticated attack that combined three separate vulnerabilities, none of which alone would have been enough.
+The [postmortem published by TanStack maintainer Tanner Linsley](https://github.com/TanStack/router/issues/7383) is one of the most detailed and honest security disclosures I have ever read from an open-source project. It reveals a sophisticated attack that combined three separate vulnerabilities, none of which alone would have been enough.
 
 ### Step 1: The "Pwn Request" in `pull_request_target`
 
@@ -31,7 +31,7 @@ The workflow checked out the fork's merged code and ran a build. Inside that bui
 
 ### Step 2: GitHub Actions Cache Poisoning
 
-This is the class of attack documented by security researcher Adnan Khan in 2024, and it remains a known but under-mitigated risk in GitHub Actions. The malicious `vite_setup.mjs` wrote data into the pnpm store under the exact cache key that `release.yml` would compute: `Linux-pnpm-store-${hashFiles('**/pnpm-lock.yaml')}`. When the benchmark job ended, `actions/cache@v5`'s post-step saved the poisoned store to that key.
+This is the class of attack [documented by security researcher Adnan Khan in 2024](https://adnanthekhan.com/2024/12/20/pwning-a-browser-extensions-cache-poisoning-in-github-actions/), and it remains a known but under-mitigated risk in GitHub Actions. The malicious `vite_setup.mjs` wrote data into the pnpm store under the exact cache key that `release.yml` would compute: `Linux-pnpm-store-${hashFiles('**/pnpm-lock.yaml')}`. When the benchmark job ended, `actions/cache@v5`'s post-step saved the poisoned store to that key.
 
 When `release.yml` next ran on a push to `main`, its Setup Tools step restored the poisoned cache — entirely as designed. The attacker did not break the cache mechanism; they exploited its trust model. Cache scope is per-repo and shared across `pull_request_target` runs and pushes to `main`. A PR running in the base repo's cache scope can poison entries that production workflows will later restore. This is not a TanStack-specific bug. It is a GitHub Actions design issue that requires conscious mitigation.
 
@@ -45,7 +45,7 @@ Those binaries:
 - Extracted the OIDC token, which the runner mints lazily in memory when `id-token: write` is set
 - Used the token to authenticate POST requests directly to `registry.npmjs.org`, bypassing the workflow's defined Publish Packages step entirely
 
-This is the same memory-extraction technique used in the `tj-actions/changed-files` compromise of March 2025. The attacker did not invent novel tradecraft; they recombined published research with devastating effect.
+This is the same memory-extraction technique used in the [`tj-actions/changed-files` compromise of March 2025](https://www.stepsecurity.io/blog/incident-report-tj-actions-changed-files-supply-chain-attack). The attacker did not invent novel tradecraft; they recombined published research with devastating effect.
 
 ## What the Malware Actually Does
 
@@ -66,7 +66,7 @@ The payload does not just look in obvious places. It targets AI tool configs, cr
 
 ### Self-Propagation
 
-After stealing credentials, the worm enumerates other packages the victim maintains via `registry.npmjs.org/-/v1/search?text=maintainer:<user>` and republishes them with the same injection. This is why the attack spread from TanStack to packages from UiPath, DraftLab, MistralAI, OpenSearch, and dozens of smaller maintainers within hours. Socket.dev tracked over 416 compromised package artifacts by May 12, and the number was still growing.
+After stealing credentials, the worm enumerates other packages the victim maintains via `registry.npmjs.org/-/v1/search?text=maintainer:<user>` and republishes them with the same injection. This is why the attack spread from TanStack to packages from UiPath, DraftLab, MistralAI, OpenSearch, and dozens of smaller maintainers within hours. [Socket.dev](https://socket.dev/blog/tanstack-supply-chain-attack) tracked over 416 compromised package artifacts by May 12, and the number was still growing.
 
 ### Persistence Mechanisms
 
@@ -83,7 +83,7 @@ Stolen data is encrypted with RSA-4096-OAEP wrapped AES-256-GCM and sent through
 - **Session Protocol CDN**: Uploaded to `filev2.getsession.org`, the file API of a legitimate privacy-focused messaging service, making it unlikely to appear on corporate blocklists
 - **GitHub dead-drop**: Committed to attacker-controlled repositories via the GitHub GraphQL API, with commits authored as `claude@users.noreply.github.com` and branches named using Dune universe terminology (`atreides`, `fremen`, `melange`, etc.) disguised as Dependabot branches
 
-The Dune-themed naming is a deliberate branding choice. The campaign self-identifies as "Mini Shai-Hulud," a reference to the sandworms of Frank Herbert's universe. StepSecurity attributes the campaign to TeamPCP, the same actor behind recent compromises of Bitwarden CLI, Checkmarx KICS/AST, Aqua Security Trivy, Telnyx, and LiteLLM.
+The Dune-themed naming is a deliberate branding choice. The campaign self-identifies as "Mini Shai-Hulud," a reference to the sandworms of Frank Herbert's universe. [StepSecurity](https://www.stepsecurity.io/blog/tanstack-npm-supply-chain-attack-may-2026) attributes the campaign to TeamPCP, the same actor behind recent compromises of Bitwarden CLI, Checkmarx KICS/AST, Aqua Security Trivy, Telnyx, and LiteLLM.
 
 ## The Dead-Man's Switch: A Ransom Threat Built In
 
@@ -139,7 +139,7 @@ It is tempting to treat this as a TanStack problem. It is not. TanStack responde
 
 The "Mini Shai-Hulud" campaign has been active since at least April 29, 2026, and has hit SAP CAP packages, PyTorch Lightning on PyPI, Intercom's official SDK, and now TanStack. It is a true worm: it does not just exploit one package. It exploits the trust relationships between packages, maintainers, and CI/CD infrastructure. Every time it succeeds, it grows.
 
-Google's Threat Intelligence Group published a separate report on May 11 about criminal hackers using AI to discover and weaponize zero-day vulnerabilities. That same day, a supply chain worm with AI-tool configuration harvesting and self-propagation through developer infrastructure was spreading across npm. The two stories are connected by a single thread: in 2026, the tools we use to build software are themselves under active, automated, and increasingly intelligent attack.
+[Google's Threat Intelligence Group](https://blog.google/threat-analysis-group/ai-powered-cyber-threats-2026/) published a separate report on May 11 about criminal hackers using AI to discover and weaponize zero-day vulnerabilities. That same day, a supply chain worm with AI-tool configuration harvesting and self-propagation through developer infrastructure was spreading across npm. The two stories are connected by a single thread: in 2026, the tools we use to build software are themselves under active, automated, and increasingly intelligent attack.
 
 The question is no longer whether your dependencies are safe. The question is whether you have the visibility to know when they are not.
 

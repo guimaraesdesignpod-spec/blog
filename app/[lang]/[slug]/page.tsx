@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getArticle, getArticleSlugs } from '@/lib/mdx'
-import { getArticleAlternates } from '@/lib/articles'
+import { getArticleAlternates, getRelatedArticles } from '@/lib/articles'
 import { SITE_ORIGIN } from '@/lib/config'
 import ArticleLayout from '@/components/ArticleLayout'
 import ArticleJsonLd from '@/components/ArticleJsonLd'
@@ -70,6 +70,7 @@ export default async function ArticlePage({ params }: Props) {
   try {
     const article = getArticle(lang as Lang, slug)
     const url = `${SITE_ORIGIN}/${lang}/${slug}`
+    const related = getRelatedArticles(article, 3)
     return (
       <>
         <ArticleJsonLd
@@ -80,9 +81,11 @@ export default async function ArticlePage({ params }: Props) {
             image: article.image,
             url,
             lang,
+            faq: article.faq,
+            howTo: article.howTo,
           }}
         />
-        <ArticleLayout article={article}>
+        <ArticleLayout article={article} related={related}>
           <MDXRemote source={article.content} />
         </ArticleLayout>
       </>

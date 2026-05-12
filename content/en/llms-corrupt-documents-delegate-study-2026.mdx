@@ -16,11 +16,11 @@ imageCreditUrl: "https://unsplash.com"
 
 ## 386 Upvotes. 148 Comments. And One Uncomfortable Truth About Delegation.
 
-On 9 May 2026, a paper from Microsoft researchers quietly hit the Hacker News front page and lit up the comments section faster than most security vulnerability disclosures. Titled "LLMs Corrupt Your Documents When You Delegate," the study — published as arXiv:2604.15597 — didn't find a new zero-day or jailbreak technique. It found something arguably worse: **even the best AI models on the market will quietly degrade your documents if you let them run long enough**.
+On 9 May 2026, a paper from Microsoft researchers quietly hit the Hacker News front page and lit up the comments section faster than most security vulnerability disclosures. Titled "LLMs Corrupt Your Documents When You Delegate," the study — published as [arXiv:2604.15597](https://arxiv.org/abs/2604.15597) — didn't find a new zero-day or jailbreak technique. It found something arguably worse: **even the best AI models on the market will quietly degrade your documents if you let them run long enough**.
 
 The numbers are sobering. Across 52 professional domains — from software engineering to crystallography, from music notation to legal drafting — frontier models including Gemini 3.1 Pro, Claude 4.6 Opus, and GPT 5.4 corrupted an average of **25% of document content** by the end of long workflows. Some models performed worse. None performed reliably well.
 
-The Hacker News community's reaction was immediate and divided. AI-native engineers dismissed the methodology as flawed. Everyday users said the paper confirmed their daily experience. The real question the debate raised — and the one I'll dig into here — is whether the problem lies in the models themselves, or in *how we've chosen to use them*.
+The [Hacker News community's reaction](https://news.ycombinator.com/item?id=47981030) was immediate and divided. AI-native engineers dismissed the methodology as flawed. Everyday users said the paper confirmed their daily experience. The real question the debate raised — and the one I'll dig into here — is whether the problem lies in the models themselves, or in *how we've chosen to use them*.
 
 ---
 
@@ -75,7 +75,7 @@ This is where the debate sharpens. The paper may have used a technically simple 
 
 A third strand of the discussion connected the paper to a broader phenomenon commenters called **"semantic ablation"** — the idea that each pass through an LLM strips away nuance, specificity, and factual precision, replacing them with statistically likely but generically safe alternatives.
 
-One HN user shared a Register article from February 2026 making exactly this case: AI writing is boring and dangerous not because it hallucinates dramatically, but because it "ablates" meaning — flattening original analysis into consensus-shaped mush. The DELEGATE-52 results suggest the same thing happens to structured documents and codebases, not just prose.
+One HN user shared a [Register article from February 2026](https://www.theregister.com/2026/02/24/ai_semantic_ablation/) making exactly this case: AI writing is boring and dangerous not because it hallucinates dramatically, but because it "ablates" meaning — flattening original analysis into consensus-shaped mush. The DELEGATE-52 results suggest the same thing happens to structured documents and codebases, not just prose.
 
 ---
 

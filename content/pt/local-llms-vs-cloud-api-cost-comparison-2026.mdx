@@ -6,11 +6,20 @@ translationKey: "local-llms-vs-cloud-api-cost-comparison-2026"
 lang: "pt-BR"
 tags: ["LLMs Locais", "APIs Cloud", "Análise de Custos", "Ollama", "OpenAI", "Infraestrutura", "2026"]
 image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5MjY5Mzl8MHwxfHNlYXJjaHwxfHxzZXJ2ZXIlMjByYWNrJTIwZGF0YSUyMGNlbnRlcnxlbnwwfDB8fHwxNzc2ODU1MTU3fDA&ixlib=rb-4.1.0&q=80&w=1080"
-imageAlt: "Rack de servidores num data center com hardware local de inferência de IA a executar language models"
+imageAlt: "Rack de servidores num data center com hardware local de inferência de IA executando language models"
 imageCredit: "Taylor Vick"
 imageCreditUrl: "https://unsplash.com/@tvick"
 author: "Elisio Guimarães"
 keywords: ["comparação custo LLM local 2026", "custo Ollama vs OpenAI API", "requisitos hardware correr LLM localmente", "TCO infraestrutura IA", "inferência IA local vs cloud"]
+faq:
+  - q: "Vale a pena rodar LLMs localmente em vez de usar APIs cloud?"
+    a: "Depende do volume de uso. Para até ~2 milhões de tokens por mês, APIs cloud são mais baratas quando se considera o custo total (hardware + energia). A partir de ~5 milhões de tokens mensais, hardware local como uma RTX 4090 começa a ser mais económico. O artigo apresenta uma análise detalhada de TCO com números reais de faturação."
+  - q: "Qual o hardware mínimo para rodar um LLM localmente?"
+    a: "Para modelos de 7B-13B parâmetros (como Llama 3, Mistral), uma GPU com 8-12 GB de VRAM é suficiente. Para modelos de 70B+, precisa de 24 GB ou mais (RTX 4090, A6000). Alternativamente, pode usar quantização (Q4, Q5) para reduzir requisitos de VRAM com perda mínima de qualidade."
+  - q: "Quanto custa a eletricidade para manter um LLM local funcionando?"
+    a: "Uma RTX 4090 consome cerca de 350-400W em carga de inferência. A 100 horas por mês, isso representa aproximadamente 40 kWh, ou cerca de €6-€10 mensais na tarifa residencial portuguesa. O artigo detalha o cálculo completo de TCO incluindo amortização do hardware."
+  - q: "Ollama ou LM Studio: qual é melhor para começar?"
+    a: "Ollama é melhor para uso em servidor e integração com código (tem API REST). LM Studio é melhor para uso desktop com interface gráfica e descoberta de modelos. Ambos suportam quantização e são gratuitos. O artigo recomenda começar com Ollama se o objetivo for integração em pipelines de desenvolvimento."
 ---
 
 # LLMs Locais vs APIs Cloud: A Verdadeira Comparação de Custos em 2026

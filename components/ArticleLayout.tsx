@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Article } from '@/lib/mdx'
+import { Article, ArticleMeta } from '@/lib/mdx'
 import AdUnit from '@/components/AdUnit'
 
 interface TocItem {
@@ -15,6 +15,7 @@ interface TocItem {
 interface Props {
   article: Article
   children: React.ReactNode
+  related?: ArticleMeta[]
 }
 
 export default function ArticleLayout({ article, children }: Props) {
@@ -22,7 +23,7 @@ export default function ArticleLayout({ article, children }: Props) {
   const [activeId, setActiveId] = useState('')
 
   const date = new Date(article.date).toLocaleDateString(
-    article.lang === 'pt' ? 'pt-PT' : 'en-US',
+    article.lang === 'pt' ? 'pt-BR' : 'en-US',
     { year: 'numeric', month: 'long', day: 'numeric' }
   )
   const category = article.tags[0] ?? ''
@@ -86,6 +87,19 @@ export default function ArticleLayout({ article, children }: Props) {
         </Link>
       </nav>
 
+      {/* Breadcrumb */}
+      <div className="breadcrumb">
+        <Link href={`/${article.lang}`}>{article.lang === 'pt' ? 'Início' : 'Home'}</Link>
+        <span className="breadcrumb-sep">›</span>
+        {category && (
+          <>
+            <Link href={`/${article.lang}/category/${category.toLowerCase().replace(/\s+/g, '-')}`}>{category}</Link>
+            <span className="breadcrumb-sep">›</span>
+          </>
+        )}
+        <span className="breadcrumb-current">{article.title}</span>
+      </div>
+
       <div className={`hero${!article.image ? ' hero--no-image' : ''}`}>
         <div className="hero-left">
           {category && <span className="hero-tag">{category}</span>}
@@ -116,6 +130,14 @@ export default function ArticleLayout({ article, children }: Props) {
           {article.description && (
             <p className="intro-text">{article.description}</p>
           )}
+          {article.tldr && (
+            <div className="tldr-box">
+              <span className="tldr-label">
+                {article.lang === 'pt' ? '⚡ TL;DR' : '⚡ TL;DR'}
+              </span>
+              <p>{article.tldr}</p>
+            </div>
+          )}
           <div className="prose article-prose">
             {children}
           </div>
@@ -130,6 +152,35 @@ export default function ArticleLayout({ article, children }: Props) {
             </div>
           </footer>
         </article>
+
+        {related && related.length > 0 && (
+          <section className="related-articles">
+            <h2 className="related-title">
+              {article.lang === 'pt' ? 'Artigos relacionados' : 'Related articles'}
+            </h2>
+            <div className="related-grid">
+              {related.map((r) => {
+                const rDate = new Date(r.date).toLocaleDateString(
+                  article.lang === 'pt' ? 'pt-BR' : 'en-US',
+                  { day: 'numeric', month: 'short', year: 'numeric' }
+                )
+                return (
+                  <Link key={r.slug} href={`/${article.lang}/${r.slug}`} className="related-card">
+                    {r.image && (
+                      <div className="related-img-wrap">
+                        <Image src={r.image} alt={r.imageAlt} fill className="object-cover" sizes="200px" />
+                      </div>
+                    )}
+                    <div className="related-card-body">
+                      <span className="related-card-title">{r.title}</span>
+                      <span className="related-card-date">{rDate}</span>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          </section>
+        )}
 
         <aside className="sidebar">
           {toc.length > 0 && (

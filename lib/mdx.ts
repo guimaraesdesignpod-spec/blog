@@ -3,6 +3,8 @@ import path from 'path'
 import matter from 'gray-matter'
 import readingTime from 'reading-time'
 
+import type { FAQItem, HowToSchema } from '@/components/ArticleJsonLd'
+
 // Exported as a mutable reference so tests can override via __setContentDir
 const _defaults = {
   contentDir: path.join(process.cwd(), 'content'),
@@ -37,6 +39,9 @@ export interface ArticleMeta {
   imageCreditUrl: string
   keywords: string[]
   readingTime: string
+  tldr?: string
+  faq?: FAQItem[]
+  howTo?: HowToSchema
 }
 
 export interface Article extends ArticleMeta {
@@ -70,6 +75,9 @@ export function getArticle(lang: Lang, slug: string): Article {
     imageCredit: data.imageCredit ?? '',
     imageCreditUrl: data.imageCreditUrl ?? '',
     keywords: data.keywords ?? [],
+    tldr: data.tldr ?? undefined,
+    faq: (data.faq as FAQItem[]) ?? undefined,
+    howTo: (data.howTo as HowToSchema) ?? undefined,
     readingTime: (() => {
       const mins = Math.ceil(readingTime(content).minutes)
       return lang === 'pt' ? `${mins} min de leitura` : `${mins} min read`
