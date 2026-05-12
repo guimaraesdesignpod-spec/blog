@@ -1,0 +1,148 @@
+---
+title: "O Ataque ao npm da TanStack: Como 42 Pacotes Foram Comprometidos por um Worm na Cadeia de Suprimentos e o Que Isso Significa para 2026"
+description: "Em 11 de maio de 2026, atacantes publicaram 84 versões maliciosas em 42 pacotes npm da TanStack usando um worm auto-propagação. Veja como o ataque funcionou, por que importa e o que todo desenvolvedor precisa fazer agora."
+date: "2026-05-12"
+translationKey: "tanstack-npm-supply-chain-compromise-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["Cibersegurança", "Ataque à Cadeia de Suprimentos", "npm", "JavaScript", "GitHub Actions", "Mini Shai-Hulud", "2026"]
+image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1080"
+imageAlt: "Visualização abstrata de rede digital representando vulnerabilidades de segurança na cadeia de suprimentos de software"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["comprometimento npm TanStack", "ataque à cadeia de suprimentos 2026", "worm Mini Shai-Hulud", "segurança npm", "envenenamento de cache GitHub Actions", "malware JavaScript", "extração de token OIDC"]
+---
+
+# O Ataque ao npm da TanStack: Como 42 Pacotes Foram Comprometidos por um Worm na Cadeia de Suprimentos e o Que Isso Significa para 2026
+
+Se você é um desenvolvedor JavaScript, há uma boa chance de que tenha acordado em 12 de maio de 2026 com uma notificação que ninguém quer ver: um dos pacotes no seu `node_modules` foi comprometido por um worm auto-propagação que rouba credenciais, instala ganchos de persistência e se publica em cada pacote que você mantém. O alvo desta vez foi a TanStack, um dos ecossistemas de bibliotecas mais populares e respeitados do mundo React e JavaScript. E o ataque foi de uma sofisticação impressionante.
+
+Entre 19:20 e 19:26 UTC de 11 de maio, um atacante publicou 84 versões maliciosas em 42 pacotes npm da família `@tanstack/*`. O método não foi um token npm roubado. Não foi um sequestro de conta de mantenedor. Foi algo muito mais insidioso: uma cadeia de três vulnerabilidades que transformou o próprio pipeline de CI/CD do GitHub Actions da TanStack contra si mesmo, produzindo pacotes maliciosos com atestações de proveniência SLSA Build Level 3 válidas. Em outras palavras, os pacotes comprometidos pareciam completamente legítimos porque foram assinados pela infraestrutura de publicação legítima.
+
+## Como o Ataque Funcionou: Uma Cadeia de Três Passos
+
+O pós-mortem publicado pelo mantenedor da TanStack, Tanner Linsley, é uma das divulgações de segurança mais detalhadas e honestas que já li de um projeto open-source. Ele revela um ataque sofisticado que combinou três vulnerabilidades separadas, nenhuma das quais sozinha teria sido suficiente.
+
+### Passo 1: O "Pwn Request" em `pull_request_target`
+
+Em 10 de maio, um atacante criou um fork do repositório `TanStack/router` e abriu um pull request intitulado "WIP: simplify history build". O PR disparou o `bundle-size.yml`, um workflow do GitHub Actions que usava `pull_request_target` — um gatilho perigoso que executa no contexto do repositório base, não do fork. Isso significava que o workflow tinha acesso aos segredos, permissões e, criticamente, ao escopo de cache do GitHub Actions do repositório base.
+
+O workflow fez checkout do código mesclado do fork e executou um build. Dentro desse build havia um payload JavaScript malicioso de 30 mil linhas (`vite_setup.mjs`) que executava durante o `pnpm install`. O atacante então forçou um push do PR de volta a um estado limpo, fazendo-o parecer uma operação vazia. Mas o dano já estava feito: o código malicioso havia envenenado o cache do pnpm store com um payload chaveado para corresponder ao que o workflow de release buscaria mais tarde.
+
+### Passo 2: Envenenamento de Cache do GitHub Actions
+
+Esta é uma classe de ataque documentada pelo pesquisador de segurança Adnan Khan em 2024, e permanece um risco conhecido, mas pouco mitigado, no GitHub Actions. O `vite_setup.mjs` malicioso escreveu dados no pnpm store sob a chave de cache exata que o `release.yml` computaria: `Linux-pnpm-store-${hashFiles('**/pnpm-lock.yaml')}`. Quando o job de benchmark terminou, o pós-passo do `actions/cache@v5` salvou o store envenenado nessa chave.
+
+Quando o `release.yml` executou em seguida em um push para `main`, seu passo de Setup Tools restaurou o cache envenenado — exatamente como projetado. O atacante não quebrou o mecanismo de cache; explorou seu modelo de confiança. O escopo de cache é por repositório e compartilhado entre execuções de `pull_request_target` e pushes para `main`. Um PR executando no escopo de cache do repositório base pode envenenar entradas que workflows de produção restaurarão depois. Isso não é um bug específico da TanStack. É uma questão de design do GitHub Actions que exige mitigação consciente.
+
+### Passo 3: Extração de Token OIDC da Memória do Runner
+
+É aqui que o ataque escala de esperto para genuinamente alarmante. O `release.yml` declarava legitimamente `id-token: write` porque usava a vinculação de editor confiável OIDC do npm para autenticação. Quando o pnpm store envenenado foi restaurado no runner, binários controlados pelo atacante agora estavam no disco e foram invocados durante o passo de build.
+
+Esses binários:
+- Localizaram o processo `Runner.Worker` do GitHub Actions via `/proc/*/cmdline`
+- Leram `/proc/<pid>/maps` e `/proc/<pid>/mem` para despejar a memória do worker
+- Extraíram o token OIDC, que o runner gera preguiçosamente na memória quando `id-token: write` está definido
+- Usaram o token para autenticar requisições POST diretamente ao `registry.npmjs.org`, contornando completamente o passo definido Publish Packages do workflow
+
+Esta é a mesma técnica de extração de memória usada no comprometimento do `tj-actions/changed-files` de março de 2025. O atacante não inventou táticas novas; recombinaou pesquisa publicada com efeito devastador.
+
+## O Que o Malware Realmente Faz
+
+O payload, um arquivo JavaScript ofuscado de 2,3 MB chamado `router_init.js`, é um coletor de credenciais abrangente e um worm auto-propagação. Quando `npm install` roda contra qualquer versão afetada, o npm resolve a entrada maliciosa de `optionalDependencies`, busca um commit órfão de payload da rede de forks, executa seu script de ciclo de vida `prepare` e roda o payload contrabandeado.
+
+### Coleta de Credenciais
+
+O malware lê mais de 100 caminhos hardcoded cobrindo praticamente todo armazenamento de credenciais que uma máquina de desenvolvedor ou runner de CI possa ter:
+
+- **Provedores de nuvem**: `~/.aws/credentials`, `~/.config/gcloud/*`, `~/.kube/config`, metadados IMDS do AWS EC2
+- **Ferramentas de desenvolvimento**: `~/.npmrc`, `~/.ssh/id_rsa`, `~/.git-credentials`, tokens do GitHub, tokens do Vault
+- **Configurações de ferramentas de IA**: `~/.claude.json`, `~/.claude/mcp.json`, `~/.kiro/settings/mcp.json`
+- **Carteiras de criptomoedas**: `~/.bitcoin/wallet.dat`, `~/.ethereum/keystore/*`, Exodus, Electrum, Atomic
+- **VPNs e apps de mensagem**: ProtonVPN, NordVPN, Signal, Slack, Discord, Telegram
+- **Histórico de shell**: `~/.bash_history`, `~/.zsh_history`, `~/.python_history`
+
+O payload não olha só nos lugares óbvios. Ele mira configs de ferramentas de IA, carteiras de cripto e dados de apps de mensagem. Ele coleta histórico de shell porque desenvolvedores frequentemente colam tokens e senhas em comandos de terminal. A amplitude do alvo sugere que o atacante mapeou ambientes de desenvolvedor extensivamente antes de construir esse payload.
+
+### Auto-Propagação
+
+Depois de roubar credenciais, o worm enumera outros pacotes que a vítima mantém via `registry.npmjs.org/-/v1/search?text=maintainer:<user>` e os republica com a mesma injeção. É por isso que o ataque se espalhou da TanStack para pacotes da UiPath, DraftLab, MistralAI, OpenSearch e dezenas de mantenedores menores em poucas horas. A Socket.dev rastreou mais de 416 artefatos de pacotes comprometidos até 12 de maio, e o número ainda crescia.
+
+### Mecanismos de Persistência
+
+O payload instala vários ganchos de persistência para sobreviver a reinicializações e re-executar a cada lançamento de ferramenta de desenvolvimento:
+
+- **Claude Code**: Um `settings.json` que dispara o malware a cada início de sessão via um gancho `SessionStart`
+- **VS Code**: Uma tarefa em `tasks.json` que dispara a cada abertura de pasta
+- **Serviços no nível do sistema operacional**: Um serviço `gh-token-monitor` no macOS (LaunchAgent) e Linux (serviço systemd de usuário) que sonda tokens do GitHub a cada 60 segundos e re-exfiltra
+- **Workflows do GitHub Actions**: Arquivos `.github/workflows/codeql_analysis.yml` injetados que usam `toJSON(secrets)` para serializar todos os segredos do repositório e enviá-los como artefatos ou POST para um servidor C2
+
+### Arquitetura de Exfiltração
+
+Os dados roubados são criptografados com RSA-4096-OAEP envolvido em AES-256-GCM e enviados por dois canais redundantes:
+- **CDN do Protocolo Session**: Enviado para `filev2.getsession.org`, a API de arquivos de um serviço legítimo de mensagens focado em privacidade, tornando improvável sua presença em listas de bloqueio corporativas
+- **Dead-drop no GitHub**: Commitado em repositórios controlados pelo atacante via API GraphQL do GitHub, com commits assinados como `claude@users.noreply.github.com` e branches nomeados com terminologia do universo de Duna (`atreides`, `fremen`, `melange`, etc.) disfarçados de branches do Dependabot
+
+A temática de Duna é uma escolha deliberada de branding. A campanha se autoidentifica como "Mini Shai-Hulud", referência aos vermes de areia do universo de Frank Herbert. A StepSecurity atribui a campanha ao TeamPCP, o mesmo ator por trás de comprometimentos recentes do CLI da Bitwarden, Checkmarx KICS/AST, Aqua Security Trivy, Telnyx e LiteLLM.
+
+## O Dispositivo de Morte: Uma Ameaça de Resgate Embutida
+
+Talvez o detalhe mais arrepiante seja o dispositivo de morte do payload. A cifra secundária contém a string `IfYouRevokeThisTokenItWillWipeTheComputerOfTheOwner`. Essa string é definida como a descrição de um token npm recém-criado, então a vítima a vê ao auditar seus tokens no painel do npm.
+
+O payload instala um script de monitoramento em `~/.local/bin/gh-token-monitor.sh` que sonda `api.github.com/user` com o token roubado a cada 60 segundos. Se o token for revogado e retornar HTTP 40x, o script executa `rm -rf ~/`. **Não revogue tokens npm antes de isolar a máquina afetada e fazer uma imagem forense para análise.**
+
+## Por Que a "Sorte" Na Verdade Salvou o Ecossistema
+
+Em seu pós-mortem, a TanStack cita duas peças de sorte que provavelmente evitaram um resultado muito pior. Primeiro, o atacante escolheu um payload que quebrava os testes, fazendo o passo Publish Packages ser pulado. Isso significou que os tarballs publicados eram brutos e barulhentos — continham o payload completo de 2,3 MB e falhavam nos testes, tornando a detecção possível em 20 minutos. Um atacante mais cuidadoso que não quebrasse os testes poderia ter publicado silenciosamente por horas a mais.
+
+Segundo, o atacante reutilizou táticas públicas — script de despejo de memória verbatim com comentário de atribuição — em vez de escrever código novo. Isso tornou a correspondência de IOCs mais rápida para pesquisadores de segurança. O pesquisador externo `carlini` abriu uma análise técnica completa no GitHub dentro de 20 minutos da publicação. A Socket.dev e a StepSecurity detectaram e sinalizaram o comprometimento em minutos.
+
+## O Que Deu Errado Antes do Ataque
+
+A avaliação honesta da TanStack sobre o que poderia ter sido melhor vale a pena ser lida por completo, porque se aplica a praticamente todo projeto open-source que usa GitHub Actions hoje.
+
+- **Sem alertas internos**: Os mantenedores souberam do comprometimento de um terceiro. Não tinham monitoramento sobre suas próprias publicações.
+- **Workflows `pull_request_target` não auditados**: Apesar de ser um padrão perigoso de longa data, o `bundle-size.yml` não havia sido auditado para esse risco.
+- **Referências de ações flutuantes**: Ações de terceiros usavam referências flutuantes (`@v6.0.2`, `@main`) em vez de commits SHA fixos, criando risco permanente na cadeia de suprimentos.
+- **Política de unpublish do npm**: A política de "sem unpublish se existirem dependentes" do npm significou que tarballs maliciosos permaneceram instaláveis por horas após a detecção, mesmo depois da descontinuação.
+- **Sete mantenedores no escopo do npm**: Com sete alvos separados de roubo de credenciais para o mesmo raio de explosão, a superfície de ataque era desnecessariamente ampla.
+- **Falha no editor confiável OIDC**: Uma vez configurado, qualquer caminho de código no workflow pode gerar um token capaz de publicar. Não há revisão por publicação ou verificação de fonte de proveniência para detectar publicações de passos inesperados do workflow.
+
+## O Que Todo Desenvolvedor Deve Fazer Agora
+
+Se você instalou qualquer pacote `@tanstack/*` ou qualquer dos outros pacotes comprometidos listados pela Socket.dev e StepSecurity entre 11 de maio, 19:20 UTC, e o momento da descontinuação, assuma que todas as credenciais acessíveis naquele ambiente foram comprometidas.
+
+### Ações Imediatas
+
+1. **Verifique seus arquivos de lock**: Procure por versões `@tanstack/*` publicadas em 11 de maio de 2026. Cruz com a tabela de versões comprometidas no pós-mortem da TanStack ou no rastreador da Socket.dev.
+2. **Apague `node_modules` e reinstale** a partir de um lockfile limpo: `rm -rf node_modules && npm install`
+3. **Busque artefatos de persistência**:
+   - Verifique `.claude/settings.json`, `.vscode/tasks.json`, `.github/workflows/codeql_analysis.yml`
+   - Procure por serviços `gh-token-monitor` no macOS (`~/Library/LaunchAgents/`) e Linux (`~/.config/systemd/user/`)
+   - Remova `~/.local/bin/gh-token-monitor.sh` e `~/.config/gh-token-monitor/`
+4. **Rode todas as credenciais** acessíveis na máquina afetada: tokens npm, PATs do GitHub, chaves AWS/GCP/Azure, chaves SSH, tokens Kubernetes, tokens Vault e quaisquer segredos dos 100+ caminhos alvo.
+5. **Verifique tokens npm**: Execute `npm token list` e procure tokens com a descrição `IfYouRevokeThisTokenItWillWipeTheComputerOfTheOwner`. Não revogue antes de isolar a máquina.
+6. **Audite seus próprios pacotes**: Se algum dos seus pacotes foi publicado durante uma execução de CI que instalou uma versão comprometida, essas versões publicadas também podem estar comprometidas. O worm usa troca de token OIDC para publicar em qualquer pacote ao qual o pipeline tenha acesso.
+
+### Endurecimento Organizacional
+
+- **Remova `pull_request_target` de workflows que executam código controlado por forks**. Use `pull_request` com portões explícitos de aprovação para contribuidores de primeira viagem.
+- **Fixe ações do GitHub de terceiros a commits SHA**, não a tags de versão flutuantes.
+- **Audite o uso de cache** através de limites de confiança. Não assuma que `permissions: contents: read` bloqueia mutação de cache — `actions/cache` usa um token interno do runner.
+- **Adicione verificação de fonte de proveniência** para detectar publicações de passos inesperados do workflow.
+- **Implemente políticas de idade mínima de release** usando `min-release-age` do npm, `minimumReleaseAge` do pnpm, ou ferramentas como Socket.dev para atrasar a exposição a versões recém-publicadas.
+- **Use listas de permissão de egresso** em runners de CI/CD via ferramentas como StepSecurity Harden-Runner para prevenir exfiltração encoberta.
+
+## O Quadro Geral: Isso Não É Sobre a TanStack
+
+É tentador tratar isso como um problema da TanStack. Não é. A TanStack respondeu com transparência, velocidade e honestidade excepcionais. Seu pós-mortem é agora uma referência canônica de como projetos open-source devem lidar com incidentes de segurança. A história real é que as ferramentas e padrões usados nesse ataque — `pull_request_target`, envenenamento de cache, extração de memória OIDC — estão presentes em milhares de repositórios em todo o ecossistema npm, PyPI e open-source em geral.
+
+A campanha "Mini Shai-Hulud" está ativa desde pelo menos 29 de abril de 2026, e atingiu pacotes SAP CAP, PyTorch Lightning no PyPI, o SDK oficial da Intercom, e agora a TanStack. É um worm de verdade: não explora apenas um pacote. Explora os relacionamentos de confiança entre pacotes, mantenedores e infraestrutura de CI/CD. Cada vez que tem sucesso, cresce.
+
+O Grupo de Inteligência de Ameaças do Google publicou um relatório separado em 11 de maio sobre hackers criminosos usando IA para descobrir e armamentar vulnerabilidades zero-day. No mesmo dia, um worm na cadeia de suprimentos com coleta de configurações de ferramentas de IA e auto-propagação através de infraestrutura de desenvolvedores se espalhava pelo npm. As duas histórias estão conectadas por um único fio: em 2026, as ferramentas que usamos para construir software estão sob ataque ativo, automatizado e cada vez mais inteligente.
+
+A questão não é mais se suas dependências são seguras. A questão é se você tem a visibilidade para saber quando não são.
+
+---
+
+*Fontes: Pós-mortem da TanStack (11 de maio de 2026); GitHub issue #7383; Rastreador de cadeia de suprimentos da Socket.dev; Blog da StepSecurity (11 de maio de 2026); Relatório do Google Threat Intelligence Group (11 de maio de 2026).*
