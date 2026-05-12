@@ -15,7 +15,7 @@ keywords: ["Claude on AWS", "Anthropic AWS integration", "Amazon Bedrock Claude"
 
 # Claude on AWS: Running Anthropic's AI Models on Amazon's Infrastructure
 
-When Anthropic announced deeper AWS integration in early 2026, the conversation shifted from "should I use Claude?" to "how do I actually run this at scale without破产 (going bankrupt)?" AWS and Anthropic have a complicated relationship — they're partners, competitors, and the source of half of Claude's training compute depending on which press release you read. This article cuts through the noise and focuses on what matters: getting Claude running reliably on AWS infrastructure in 2026.
+When Anthropic announced deeper AWS integration in early 2026, the conversation shifted from "should I use Claude?" to "how do I actually run this at scale without going broke?" AWS and Anthropic have a complicated relationship — they're partners, competitors, and the source of half of Claude's training compute depending on which press release you read. This article focuses on what matters: getting Claude running reliably on AWS infrastructure in 2026.
 
 ## Two Paths: Amazon Bedrock vs. Direct API
 
@@ -23,7 +23,7 @@ The first architectural decision is also the most consequential. You have two le
 
 **Amazon Bedrock** is AWS's managed AI service. Claude is available as a foundation model, and AWS handles the infrastructure, scaling, and API compatibility with their broader ecosystem. The benefit is integration — Bedrock ties into IAM roles, VPC endpoints, CloudWatch, and the rest of the AWS furniture you've already configured.
 
-**Direct API (via Anthropic)** gives you the raw Claude models with no AWS middle layer. You handle your own infrastructure or use another provider. The benefit is purity — you're using Claude exactly as Anthropic designed it, with no AWS abstraction leaky abstractions.
+**Direct API (via Anthropic)** gives you the raw Claude models with no AWS middle layer. You handle your own infrastructure or use another provider. The benefit is simplicity — you're using Claude exactly as Anthropic designed it, without extra abstraction layers that can leak in unexpected ways.
 
 The practical difference comes down to three factors:
 
@@ -68,35 +68,11 @@ def invoke_claude(prompt: str, model_id: str = "anthropic.claude-4-5-sonnet-2026
 
 Bedrock uses token-based pricing that varies by model and context length. As of May 2026:
 
-<div className="table-wrap">
-  <table>
-    <thead>
-      <tr>
-        <th>Model</th>
-        <th>Input (per 1K tokens)</th>
-        <th>Output (per 1K tokens)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Claude 3.5 Sonnet</td>
-        <td>$0.003</td>
-        <td>$0.015</td>
-      </tr>
-      <tr>
-        <td>Claude 4</td>
-        <td>$0.015</td>
-        <td>$0.075</td>
-      </tr>
-      <tr>
-        <td>Claude 4.5 Sonnet</td>
-        <td>$0.018</td>
-        <td>$0.09</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
+| **Model** | **Input (per 1K tokens)** | **Output (per 1K tokens)** |
+|---|---|---|
+| Claude 3.5 Sonnet | $0.003 | $0.015 |
+| Claude 4 | $0.015 | $0.075 |
+| Claude 4.5 Sonnet | $0.018 | $0.09 |
 
 These rates are approximately 20-30% higher than direct Anthropic API pricing, reflecting AWS's managed infrastructure premium. For workloads that stay within AWS already, the convenience is worth it. For teams with multi-cloud strategies, it's a tax.
 
@@ -114,7 +90,7 @@ AWS publishes Deep Learning AMIs that come pre-configured with CUDA, cuDNN, and 
 
 - **Instance type**: inf2 or g5 families for inference. Inf2 instances use AWS Inferentia2 chips and offer the best price-performance for LLM inference workloads.
 - **AMI**: The latest Ubuntu Deep Learning AMI or Amazon Linux DLAMI.
-- **Storage**: Claude API responses are small, but if you're caching, add EBSgp3 volumes.
+- **Storage**: Claude API responses are small, but if you're caching, add EBS gp3 volumes.
 
 ```bash
 # Launch an inf2.8xlarge for Claude proxy workloads
@@ -137,7 +113,7 @@ Client → Your EC2 Proxy → Anthropic API → Claude
 
 Your EC2 instance handles authentication, request logging, response caching (via Redis or similar), and can enforce custom business logic before forwarding to Claude. This is the pattern used by enterprises with strict data handling requirements — the request touches AWS infrastructure end-to-end, even if the actual inference happens at Anthropic's data centers.
 
-### Caching: The Secret to Cost Reduction
+### Caching: The Real Cost Saver
 
 Whether you use Bedrock or direct API, caching transforms your cost curve. Claude requests have high repetition — similar prompts, system instructions that don't change, common query patterns. A caching layer in front of Claude can reduce API calls by 40-60% for typical business workloads.
 
@@ -150,16 +126,18 @@ AWS Trainium is AWS's custom AI chip, positioned as a lower-cost alternative to 
 ### Trainium for AI Inference
 
 Trainium's advantages:
+
 - **Cost per token**: Approximately 40% cheaper than equivalent NVIDIA instances for LLM inference
 - **AWS integration**: Native integration with SageMaker and ECS
 - **Power efficiency**: Better performance per watt, relevant for sustained workloads
 
 Trainium's limitations:
+
 - **Model compatibility**: Not all models are optimized for Trainium. You'll need to verify your specific model has a Trainium-compatible implementation.
 - **Ecosystem maturity**: Debugging tooling is less mature than CUDA/NVIDIA workflows.
 - **Community support**: Smaller community means fewer guides and Stack Overflow answers.
 
-For Claude specifically: since Claude weights aren't available for self-hosting, Trainium doesn't directly change your Claude inference costs. The relevance is for teams running open-weight models (Llama, Mistral, Qwen) where Trainium can significantly reduce infrastructure costs.
+For Claude specifically: since Claude weights aren't available for self-hosting, Trainium doesn't directly change your Claude inference costs. It matters more for teams running open-weight models (Llama, Mistral, Qwen) where Trainium can cut infrastructure costs significantly.
 
 ## Architecture Patterns That Work
 
@@ -196,11 +174,11 @@ This requires more engineering investment but can reduce AI costs by 30-50% by m
 
 ## Cost Optimization Strategies
 
-Running Claude on AWS without cost optimization is like leaving the tap running. The bills add up fast.
+Running Claude on AWS without thinking about cost is a recipe for bill shock. Here are four strategies worth implementing from day one.
 
 ### Strategy 1: Context Window Management
 
-Claude's pricing scales with context length, even if your actual prompt is small. The solution is aggressive context optimization:
+Claude's pricing scales with context length, even if your actual prompt is small. Aggressive context optimization makes a real difference:
 
 - Truncate conversation history when it exceeds necessary context
 - Use summarization to condense long threads before passing to Claude
