@@ -167,13 +167,13 @@ export default function ArticleLayout({ article, children, related }: Props) {
                 return (
                   <Link key={r.slug} href={`/${article.lang}/${r.slug}`} className="related-card">
                     {r.image && (
-                      <div className="related-img-wrap">
+                      <div className="related-img">
                         <Image src={r.image} alt={r.imageAlt} fill className="object-cover" sizes="200px" />
                       </div>
                     )}
-                    <div className="related-card-body">
+                    <div className="related-body">
+                      <span className="related-date">{rDate}</span>
                       <span className="related-card-title">{r.title}</span>
-                      <span className="related-card-date">{rDate}</span>
                     </div>
                   </Link>
                 )
