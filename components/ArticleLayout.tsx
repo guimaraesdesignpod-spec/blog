@@ -18,7 +18,7 @@ interface Props {
   related?: ArticleMeta[]
 }
 
-export default function ArticleLayout({ article, children }: Props) {
+export default function ArticleLayout({ article, children, related }: Props) {
   const [toc, setToc] = useState<TocItem[]>([])
   const [activeId, setActiveId] = useState('')
 
