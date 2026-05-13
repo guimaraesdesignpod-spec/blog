@@ -203,7 +203,7 @@ export default async function LangPage({ params }: Props) {
       ]
 
       return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', flexDirection: 'column' }} id="main-content">
       <nav className="home-page-nav">
         <Link href={`/${lang}`} className="nav-logo">
           <LogoMark />

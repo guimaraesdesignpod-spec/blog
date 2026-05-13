@@ -7,15 +7,38 @@
   --bg-warm:     oklch(94% 0.012 75);
   --ink:         oklch(16% 0.02 250);
   --ink-mid:     oklch(40% 0.02 250);
-  --ink-light:   oklch(62% 0.015 250);
+  --ink-light:   oklch(52% 0.015 250);
   --accent:      oklch(42% 0.18 165);
   --accent-warm: oklch(67% 0.14 62);
   --accent-pale: oklch(93% 0.06 165);
   --rule:        oklch(88% 0.012 75);
+  --surface:     #ffffff;
+  --tldr-bg:     #eef6ff;
+  --tldr-border: #bbd0e8;
   --serif:       var(--font-lora), Georgia, serif;
   --sans:        'DM Sans', system-ui, sans-serif;
   --mono:        'DM Mono', monospace;
 }
+
+/* ── Dark mode ──────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:          oklch(8% 0 -2);
+    --bg-warm:     oklch(12% 0 -1.5);
+    --ink:         oklch(90.7% 0.004 -1.45);
+    --ink-mid:     oklch(65.9% 0.008 -8.17);
+    --ink-light:   oklch(47.9% 0.017 -5.77);
+    --accent:      oklch(76.9% -0.548 14.7);
+    --accent-warm: oklch(73% 0.18 72);
+    --accent-pale: oklch(76.9% -0.548 14.7 / 0.1);
+    --rule:        oklch(18% 0 -2);
+    --surface:     oklch(12% 0 -1.5);
+    --tldr-bg:     oklch(76.9% -0.548 14.7 / 0.08);
+    --tldr-border: oklch(76.9% -0.548 14.7 / 0.2);
+  }
+}
+
+/* ── Base ──────────────────────────────────────────────── */
 
 /* ── Base ──────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
@@ -31,6 +54,27 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ── Skip to content (WCAG 2.1 AA, critério 2.4.1) ──────── */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #fff;
+  padding: 0.6em 1.2em;
+  border-radius: 0 0 8px 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--sans);
+  z-index: 200;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-to-content:focus {
+  top: 0;
+}
 
 /* ── Progress bar ──────────────────────────────────────── */
 #progress-bar {
@@ -48,7 +92,7 @@ a { color: inherit; text-decoration: none; }
 nav {
   position: sticky;
   top: 0;
-  background: oklch(97% 0.008 75 / 0.92);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--rule);
   z-index: 50;
@@ -235,7 +279,8 @@ nav {
 }
 
 .sidebar-box {
-  background: white;
+  background: var(--surface);
+  background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: 8px;
   padding: 1.5rem;
@@ -265,7 +310,7 @@ nav {
 /* ── Home page nav ─────────────────────────────────────── */
 .home-page-nav {
   position: sticky; top: 0;
-  background: oklch(97% 0.008 75 / 0.92);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--rule);
   z-index: 50;
@@ -311,7 +356,7 @@ nav {
 .hero-inner {
   display: grid; grid-template-columns: 1fr 340px;
   border: 1px solid var(--rule); border-radius: 10px;
-  overflow: hidden; background: white; min-height: 460px;
+  overflow: hidden; background: var(--surface); min-height: 460px;
 }
 .hero-content {
   padding: 3.5rem 3rem; display: flex; flex-direction: column;
@@ -368,7 +413,7 @@ nav {
   display: inline-flex; align-items: center; gap: 0.5em;
   font-size: 0.8rem; font-weight: 500; color: var(--ink-mid);
   border: 1px solid var(--rule); border-radius: 100px; padding: 0.45em 1em;
-  text-decoration: none; transition: all 0.18s; background: white; cursor: pointer;
+  text-decoration: none; transition: all 0.18s; background: var(--surface); cursor: pointer;
 }
 .topic-pill:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-pale); }
 .topic-pill.active { background: var(--ink); color: white; border-color: var(--ink); }
@@ -390,7 +435,7 @@ nav {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
 }
 .home-card {
-  background: white; border: 1px solid var(--rule); border-radius: 10px;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 10px;
   overflow: hidden; display: flex; flex-direction: column; text-decoration: none;
   transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
@@ -432,7 +477,7 @@ nav {
 }
 @media (min-width: 480px) { .newsletter-form { flex-wrap: nowrap; min-width: 340px; } }
 .newsletter-form input {
-  flex: 1; background: white; border: none;
+  flex: 1; background: var(--surface); border: none;
   border-radius: 8px; padding: 0.7em 1em; font-size: 0.88rem; color: var(--ink);
   font-family: var(--sans); outline: none; transition: box-shadow 0.18s;
   box-shadow: rgba(0,0,0,0.08) 0px 0px 0px 1px, rgba(0,0,0,0.03) 0px 2px 4px;
@@ -579,7 +624,8 @@ nav {
   gap: 1rem;
 }
 .related-card {
-  background: white;
+  background: var(--surface);
+  background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: 8px;
   overflow: hidden;
@@ -629,7 +675,7 @@ nav {
   padding: 1.5rem 0 3rem;
 }
 .btn-load-more {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--rule);
   color: var(--ink-mid);
   font-size: 0.85rem;
@@ -748,7 +794,7 @@ nav {
 
 /* ── Article card (legacy) ──────────────────────────────────────── */
 .article-card {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: 8px;
   overflow: hidden;
@@ -884,7 +930,7 @@ nav {
 
 /* ── Tool card ─────────────────────────────────────────── */
 .tool-card {
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: 8px;
   padding: 1.8rem;
@@ -1001,7 +1047,7 @@ nav {
 
 /* ── Table ─────────────────────────────────────────────── */
 .table-wrap { overflow-x: auto; margin: 2rem 0; border: 1px solid var(--rule); border-radius: 8px; }
-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; background: white; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; background: var(--surface); }
 thead th {
   text-align: left;
   padding: 0.9rem 1.2rem;
@@ -1016,7 +1062,7 @@ thead th {
 }
 tbody tr { border-bottom: 1px solid var(--rule); transition: background 0.15s; }
 tbody tr:last-child { border-bottom: none; }
-tbody tr:hover { background: var(--bg); }
+tbody tr:hover { background: var(--bg-warm); }
 tbody td { padding: 0.85rem 1.2rem; color: var(--ink-mid); vertical-align: middle; }
 tbody td:first-child { font-weight: 600; color: var(--ink); font-family: var(--sans); }
 .verdict-yes { color: var(--accent); font-weight: 600; font-family: var(--mono); font-size: 0.82rem; }
@@ -1087,7 +1133,7 @@ article footer {
 .article-tag {
   font-size: 12px;
   color: var(--ink-light);
-  background: white;
+  background: var(--surface);
   border: 1px solid var(--rule);
   padding: 4px 10px;
   border-radius: 4px;
@@ -1229,5 +1275,108 @@ pre {
   .article-prose h3 {
     font-size: 1.1rem;
     margin: 2rem 0 0.6rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ACCESSIBILITY & UX IMPROVEMENTS — Sprint Visual 2026-05-13
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Image softening in dark mode ────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  .card-img,
+  .hero-img img,
+  .hero-img-wrap img {
+    filter: brightness(0.9) saturate(0.9);
+  }
+}
+
+/* ── Focus states (WCAG 2.1 AA, critério 2.4.7) ─────────── */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.home-card:focus-visible,
+.related-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+}
+
+.topic-pill:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.nav-links a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.btn-load-more:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.newsletter-form input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+}
+
+.newsletter-form button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Topic pills scroll horizontal no mobile ────────────── */
+@media (max-width: 600px) {
+  .topics-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
+  }
+  .topics-row::-webkit-scrollbar {
+    display: none;
+  }
+  .topic-pill {
+    flex-shrink: 0;
+  }
+}
+
+/* ── Newsletter feedback no mobile ──────────────────────── */
+@media (max-width: 600px) {
+  .newsletter-success,
+  .newsletter-error {
+    position: static;
+    transform: none;
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+}
+
+/* ── Footer links wrap no mobile ────────────────────────── */
+@media (max-width: 480px) {
+  .footer-links-row {
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+}
+
+/* ── Hero image suavizada no mobile pequeno ─────────────── */
+@media (max-width: 480px) {
+  .hero-img {
+    min-height: 160px;
   }
 }

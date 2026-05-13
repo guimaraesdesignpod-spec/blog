@@ -125,7 +125,7 @@ export default function ArticleLayout({ article, children, related }: Props) {
       </div>
 
       <div className="content-wrap">
-        <article>
+        <article id="main-content">
           <AdUnit slot="top-article" />
           {article.description && (
             <p className="intro-text">{article.description}</p>

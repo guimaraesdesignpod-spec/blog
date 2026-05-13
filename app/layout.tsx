@@ -55,7 +55,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
         )}
       </head>
-      <body>{children}<Analytics /></body>
+      <body>
+        <a href="#main-content" className="skip-to-content">
+          {lang === 'pt' ? 'Pular para o conteúdo' : 'Skip to content'}
+        </a>
+        {children}
+        <Analytics />
+      </body>
     </html>
   )
 }
