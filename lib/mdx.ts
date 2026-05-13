@@ -3,7 +3,7 @@ import path from 'path'
 import matter from 'gray-matter'
 import readingTime from 'reading-time'
 
-import type { FAQItem, HowToSchema } from '@/components/ArticleJsonLd'
+import type { FAQItem, HowToSchema } from '@/lib/schema-types'
 
 // Exported as a mutable reference so tests can override via __setContentDir
 const _defaults = {
