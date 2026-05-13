@@ -1,0 +1,82 @@
+---
+title: "Needle: A IA de 26 Milhões de Parâmetros que Cabe num Relógio e Entende Seus Comandos"
+description: "Uma equipe da Cactus Compute destilou a capacidade de chamada de ferramentas do Gemini num modelo de 26M chamado Needle. Roda a 6 mil tokens por segundo em dispositivos comuns, não precisa da nuvem e pode mudar como pensamos sobre inteligência artificial na borda."
+date: "2026-05-13"
+translationKey: "needle-26m-tool-calling-model-runs-on-watches-phones-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["IA", "Computação na Borda", "IA no Dispositivo", "Chamada de Ferramentas", "Needle", "Cactus Compute", "2026", "Código Aberto"]
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+imageAlt: "Um microchip brilhante numa placa de circuito, simbolizando uma IA pequena mas poderosa"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["modelo de IA Needle", "modelo de 26M parâmetros", "chamada de ferramentas no dispositivo", "Cactus Compute Needle", "LLM minúsculo dispositivos", "IA na borda 2026", "destilação do Gemini"]
+---
+
+# Needle: A IA de 26 Milhões de Parâmetros que Cabe num Relógio e Entende Seus Comandos
+
+De tempos em tempos, o mundo da inteligência artificial anuncia um modelo maior. Mais parâmetros. Mais GPUs. Mais data centers zumbindo em algum lugar de Iowa. Fomos treinados a equiparar tamanho com inteligência, e inteligência com utilidade. Mas e se a descoberta mais importante da semana não for a que exigiu um galpão cheio de H100s, e sim a que cabe dentro de um arquivo menor do que uma foto JPEG?
+
+Conheça a Needle. Ela tem 26 milhões de parâmetros. Foi treinada em 27 horas em dezesseis chips TPU. E consegue pegar uma frase como "Qual a previsão do tempo em São Paulo?" e instantaneamente gerar uma chamada de função estruturada — `get_weather(location: "São Paulo")` — a seis mil tokens por segundo, rodando inteiramente no seu notebook, celular ou até num relógio inteligente. Sem nuvem. Sem assinatura. Sem abrir mão da privacidade.
+
+Isso não é um brinquedo. É um artefato de pesquisa legítimo, liberado sob licença MIT, que já está superando modelos dez vezes maiores na tarefa específica para a qual foi construído. E a história por trás dele diz algo importante sobre para onde a IA está indo em 2026.
+
+## Por que a Chamada de Ferramentas Importa Mais do que Você Pensa
+
+Para entender por que a Needle é interessante, você precisa entender chamada de ferramentas — ou "tool calling", como dizem os gringos. Na geração atual de assistentes de IA, quando você pede ao ChatGPT para pesquisar algo, marcar uma reunião ou editar um arquivo, o modelo não faz nenhuma dessas coisas por conta própria. Ele gera texto que *descreve* a ação, e aí um software separado — normalmente rodando na nuvem — interpreta esse texto, valida e executa a chamada de API correspondente. Esse passo intermediário é a chamada de ferramentas, e é a ponte entre o mundo interno de probabilidades do modelo de linguagem e o mundo real de calendários, bancos de dados e lâmpadas inteligentes.
+
+A chamada de ferramentas é a habilidade fundamental que torna os agentes de IA possíveis. Sem ela, um modelo é apenas um chatbot muito eloquente. Com ela, o modelo vira um operador — alguém capaz de alcançar e tocar coisas.
+
+O problema é que toda grande empresa de IA vem treinando modelos enormes para fazer isso. GPT-4.5, Claude, Gemini — são gigantes com centenas de bilhões de parâmetros. São poderosos, mas também caros, lentos e fundamentalmente atrelados à nuvem. Você não consegue rodar o GPT-4.5 num Raspberry Pi. Não consegue rodar nos seus óculos inteligentes sem esgotar a bateria em minutos e mandar cada palavra que você diz para um servidor em algum lugar.
+
+Henry Ndubuaku e a equipe da Cactus Compute olharam para isso e fizeram uma pergunta simples: e se estivéssemos superengenhando o problema?
+
+## A Intuição: Chamada de Ferramentas Não é Raciocínio
+
+A observação central deles, que publicaram junto com o modelo, é que a chamada de ferramentas não é, na verdade, uma tarefa de raciocínio. Quando você pede a uma IA para cronometrar vinte minutos, o modelo não precisa refletir profundamente sobre a natureza do tempo. Ele precisa combinar sua intenção com o nome de uma ferramenta conhecida, extrair o parâmetro relevante e emitir um bloco JSON estruturado. É casamento de padrões e montagem, não filosofia.
+
+Em termos de arquitetura, isso significa que o modelo não precisa das redes massivas feed-forward — as camadas MLP — que dominam a contagem de parâmetros dos transformers modernos. Essas camadas existem para armazenar fatos, codificar conhecimento do mundo e realizar raciocínio interno complexo. Mas se os fatos já estão fornecidos no prompt de entrada, e a tarefa é estritamente recuperação-e-montagem, então esses parâmetros são desperdiçados.
+
+Então eles tiraram tudo isso fora.
+
+A Needle é construída sobre o que eles chamam de **Simple Attention Network** (Rede de Atenção Simples). Ela não tem MLPs em lugar nenhum. O modelo inteiro é feito de mecanismos de atenção, portões (gating) e atenção cruzada entre a consulta do usuário e as ferramentas disponíveis. Foi pré-treinada em duzentos bilhões de tokens, e depois pós-treinada em dois bilhões de tokens de dados sintéticos de chamada de funções gerados pelo próprio Gemini, cobrindo quinze categorias: cronômetros, mensagens, navegação, controles de casa inteligente e mais.
+
+O resultado? Um modelo de 26 milhões de parâmetros que, quando quantizado para INT4, cabe em cerca de 14 megabytes. Para comparar, uma única foto em alta resolução do seu celular geralmente é maior que isso.
+
+## Os Números que Importam
+
+Nos benchmarks que contam para o domínio dela, a Needle supera o FunctionGemma-270M, o Qwen-0.6B, o Granite-350M e o LFM2.5-350M em chamada de funções de única rodada. Esses concorrentes são dez a vinte vezes maiores. A contrapartida é que eles são mais generalistas e lidam melhor com conversas de ida e volta. A Needle é uma especialista, não uma generalista.
+
+Mas a história de desempenho não é só sobre precisão. É sobre velocidade e contexto. Rodando no motor de inferência customizado da Cactus Compute, a Needle atinge 6 mil tokens por segundo durante o preenchimento e 1.200 tokens por segundo durante a geração em hardware comum de consumo. É rápido o suficiente para parecer instantâneo. E como roda localmente, a latência fica abaixo de 120 milissegundos — sem ida e volta pela rede, sem fila de servidor, sem mensagens de "alta demanda no momento".
+
+A equipe já integrou ela na plataforma Cactus mais ampla, que oferece uma arquitetura híbrida de nuvem: requisições simples ficam no dispositivo, as complexas são encaminhadas para modelos maiores na nuvem. Eles alegam que mais de 80% da transcrição e inferência de LLM em produção pode ser tratada no dispositivo, gerando uma redução de custo de 5 vezes para desenvolvedores.
+
+## O que Isso Significa para a Revolução da IA na Borda
+
+Há uma revolução silenciosa acontecendo na inteligência artificial agora, e não é a que está fazendo manchetes sobre corridas de treinamento de trilhões de dólares. É a mudança em direção a modelos pequenos, rápidos e baratos o suficiente para rodar onde o usuário realmente está: no celular, no fone de ouvido, no pulso.
+
+A Needle é um exemplo de bandeira dessa tendência. Em 2026, já vimos a Apple empurrando a inteligência no dispositivo com o Apple Intelligence, o Google lançando o Gemini Nano nos celulares Pixel, e uma onda de projetos de código aberto competindo para comprimir capacidades grandes em pacotes minúsculos. O que a Needle acrescenta a esse cenário é especificidade. Ela não tenta ser um chatbot. Ela tenta ser o tronco cerebral de um agente de IA — a parte que decide qual ferramenta usar e como chamá-la, deixando o raciocínio pesado para modelos maiores quando necessário.
+
+Essa arquitetura — um roteador local minúsculo mais fallback opcional na nuvem — pode se tornar o padrão para a IA de consumo. Imagine um assistente doméstico que nunca manda sua voz para a nuvem porque um modelo de 14 megabytes no dispositivo já entende "diminua a luz para 30%". Imagine um aplicativo de produtividade onde você pode destacar um parágrafo e dizer "resuma isso e mande por email para a equipe", e o modelo local instancia as ferramentas certas sem precisar consultar servidores.
+
+## A Controvérsia: Destilar o Gemini
+
+Nenhuma história tão interessante vem sem atrito. A Needle foi treinada destilando o Gemini 3.1 — usando a própria API do Google para gerar os dados de treinamento que ensinaram o modelo menor a chamar ferramentas. No Hacker News, onde o projeto chegou à primeira página com 386 pontos e 136 comentários, isso imediatamente desencadeou debate.
+
+Alguns comentaristas apontaram que os termos de serviço do Google proíbem explicitamente usar seus serviços para desenvolver modelos concorrentes, e que a empresa supostamente implantou "defesas proativas em tempo real" projetadas para detectar e degradar tentativas de destilação. Outros contrapuseram que a Needle não compete diretamente com o Gemini — é um modelo estreito e de propósito único — e que a destilação não envolveu extração de pesos, apenas geração de dados sintéticos.
+
+O fundador, Henry Ndubuaku, respondeu publicamente: "A Needle não compete com essas ferramentas e o processo de destilação não acessou os pesos." Essa distinção — destilação de dados versus extração de modelo — é legalmente e tecnicamente significativa, mas senta numa zona cinza que a indústria inteira ainda está decifrando. Em 2026, todo modelo maior foi treinado com saídas de outros modelos, direta ou indiretamente. A pergunta de onde fica a linha está sem resposta, e a Needle agora faz parte dessa conversa.
+
+## Como Experimentar
+
+A equipe tornou a Needle o mais acessível possível. Você pode clonar o repositório do GitHub, rodar um script de configuração e lançar uma interface web de playground local para testar o modelo contra suas próprias ferramentas. Os pesos são baixados automaticamente do Hugging Face. Se quiser customizar, há um comando de uma linha para fazer ajuste fino com seu próprio dataset JSONL. Tudo está sob licença MIT, incluindo os pesos.
+
+O repositório no GitHub atraiu mais de 660 estrelas no primeiro dia, e a discussão no Hacker News foi inusualmente técnica — desenvolvedores imediatamente começaram a brainstormar integrações com Home Assistant, interfaces de linha de comando, dispositivos vestíveis, e até hardware de rádio antigo adaptado com placas Raspberry Pi.
+
+## Olhando para Frente
+
+A Needle é explicitamente rotulada como experimental. A equipe reconhece que modelos pequenos podem ser temperamentais, e que enquanto a Needle vence em chamada de funções de única rodada, ela carece da profundidade conversacional e da capacidade de aprendizado em contexto de seus rivais maiores. Eles estão trabalhando nisso.
+
+Mas mesmo na forma atual, a Needle é uma prova de conceito que muda o enquadramento do debate sobre IA no dispositivo. A pergunta já não é mais "conseguimos encaixar um modelo grande num dispositivo pequeno?" A pergunta agora é "quão pequeno conseguimos fazer um modelo que ainda faz a única coisa que realmente precisamos?"
+
+Em 2026, essa pode ser a pergunta mais importante da inteligência artificial.

@@ -1,0 +1,82 @@
+---
+title: "Needle: The 26-Million-Parameter AI That Fits on a Smartwatch and Understands Your Commands"
+description: "A team from Cactus Compute distilled Gemini's tool-calling ability into a 26M model called Needle. It runs at 6,000 tokens per second on consumer devices, needs no cloud, and might change how we think about AI on the edge."
+date: "2026-05-13"
+translationKey: "needle-26m-tool-calling-model-runs-on-watches-phones-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI", "Edge Computing", "On-Device AI", "Tool Calling", "Needle", "Cactus Compute", "2026", "Open Source"]
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080"
+imageAlt: "A glowing microchip on a circuit board, symbolizing tiny but powerful AI"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Needle AI model", "26M parameter model", "on-device AI tool calling", "Cactus Compute Needle", "tiny LLM consumer devices", "edge AI 2026", "Gemini distillation"]
+---
+
+# Needle: The 26-Million-Parameter AI That Fits on a Smartwatch and Understands Your Commands
+
+Every few months, the AI world announces a bigger model. More parameters. More GPUs. More data centers humming somewhere in Iowa. We have been trained to equate size with intelligence, and intelligence with utility. But what if the most important AI breakthrough of the week is not the one that required a warehouse full of H100s, but the one that fits inside a file smaller than a JPEG?
+
+Meet Needle. It has 26 million parameters. It was trained in 27 hours on sixteen TPU chips. And it can take a sentence like "What's the weather in San Francisco?" and instantly output a structured function call — `get_weather(location: "San Francisco")` — at six thousand tokens per second, running entirely on your laptop, phone, or even a smartwatch. No cloud required. No subscription. No privacy trade-off.
+
+This is not a toy. This is a genuine research artifact, open-sourced under the MIT license, that is already beating models ten times its size at the specific task it was built for. And the story behind it says something important about where AI is heading in 2026.
+
+## Why Tool Calling Matters More Than You Think
+
+To understand why Needle is interesting, you have to understand tool calling. In the current generation of AI assistants, when you ask ChatGPT to look something up, schedule a meeting, or edit a file, the model does not actually do any of those things itself. It generates text that *describes* the action, and then a separate piece of software — usually running in the cloud — parses that text, validates it, and executes the corresponding API call. That intermediary step is called tool calling, or function calling, and it is the bridge between a language model's internal world of probabilities and the real world of calendars, databases, and smart light bulbs.
+
+Tool calling is the foundational skill that makes AI agents possible. Without it, a model is just a very eloquent chatbot. With it, the model becomes an operator — someone who can reach out and touch things.
+
+The problem is that every major AI company has been training enormous models to do this. GPT-4.5, Claude, Gemini — these are behemoths with hundreds of billions of parameters. They are powerful, but they are also expensive, slow, and fundamentally tied to the cloud. You cannot run GPT-4.5 on a Raspberry Pi. You cannot run it on your smart glasses without draining the battery in minutes and sending every word you say to a server somewhere.
+
+Henry Ndubuaku and the team at Cactus Compute looked at this and asked a simple question: what if we are massively over-engineering the problem?
+
+## The Insight: Tool Calling Is Not Reasoning
+
+Their core observation, which they published alongside the model, is that tool calling is not really a reasoning task. When you ask an AI to set a timer for twenty minutes, the model does not need to think deeply about the nature of time. It needs to match your intent to a known tool name, extract the relevant parameter, and emit a structured JSON blob. It is pattern matching and assembly, not philosophy.
+
+In architectural terms, this means the model does not need the massive feed-forward networks — the MLP layers — that dominate the parameter count of modern transformers. Those layers exist to store facts, encode world knowledge, and perform complex internal reasoning. But if the facts are already provided in the input prompt, and the task is strictly retrieval-and-assembly, then those parameters are wasted.
+
+So they stripped them out.
+
+Needle is built on what they call a **Simple Attention Network**. It has no MLPs anywhere. The entire model is attention mechanisms, gating, and cross-attention between the user's query and the available tools. It was pretrained on two hundred billion tokens, then post-trained on two billion tokens of synthesized function-calling data generated by Gemini itself, covering fifteen categories: timers, messaging, navigation, smart home controls, and more.
+
+The result? A 26-million-parameter model that, when quantized to INT4, fits in about 14 megabytes. For comparison, a single high-resolution photo from your phone is usually larger than that.
+
+## The Numbers That Matter
+
+On the benchmarks that count for its domain, Needle beats FunctionGemma-270M, Qwen-0.6B, Granite-350M, and LFM2.5-350M on single-shot function calling. Those competitors are ten to twenty times larger. The trade-off is that they are more general-purpose and handle conversational back-and-forth better. Needle is a specialist, not a generalist.
+
+But the performance story is not just about accuracy. It is about speed and context. Running on Cactus Compute's custom inference engine, Needle hits 6,000 tokens per second during prefill and 1,200 tokens per second during decode on ordinary consumer hardware. That is fast enough to feel instantaneous. And because it runs locally, the latency is under 120 milliseconds — no network round-trip, no server queue, no "experiencing high demand" messages.
+
+The team has already integrated it into their broader Cactus platform, which offers a hybrid cloud architecture: simple requests stay on the device, complex ones get handed off to larger cloud models. They claim over 80 percent of production transcription and LLM inference can be handled on-device, yielding a 5x cost reduction for developers.
+
+## What This Means for the Edge AI Revolution
+
+There is a quiet revolution happening in AI right now, and it is not the one making headlines about trillion-dollar training runs. It is the shift toward models that are small enough, fast enough, and cheap enough to run where the user actually is: on their phone, in their earbuds, on their wrist.
+
+Needle is a flagship example of this trend. In 2026, we have already seen Apple pushing on-device intelligence with Apple Intelligence, Google shipping Gemini Nano on Pixel phones, and a wave of open-source projects racing to compress large capabilities into tiny packages. What Needle adds to this picture is specificity. It does not try to be a chatbot. It tries to be the brainstem of an AI agent — the part that decides what tool to use and how to call it, leaving the heavy reasoning to larger models when necessary.
+
+This architecture — a tiny local router plus optional cloud fallback — could become the standard pattern for consumer AI. Imagine a home assistant that never sends your voice to the cloud because a 14-megabyte model on the device can already understand "dim the lights to 30 percent." Imagine a productivity app where you can highlight a paragraph and say "summarize this and email it to the team," and the local model instantiates the right tools without phoning home.
+
+## The Controversy: Distilling Gemini
+
+No story this interesting comes without friction. Needle was trained by distilling Gemini 3.1 — using Google's own API to generate the training data that taught the smaller model how to call tools. On Hacker News, where the project hit the front page with 386 points and 136 comments, this immediately triggered debate.
+
+Some commenters pointed out that Google's terms of service explicitly prohibit using their services to develop competing models, and that the company has reportedly deployed "real-time proactive defenses" designed to detect and degrade distillation attempts. Others countered that Needle does not compete with Gemini directly — it is a narrow, single-purpose model — and that distillation did not involve extracting weights, only generating synthetic data.
+
+The founder, Henry Ndubuaku, responded publicly: "Needle doesn't compete with those tools and the distillation process did not access the weights." That distinction — data distillation versus model extraction — is legally and technically meaningful, but it sits in a gray zone that the entire industry is still figuring out. In 2026, every major model has been trained on outputs from other models, directly or indirectly. The question of where the line sits is unresolved, and Needle is now part of that conversation.
+
+## How to Try It
+
+The team made Needle as accessible as possible. You can clone the repository from GitHub, run a setup script, and launch a local playground web interface to test the model against your own tools. It auto-downloads weights from Hugging Face. If you want to customize it, there is a one-line command to finetune on your own JSONL dataset. Everything is MIT licensed, including the weights.
+
+The GitHub repo attracted over 660 stars in the first day, and the discussion on Hacker News was unusually technical — developers immediately started brainstorming integrations with Home Assistant, command-line interfaces, wearable devices, and even vintage radio hardware retrofitted with Raspberry Pi boards.
+
+## Looking Ahead
+
+Needle is explicitly labeled as experimental. The team acknowledges that small models can be finicky, and that while Needle wins on single-shot tool calling, it lacks the conversational depth and in-context learning ability of its larger rivals. They are working on that.
+
+But even in its current form, Needle is a proof of concept that changes the framing of the on-device AI debate. The question is no longer "can we fit a large model on a small device?" The question is "how small can we make a model that still does the one thing we actually need?"
+
+In 2026, that might be the most important question in AI.
