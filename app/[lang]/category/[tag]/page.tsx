@@ -58,29 +58,29 @@ export default async function CategoryPage({ params }: Props) {
 
   if (articles.length === 0) {
     return (
-      <div className="max-w-[1200px] mx-auto p-8 text-center">
-        <h1 className="text-2xl font-serif mb-4">{labels.title}: {decodedTag}</h1>
-        <p className="mb-8 text-zinc-500">{labels.no_articles}</p>
-        <Link href={`/${currentLang}`} className="text-accent underline">{labels.back}</Link>
+      <div className="max-w-[1280px] mx-auto p-8 text-center">
+        <h1 className="text-2xl font-serif mb-4" style={{ color: 'var(--ink)' }}>{labels.title}: {decodedTag}</h1>
+        <p className="mb-8" style={{ color: 'var(--ink-light)' }}>{labels.no_articles}</p>
+        <Link href={`/${currentLang}`} className="hover:underline" style={{ color: 'var(--accent)' }}>{labels.back}</Link>
       </div>
     )
   }
 
   return (
-    <div className="max-w-[1200px] mx-auto p-8">
+    <div className="max-w-[1280px] mx-auto p-8">
       <header className="mb-12">
-        <Link href={`/${currentLang}`} className="text-xs uppercase tracking-widest text-zinc-500 hover:text-accent transition-colors">
+        <Link href={`/${currentLang}`} className="text-xs uppercase tracking-widest hover:underline transition-colors" style={{ color: 'var(--ink-light)' }}>
           ← {labels.back}
         </Link>
-        <h1 className="text-4xl font-serif mt-4 capitalize">{labels.title}: {decodedTag.replace(/-/g, ' ')}</h1>
+        <h1 className="text-4xl font-serif mt-4 capitalize" style={{ color: 'var(--ink)' }}>{labels.title}: {decodedTag.replace(/-/g, ' ')}</h1>
       </header>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {articles.map(article => (
-          <div key={article.slug} className="border border-zinc-200 p-4 rounded-lg hover:border-accent transition-colors">
+          <div key={article.slug} className="category-card" style={{ border: '1px solid var(--rule)', borderRadius: '8px', padding: '1rem', transition: 'border-color 0.2s' }}>
             <Link href={`/${currentLang}/${article.slug}`}>
-              <h3 className="font-serif text-lg font-bold mb-2">{article.title}</h3>
-              <p className="text-sm text-zinc-600 line-clamp-3">{article.description}</p>
+              <h3 className="font-serif text-lg mb-2" style={{ fontWeight: 500, color: 'var(--ink)' }}>{article.title}</h3>
+              <p className="text-sm line-clamp-3" style={{ color: 'var(--ink-mid)' }}>{article.description}</p>
             </Link>
           </div>
         ))}

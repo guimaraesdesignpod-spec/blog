@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getAllArticles } from '@/lib/articles'
 import { ArticleMeta } from '@/lib/mdx'
+import { LogoMark } from '@/components/Logo'
 import type { Metadata } from 'next'
 import Footer from '@/components/Footer'
 import NewsletterForm from '@/components/NewsletterForm'
@@ -70,27 +71,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: ['/images/og-homepage.jpg'],
     },
   }
-}
-
-function LogoMark({ size = 22 }: { size?: number }) {
-  const s = Math.round(size * 0.59)
-  return (
-    <div style={{
-      width: size, height: size, background: 'var(--accent)', borderRadius: 5,
-      display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-    }}>
-      <svg width={s} height={s} viewBox="0 0 13 13" fill="none">
-        <circle cx="3" cy="6.5" r="1.5" fill="white" />
-        <circle cx="6.5" cy="3" r="1.5" fill="white" />
-        <circle cx="10" cy="6.5" r="1.5" fill="white" />
-        <circle cx="6.5" cy="10" r="1.5" fill="white" />
-        <line x1="3" y1="6.5" x2="6.5" y2="3" stroke="white" strokeWidth="1" opacity="0.5" />
-        <line x1="6.5" y1="3" x2="10" y2="6.5" stroke="white" strokeWidth="1" opacity="0.5" />
-        <line x1="10" y1="6.5" x2="6.5" y2="10" stroke="white" strokeWidth="1" opacity="0.5" />
-        <line x1="6.5" y1="10" x2="3" y2="6.5" stroke="white" strokeWidth="1" opacity="0.5" />
-      </svg>
-    </div>
-  )
 }
 
 function HeroCard({ article, lang, labels }: { article: ArticleMeta; lang: Lang; labels: LabelsType }) {
