@@ -8,7 +8,14 @@ imageAlt: "Desert landscape with cracked earth and broken electronics symbolizin
 imageCredit: "Alexander Hanff / DrawThings"
 imageCreditUrl: "https://www.thatprivacyguy.com/blog/chrome-silent-nano-install"
 image: "https://images.unsplash.com/photo-1682687220742-aba13b6e50ba"
-tldr: "Google silently installed Gemini Nano — a 4GB on-device AI model — inside Chrome without user consent. The model re-downloads if deleted, has no opt-out, and at Chrome's scale (2 billion devices), each push costs 240–480 million kWh. Privacy researcher Alexander Hanff argues this violates EU ePrivacy law. The environmental and consent implications go far beyond one browser."
+tldr: "Privacy researcher Alexander Hanff revealed that Google silently installed the 4GB Gemini Nano model in Chrome without user consent, potentially violating Article 5(3) of the EU ePrivacy Directive. The `weights.bin` file is downloaded automatically and reinstalls itself when deleted, affecting approximately 2 billion devices. The Hacker News post accumulated 988 upvotes and 670 comments, with Hanff also warning about the environmental cost of pushing AI to billions of devices without notice."
+faq:
+  - q: "How do I check if Gemini Nano was installed on my Chrome?"
+    a: "Check the `OptGuideOnDeviceModel` folder inside Chrome's data directory. On Linux: `~/.config/google-chrome/*/OptGuideOnDeviceModel/`; on macOS: `~/Library/Application Support/Google/Chrome/*/OptGuideOnDeviceModel/`. If the `weights.bin` file exists and is approximately 4GB, the model is installed."
+  - q: "Can I permanently remove Gemini Nano from Chrome?"
+    a: "Not permanently. You can disable the `Optimization Guide On Device Model` flags in `chrome://flags/` and delete the file manually, but Chrome re-downloads the model in future updates. The only definitive solution is to migrate to privacy-focused forks like Brave or ungoogled-chromium, which do not include this component."
+  - q: "What is the environmental impact of this silent installation?"
+    a: "Hanff calculated that pushing 4GB of model to 1 to 2 billion devices consumes between 240 and 480 million kWh per deployment cycle, equivalent to 6,000 to 60,000 tons of CO₂-equivalent. This represents the annual carbon footprint of 375 to 3,750 average Americans — and the cost repeats with every model update."
 ---
 
 # Google Chrome Installs a 4GB AI Model Without Asking — And the Climate Cost Is Insane

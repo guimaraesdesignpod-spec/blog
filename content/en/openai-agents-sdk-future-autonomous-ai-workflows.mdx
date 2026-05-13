@@ -11,6 +11,16 @@ imageAlt: "Abstract concept art of software development workflows with interconn
 imageCredit: "AI-generated (Pollinations.ai)"
 imageCreditUrl: "#"
 keywords: ["OpenAI Agents SDK", "autonomous AI workflows", "multi-agent framework", "OpenAI agents python", "AI orchestration 2026"]
+tldr: "OpenAI's Agents SDK is a lightweight Python framework for building multi-agent workflows based on three primitives — Agents, Handoffs, and Guardrails — that lets you orchestrate agents with just a few lines of code. The author tested the SDK and highlights fast prototyping and the elegant handoff model as positives, but points out limitations: it's exclusive to the OpenAI stack, tool definitions are verbose, and debugging multi-agent flows is difficult. The recommendation: use the SDK for internal tools and automation with OpenAI, but skip it if you use Claude, Gemini, or local models."
+faq:
+  - q: "What is OpenAI's Agents SDK?"
+    a: "It's a lightweight Python framework for building multi-agent workflows with LLMs. It's based on three primitives — Agents, Handoffs, and Guardrails — and lets you chain model calls, pass context between agents, and add safety validations with just a few lines of code."
+  - q: "Does the Agents SDK replace LangChain?"
+    a: "Not directly. The Agents SDK is lighter and focused on agent orchestration with OpenAI models, while LangChain offers a broader ecosystem with connectors for multiple providers. They're complementary: choose the SDK when you want simplicity and speed with OpenAI; choose LangChain when you need multi-provider flexibility."
+  - q: "How much does it cost to use the Agents SDK?"
+    a: "The SDK itself is open-source and free. Costs come from OpenAI API usage — each agent call consumes tokens. For a typical research workflow like the one described in the article, the cost ranges from $0.05 to $0.20 per execution, depending on complexity and the model used."
+  - q: "Do I need advanced Python skills to use the Agents SDK?"
+    a: "No. The SDK was designed to be accessible. The article shows that in 20 minutes you can have a functional agent with web search and email sending. Basic Python knowledge and familiarity with REST APIs are enough to get started."
 ---
 
 # OpenAI's Agents SDK and the Future of Autonomous AI Workflows

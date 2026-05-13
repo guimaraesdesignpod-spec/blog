@@ -11,6 +11,14 @@ imageAlt: "Abstract digital network visualization representing software supply c
 imageCredit: "Unsplash"
 imageCreditUrl: "https://unsplash.com"
 keywords: ["TanStack npm compromise", "supply chain attack 2026", "Mini Shai-Hulud worm", "npm security", "GitHub Actions cache poisoning", "JavaScript malware", "OIDC token extraction"]
+tldr: "On May 11, 2026, a self-spreading worm called Mini Shai-Hulud compromised 42 TanStack npm packages using a three-vulnerability chain in GitHub Actions. The malware steals credentials from 100+ paths, installs system persistence, and spreads to other packages the victim maintains. If you use any @tanstack/* package, check your lockfile now — and do not revoke npm tokens before isolating the machine, or the kill-switch destroys the home directory."
+faq:
+  - q: "What exactly happened to TanStack on May 11, 2026?"
+    a: "Attackers compromised GitHub Actions tokens and published 84 malicious versions across 42 TanStack npm packages. The malware, called Mini Shai-Hulud, is a self-spreading worm that steals credentials from over 100 system paths, installs persistence, and spreads to other packages maintained by the victim. The attack exploited three chained vulnerabilities in the CI/CD pipeline."
+  - q: "What should I do if I use @tanstack/* packages in my project?"
+    a: "First, check your lockfile immediately to identify compromised versions. Do not revoke npm tokens before fully isolating the machine, as the malware has a kill-switch that destroys the home directory upon detecting token revocation. After isolation, audit credentials, regenerate tokens, and update to clean package versions."
+  - q: "How can I protect my projects against supply chain attacks?"
+    a: "Use lockfiles with integrity checks (npm audit, socket.dev), restrict CI/CD token permissions to the minimum necessary, enable branch protection on GitHub, and monitor dependencies with tools like Dependabot. The principle of least privilege in CI/CD pipelines is the most effective defense against this type of attack."
 ---
 
 # The TanStack npm Attack: How 42 Packages Were Compromised in a Supply Chain Worm and What It Means for 2026

@@ -11,6 +11,14 @@ imageAlt: "Cérebro Claude AI com redes neurais azuis brilhantes sobre servidore
 imageCredit: "Gerada por IA via Pollinations AI"
 imageCreditUrl: "https://pollinations.ai"
 keywords: ["Claude na AWS", "Integração Anthropic AWS", "Amazon Bedrock Claude", "Infraestrutura de IA da AWS", "Implementação do Claude 2026", "Bedrock vs API direta"]
+tldr: "Guia prático para implantar modelos Claude na AWS em 2026, comparando dois caminhos: Amazon Bedrock (serviço gerenciado com integração VPC e conformidade) versus API direta da Anthropic (menor latência, mais controle). O artigo cobre preços do Bedrock por token em maio de 2026, configuração de instâncias EC2 com Deep Learning AMIs, otimização com AWS Trainium e Inferentia, e recomenda começar pelo Bedrock para a maioria das equipes, migrando para API direta apenas quando custo ou latência se tornarem problemas concretos."
+faq:
+  - q: "Devo usar o Amazon Bedrock ou a API direta da Anthropic para acessar o Claude?"
+    a: "Para a maioria das equipes em 2026, a recomendação é começar pelo Bedrock. Ele oferece integração nativa com VPC, permissões IAM, filtros de conteúdo e um ecossistema gerenciado que simplifica conformidade e auditoria. Migre para a API direta apenas quando latência ou custo se tornarem problemas concretos — otimização prematura de infraestrutura de IA tem o mesmo custo que em arquitetura de software."
+  - q: "Quanto custa rodar o Claude na AWS?"
+    a: "Os preços variam por modelo: o Claude 3.5 Sonnet custa $0,003 por 1K tokens de entrada e $0,015 por 1K de saída no Bedrock, enquanto o Claude 4.5 Sonnet chega a $0,018/$0,09 respectivamente. Os preços do Bedrock são cerca de 20-30% mais altos que a API direta, refletindo o prêmio da infraestrutura gerenciada. Cache agressivo pode reduzir chamadas de API em 40-60% para workloads típicos."
+  - q: "Os dados enviados para o Claude via Bedrock ficam dentro da minha VPC?"
+    a: "Parcialmente. O Bedrock suporta endpoints VPC para conectividade privada, impedindo que o tráfego saia da sua rede AWS. No entanto, a inferência real pode ser processada pela Anthropic na infraestrutura deles — o endpoint VPC não garante que o processamento ocorra exclusivamente dentro da sua conta AWS. Se residência estrita de dados é um requisito, você precisa de compromissos contratuais explícitos, não apenas da configuração de rede."
 ---
 
 # Claude na AWS: Executando os Modelos de IA da Anthropic na Infraestrutura da Amazon

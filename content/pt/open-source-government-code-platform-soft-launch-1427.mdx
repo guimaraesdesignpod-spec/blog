@@ -11,6 +11,14 @@ imageCredit: "Markus Winkler"
 imageCreditUrl: "https://unsplash.com/@markuswinkler"
 author: "Elisio Guimarães"
 keywords: ["plataforma codigo aberto governo", "modernizacao software governo", "estrategia lancamento suave", "devsecops setor publico", "seguranca cadeia suprimento software"]
+tldr: "Guia de lançamento faseado para uma plataforma open-source no governo, cobrindo definição de missão e métricas, arquitetura segura com RBAC e SSO governamental, DevSecOps com SLSA e SBOM, estratégia de adoção com equipes piloto e comunicação com stakeholders. O artigo propõe métricas concretas para 60-90 dias (5-10 equipes piloto, 80% dos repositórios com CI padronizado, redução de 20% no tempo de pull request) e enfatiza que adoção de plataforma segue clareza de objetivos, não tecnologia."
+faq:
+  - q: "Por que um lançamento faseado é melhor do que abrir a plataforma para todos os órgãos de uma vez?"
+    a: "Um lançamento faseado permite validar arquitetura, políticas de segurança, workflows e modelo de suporte num ambiente controlado antes de escalar. Com 5 a 10 equipes piloto, você identifica e corrige fricções quando o impacto ainda é pequeno, constrói confiança com evidência real e evita o cenário comum de uma plataforma lançada para todos que ninguém adota porque os problemas não foram resolvidos na base."
+  - q: "Quanto tempo leva para uma equipe fazer onboarding na plataforma?"
+    a: "O artigo propõe uma runway de 2 semanas: semana 0 para revisão de prontidão e mapeamento de sensibilidade dos dados, semana 1 para provisionamento técnico e aplicação de templates de segurança, e semana 2 para validação com pull requests de exemplo e simulação de remediação de vulnerabilidades. Um gate de go-live formal com checklist assinado por plataforma, segurança e service owner conclui o processo."
+  - q: "Quais métricas comprovam que a plataforma está funcionando?"
+    a: "O artigo recomenda quatro dashboards: saúde da plataforma (disponibilidade, latência de CI, incidentes), segurança e conformidade (backlog de vulnerabilidades, cobertura de controles), produtividade dos desenvolvedores (lead time, tempo de ciclo de PR, frequência de deploy) e reutilização (componentes publicados, contribuições entre órgãos, horas poupadas). A meta para 60-90 dias inclui 5-10 equipes onboarded, 80% dos repositórios com CI padronizado e redução de 20% no tempo mediano de pull request."
 ---
 
 # Plataforma Open-Source no Governo: Guia de Lançamento

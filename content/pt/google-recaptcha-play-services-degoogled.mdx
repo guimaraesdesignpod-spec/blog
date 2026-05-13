@@ -3,12 +3,21 @@ title: "Google Ligou Secretamente o reCAPTCHA aos Play Services — e Telefones 
 description: "No dia 8 de maio, um post no Hacker News sobre o Google quebrando o reCAPTCHA para usuários Android de-googled explodiu na primeira página e acumulou mais de 870 upvotes."
 date: "2026-05-09"
 lang: "pt-BR"
-tags: ["Google", "reCAPTCHA", "privacy", "Android", "de-googled", "open-source", "security"]
+translationKey: "google-recaptcha-play-services-degoogled"
+tags: ["Google", "reCAPTCHA", "Privacidade", "Android", "De-Googled", "Open Source", "Segurança"]
 image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1200&h=630&fit=crop&q=80"
 imageAlt: "Smartphone Android exibindo tela de verificação do reCAPTCHA"
 imageCredit: "Unsplash"
 imageCreditUrl: "https://unsplash.com"
 keywords: ["google recaptcha", "google play services", "de-googled phones", "grapheneos", "lineageos", "android privacy", "recaptcha alternative"]
+tldr: "Em maio de 2026, o Google atualizou a documentação do reCAPTCHA para exigir Google Play Services versão 25.41.30 ou superior no Android, bloqueando silenciosamente usuários de ROMs de-googled como GrapheneOS e LineageOS. O post no Hacker News acumulou 870+ upvotes e revelou que a dependência vem sendo construída há pelo menos 7 meses. A mudança transforma o reCAPTCHA de um detector de bots em um mecanismo de atestação remota que verifica se o dispositivo roda 'software aprovado' — um padrão que acadêmicos de direito comparam a venda casada anticoncorrencial e que ecoa a controversa proposta Web Environment Integrity de 2023."
+faq:
+  - q: "Por que o reCAPTCHA parou de funcionar no meu celular com GrapheneOS ou LineageOS?"
+    a: "Em maio de 2026, o Google atualizou a documentação do reCAPTCHA para exigir Google Play Services versão 25.41.30 ou superior em dispositivos Android. ROMs como GrapheneOS e LineageOS removem intencionalmente os Google Play Services por questões de privacidade, e essa ausência agora é tratada pelo reCAPTCHA como evidência de comportamento robótico, bloqueando silenciosamente a verificação. A dependência vem sendo construída há pelo menos sete meses, mas só ganhou visibilidade quando a comunidade tech percebeu o impacto sobre usuários de ROMs de-googled."
+  - q: "Existem alternativas ao reCAPTCHA que respeitam a privacidade e funcionam em dispositivos de-googled?"
+    a: "Sim, várias alternativas não dependem de frameworks proprietários do Google. O hCaptcha oferece um substituto direto com uma postura de privacidade diferente e funciona independentemente dos Play Services. O Friendly Captcha usa prova de trabalho criptográfica leve diretamente no navegador, sem enviar dados para servidores de big tech. O mCaptcha é totalmente open-source e baseado em mecanismos de proof-of-work que não exigem qualquer contato com infraestrutura do Google. Para donos de sites pequenos, migrar para essas alternativas é relativamente simples; para grandes empresas, o processo é mais complexo devido a auditorias de segurança e contratos com fornecedores."
+  - q: "O Google pode legalmente exigir Play Services para o funcionamento do reCAPTCHA?"
+    a: "Essa é uma questão em aberto que acadêmicos de direito comparam a 'venda casada' (tying) anticoncorrencial. O Digital Markets Act da União Europeia classifica o Google como gatekeeper e proíbe práticas de auto-preferência, e processos antitruste nos EUA investigam o monopólio da Play Store. Forçar um padrão de verificação web a depender de um framework proprietário controlado exclusivamente pelo Google se encaixa no padrão de conduta que autoridades de concorrência foram criadas para combater. Nenhuma agência reguladora agiu especificamente sobre essa mudança até o momento, mas a medida fornece evidências adicionais para investigações antitruste em andamento."
 ---
 
 No dia 8 de maio, um post no Hacker News com o título "Google broke reCAPTCHA for de-googled Android users" chegou à primeira página e não saiu mais. Em poucas horas já tinha mais de 870 upvotes e quase 300 comentários — uma das histórias mais comentadas do dia. O motivo de tanta atenção não foi nenhum vazamento de dados nem lançamento de produto. Foi uma mudança de política discreta, quase enterrada: o Google atualizou a documentação do reCAPTCHA para declarar que dispositivos Android agora precisam da versão 25.41.30 ou superior dos Google Play Services para passar no teste de "humano".

@@ -5,6 +5,14 @@ lang: "pt-BR"
 title: "O Chrome Instalou 4GB de IA no Seu PC Sem Perguntar — e o Debate Acirrado"
 description: "O investigador de privacidade Alexander Hanff revela que o Google instalou silenciosamente um modelo de IA de 4GB no Chrome sem consentimento, desencadeando um debate acirrado no Hacker News sobre privacidade, consentimento e impacto ambiental."
 keywords: ["chrome 4GB IA", "privacidade chrome", "gemini nano", "impacto ambiental IA", "consentimento IA", "ePrivacy", "privacidade dados"]
+tldr: "O investigador de privacidade Alexander Hanff revelou que o Google instalou silenciosamente o modelo Gemini Nano de 4GB no Chrome sem consentimento do usuário, violando potencialmente o Artigo 5(3) da Diretiva ePrivacy europeia. O arquivo `weights.bin` é baixado automaticamente e se reinstala sozinho quando apagado, afetando cerca de 2 bilhões de dispositivos. O post no Hacker News acumulou 988 upvotes e 670 comentários, com Hanff também alertando para o custo ambiental de empurrar IA para bilhões de dispositivos sem aviso prévio."
+faq:
+  - q: "Como verifico se o Gemini Nano foi instalado no meu Chrome?"
+    a: "Verifique a pasta `OptGuideOnDeviceModel` dentro do diretório de dados do Chrome. No Linux: `~/.config/google-chrome/*/OptGuideOnDeviceModel/`; no macOS: `~/Library/Application Support/Google/Chrome/*/OptGuideOnDeviceModel/`. Se o arquivo `weights.bin` existir e tiver aproximadamente 4GB, o modelo está instalado."
+  - q: "Dá para remover permanentemente o Gemini Nano do Chrome?"
+    a: "Não de forma permanente. Você pode desativar as flags `Optimization Guide On Device Model` em `chrome://flags/` e apagar o arquivo manualmente, mas o Chrome baixa o modelo novamente em atualizações futuras. A única solução definitiva é migrar para forks focados em privacidade como Brave ou ungoogled-chromium, que não incluem esse componente."
+  - q: "Qual o impacto ambiental dessa instalação silenciosa?"
+    a: "Hanff calculou que empurrar 4GB de modelo para 1 a 2 bilhões de dispositivos consome entre 240 e 480 milhões de kWh por ciclo de implantação, o equivalente a 6.000 a 60.000 toneladas de CO₂-equivalente. Isso representa o carbono anual de 375 a 3.750 americanos médios — e o custo se repete a cada atualização do modelo."
 tags: ["Privacidade", "IA", "Regulamentação", "Tecnologia Climática"]
 imageAlt: "Paisagem desértica com terra rachada e eletrônica quebrada simbolizando um deserto digital"
 imageCredit: "Alexander Hanff / DrawThings"

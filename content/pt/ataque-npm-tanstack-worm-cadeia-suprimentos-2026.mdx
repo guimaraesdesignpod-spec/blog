@@ -12,6 +12,13 @@ imageCredit: "Unsplash"
 imageCreditUrl: "https://unsplash.com"
 keywords: ["comprometimento npm TanStack", "ataque à cadeia de suprimentos 2026", "worm Mini Shai-Hulud", "segurança npm", "envenenamento de cache GitHub Actions", "malware JavaScript", "extração de token OIDC"]
 tldr: "Em 11 de maio de 2026, um worm auto-propagação chamado Mini Shai-Hulud comprometeu 42 pacotes npm da TanStack usando uma cadeia de três vulnerabilidades no GitHub Actions. O malware rouba credenciais de 100+ caminhos, instala persistência no sistema e se espalha para outros pacotes que a vítima mantém. Se você usa qualquer pacote @tanstack/*, verifique seu lockfile agora — e não revogue tokens npm antes de isolar a máquina, ou o kill-switch destrói o home directory."
+faq:
+  - q: "O que aconteceu exatamente com a TanStack em 11 de maio de 2026?"
+    a: "Atacantes comprometeram tokens do GitHub Actions e publicaram 84 versões maliciosas em 42 pacotes npm da TanStack. O malware, chamado Mini Shai-Hulud, é um worm auto-propagação que rouba credenciais de mais de 100 caminhos no sistema, instala persistência e se espalha para outros pacotes mantidos pela vítima. O ataque explorou três vulnerabilidades encadeadas no pipeline de CI/CD."
+  - q: "O que devo fazer se uso pacotes @tanstack/* no meu projeto?"
+    a: "Primeiro, verifique seu lockfile imediatamente para identificar versões comprometidas. Não revogue tokens npm antes de isolar totalmente a máquina, pois o malware tem um kill-switch que destrói o home directory ao detectar revogação de token. Depois de isolar, audite credenciais, regenere tokens e atualize para versões limpas dos pacotes."
+  - q: "Como posso proteger meus projetos contra ataques na cadeia de suprimentos?"
+    a: "Use lockfiles com verificações de integridade (npm audit, socket.dev), restrinja permissões de tokens CI/CD ao mínimo necessário, ative proteção de branches no GitHub e monitore dependências com ferramentas como Dependabot. O princípio do menor privilégio em pipelines CI/CD é a defesa mais eficaz contra este tipo de ataque."
 ---
 
 # O Ataque ao npm da TanStack: Como 42 Pacotes Foram Comprometidos por um Worm na Cadeia de Suprimentos e o Que Isso Significa para 2026

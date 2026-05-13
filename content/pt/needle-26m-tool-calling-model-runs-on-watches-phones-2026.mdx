@@ -11,6 +11,14 @@ imageAlt: "Um microchip brilhante numa placa de circuito, simbolizando uma IA pe
 imageCredit: "Unsplash"
 imageCreditUrl: "https://unsplash.com"
 keywords: ["modelo de IA Needle", "modelo de 26M parâmetros", "chamada de ferramentas no dispositivo", "Cactus Compute Needle", "LLM minúsculo dispositivos", "IA na borda 2026", "destilação do Gemini"]
+tldr: "A Cactus Compute lançou o Needle, um modelo de 26 milhões de parâmetros especializado em chamada de ferramentas que cabe em 14 MB (menor que uma foto JPEG) e roda a 6 mil tokens/segundo em dispositivos comuns, superando modelos 10-20x maiores em benchmarks de function calling. Treinado por destilação do Gemini 3.1 em 27 horas com 16 TPUs e licenciado sob MIT, o Needle gerou debate no Hacker News (386 pontos, 136 comentários) sobre os termos de serviço do Google. A arquitetura híbrida proposta — Needle local para 80% das requisições simples, fallback para nuvem nas complexas — reduz custos em 5x para desenvolvedores."
+faq:
+  - q: "O Needle pode substituir o ChatGPT ou o Claude no meu aplicativo?"
+    a: "Não como substituto completo. O Needle é um especialista em chamada de ferramentas — ele decide qual função chamar e com quais parâmetros, mas não mantém conversas longas nem faz raciocínio complexo. A arquitetura recomendada é usá-lo como roteador local para 80% das requisições simples (como 'ligar a luz' ou 'cronometrar 20 minutos'), com fallback para modelos maiores na nuvem quando a tarefa exige raciocínio mais profundo."
+  - q: "A destilação de modelos como a usada no Needle é legal?"
+    a: "É uma zona cinzenta que a indústria ainda está decifrando. O Needle usou o Gemini para gerar dados sintéticos de treinamento (destilação de dados), não para extrair pesos do modelo. O fundador afirma que o Needle não compete diretamente com o Gemini por ser um modelo estreito e de propósito único, mas os termos de serviço do Google proíbem explicitamente o uso de seus serviços para desenvolver modelos concorrentes."
+  - q: "Que tipo de dispositivo eu preciso para rodar o Needle?"
+    a: "Surpreendentemente pouco. O modelo cabe em 14 MB — menor que uma foto JPEG de alta resolução — e roda a 6 mil tokens por segundo em hardware comum de consumo. Ele funciona em notebooks, celulares e até em relógios inteligentes, sem precisar de GPU dedicada ou conexão com a nuvem."
 ---
 
 # Needle: A IA de 26 Milhões de Parâmetros que Cabe num Relógio e Entende Seus Comandos

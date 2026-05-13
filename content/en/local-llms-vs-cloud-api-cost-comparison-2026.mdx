@@ -11,6 +11,15 @@ imageAlt: "Server rack in a data center with local AI inference hardware running
 imageCredit: "Taylor Vick"
 imageCreditUrl: "https://unsplash.com/@tvick"
 keywords: ["local LLM cost comparison 2026", "Ollama vs OpenAI API cost", "run LLM locally hardware requirements", "AI infrastructure TCO", "local vs cloud AI inference"]
+faq:
+  - q: "Is it worth running LLMs locally instead of using cloud APIs?"
+    a: "It depends on usage volume. For up to ~2 million tokens per month, cloud APIs are cheaper when considering total cost (hardware + electricity). Starting at ~5 million monthly tokens, local hardware like an RTX 4090 becomes more economical. The article presents a detailed TCO analysis with real billing numbers."
+  - q: "What's the minimum hardware to run an LLM locally?"
+    a: "For 7B-13B parameter models (like Llama 3, Mistral), a GPU with 8-12 GB of VRAM is sufficient. For 70B+ models, you need 24 GB or more (RTX 4090, A6000). Alternatively, you can use quantization (Q4, Q5) to reduce VRAM requirements with minimal quality loss."
+  - q: "How much does electricity cost to keep a local LLM running?"
+    a: "An RTX 4090 draws about 350-400W under inference load. At 100 hours per month, that's roughly 40 kWh, or about €6-10 monthly at Portuguese residential rates. The article details the complete TCO calculation including hardware amortization."
+  - q: "Ollama or LM Studio: which is better to start with?"
+    a: "Ollama is better for server use and code integration (it has a REST API). LM Studio is better for desktop use with a graphical interface and model discovery. Both support quantization and are free. The article recommends starting with Ollama if your goal is integration into development pipelines."
 ---
 
 # Local LLMs vs Cloud APIs: The Real Cost Comparison in 2026

@@ -11,6 +11,14 @@ imageAlt: "Government developers collaborating on an open-source code platform w
 imageCredit: "Markus Winkler"
 imageCreditUrl: "https://unsplash.com/@markuswinkler"
 keywords: ["open-source code platform for government", "government software modernization", "soft launch strategy", "public sector DevSecOps", "software supply chain security"]
+tldr: "A phased launch guide for an open-source government platform, covering mission and metric definition, secure architecture with RBAC and government SSO, DevSecOps with SLSA and SBOM, and an adoption strategy with pilot teams and stakeholder communication. The article proposes concrete 60-90 day metrics (5-10 pilot teams, 80% of repositories with standardized CI, 20% reduction in pull request time) and emphasizes that platform adoption follows clarity of objectives, not technology."
+faq:
+  - q: "Why is a phased launch better than opening the platform to all agencies at once?"
+    a: "A phased launch lets you validate architecture, security policies, workflows, and the support model in a controlled environment before scaling. With 5 to 10 pilot teams, you identify and fix friction when the impact is still small, build trust with real evidence, and avoid the common scenario of a platform launched for everyone that nobody adopts because the foundational problems were never resolved."
+  - q: "How long does it take for a team to onboard onto the platform?"
+    a: "The article proposes a 2-week runway: week 0 for readiness review and data sensitivity mapping, week 1 for technical provisioning and security template application, and week 2 for validation with sample pull requests and vulnerability remediation simulations. A formal go-live gate with a checklist signed by platform, security, and service owner completes the process."
+  - q: "What metrics prove the platform is working?"
+    a: "The article recommends four dashboards: platform health (availability, CI latency, incidents), security and compliance (vulnerability backlog, control coverage), developer productivity (lead time, PR cycle time, deploy frequency), and reuse (published components, cross-agency contributions, hours saved). The 60-90 day target includes 5-10 teams onboarded, 80% of repositories with standardized CI, and a 20% reduction in median pull request time."
 ---
 
 # Open-Source Government Code Platform: Soft Launch Guide

@@ -11,6 +11,14 @@ imageAlt: "A glowing microchip on a circuit board, symbolizing tiny but powerful
 imageCredit: "Unsplash"
 imageCreditUrl: "https://unsplash.com"
 keywords: ["Needle AI model", "26M parameter model", "on-device AI tool calling", "Cactus Compute Needle", "tiny LLM consumer devices", "edge AI 2026", "Gemini distillation"]
+tldr: "Cactus Compute released Needle, a 26-million-parameter model specialized in tool calling that fits in 14 MB (smaller than a JPEG photo) and runs at 6,000 tokens/second on consumer devices, beating models 10-20x larger on function calling benchmarks. Trained via distillation from Gemini 3.1 in 27 hours on 16 TPUs and MIT-licensed, Needle sparked debate on Hacker News (386 points, 136 comments) around Google's terms of service. The proposed hybrid architecture — local Needle for 80% of simple requests, cloud fallback for complex ones — reduces costs by 5x for developers."
+faq:
+  - q: "Can Needle replace ChatGPT or Claude in my app?"
+    a: "Not as a full replacement. Needle is a tool-calling specialist — it decides which function to call and with what parameters, but doesn't hold long conversations or perform complex reasoning. The recommended architecture is to use it as a local router for 80% of simple requests (like 'turn on the lights' or 'set a 20-minute timer'), with fallback to larger cloud models when the task requires deeper reasoning."
+  - q: "Is distilling models like Needle legal?"
+    a: "It's a gray area the industry is still working through. Needle used Gemini to generate synthetic training data (data distillation), not to extract model weights. The founder argues Needle doesn't compete directly with Gemini since it's a narrow, single-purpose model, but Google's terms of service explicitly prohibit using their services to develop competing models."
+  - q: "What kind of device do I need to run Needle?"
+    a: "Surprisingly little. The model fits in 14 MB — smaller than a high-resolution JPEG photo — and runs at 6,000 tokens per second on ordinary consumer hardware. It works on laptops, phones, and even smartwatches, with no need for a dedicated GPU or cloud connection."
 ---
 
 # Needle: The 26-Million-Parameter AI That Fits on a Smartwatch and Understands Your Commands

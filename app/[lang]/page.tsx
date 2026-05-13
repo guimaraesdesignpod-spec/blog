@@ -13,7 +13,7 @@ type Lang = 'en' | 'pt'
 
 const META: Record<Lang, { title: string; tagline: string; description: string; ogDescription: string }> = {
   en: { title: 'Brainwire', tagline: 'AI productivity tools', description: 'AI productivity tools for professionals', ogDescription: 'Brainwire — honest reviews of AI tools, autonomous agents, and tech trends. Bilingual EN/PT-BR blog with real code and unfiltered opinions.' },
-  pt: { title: 'Brainwire', tagline: 'produtividade com IA', description: 'Ferramentas de IA para produtividade profissional', ogDescription: 'Brainwire — análises honestas de ferramentas de IA, agentes autônomos e tendências tech. Blog bilingue EN/PT-BR com código real e opiniões sem filtro.' },
+  pt: { title: 'Brainwire', tagline: 'produtividade com IA', description: 'Brainwire — análises honestas de ferramentas de IA, agentes autônomos e tendências tech. Blog bilingue EN/PT-BR com código real e opiniões sem filtro.', ogDescription: 'Brainwire — análises honestas de ferramentas de IA, agentes autônomos e tendências tech. Blog bilingue EN/PT-BR com código real e opiniões sem filtro.' },
 }
 
 type LabelsType = {
@@ -60,13 +60,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'Brainwire',
       locale: lang === 'pt' ? 'pt_BR' : 'en_US',
       type: 'website',
-      images: [{ url: '/icon.svg', width: 512, height: 512, alt: 'Brainwire logo' }],
+      images: [{ url: '/images/og-homepage.jpg', width: 1200, height: 630, alt: 'Brainwire blog' }],
     },
     twitter: {
       card: 'summary',
       title: 'Brainwire',
       description: meta.ogDescription,
-      images: ['/icon.svg'],
+      images: ['/images/og-homepage.jpg'],
     },
   }
 }
