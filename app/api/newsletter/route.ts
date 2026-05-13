@@ -18,12 +18,10 @@ export async function POST(request: Request) {
 
     const { error } = await supabase
       .from('subscribers')
-      .upsert(
-        { email: email.toLowerCase().trim(), created_at: new Date().toISOString() },
-        { onConflict: 'email', ignoreDuplicates: true }
-      )
+      .insert({ email: email.toLowerCase().trim(), created_at: new Date().toISOString() })
 
-    if (error) {
+    // Duplicate email is fine — UNIQUE constraint returns error code 23505
+    if (error && error.code !== '23505') {
       console.error('Supabase insert error:', error)
       return NextResponse.json(
         { error: 'Subscription failed' },
