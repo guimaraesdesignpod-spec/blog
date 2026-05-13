@@ -8,6 +8,7 @@ import Footer from '@/components/Footer'
 import NewsletterForm from '@/components/NewsletterForm'
 import MobileNav from '@/components/MobileNav'
 import HomeArticles from '@/components/HomeArticles'
+import ThemeToggle from '@/components/ThemeToggle'
 
 type Lang = 'en' | 'pt'
 
@@ -222,9 +223,12 @@ export default async function LangPage({ params }: Props) {
 
         <MobileNav lang={lang as Lang} links={mobileLinks} />
 
-        <Link href={`/${otherLang}`} className="nav-lang">
-          {lang === 'en' ? 'EN · PT' : 'PT · EN'}
-        </Link>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <ThemeToggle />
+          <Link href={`/${otherLang}`} className="nav-lang">
+            {lang === 'en' ? 'EN · PT' : 'PT · EN'}
+          </Link>
+        </div>
       </nav>
 
       {featured && <HeroCard article={featured} lang={lang as Lang} labels={labels} />}

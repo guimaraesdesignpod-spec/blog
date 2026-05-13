@@ -28,16 +28,16 @@ function LogoMark() {
 
 export default function Header({ lang }: { lang: Lang }) {
   return (
-    <header className="border-b border-[#232326] bg-[#0D0D0F]">
+    <header className="border-b border-[var(--rule)]" style={{ background: 'color-mix(in srgb, var(--bg) 92%, transparent)' }}>
       <div className="mx-auto max-w-[1100px] px-4 md:px-8 h-16 flex items-center justify-between">
-        <Link href={`/${lang}`} className="flex items-center gap-2 font-sans text-base font-semibold tracking-tight text-[#F4F4F5]">
+        <Link href={`/${lang}`} className="flex items-center gap-2 font-sans text-base font-semibold tracking-tight text-[var(--ink)]">
           <LogoMark />
           <span>Brain<em className="font-normal text-[var(--accent)]">wire</em></span>
         </Link>
 
         <div className="flex items-center gap-4">
           <ThemeToggle />
-          <Link href={`/${lang === 'en' ? 'pt' : 'en'}`} className="text-[13px] text-[#52525B] tracking-wide">
+          <Link href={`/${lang === 'en' ? 'pt' : 'en'}`} className="text-[13px] text-[var(--ink-light)] tracking-wide hover:text-[var(--accent)] transition-colors">
             {lang === 'en' ? 'PT' : 'EN'}
           </Link>
         </div>

@@ -278,7 +278,6 @@ nav {
 
 .sidebar-box {
   background: var(--surface);
-  background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: 8px;
   padding: 1.5rem;
@@ -391,7 +390,7 @@ nav {
   color: white; background: var(--accent); text-decoration: none;
   padding: 0.6em 1.3em; border-radius: 100px; transition: background 0.18s, transform 0.15s;
 }
-.btn-read:hover { background: oklch(37% 0.18 165); transform: translateY(-1px); }
+.btn-read:hover { background: color-mix(in srgb, var(--accent) 85%, black); transform: translateY(-1px); }
 .hero-img {
   position: relative; overflow: hidden;
 }
@@ -437,7 +436,7 @@ nav {
   overflow: hidden; display: flex; flex-direction: column; text-decoration: none;
   transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
-.home-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px oklch(0% 0 0 / 0.08); }
+.home-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08); }
 .card-img-wrap { overflow: hidden; position: relative; aspect-ratio: 16/9; }
 .home-card.card-wide .card-img-wrap { aspect-ratio: auto; width: 42%; flex-shrink: 0; }
 .card-img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.82); transition: transform 0.5s ease; display: block; }
@@ -460,6 +459,8 @@ nav {
   animation: fadeUp 0.55s ease 0.22s both;
 }
 .newsletter-inner {
+  background: var(--surface);
+  border: 1px solid var(--rule);
   border-radius: 12px; padding: 3rem;
   display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 3rem;
 }
@@ -489,13 +490,13 @@ nav {
   padding: 0.7em 1.3em; font-size: 0.85rem; font-weight: 500; cursor: pointer;
   font-family: var(--sans); transition: background 0.18s, transform 0.15s; white-space: nowrap;
 }
-.newsletter-form button:hover { background: oklch(22% 0.02 250); transform: translateY(-1px); }
+.newsletter-form button:hover { background: color-mix(in srgb, var(--ink) 85%, black); transform: translateY(-1px); }
 .newsletter-form button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 .newsletter-success, .newsletter-error {
   position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
   font-size: 0.9rem; font-weight: 600;
 }
-.newsletter-success { color: oklch(55% 0.18 165); }
+.newsletter-success { color: var(--accent); }
 .newsletter-error { color: oklch(55% 0.18 25); }
 
 /* ── Site footer ────────────────────────────────────────── */
@@ -575,8 +576,8 @@ nav {
 
 /* ── TL;DR Box ──────────────────────────────────────────── */
 .tldr-box {
-  background: oklch(97% 0.02 250);
-  border: 1px solid oklch(85% 0.04 250);
+  background: var(--tldr-bg);
+  border: 1px solid var(--tldr-border);
   border-radius: 8px;
   padding: 1rem 1.25rem;
   margin-bottom: 1.75rem;
@@ -623,7 +624,6 @@ nav {
 }
 .related-card {
   background: var(--surface);
-  background: var(--surface);
   border: 1px solid var(--rule);
   border-radius: 8px;
   overflow: hidden;
@@ -632,7 +632,7 @@ nav {
   transition: box-shadow 0.2s, transform 0.2s;
 }
 .related-card:hover {
-  box-shadow: 0 4px 16px oklch(0% 0 0 / 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
 .related-card .related-img {
@@ -766,7 +766,7 @@ nav {
   top: 58px;
   left: 0;
   right: 0;
-  background: oklch(97% 0.008 75 / 0.98);
+  background: color-mix(in srgb, var(--bg) 98%, transparent);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--rule);
   padding: 1rem 2rem;
@@ -799,7 +799,7 @@ nav {
   transition: box-shadow 200ms, transform 200ms;
 }
 .article-card:hover {
-  box-shadow: 0 4px 16px oklch(0% 0 0 / 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
 
@@ -982,7 +982,7 @@ nav {
   font-family: var(--mono);
 }
 .tool-card.warm .tool-badge {
-  background: oklch(95% 0.06 62);
+  background: var(--accent-pale);
   color: var(--accent-warm);
 }
 
