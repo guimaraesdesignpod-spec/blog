@@ -6,7 +6,7 @@ import Image from 'next/image'
 import type { ArticleMeta } from '@/lib/mdx'
 import type { Lang } from '@/lib/mdx'
 
-const PER_PAGE = 9
+const PER_PAGE = 8
 
 function ArticleCard({
   article,
