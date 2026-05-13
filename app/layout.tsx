@@ -1,15 +1,15 @@
 import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
-import { Lora, DM_Mono, DM_Sans } from 'next/font/google'
+import { Cormorant_Garamond, DM_Mono, DM_Sans } from 'next/font/google'
 import Script from 'next/script'
 import { headers } from 'next/headers'
 import './globals.css'
 
-const lora = Lora({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['400', '500', '600', '700'],
   style: ['normal', 'italic'],
-  variable: '--font-lora',
+  variable: '--font-cormorant',
   display: 'swap',
 })
 
@@ -42,7 +42,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html
       lang={lang}
-      className={`${lora.variable} ${dmMono.variable} ${dmSans.variable}`}
+      className={`${cormorant.variable} ${dmMono.variable} ${dmSans.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: `

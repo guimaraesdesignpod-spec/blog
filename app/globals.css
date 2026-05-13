@@ -1,39 +1,39 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* ── Design tokens ─────────────────────────────────────── */
+/* ── Design tokens: warm editorial palette ────────────── */
 :root {
   --bg:          oklch(97% 0.008 75);
-  --bg-warm:     oklch(94% 0.012 75);
-  --ink:         oklch(16% 0.02 250);
-  --ink-mid:     oklch(40% 0.02 250);
-  --ink-light:   oklch(52% 0.015 250);
-  --accent:      oklch(42% 0.18 165);
-  --accent-warm: oklch(67% 0.14 62);
-  --accent-pale: oklch(93% 0.06 165);
-  --rule:        oklch(88% 0.012 75);
+  --bg-warm:     oklch(94% 0.014 75);
+  --ink:         oklch(16% 0.02 60);
+  --ink-mid:     oklch(42% 0.02 60);
+  --ink-light:   oklch(55% 0.016 60);
+  --accent:      oklch(50% 0.12 65);
+  --accent-warm: oklch(68% 0.14 62);
+  --accent-pale: oklch(92% 0.04 65);
+  --rule:        oklch(87% 0.01 60);
   --surface:     #ffffff;
-  --tldr-bg:     #eef6ff;
-  --tldr-border: #bbd0e8;
-  --serif:       var(--font-lora), Georgia, serif;
+  --tldr-bg:     oklch(95% 0.02 75);
+  --tldr-border: oklch(82% 0.04 65);
+  --serif:       var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
   --sans:        'DM Sans', system-ui, sans-serif;
   --mono:        'DM Mono', monospace;
 }
 
-/* ── Dark mode (class-based toggle + system fallback) ──── */
+/* ── Dark: photographic black, parchment text, warm amber ── */
 .dark {
-  --bg:          oklch(8% 0 -2);
-  --bg-warm:     oklch(12% 0 -1.5);
-  --ink:         oklch(90.7% 0.004 -1.45);
-  --ink-mid:     oklch(65.9% 0.008 -8.17);
-  --ink-light:   oklch(47.9% 0.017 -5.77);
-  --accent:      oklch(76.9% -0.548 14.7);
-  --accent-warm: oklch(73% 0.18 72);
-  --accent-pale: oklch(76.9% -0.548 14.7 / 0.1);
-  --rule:        oklch(18% 0 -2);
-  --surface:     oklch(12% 0 -1.5);
-  --tldr-bg:     oklch(76.9% -0.548 14.7 / 0.08);
-  --tldr-border: oklch(76.9% -0.548 14.7 / 0.2);
+  --bg:          oklch(6% 0.005 60);
+  --bg-warm:     oklch(9% 0.006 60);
+  --ink:         oklch(91% 0.017 75);
+  --ink-mid:     oklch(67% 0.012 75);
+  --ink-light:   oklch(48% 0.012 75);
+  --accent:      oklch(72% 0.09 70);
+  --accent-warm: oklch(73% 0.15 62);
+  --accent-pale: oklch(72% 0.09 70 / 0.1);
+  --rule:        oklch(20% 0.005 60);
+  --surface:     oklch(13% 0.006 60);
+  --tldr-bg:     oklch(72% 0.09 70 / 0.08);
+  --tldr-border: oklch(72% 0.09 70 / 0.2);
 }
 
 /* ── Base ──────────────────────────────────────────────── */
@@ -127,10 +127,7 @@ nav {
   flex-shrink: 0;
 }
 
-.logo-text em {
-  font-style: normal;
-  color: var(--accent);
-}
+.logo-text em { font-style: italic; color: var(--accent); }
 
 .nav-meta {
   font-size: 0.72rem;
@@ -185,11 +182,9 @@ nav {
   gap: 0.5em;
 }
 .hero-tag::before {
-  content: '';
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--accent);
+  content: '— ';
+  display: inline;
+  color: var(--accent);
 }
 
 .hero h1 {
@@ -365,11 +360,11 @@ nav {
   text-transform: uppercase; color: var(--accent); margin-bottom: 1.6rem;
 }
 .hero-tag::before {
-  content: ''; display: block; width: 20px; height: 2px; background: var(--accent);
+  content: '— '; display: inline; color: var(--accent);
 }
 .hero-title {
   font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.8rem);
-  font-weight: 700; line-height: 1.16; letter-spacing: -0.025em;
+  font-weight: 500; line-height: 1.16; letter-spacing: -0.025em;
   color: var(--ink); text-wrap: pretty; max-width: 16em;
 }
 .hero-excerpt {
@@ -406,14 +401,9 @@ nav {
   max-width: 1280px; margin: 2rem auto 0; padding: 0 2.5rem;
   display: flex; gap: 0.75rem; flex-wrap: wrap;
 }
-.topic-pill {
-  display: inline-flex; align-items: center; gap: 0.5em;
-  font-size: 0.8rem; font-weight: 500; color: var(--ink-mid);
-  border: 1px solid var(--rule); border-radius: 100px; padding: 0.45em 1em;
-  text-decoration: none; transition: all 0.18s; background: var(--surface); cursor: pointer;
-}
+.topic-pill { font-size: 0.8rem; font-weight: 500; color: var(--ink-mid); border: 1px solid var(--rule); border-radius: 100px; padding: 0.45em 1em; text-decoration: none; transition: all 0.18s; background: transparent; cursor: pointer; font-family: var(--sans); }
 .topic-pill:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-pale); }
-.topic-pill.active { background: var(--ink); color: white; border-color: var(--ink); }
+.topic-pill.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
 /* ── Home grid ──────────────────────────────────────────── */
 .home-grid-wrap {
@@ -443,7 +433,8 @@ nav {
 .home-card:hover .card-img { transform: scale(1.04); }
 .card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 0.7rem; }
 .card-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
-.card-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; line-height: 1.3; color: var(--ink); letter-spacing: -0.015em; }
+.card-tag::before { content: '— '; }
+.card-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 500; line-height: 1.3; color: var(--ink); letter-spacing: -0.015em; }
 .card-excerpt { font-size: 0.88rem; color: var(--ink-mid); line-height: 1.65; flex: 1; }
 .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--rule); margin-top: 0.5rem; }
 .card-date { font-size: 0.75rem; color: var(--ink-light); font-family: var(--mono); }
@@ -520,7 +511,7 @@ nav {
   color: var(--ink); letter-spacing: -0.02em;
   display: flex; align-items: center; gap: 0.5em; text-decoration: none;
 }
-.footer-brand .f-logo .logo-text em { font-style: normal; color: var(--accent); }
+.footer-brand .f-logo .logo-text em { font-style: italic; color: var(--accent); }
 .footer-brand .f-logo .logo-mark {
   width: 20px; height: 20px; background: var(--accent); border-radius: 5px;
   display: flex; align-items: center; justify-content: center;
@@ -881,7 +872,7 @@ nav {
 .article-prose h2 {
   font-family: var(--serif);
   font-size: 1.65rem;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--ink);
   margin: 3.5rem 0 1.2rem;
 }
@@ -967,7 +958,7 @@ nav {
 .tool-name {
   font-family: var(--serif);
   font-size: 1.3rem;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--ink);
 }
 
@@ -1249,11 +1240,10 @@ pre {
 .article-prose > h1 {
   font-family: var(--serif);
   font-size: clamp(1.55rem, 3.5vw, 2rem);
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.25;
   margin: 2rem 0 1.2rem;
 }
-
 
 /* Mobile sidebar hiding */
 @media (max-width: 1024px) {
