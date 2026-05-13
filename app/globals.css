@@ -20,22 +20,20 @@
   --mono:        'DM Mono', monospace;
 }
 
-/* ── Dark mode ──────────────────────────────────────────── */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg:          oklch(8% 0 -2);
-    --bg-warm:     oklch(12% 0 -1.5);
-    --ink:         oklch(90.7% 0.004 -1.45);
-    --ink-mid:     oklch(65.9% 0.008 -8.17);
-    --ink-light:   oklch(47.9% 0.017 -5.77);
-    --accent:      oklch(76.9% -0.548 14.7);
-    --accent-warm: oklch(73% 0.18 72);
-    --accent-pale: oklch(76.9% -0.548 14.7 / 0.1);
-    --rule:        oklch(18% 0 -2);
-    --surface:     oklch(12% 0 -1.5);
-    --tldr-bg:     oklch(76.9% -0.548 14.7 / 0.08);
-    --tldr-border: oklch(76.9% -0.548 14.7 / 0.2);
-  }
+/* ── Dark mode (class-based toggle + system fallback) ──── */
+.dark {
+  --bg:          oklch(8% 0 -2);
+  --bg-warm:     oklch(12% 0 -1.5);
+  --ink:         oklch(90.7% 0.004 -1.45);
+  --ink-mid:     oklch(65.9% 0.008 -8.17);
+  --ink-light:   oklch(47.9% 0.017 -5.77);
+  --accent:      oklch(76.9% -0.548 14.7);
+  --accent-warm: oklch(73% 0.18 72);
+  --accent-pale: oklch(76.9% -0.548 14.7 / 0.1);
+  --rule:        oklch(18% 0 -2);
+  --surface:     oklch(12% 0 -1.5);
+  --tldr-bg:     oklch(76.9% -0.548 14.7 / 0.08);
+  --tldr-border: oklch(76.9% -0.548 14.7 / 0.2);
 }
 
 /* ── Base ──────────────────────────────────────────────── */
@@ -1283,12 +1281,10 @@ pre {
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Image softening in dark mode ────────────────────────── */
-@media (prefers-color-scheme: dark) {
-  .card-img,
-  .hero-img img,
-  .hero-img-wrap img {
-    filter: brightness(0.9) saturate(0.9);
-  }
+.dark .card-img,
+.dark .hero-img img,
+.dark .hero-img-wrap img {
+  filter: brightness(0.9) saturate(0.9);
 }
 
 /* ── Focus states (WCAG 2.1 AA, critério 2.4.7) ─────────── */

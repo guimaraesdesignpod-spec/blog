@@ -45,6 +45,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       className={`${lora.variable} ${dmMono.variable} ${dmSans.variable}`}
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function(){
+            try {
+              var t = localStorage.getItem('theme');
+              if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+              }
+            } catch(e){}
+          })()
+        `}} />
         <link rel="icon" type="image/svg+xml" href="/icon.svg" />
         {publisherId && (
           <Script

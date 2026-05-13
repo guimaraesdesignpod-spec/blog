@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ThemeToggle from './ThemeToggle'
 
 type Lang = 'en' | 'pt'
 
@@ -34,7 +35,8 @@ export default function Header({ lang }: { lang: Lang }) {
           <span>Brain<em className="font-normal text-[var(--accent)]">wire</em></span>
         </Link>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
           <Link href={`/${lang === 'en' ? 'pt' : 'en'}`} className="text-[13px] text-[#52525B] tracking-wide">
             {lang === 'en' ? 'PT' : 'EN'}
           </Link>
