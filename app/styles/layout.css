@@ -33,19 +33,25 @@
   margin-bottom: 1.5rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.5em;
 }
 .hero-tag::before {
-  content: '— ';
-  display: inline;
-  color: var(--accent);
+  content: '';
+  display: inline-block;
+  width: 1.6em;
+  height: 1px;
+  background: currentColor;
+  margin-right: 0.7em;
+  vertical-align: middle;
 }
 
 .hero h1 {
   font-family: var(--serif);
-  font-size: clamp(2.2rem, 4vw, 3.4rem);
-  line-height: 1.18;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
   color: var(--ink);
+  text-wrap: balance;
+  font-feature-settings: "kern", "liga", "dlig", "calt";
 }
 .hero h1 em { color: var(--accent); font-style: normal; }
 
