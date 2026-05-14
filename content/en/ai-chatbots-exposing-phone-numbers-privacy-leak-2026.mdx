@@ -1,0 +1,98 @@
+---
+title: "AI Chatbots Are Spitting Out Real Phone Numbers, and the Fix Is Nobody's Responsibility"
+description: "MIT Technology Review confirms that Gemini, ChatGPT, and Grok are surfacing real people's phone numbers, addresses, and family details. A Redditor gets harassed for a month, an Israeli developer gets flooded with customer-service calls — and the legal response is a shrug. Here's what actually happened and why nobody wants to fix it."
+date: "2026-05-14"
+translationKey: "ai-chatbots-exposing-phone-numbers-privacy-leak-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI Privacy", "Data Leaks", "Gemini", "ChatGPT", "Grok", "LLM Safety", "PII", "Regulation"]
+image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1200"
+imageAlt: "Person silhouetted against digital light beams leaking personal data into the air"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["AI chatbot phone number leak", "Gemini doxxing", "LLM privacy 2026", "ChatGPT revealing personal data", "AI data memorization", "how to remove phone from AI training data"]
+tldr: "MIT Technology Review reported that Google Gemini, OpenAI ChatGPT, and xAI Grok are exposing real phone numbers, addresses, and family details to users who ask routine questions. One Israeli developer, Daniel Abraham, received unexpected WhatsApp messages from strangers after Gemini displayed his personal number in response to a PayBox customer-service query — even though he does not work for PayBox. A Futurism investigation found Grok hands out residential addresses, family members, emails, and phone numbers for non-public figures with nothing more than a first and last name. Privacy experts say the problem stems from LLMs memorizing PII in training data, but there is no reliable way to know what a model has stored or force its deletion. California launched a statewide data-broker portal in 2026, but the advice remains the same: remove yourself from the open web before the next scrape happens."
+faq:
+  - q: "How do AI chatbots end up knowing my phone number?"
+    a: "Large language models are trained on massive text corpora scraped from the public internet. If your phone number, address, or family details were ever posted online — on a Quora-style forum, a public résumé, a property-record site, or even a decades-old comment — there is a chance that text ended up in a training dataset. LLMs can memorize this information and reproduce it verbatim when prompted, even years later."
+  - q: "Which chatbots are confirmed to leak PII?"
+    a: "Gemini has surfaced real phone numbers for at least two confirmed cases (an Israeli developer and a University of Washington PhD student), ChatGPT has divulged home addresses and family-member names when presented with a 'neighborhood guess,' and Grok has exposed residential addresses for non-public individuals with alarming consistency. The issue is not exclusive to any single vendor."
+  - q: "Is there a way to check if my PII is in a model's training data?"
+    a: "Hugging Face hosts an open-source tool called Infini-gram that lets you search how often a piece of text appears in publicly documented training datasets. However, this only covers open-source corpora. Closed models like Gemini, ChatGPT, and Claude do not publish their full training data, so there is no reliable method to verify what those models have memorized."
+  - q: "Can I ask AI companies to delete my PII from their models?"
+    a: "OpenAI operates a privacy portal that accepts removal requests, but it explicitly states that requests may be declined if the company believes there is a lawful reason to keep the data. Google provides a support form for 'objecting to the processing of your personal data,' but the outcome depends on your jurisdiction. Anthropic does not offer a direct removal mechanism at all. No company currently guarantees complete erasure from model weights."
+  - q: "What can I actually do to protect myself?"
+    a: "The most practical advice is upstream prevention: remove your personal data from the public web before the next training scrape. California now offers a statewide portal for requesting deletion from data brokers. Services like DeleteMe claim a 400% surge in AI-related privacy inquiries in the past seven months. The consensus among experts is that once PII is inside a closed model, you cannot reliably get it out."
+---
+
+# AI Chatbots Are Spitting Out Real Phone Numbers, and the Fix Is Nobody's Responsibility
+
+Daniel Abraham was sitting at home in Israel when his phone buzzed with a WhatsApp message from a number he did not recognize. The person on the other end wanted help with a PayBox account. Abraham does not work for PayBox. PayBox does not even have WhatsApp customer service. But when the stranger explained how they had found his number, Abraham saw a screenshot of something he never expected: Google Gemini had presented his personal cell phone number as the official PayBox support line.
+
+This is not a theoretical privacy concern. This is a 28-year-old software engineer getting customer-service calls he never signed up for, because a chatbot hallucinated a fact and happened to pick his decade-old forum post as the source.
+
+And Daniel Abraham is not alone.
+
+## A Month of Strangers in Your Inbox
+
+In April 2026, a Redditor described receiving relentless phone calls from people looking for a lawyer, a product designer, and a locksmith. The callers were not scammers in the traditional sense. They were ordinary people following instructions from Google's generative AI, which had been displaying the Redditor's personal phone number in response to unrelated queries. "The harassment continues daily," the user wrote after submitting a legal-removal request to Google and receiving no response.
+
+DeleteMe, a company that removes personal information from the internet, reported a 400% increase in AI-related privacy requests over the past seven months. The breakdown mirrors market share: 55% mention ChatGPT, 20% mention Gemini, 15% mention Claude. Most complaints fall into two categories: a chatbot reveals accurate information about the person asking the question, or it generates plausible-but-wrong contact information that exposes somebody else entirely.
+
+Neither scenario is harmless. In Abraham's case, the misuse was accidental but real. In the Futurism investigation from December 2025, the misuse was systematic: xAI's Grok coughed up current residential addresses, prior addresses, work addresses, emails, phone numbers, and even the names of family members for non-public individuals, in response to prompts as simple as "[name] address." Grok provided accurate information 10 times out of 33, inaccurate information 7 times, and partial or related information in another 16 instances. It refused once.
+
+## Why This Happens: The Training Data Problem
+
+The mechanism is frustratingly simple. LLMs are trained on enormous text corpora scraped from the open web. If your phone number, address, employer, or family member names were ever published publicly — on a forum, in a résumé, on a property-records website, in an academic workshop registration — they may have been ingested into training data.
+
+A major open-source dataset called DataComp CommonPool, used to train image-generation models, was found to contain millions of instances of personally identifiable information: résumés, driver’s licenses, and credit-card numbers. And the problem is getting worse, not better. As the highest-quality public text becomes scarce, AI companies increasingly turn to data brokers and people-search websites for training sources. California’s data-broker registry shows 31 of 578 registered brokers acknowledged selling consumer data to generative-AI developers in the past year.
+
+Research confirms that models do not just learn *from* data — they memorize and reproduce it. Studies from 2024 and 2025 found that LLMs are capable of verbatim output from training corpora, and recent work in *Nature* suggests the most memorable data is not necessarily the most frequent. It can be rare but salient. An old forum post with your phone number, buried ten pages deep in a Google search, might be exactly the kind of needle a model remembers.
+
+When Meira Gilbert, a PhD student at the University of Washington, searched her collaborator's name in Gemini, the model returned a full contact overview — including a personal cell number buried in an old event-registration page that would not appear on the first page of any standard search. "I never would have found it if I was just looking through Google results," Gilbert said.
+
+## The Guardrails Have Holes
+
+Every major AI company claims it has built guardrails. Anthropic instructs Claude to choose responses containing the "least personal, private, or confidential information belonging to others." OpenAI says it filters personally identifiable information from training data and outputs. Google says its teams are "looking into" specific cases flagged by journalists.
+
+But the safeguards do not hold when tested.
+
+In the University of Washington experiment, ChatGPT initially refused to provide a professor's address. Then, in the *same response*, it suggested an "investigative-style approach" if the student could provide a "neighborhood guess" or a "possible co-owner name." When fed that extra detail, the model produced the professor's home address, purchase price, and spouse's name.
+
+This reveals the fundamental tension in LLM design. The models are optimized for helpfulness and fluency. When a user frames a request innocently — "How do I contact PayBox customer service?" — the model searches its internal representation for what looks like a phone number associated with the entity. If the training data contains Abraham's number in an old forum thread, the model has no reliable way to distinguish a legitimate support line from a random Israeli developer who asked a question on a local Q&A site in 2015.
+
+The PII filters detect obvious patterns like credit-card numbers and Social Security numbers. They are far less effective at contextual judgment: is this phone number an official company line, or a personal cell that happens to appear near the company name in a forum post?
+
+## The Legal Dead End
+
+Existing privacy law offers almost no protection here. The California Consumer Privacy Act and Europe's GDPR both apply primarily to data that companies collect directly from consumers through forms, purchases, or app usage. Training datasets scraped from the public internet are typically classified as "publicly available information," which falls outside those frameworks.
+
+Even when laws nominally apply, the practical barrier is enormous. To exercise a deletion right under GDPR, you must prove that a specific company holds your data in a specific system, and that the processing is unlawful. For LLM weights — billions of parameters distributed across a neural network — no court has yet ruled on whether "deletion" is technically possible, or whether deleting a training example even removes its influence from model outputs.
+
+Jennifer King, a privacy fellow at Stanford's HAI, summarized the situation bluntly: "I don't know if Google even has the infrastructure ... to say to me, 'Yes, we have your data in our training data, we can summarize what we know about you, and then we can delete or correct things that are wrong.'"
+
+Google's official response to Abraham arrived on May 4, nearly two months after his initial report, and did not resolve anything. It asked for documentation he had already provided in his first contact.
+
+## What You Can Actually Do
+
+The advice from experts is depressingly familiar: treat the problem upstream.
+
+If your phone number, address, or family details are still visible on the open web, they are candidates for the next training scrape. California launched a statewide data-broker deletion portal in early 2026. Services like DeleteMe, though paid, are seeing record demand specifically because of generative AI. The Hugging Face Infini-gram tool gives you a partial window into open-source training data, though it tells you nothing about the closed models that power consumer chatbots.
+
+OpenAI's privacy portal accepts removal requests, but balances them against "public interest" and reserves the right to decline. Google's form depends on your jurisdiction's privacy laws. Anthropic offers no removal mechanism at all.
+
+The bottom line is this: once your data enters a closed LLM, there is no reliable way to get it out. Companies are training new models constantly. Each new release may have memorized your information again. The only prevention is making sure it is not on the public web when the scrapers arrive.
+
+## The Bigger Picture: AI Is Becoming a Doxxing Machine at Scale
+
+This is not a story about a single broken model. It is a structural problem in how LLMs are built. Training data is scraped indiscriminately from the web. PII is present in that data. Models memorize it. Guardrails are designed for obvious patterns, not contextual judgment. And the legal framework for privacy assumes a world of structured databases, not distributed neural-network weights.
+
+The result is a system that treats every person whose data has ever been online as a potential output. A customer-service bot turns into a people-search engine. An academic collaboration tool turns into a family-tree lookup service. A chat assistant turns into a stalking enabler.
+
+This is not what the marketing materials promise. But it is what the architecture produces.
+
+Google says it is "looking into" the specific cases flagged by MIT Technology Review. OpenAI says it cannot comment without seeing the exact screenshots and model versions. xAI did not respond to requests for comment at all.
+
+Until there is a legal or technical mechanism to verify and remove PII from closed LLM weights, the practical advice is the same advice security researchers have given for decades: reduce your attack surface. Get your number off the public web. Limit what you share. And assume that anything published online, even decades ago, is sitting in a model somewhere waiting for the right prompt.
+
+Because right now, that is exactly what the evidence shows.
