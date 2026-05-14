@@ -1,0 +1,76 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ── Design tokens: warm editorial palette ────────────── */
+:root {
+  --bg:          oklch(97% 0.008 75);
+  --bg-warm:     oklch(94% 0.014 75);
+  --ink:         oklch(16% 0.02 60);
+  --ink-mid:     oklch(42% 0.02 60);
+  --ink-light:   oklch(55% 0.016 60);
+  --accent:      oklch(50% 0.12 65);
+  --accent-warm: oklch(68% 0.14 62);
+  --accent-pale: oklch(92% 0.04 65);
+  --rule:        oklch(87% 0.01 60);
+  --surface:     #ffffff;
+  --tldr-bg:     oklch(95% 0.02 75);
+  --tldr-border: oklch(82% 0.04 65);
+  --serif:       var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --sans:        'DM Sans', system-ui, sans-serif;
+  --mono:        'DM Mono', monospace;
+}
+
+/* ── Dark: photographic black, parchment text, warm amber ── */
+.dark {
+  /* Fundos */
+  --bg:          oklch(7% 0.006 60);      /* preto fotográfico quente */
+  --bg-warm:     oklch(10% 0.008 60);     /* elevação sutil */
+  --surface:     oklch(13% 0.008 60);     /* cards e inputs */
+
+  /* Texto */
+  --ink:         oklch(92% 0.018 75);     /* pergaminho claro */
+  --ink-mid:     oklch(68% 0.014 75);     /* corpo de texto */
+  --ink-light:   oklch(50% 0.012 75);     /* metadados, datas */
+
+  /* Acentos */
+  --accent:      oklch(75% 0.14 70);      /* ouro vivo — chroma 0.14 */
+  --accent-warm: oklch(73% 0.15 62);      /* laranja quente */
+  --accent-pale: oklch(75% 0.14 70 / 0.14); /* accent com alpha */
+
+  /* Estrutura */
+  --rule:        oklch(24% 0.008 60);     /* borders visíveis */
+
+  /* TL;DR box */
+  --tldr-bg:     oklch(75% 0.14 70 / 0.10);
+  --tldr-border: oklch(75% 0.14 70 / 0.35);
+}
+
+/* ── Dark overrides: sprint 1+2 fixes ─────────────────── */
+
+/* S1.2: newsletter button */
+.dark .newsletter-form button { background: var(--accent); color: var(--bg); }
+.dark .newsletter-form button:hover { background: oklch(70% 0.14 70); }
+
+/* S1.4: image treatment */
+.img-treated { filter: saturate(0.85); }
+.dark .img-treated { filter: brightness(0.95) saturate(1.0); }
+
+/* S2.2: topic pill active */
+.dark .topic-pill.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+/* S2.3: btn-read hover */
+.dark .btn-read:hover { background: oklch(70% 0.14 70); }
+
+/* S2.4: btn-load-more */
+.dark .btn-load-more { background: var(--surface); border-color: var(--rule); color: var(--ink-mid); }
+.dark .btn-load-more:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-pale); }
+
+/* S2.5: card hover shadow */
+.dark .home-card:hover { box-shadow: 0 0 0 1px var(--accent), 0 8px 24px oklch(0% 0 0 / 0.3); }
+.dark .related-card:hover { box-shadow: 0 0 0 1px var(--accent), 0 4px 16px oklch(0% 0 0 / 0.2); }
+
+/* S2.6: newsletter input */
+.dark .newsletter-form input { background: var(--surface); box-shadow: inset 0 0 0 1px var(--rule); color: var(--ink); }
+.dark .newsletter-form input:focus { box-shadow: inset 0 0 0 1px var(--accent); }
+.dark .newsletter-form input::placeholder { color: var(--ink-light); }
+
