@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { LogoMark } from '@/components/Logo'
 import { Article, ArticleMeta } from '@/lib/mdx'
 import AdUnit from '@/components/AdUnit'
+import ThemeToggle from '@/components/ThemeToggle'
 
 interface TocItem {
   id: string
@@ -66,15 +67,39 @@ export default function ArticleLayout({ article, children, related }: Props) {
     <>
       <div id="progress-bar" />
 
-      <nav className="article-nav">
+      <nav className="home-page-nav">
         <Link href={`/${article.lang}`} className="nav-logo">
           <LogoMark />
-          <span className="logo-text">Brain<em>wire</em></span>
+          <span className="logo-text">Brain<em style={{ fontStyle: 'italic' }}>wire</em></span>
         </Link>
-        <span className="nav-meta">{category}{category ? ' · ' : ''}{article.readingTime}</span>
-        <Link href={`/${article.lang}`} className="nav-back">
-          ← {article.lang === 'pt' ? 'Todos os artigos' : 'All articles'}
-        </Link>
+
+        <ul className="nav-links">
+          <li>
+            <Link href={`/${article.lang}`}>
+              {article.lang === 'pt' ? 'Início' : 'Home'}
+            </Link>
+          </li>
+          {category && (
+            <li>
+              <Link
+                href={`/${article.lang}/category/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                className="active"
+              >
+                {category}
+              </Link>
+            </li>
+          )}
+        </ul>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <ThemeToggle />
+          <Link
+            href={`/${article.lang === 'en' ? 'pt' : 'en'}`}
+            className="nav-lang"
+          >
+            {article.lang === 'en' ? 'EN · PT' : 'PT · EN'}
+          </Link>
+        </div>
       </nav>
 
       {/* Breadcrumb */}
@@ -143,35 +168,6 @@ export default function ArticleLayout({ article, children, related }: Props) {
           </footer>
         </article>
 
-        {related && related.length > 0 && (
-          <section className="related-articles">
-            <h2 className="related-title">
-              {article.lang === 'pt' ? 'Artigos relacionados' : 'Related articles'}
-            </h2>
-            <div className="related-grid">
-              {related.map((r) => {
-                const rDate = new Date(r.date).toLocaleDateString(
-                  article.lang === 'pt' ? 'pt-BR' : 'en-US',
-                  { day: 'numeric', month: 'short', year: 'numeric' }
-                )
-                return (
-                  <Link key={r.slug} href={`/${article.lang}/${r.slug}`} className="related-card">
-                    {r.image && (
-                      <div className="related-img">
-                        <Image src={r.image} alt={r.imageAlt} fill className="object-cover" sizes="200px" />
-                      </div>
-                    )}
-                    <div className="related-body">
-                      <span className="related-date">{rDate}</span>
-                      <span className="related-card-title">{r.title}</span>
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
-          </section>
-        )}
-
         <aside className="sidebar">
           {toc.length > 0 && (
             <div className="sidebar-box">
@@ -201,6 +197,35 @@ export default function ArticleLayout({ article, children, related }: Props) {
           </div>
         </aside>
       </div>
+
+      {related && related.length > 0 && (
+        <section className="related-articles">
+          <h2 className="related-title">
+            {article.lang === 'pt' ? 'Artigos relacionados' : 'Related articles'}
+          </h2>
+          <div className="related-grid">
+            {related.map((r) => {
+              const rDate = new Date(r.date).toLocaleDateString(
+                article.lang === 'pt' ? 'pt-BR' : 'en-US',
+                { day: 'numeric', month: 'short', year: 'numeric' }
+              )
+              return (
+                <Link key={r.slug} href={`/${article.lang}/${r.slug}`} className="related-card">
+                  {r.image && (
+                    <div className="related-img">
+                      <Image src={r.image} alt={r.imageAlt} fill className="object-cover" sizes="200px" />
+                    </div>
+                  )}
+                  <div className="related-body">
+                    <span className="related-date">{rDate}</span>
+                    <span className="related-card-title">{r.title}</span>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+        </section>
+      )}
     </>
   )
 }
