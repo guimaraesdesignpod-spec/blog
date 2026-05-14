@@ -269,26 +269,46 @@
 
 /* ── Breadcrumb ─────────────────────────────────────────── */
 .breadcrumb {
-  padding: 0.85rem 2.5rem;
-  font-size: 0.82rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.7rem 2.5rem;
+  font-size: 0.78rem;
   color: var(--ink-light);
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  flex-wrap: wrap;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+  overflow: hidden;
   background: var(--bg);
   border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+  letter-spacing: 0.01em;
 }
 .breadcrumb a {
   color: var(--ink-mid);
   text-decoration: none;
   transition: color 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .breadcrumb a:hover { color: var(--accent); }
-.breadcrumb-sep { color: var(--rule); font-size: 1rem; }
-.breadcrumb-current { color: var(--ink); font-weight: 500; }
+.breadcrumb-sep {
+  color: var(--ink-light);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+.breadcrumb-current {
+  color: var(--ink-mid);
+  font-weight: 400;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 @media (max-width: 600px) {
-  .breadcrumb { padding: 0.7rem 1.25rem; font-size: 0.76rem; }
+  .breadcrumb { padding: 0.6rem 1.25rem; font-size: 0.72rem; gap: 0.4rem; }
 }
 
 /* ── TL;DR Box ──────────────────────────────────────────── */
