@@ -32,6 +32,9 @@ export const metadata: Metadata = {
     default: 'Brainwire',
   },
   description: 'Bilingual blog about AI productivity tools and technology',
+  verification: {
+    google: 'QTwyshd2bCtTIUPt36OtRwI1KXy7M6N18kYr1fWKaMk',
+  },
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
