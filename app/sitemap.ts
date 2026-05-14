@@ -6,8 +6,6 @@ import type { ArticleMeta } from '@/lib/mdx'
 export default function sitemap(): MetadataRoute.Sitemap {
   const articles = getAllArticles()
 
-  // Group articles by translationKey so we can build hreflang alternates.
-  // Articles without a translationKey get their own single-entry group.
   const groups = new Map<string, ArticleMeta[]>()
   for (const article of articles) {
     const key = article.translationKey || article.slug
