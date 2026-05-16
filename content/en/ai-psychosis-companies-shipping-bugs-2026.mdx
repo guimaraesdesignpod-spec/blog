@@ -1,0 +1,76 @@
+---
+title: "AI Psychosis Is Real: Why Some Tech Companies Are Shipping Bugs Faster Than Ever—and Calling It Progress"
+description: "Mitchell Hashimoto's viral post about 'AI psychosis' struck a nerve. Here's why entire companies are now shipping broken software, dismissing engineering fundamentals, and convincing themselves that faster fixes mean nothing is wrong."
+date: "2026-05-16"
+translationKey: "ai-psychosis-companies-shipping-bugs-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI Trends", "Engineering"]
+image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200"
+imageAlt: "A cracked screen reflecting distorted code, symbolizing AI-generated software decay"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["AI psychosis", "Mitchell Hashimoto", "AI-generated code", "software engineering 2026", "agentic coding risks", "MTTR vs MTBF", "vibe coding problems", "AI code quality"]
+tldr: "Mitchell Hashimoto's viral post argues that many tech companies are experiencing 'AI psychosis'—an irrational belief that AI-generated code eliminates the need for engineering rigor. Teams are shipping bugs faster than ever under the logic that agents will fix them instantly, ignoring lessons from cloud infrastructure about the dangers of optimizing only for recovery speed. The Hacker News discussion reveals a split: some developers report not writing code for months while shipping more features, while others see codebases regressing to 'barely-functional dogshit' as AI piles on slop. The core risk is architectural decay happening beneath healthy local metrics—fewer bug reports, rising test coverage, but collapsing semantic understanding of systems."
+faq:
+  - q: "What is 'AI psychosis' in software engineering?"
+    a: "The term, coined by Mitchell Hashimoto, describes a collective delusion among tech companies that AI-generated code has made traditional engineering practices—careful design, code review, architectural coherence—unnecessary. The 'psychosis' manifests as an absolute faith in mean-time-to-recovery (MTTR): 'it's fine to ship bugs because the agents will fix them so quickly.' This ignores the lesson from cloud infrastructure that fast recovery does not create resilient systems."
+  - q: "Are companies actually shipping more bugs because of AI?"
+    a: "Anecdotal evidence from Hacker News discussions suggests a split. Some developers in well-structured monorepos report shipping more features at higher quality without writing code manually. Others describe large C++ projects where AI-generated code introduces subtle bugs that are hard to detect. The common thread is that AI accelerates both good and bad outcomes—well-architected codebases get better, poorly structured ones decay faster."
+  - q: "What is MTTR vs MTBF, and why does it matter here?"
+    a: "MTTR (mean time to recovery) measures how fast you fix something after it breaks. MTBF (mean time between failures) measures how often things break in the first place. The cloud infrastructure revolution taught us that optimizing only for MTTR creates 'resilient catastrophe machines'—systems that recover quickly but fail constantly. Hashimoto warns that AI coding agents are pushing the software industry toward the same imbalance."
+  - q: "Can AI write code better than humans?"
+    a: "For small, well-defined tasks in familiar languages, AI coding agents can match or exceed junior developers. For complex, multi-file changes in legacy codebases, they often miss context, break existing patterns, and introduce bugs that pass tests but violate architectural constraints. The consensus is that AI is a powerful tool for augmentation, not a replacement for engineering judgment."
+  - q: "What are the warning signs of AI psychosis in a team?"
+    a: "Warning signs include: dismissing code review as unnecessary because 'the AI has full test coverage,' believing bug-report trends tell the whole story, ignoring architectural decay because local metrics look healthy, shipping changes so fast that no human understands the system, and refusing to have rational conversations about risks because 'AI changes everything.'"
+---
+
+# AI Psychosis Is Real: Why Some Tech Companies Are Shipping Bugs Faster Than Ever—and Calling It Progress
+
+Mitchell Hashimoto knows infrastructure. He built Terraform, one of the most widely used infrastructure-as-code tools on the planet. He lived through the great cloud migration, the debates about reliability, the shift from mean-time-between-failure to mean-time-to-recovery. So when he posted last week that he believes "entire companies right now are under heavy AI psychosis," the tech industry paid attention. The post hit #1 on Hacker News, racked up over 1,100 points, and generated more than 500 comments. It was not a technical deep-dive. It was a warning from someone who had seen this movie before.
+
+Hashimoto's argument is straightforward but unsettling. He compares the current AI coding frenzy to the early days of cloud automation, when teams obsessed over MTTR—how fast can we recover from a failure?—and forgot that MTBF—how often things fail in the first place—still matters. In infrastructure, we learned the hard way that you can automate yourself into what he calls a "very resilient catastrophe machine." Systems look healthy by local metrics while becoming globally incomprehensible. Bug reports go down while latent risk explodes. Test coverage rises while the team's actual understanding of the architecture collapses. That lesson, he says, is being forgotten because AI agents make it so easy to ship and so easy to fix.
+
+The psychosis he describes is not about using AI. It is about the *irrational belief* that using AI eliminates the need for engineering judgment entirely.
+
+## The Dismissals That Worry Him
+
+Hashimoto says he cannot even bring this up with personal friends at affected companies because the conversation ends before it begins. The dismissals are immediate and predictable: "No no, it has full test coverage." "Bug reports are going down." "The agents fix things faster than humans ever could." Each of these statements is locally true and globally misleading.
+
+Test coverage tells you whether tests exist, not whether they test the right things. AI-generated test suites are notorious for checking trivial conditions while missing the actual failure modes. Bug reports going down can mean fewer users are reporting bugs—or that the system has become so opaque that users cannot even identify what went wrong. And yes, agents fix bugs fast, but if they are also introducing bugs at the same pace, you are running on a treadmill that accelerates over time.
+
+One commenter on Hacker News put it brutally: "vibe coding tends to regress to barely-functional dogshit as features are piled on, and once this state is reached, the teams behind it are unable to, or perhaps simply uninterested in, unfuck it." They added that they had stopped using certain software not out of principle, but because it had become literally unusable.
+
+## Two Realities Are Emerging
+
+What makes this debate so tense is that the experience of using AI coding agents is genuinely bifurcated. Some developers report transformative results. A big-tech engineer commented on Hacker News that they had not written a single line of code since February, yet their team ships more features at higher quality. They work in a standardized monorepo with clear patterns, and the AI excels at filling in the blanks when given good specs. Another developer noted that the more your codebase follows best practices, the better AI performs—because the patterns are predictable and the context is clean.
+
+But other developers, especially those in large legacy codebases or low-level systems, report the opposite. One engineer working on a large C++ project said they are "seeing the exact opposite" of productivity gains. Friends at similar companies agree. The AI generates code that looks right, compiles, and sometimes even passes tests, but violates invariants that only deep system knowledge can protect. Memory management assumptions get broken. Threading contracts get violated. Edge cases that took years to discover get reintroduced by agents that have no memory of why the original guard clauses existed.
+
+The split is not random. It maps almost exactly onto codebase health. AI is a magnifier, not a leveler.
+
+## The Metrics That Lie
+
+Hashimoto's core fear is about the metrics we choose to watch. When you optimize for shipping speed and recovery speed, you create a system where the only signal that matters is how fast the loop turns. But software quality has always had a hidden dimension: how well do the humans maintaining the system understand it?
+
+AI-generated code can pass CI, pass review (especially if the reviewer is also an AI), and pass user acceptance tests while still being fundamentally incomprehensible to the team that owns it. One Hacker News commenter described this as "reliance, not resilience"—the team becomes dependent on the AI to understand its own system. Another offered a darker analogy: it feels like "losing coworkers to dementia," where everyone *feels* like they know everything, but when a real problem needs to be fixed now, the capability has atrophied.
+
+This is not abstract. Hashimoto himself says he has not written a line of code in over a month, but he reviews every line his agents produce to 100% understanding—not just locally, but within the whole-system architecture. That standard is what separates tool use from psychosis. If you cannot explain why a change is correct across the entire system, you do not understand the change.
+
+## Can Architecture Survive the Speed?
+
+Not everyone agrees with Hashimoto's pessimism. Adam Jacob, founder of System Initiative, replied that the risk is real but manageable if you treat AI as a machine that builds machines. His argument is that strong internal architecture, clear patterns, and good vocabulary can let teams crank out highly coherent software at speed. The danger is not the speed itself, but starting from "a blank page + hopes and dreams."
+
+Hashimoto's counterpoint is that this works better in infrastructure—where you control the runtime environment and can push fixes globally within minutes—than in software that others integrate with or run on their own devices. A library, a desktop app, or a mobile application cannot be hot-patched the way a microservice can. The user controls the update cycle, and if you ship a broken version, the MTTR is bounded by human behavior, not agent speed.
+
+There is also the question of who decides what "good architecture" means when the code is no longer written by humans. One commenter noted that LLMs seem to do the opposite of what Hashimoto's career has been about: solving broadly scoped problems by building thoughtful primitives for others to extend. LLMs generate ad-hoc solutions that work for the immediate prompt but rarely generalize well. The result is a codebase filled with one-off fixes that accumulate into what another commenter called a "garbage palace."
+
+## What This Means for the Industry
+
+The "AI psychosis" debate is not really about whether AI can write code. That question is settled: it can, often well. The debate is about whether the organizational and cultural guardrails that kept software quality in check can survive a 10x acceleration in production speed.
+
+History suggests they do not survive automatically. Every previous productivity revolution in software—compilers, IDEs, open-source ecosystems, cloud deployment—brought both benefits and a new class of risks that took years to understand and mitigate. AI coding agents are the most dramatic acceleration yet, and the mitigation strategies are still embryonic.
+
+For individual developers, the practical takeaway is clear: use AI aggressively for tasks you fully understand, and treat its output in unfamiliar territory with the skepticism you would apply to a confident junior who just joined the team. For engineering leaders, the takeaway is harder: you need to actively protect the practices that slow things down—architecture review, deep code review, operational postmortems—because the default pressure will be to let the agents run unchecked.
+
+Hashimoto ended his post with a single word: "I worry." After reading through hundreds of comments from developers living both sides of this transition, it is easy to see why. The psychosis is not that AI is bad. The psychosis is believing that because AI is good, nothing else matters.

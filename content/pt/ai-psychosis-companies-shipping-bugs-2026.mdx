@@ -1,0 +1,76 @@
+---
+title: "A Psicose da IA é Real: Por Que Algumas Empresas de Tech Estão Lançando Bugs Mais Rápido do Que Nunca—e Chamando Isso de Progresso"
+description: "O post viral de Mitchell Hashimoto sobre 'psicose da IA' tocou uma ferida aberta. Entenda por que empresas inteiras estão agora lançando software quebrado, ignorando fundamentos de engenharia e se convencendo de que consertar mais rápido significa que não há nada de errado."
+date: "2026-05-16"
+translationKey: "ai-psychosis-companies-shipping-bugs-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["Tendências de IA", "Engenharia"]
+image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200"
+imageAlt: "Tela rachada refletindo código distorcido, simbolizando a decadência do software gerado por IA"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["psicose da IA", "Mitchell Hashimoto", "código gerado por IA", "engenharia de software 2026", "riscos do agentic coding", "MTTR vs MTBF", "problemas do vibe coding", "qualidade de código com IA"]
+tldr: "O post viral de Mitchell Hashimoto argumenta que muitas empresas de tecnologia estão passando por uma 'psicose da IA' — uma crença irracional de que código gerado por IA elimina a necessidade de rigor em engenharia. Times estão lançando bugs mais rápido do que nunca com a lógica de que agentes vão consertar na hora, ignorando lições da infraestrutura em nuvem sobre os perigos de otimizar apenas pela velocidade de recuperação. A discussão no Hacker News revela uma divisão: alguns desenvolvedores relatam não escrever código há meses enquanto entregam mais funcionalidades; outros veem codebases regredindo a 'quase um lixo funcional' enquanto a IA acumula gambiarras. O risco central é a decadência arquitetural acontecendo por baixo de métricas locais saudáveis — menos bugs reportados, cobertura de testes subindo, mas o entendimento semântico dos sistemas colapsando."
+faq:
+  - q: "O que é 'psicose da IA' em engenharia de software?"
+    a: "O termo, cunhado por Mitchell Hashimoto, descreve uma delusão coletiva entre empresas de tecnologia de que código gerado por IA tornou práticas tradicionais de engenharia — design cuidadoso, revisão de código, coerência arquitetural — desnecessárias. A 'psicose' se manifesta como uma fé absoluta no tempo médio de recuperação (MTTR): 'tá de boa lançar bugs porque os agentes consertam tão rápido'. Isso ignora a lição da infraestrutura em nuvem de que recuperação rápida não cria sistemas resilientes."
+  - q: "Empresas estão realmente lançando mais bugs por causa da IA?"
+    a: "Evidência anecdótica das discussões no Hacker News sugere uma divisão. Alguns desenvolvedores em monorepos bem estruturados relatam entregar mais funcionalidades com maior qualidade sem escrever código manualmente. Outros descrevem projetos grandes em C++ onde código gerado por IA introduz bugs sutis que são difíceis de detectar. O padrão comum é que a IA acelera tanto os resultados bons quanto os ruins — codebases bem arquitetados melhoram, os mal estruturados apodrecem mais rápido."
+  - q: "O que é MTTR vs MTBF e por que isso importa aqui?"
+    a: "MTTR (tempo médio de recuperação) mede quão rápido você conserta algo depois que quebra. MTBF (tempo médio entre falhas) mede com que frequência as coisas quebram em primeiro lugar. A revolução da infraestrutura em nuvem nos ensinou que otimizar apenas para o MTTR cria 'máquinas de catástrofe resilientes' — sistemas que se recuperam rápido mas falham constantemente. Hashimoto avisa que agentes de codificação com IA estão empurrando a indústria de software para o mesmo desequilíbrio."
+  - q: "A IA consegue escrever código melhor que humanos?"
+    a: "Para tarefas pequenas e bem definidas em linguagens familiares, agentes de codificação com IA podem igualar ou superar desenvolvedores júnior. Para mudanças complexas em múltiplos arquivos em codebases legados, eles frequentemente perdem contexto, quebram padrões existentes e introduzem bugs que passam nos testes mas violam restrições arquiteturais. O consenso é que a IA é uma ferramenta poderosa para ampliação, não um substituto para o julgamento de engenharia."
+  - q: "Quais são os sinais de alerta de psicose da IA em um time?"
+    a: "Sinais de alerta incluem: descartar revisão de código como desnecessária porque 'a IA tem cobertura total de testes', acreditar que tendências de bugs reportados contam a história completa, ignorar decadência arquitetural porque métricas locais parecem saudáveis, lançar mudanças tão rápido que nenhum humano entende o sistema, e se recusar a ter conversas racionais sobre riscos porque 'a IA muda tudo'."
+---
+
+# A Psicose da IA é Real: Por Que Algumas Empresas de Tech Estão Lançando Bugs Mais Rápido do Que Nunca—e Chamando Isso de Progresso
+
+Mitchell Hashimoto entende de infraestrutura. Ele criou o Terraform, uma das ferramentas de infrastructure-as-code mais usadas do planeta. Ele viveu a grande migração para a nuvem, os debates sobre confiabilidade, a transição do tempo-médio-entre-falhas para o tempo-médio-de-recuperação. Então, quando ele postou semana passada que acredita que "empresas inteiras estão agora sob uma psicose da IA pesada," a indústria de tecnologia prestou atenção. O post chegou ao #1 no Hacker News, acumulou mais de 1.100 pontos e gerou mais de 500 comentários. Não foi um mergulho técnico. Foi um aviso de alguém que já tinha visto esse filme antes.
+
+O argumento de Hashimoto é direto, mas inquietante. Ele compara o frenesi atual de codificação com IA aos primeiros dias da automação em nuvem, quando times obcecados com MTTR — quão rápido conseguimos nos recuperar de uma falha? — esqueceram que MTBF — com que frequência as coisas quebram em primeiro lugar — ainda importa. Em infraestrutura, aprendemos da pior forma que você pode se automatizar até o que ele chama de uma "máquina de catástrofe muito resiliente." Sistemas parecem saudáveis por métricas locais enquanto se tornam globalmente incompreensíveis. Bugs reportados caem enquanto o risco latente explode. Cobertura de testes sobe enquanto o entendimento real da equipe sobre a arquitetura colapsa. Ele diz que essa lição está sendo esquecida porque agentes de IA tornam tão fácil lançar e tão fácil consertar.
+
+A psicose que ele descreve não é sobre usar IA. É sobre a *crença irracional* de que usar IA elimina a necessidade de julgamento de engenharia por completo.
+
+## As Desculpas Que Preocupam Ele
+
+Hashimoto diz que não consegue nem tocar nesse assunto com amigos pessoais em empresas afetadas porque a conversa acaba antes de começar. As desculpas são imediatas e previsíveis: "Não não, tem cobertura total de testes." "Bugs reportados estão caindo." "Os agentes consertam as coisas mais rápido que humanos jamais poderiam." Cada uma dessas afirmações é localmente verdadeira e globalmente enganosa.
+
+Cobertura de testes te diz se testes existem, não se eles testam as coisas certas. Suítes de teste geradas por IA são notórias por verificar condições triviais enquanto deixam passar os modos de falha reais. Bugs reportados caindo pode significar menos usuários reportando bugs — ou que o sistema ficou tão opaco que os usuários nem conseguem identificar o que deu errado. E sim, agentes consertam bugs rápido, mas se eles também estão introduzindo bugs no mesmo ritmo, você está correndo numa esteira que acelera com o tempo.
+
+Um comentarista no Hacker News colocou de forma brutal: "o vibe coding tende a regredir a um lixo quase funcional à medida que funcionalidades são empilhadas, e uma vez que esse estado é alcançado, os times por trás dele são incapazes de, ou simplesmente desinteressados em, desfazer a bagunça." Ele acrescentou que parou de usar certos softwares não por princípio, mas porque eles se tornaram literalmente inusáveis.
+
+## Duas Realidades Estão Emergindo
+
+O que torna esse debate tão tenso é que a experiência de usar agentes de codificação com IA está genuinamente bifurcada. Alguns desenvolvedores relatam resultados transformadores. Um engenheiro de big tech comentou no Hacker News que não escreveu uma única linha de código desde fevereiro, mas seu time entrega mais funcionalidades com maior qualidade. Ele trabalha num monorepo padronizado com padrões claros, e a IA se sai muito bem em preencher as lacunas quando recebe boas especificações. Outro desenvolvedor notou que quanto mais seu codebase segue boas práticas, melhor a IA se sai — porque os padrões são previsíveis e o contexto é limpo.
+
+Mas outros desenvolvedores, especialmente aqueles em codebases legados grandes ou sistemas de baixo nível, relatam o oposto. Um engenheiro trabalhando num projeto grande em C++ disse que está "vendo exatamente o oposto" de ganhos de produtividade. Amigos em empresas similares concordam. A IA gera código que parece certo, compila, e às vezes até passa nos testes, mas viola invariantes que apenas conhecimento profundo do sistema consegue proteger. Suposições de gerenciamento de memória são quebradas. Contratos de threading são violados. Casos extremos que levaram anos para serem descobertos são reintroduzidos por agentes que não têm memória do porquê das cláusulas de guarda originais existirem.
+
+A divisão não é aleatória. Ela mapeia quase exatamente sobre a saúde do codebase. A IA é um amplificador, não um nivelador.
+
+## As Métricas que Mentem
+
+O medo central de Hashimoto é sobre as métricas que escolhemos observar. Quando você otimiza para velocidade de lançamento e velocidade de recuperação, você cria um sistema onde o único sinal que importa é quão rápido o ciclo gira. Mas a qualidade de software sempre teve uma dimensão escondida: quão bem os humanos que mantêm o sistema o entendem?
+
+Código gerado por IA pode passar no CI, passar na revisão (especialmente se o revisor também for uma IA), e passar nos testes de aceitação do usuário enquanto ainda é fundamentalmente incompreensível para o time que o mantém. Um comentarista no Hacker News descreveu isso como "dependência, não resiliência" — o time se torna dependente da IA para entender seu próprio sistema. Outro ofereceu uma analogia mais sombria: é como "perder colegas de trabalho para demência," onde todo mundo *sent*e que sabe de tudo, mas quando um problema real precisa ser consertado agora, a capacidade de fazê-lo atrofiou.
+
+Isso não é abstrato. O próprio Hashimoto diz que não escreve uma linha de código há mais de um mês, mas ele revisa cada linha que seus agentes produzem até entender 100% — não só localmente, mas dentro da arquitetura de todo o sistema. Esse padrão é o que separa o uso de ferramentas da psicose. Se você não consegue explicar por que uma mudança está certa em todo o sistema, você não entende a mudança.
+
+## A Arquitetura Consegue Sobreviver à Velocidade?
+
+Nem todo mundo concorda com o pessimismo de Hashimoto. Adam Jacob, fundador da System Initiative, respondeu que o risco é real mas gerenciável se você tratar a IA como uma máquina que constrói máquinas. Seu argumento é que arquitetura interna forte, padrões claros e bom vocabulário permitem que times produzam software altamente coerente em velocidade. O perigo não é a velocidade em si, mas partir de "uma página em branco + sonhos e esperanças."
+
+O contraponto de Hashimoto é que isso funciona melhor em infraestrutura — onde você controla o ambiente de execução e pode empurrar correções globalmente em minutos — do que em software que outros integram ou rodam em seus próprios dispositivos. Uma biblioteca, um app desktop ou um aplicativo mobile não podem ser corrigidos em quente do jeito que um microserviço pode. O usuário controla o ciclo de atualização, e se você lança uma versão quebrada, o MTTR é limitado pelo comportamento humano, não pela velocidade do agente.
+
+Há também a questão de quem decide o que significa "boa arquitetura" quando o código não é mais escrito por humanos. Um comentarista notou que LLMs parecem fazer o oposto do que a carreira de Hashimoto foi sobre: resolver problemas amplamente escopados construindo primitivos bem pensados para outros estenderem. LLMs geram soluções ad-hoc que funcionam para o prompt imediato mas raramente generalizam bem. O resultado é um codebase cheio de correções pontuais que se acumulam no que outro comentarista chamou de "um palácio de lixo."
+
+## O Que Isso Significa para a Indústria
+
+O debate sobre "psicose da IA" não é realmente sobre se a IA consegue escrever código. Essa questão está resolvida: consegue, frequentemente bem. O debate é sobre se os guarda-choques organizacionais e culturais que mantinham a qualidade do software sob controle conseguem sobreviver a uma aceleração de 10x na velocidade de produção.
+
+A história sugere que eles não sobrevivem automaticamente. Cada revolução de produtividade anterior em software — compiladores, IDEs, ecossistemas open-source, deploy em nuvem — trouxe tanto benefícios quanto uma nova classe de riscos que levou anos para serem entendidos e mitigados. Agentes de codificação com IA são a aceleração mais dramática até agora, e as estratégias de mitigação ainda estão embrionárias.
+
+Para desenvolvedores individuais, a lição prática é clara: use IA agressivamente para tarefas que você entende completamente, e trate sua saída em território desconhecido com o ceticismo que você aplicaria a um júnior confiante que acabou de entrar no time. Para líderes de engenharia, a lição é mais difícil: você precisa proteger ativamente as práticas que desaceleram as coisas — revisão de arquitetura, revisão de código profunda, postmortems operacionais — porque a pressão padrão será deixar os agentes rodarem descontrolados.
+
+Hashimoto terminou seu post com uma única palavra: "Eu me preocupo." Depois de ler centenas de comentários de desenvolvedores vivendo os dois lados dessa transição, é fácil entender por quê. A psicose não é que a IA é ruim. A psicose é acreditar que, porque a IA é boa, nada mais importa.
