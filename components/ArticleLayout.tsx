@@ -44,14 +44,16 @@ export default function ArticleLayout({ article, children, related }: Props) {
   }, [])
 
   useEffect(() => {
-    const headings = Array.from(document.querySelectorAll<HTMLElement>('article h2, article h3'))
-    const items: TocItem[] = headings.map((h) => {
-      if (!h.id) {
-        h.id = (h.textContent ?? '').toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')
-      }
-      return { id: h.id, text: h.textContent ?? '', level: h.tagName.toLowerCase() as 'h2' | 'h3' }
+    const frame = requestAnimationFrame(() => {
+      const headings = Array.from(document.querySelectorAll<HTMLElement>('article h2, article h3'))
+      const items: TocItem[] = headings.map((h) => {
+        if (!h.id) {
+          h.id = (h.textContent ?? '').toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')
+        }
+        return { id: h.id, text: h.textContent ?? '', level: h.tagName.toLowerCase() as 'h2' | 'h3' }
+      })
+      setToc(items)
     })
-    setToc(items)
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -59,8 +61,12 @@ export default function ArticleLayout({ article, children, related }: Props) {
       },
       { threshold: 0.5 }
     )
+    const headings = document.querySelectorAll<HTMLElement>('article h2, article h3')
     headings.forEach((h) => observer.observe(h))
-    return () => observer.disconnect()
+    return () => {
+      cancelAnimationFrame(frame)
+      observer.disconnect()
+    }
   }, [])
 
   return (

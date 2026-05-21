@@ -10,7 +10,7 @@ interface Props {
 export default function ArticleCard({ article, featured = false }: Props) {
   const href = `/${article.lang}/${article.slug}`
   const date = new Date(article.date).toLocaleDateString(
-    article.lang === 'pt' ? 'pt-PT' : 'en-US',
+    article.lang === 'pt' ? 'pt-BR' : 'en-US',
     { year: 'numeric', month: 'long', day: 'numeric' }
   )
   const category = article.tags[0] ?? ''

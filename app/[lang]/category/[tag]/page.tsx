@@ -1,8 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
 import { getAllArticles } from '@/lib/articles'
-import { ArticleMeta } from '@/lib/mdx'
 
 type Lang = 'en' | 'pt'
 

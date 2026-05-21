@@ -1,9 +1,9 @@
 ---
 date: "2026-05-10"
 translationKey: "llms-corrupt-documents-delegate-study-2026"
-lang: "pt-BR"
-title: "Quando a IA Edita Seus Documentos, Ela Estraga Tudo. Um Novo Estudo Mostra Exatamente O Quanto."
-description: "Pesquisadores da Microsoft submeteram 19 modelos de ponta ao benchmark DELEGATE-52, que cobre 52 domínios de edição de documentos. Mesmo os melhores modelos corromperam 25% do conteúdo silenciosamente em fluxos de trabalho longos. O culpado não é a capacidade do modelo — é a forma como pedimos que ele trabalhe."
+lang: "pt"
+title: "Quando a IA Edita Seus Documentos, Ela Corrompe Tudo"
+description: "Microsoft testou 19 modelos no DELEGATE-52. Os melhores corromperam 25% do conteúdo. O problema não é o modelo, é como delegamos."
 keywords: ["corrupção de documentos por LLM", "benchmark DELEGATE-52", "edição de documentos por IA", "erros de delegação em LLM", "degradação de fluxo de trabalho por IA", "pesquisa da Microsoft em IA 2026", "riscos do vibe coding"]
 tags: ["Pesquisa de IA", "Produtividade", "Ferramentas de Desenvolvedor"]
 tldr: "Pesquisadores da Microsoft testaram 19 modelos de ponta no benchmark DELEGATE-52, que cobre 52 domínios de edição de documentos, e descobriram que mesmo os melhores LLMs (Gemini 3.1 Pro, Claude 4.6 Opus, GPT 5.4) corrompem em média 25% do conteúdo em fluxos de trabalho longos. O estudo, que gerou 386 upvotes e 148 comentários no Hacker News, identificou que documentos maiores, interações mais longas e arquivos irrelevantes na janela de contexto agravam o problema. O debate na comunidade dividiu-se entre quem argumenta que ferramentas de edição cirúrgica resolvem o problema e quem aponta que a maioria dos usuários não usa essas ferramentas."
@@ -20,7 +20,7 @@ imageCredit: "Unsplash"
 imageCreditUrl: "https://unsplash.com"
 ---
 
-# Quando a IA Edita Seus Documentos, Ela Estraga Tudo. Um Novo Estudo Mostra Exatamente O Quanto.
+# Quando a IA Edita Seus Documentos, Ela Corrompe Tudo. Um Novo Estudo Mostra Exatamente O Quanto.
 
 ## 386 Upvotes. 148 Comentários. E Uma Verdade Inconfortável Sobre Delegação.
 
@@ -65,23 +65,23 @@ Horas depois de entrar na página inicial, a discussão já havia gerado **148 c
 
 ### O Argumento "O Problema é a Ferramenta"
 
-A resposta técnica mais votada veio de Simon Willison, que argumentou que o conjunto de ferramentas usado pelos pesquisadores era muito primitivo. O setup disponibilizava ao modelo apenas comandos de `read_file()` e `write_file()` — forçando, essencialmente, o modelo a **fazer round-trip de todo o documento pela janela de contexto a cada edição**.
+A resposta técnica mais votada veio de Simon Willison, que argumentou que o conjunto de ferramentas usado pelos pesquisadores era muito primitivo. A configuração disponibilizava ao modelo apenas comandos de `read_file()` e `write_file()` — forçando, essencialmente, o modelo a **fazer round-trip de todo o documento pela janela de contexto a cada edição**.
 
 O ponto de Willison: os agentes de codificação modernos não fazem isso. Ferramentas como o editor de texto do Claude usam **operações de edição cirúrgica** — `str_replace`, `insert` e deleções direcionadas — que modificam trechos específicos sem regenerar o arquivo inteiro. Quando se evita o round-trip, se evita o problema de ruído acumulativo.
 
-Outros comentadores ampliaram essa ideia: o experimento testava um padrão de uso ingênuo que poucos engenheiros experientes realmente adotariam. Um humano que fosse obrigado a decorar um documento inteiro e reproduzi-lo de memória se sairia pior também.
+Outros comentaristas ampliaram essa ideia: o experimento testava um padrão de uso ingênuo que poucos engenheiros experientes realmente adotariam. Um humano que fosse obrigado a decorar um documento inteiro e reproduzi-lo de memória se sairia pior também.
 
 ### O Contra-argumento: "Os Usuários não Sabem Fazer Melhor"
 
-A segunda onda de comentários virou o debate por completo. Vários comentadores — incluindo um advogado e vários profissionais não técnicos — observaram que, em suas organizações, eles são explicitamente instruídos a usar ferramentas de IA para editar documentos, e nunca ouviram falar em "harness".
+A segunda onda de comentários virou o debate por completo. Vários comentaristas — incluindo um advogado e vários profissionais não técnicos — observaram que, em suas organizações, eles são explicitamente instruídos a usar ferramentas de IA para editar documentos, e nunca ouviram falar em "harness".
 
-Um comentador foi direto: "A maioria das pessoas não vai ser usuária experiente de nada." Outro disse que vê colegas colarem planilhas inteiras como imagens no ChatGPT e pedirem resumos.
+Um comentarista foi direto: "A maioria das pessoas não vai ser usuária experiente de nada." Outro disse que vê colegas colarem planilhas inteiras como imagens no ChatGPT e pedirem resumos.
 
 É aqui que o debate se intensifica. O artigo pode ter usado um conjunto de ferramentas tecnicamente simples, mas o comportamento que modelou — deixar um LLM ingerir um documento e produzir uma versão reescrita — é exatamente como milhões de pessoas usam essas ferramentas todos os dias. Elas não usam o Claude Code com um conjunto de ferramentas cuidadosamente desenhado. Elas colam contratos numa aba do navegador e clicam em "Reescreva isso."
 
 ### A Visão da "Ablação Semântica"
 
-Uma terceira vertente da discussão conectou o artigo a um fenômeno mais amplo que os comentadores chamaram de **"ablação semântica"** — a ideia de que cada passagem pelo LLM arranca nuances, especificidades e precisões factuais, substituindo-as por alternativas estatisticamente comuns, porém genericamente inodoras.
+Uma terceira vertente da discussão conectou o artigo a um fenômeno mais amplo que os comentaristas chamaram de **"ablação semântica"** — a ideia de que cada passagem pelo LLM arranca nuances, especificidades e precisões factuais, substituindo-as por alternativas estatisticamente comuns, porém genericamente inodoras.
 
 Um usuário do HN compartilhou um [artigo do The Register, de fevereiro de 2026](https://www.theregister.com/2026/02/24/ai_semantic_ablation/), que trazia exatamente esse argumento: textos gerados por IA são entediantes e perigosos não porque alucinem de forma dramática, mas porque "ablam" o significado — achatando análises originais em massas de consenso. Os resultados do DELEGATE-52 sugerem que o mesmo acontece com documentos estruturados e bases de código, e não apenas com textos em prosa.
 
@@ -151,7 +151,7 @@ O atrito aqui é o custo. Revisão documental é cara. Edição por IA é barata
 
 Uma das sub-threads mais votadas fez uma pergunta justa: como seria uma linha de base humana?
 
-Vários comentadores notaram que, se você pedisse a uma pessoa para ler uma base de código inteira, fazer uma pequena edição e reproduzir tudo de memória, ela provavelmente se sairia pior do que os 25% de corrupção. Outros apontaram que isso perde o ponto: humanos não editam código de memória. Eles usam editores, controle de versão e operações cirúrgicas.
+Vários comentaristas notaram que, se você pedisse a uma pessoa para ler uma base de código inteira, fazer uma pequena edição e reproduzir tudo de memória, ela provavelmente se sairia pior do que os 25% de corrupção. Outros apontaram que isso perde o ponto: humanos não editam código de memória. Eles usam editores, controle de versão e operações cirúrgicas.
 
 A questão mais profunda é se os LLMs, mesmo com boas ferramentas, são inerentemente piores em manutenção do que os humanos. A resposta é, provavelmente: "às vezes sim, às vezes não." Humanos erram, passam batido por dependências e introduzem regressões. Mas humanos também entendem *intenção* — sabem que uma constante específica foi escolhida por um motivo, que a redação de uma cláusula de contrato foi negociada palavra por palavra, que um formato de dados tem consumidores upstream que quebram se o nome de um campo mudar.
 

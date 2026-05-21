@@ -1,6 +1,6 @@
 ---
-title: "The TanStack npm Attack: How 42 Packages Were Compromised in a Supply Chain Worm and What It Means for 2026"
-description: "On May 11, 2026, attackers published 84 malicious versions across 42 TanStack npm packages using a self-spreading worm. Here's how the attack worked, why it matters, and what every developer needs to do right now."
+title: "TanStack npm Attack: 42 Packages via Supply Chain Worm"
+description: "May 11, 2026: 84 malicious versions across 42 TanStack npm packages via self-spreading worm. How it worked and what devs must do now."
 date: "2026-05-12"
 translationKey: "tanstack-npm-supply-chain-compromise-2026"
 lang: "en"
@@ -21,7 +21,7 @@ faq:
     a: "Use lockfiles with integrity checks (npm audit, socket.dev), restrict CI/CD token permissions to the minimum necessary, enable branch protection on GitHub, and monitor dependencies with tools like Dependabot. The principle of least privilege in CI/CD pipelines is the most effective defense against this type of attack."
 ---
 
-# The TanStack npm Attack: How 42 Packages Were Compromised in a Supply Chain Worm and What It Means for 2026
+# TanStack npm Attack: 42 Packages via Supply Chain Worm
 
 If you are a JavaScript developer, there is a good chance you woke up on May 12, 2026, to a notification you never want to see: one of the packages in your `node_modules` was compromised by a self-spreading worm that steals credentials, installs persistence hooks, and publishes itself to every package you maintain. The target this time was TanStack, one of the most popular and well-respected library ecosystems in the React and JavaScript world. And the attack was breathtaking in its sophistication.
 

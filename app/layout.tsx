@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Cormorant_Garamond, DM_Mono, DM_Sans } from 'next/font/google'
 import Script from 'next/script'
 import { headers } from 'next/headers'
+import { WebVitals } from '@/components/WebVitals'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -70,9 +71,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <a href="#main-content" className="skip-to-content">
-          {lang === 'pt' ? 'Pular para o conteúdo' : 'Skip to content'}
+          {lang === 'pt-BR' ? 'Pular para o conteúdo' : 'Skip to content'}
         </a>
         {children}
+        <WebVitals />
         <Analytics />
       </body>
     </html>

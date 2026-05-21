@@ -1,11 +1,11 @@
 ---
 date: "2026-05-14"
-translationKey: "ai-chatbots-exposing-phone-numbers-privacy-2026"
-lang: "pt-BR"
-title: "Chatbots de IA Estão Vazando Números Reais e Ninguém Sabe Quem é Responsável"
-description: "A MIT Technology Review confirmou que Gemini, ChatGPT e Grok estão expondo números de telefone, endereços e dados de familiares de pessoas reais. Um desenvolvedor israelense recebeu ligações de clientes por causa do Gemini — e a resposta legal de todos foi um simples encolher de ombros. Entenda como isso acontece e por que ninguém quer resolver."
+translationKey: "ai-chatbots-exposing-phone-numbers-privacy-leak-2026"
+lang: "pt"
+title: "Chatbots de IA Vazam Telefones Reais — Ninguém Resolve"
+description: "MIT Tech Review confirma: Gemini, ChatGPT e Grok expõem telefones e endereços reais. Dev israelense recebeu ligações via Gemini — ninguém quer resolver."
 keywords: ["vazamento IA", "privacidade chatbot", "Gemini telefone", "ChatGPT expõe dados", "memorização LLM", "como remover telefone de IA"]
-tldr: "A MIT Technology Review relatou que Google Gemini, OpenAI ChatGPT e xAI Grok estão expondo números de telefone, endereços e detalhes de familiares para usuários que fazem perguntas comuns. O desenvolvedor israelense Daniel Abraham recebeu mensagens no WhatsApp de estranhos depois que o Gemini exibiu o número pessoal dele como atendimento do PayBox — mesmo que ele não trabalhe lá. Uma investigação do Futurism descobriu que o Grok entrega endereços residenciais, familiares, e-mails e telefones de pessoas anônimas com nada mais que nome e sobrenome. Especialistas dizem que o problema vem da memorização de dados pessoais durante o treino dos modelos, mas não há forma confiável de saber o que foi armazenado ou forçar a exclusão. A Califórnia lançou em 2026 um portal estadual para deleção de dados de corretores, mas o conselho é o mesmo: tire seus dados da web pública antes do próximo raspeamento."
+tldr: "A MIT Technology Review relatou que Google Gemini, OpenAI ChatGPT e xAI Grok estão expondo números de telefone, endereços e detalhes de familiares para usuários que fazem perguntas comuns. O desenvolvedor israelense Daniel Abraham recebeu mensagens no WhatsApp de estranhos depois que o Gemini exibiu o número pessoal dele como atendimento do PayBox — mesmo que ele não trabalhe lá. Uma apuração do Futurism descobriu que o Grok entrega endereços residenciais, familiares, e-mails e telefones de pessoas anônimas com nada mais que nome e sobrenome. Especialistas dizem que o problema vem da memorização de dados pessoais durante o treino dos modelos, mas não há forma confiável de saber o que foi armazenado ou forçar a exclusão. A Califórnia lançou em 2026 um portal estadual para deleção de dados de corretores, mas o conselho é o mesmo: tire seus dados da web pública antes do próximo raspeamento."
 faq:
   - q: "Como os chatbots de IA acabam sabendo meu número de telefone?"
     a: "Grandes modelos de linguagem são treinados com enormes corpora de texto coletados da internet pública. Se seu número de telefone, endereço ou dados familiares foram publicados online — num fórum, currículo, site de registros públicos ou até num comentário antigo — há grande chance de que esse texto entrou em um dataset de treinamento. LLMs conseguem memorizar essa informação e reproduzi-la literalmente quando provocados, mesmo anos depois."
@@ -24,7 +24,7 @@ imageAlt: "Silhueta de uma pessoa com feixes de luz digital lembrando vazamento 
 image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1200"
 ---
 
-# Chatbots de IA Estão Vazando Números Reais e Ninguém Sabe Quem é Responsável
+# Chatbots de IA Vazam Telefones Reais — Ninguém Resolve
 
 Daniel Abraham estava em casa, em Israel, quando o celular vibrou com uma mensagem no WhatsApp de um número que ele não conhecia. A pessoa do outro lado queria ajuda com uma conta do PayBox. Abraham não trabalha no PayBox. O PayBox nem tem atendimento por WhatsApp. Mas quando o estranho explicou como encontrou o número, Abraham viu uma captura de tela de algo que ele nunca esperava: o Google Gemini tinha apresentado o número pessoal dele como se fosse a linha oficial de suporte do PayBox.
 
@@ -38,7 +38,7 @@ Em abril de 2026, um usuário do Reddit descreveu receber ligações sem parar d
 
 A DeleteMe, empresa que remove informações pessoais da internet, reportou aumento de 400% em pedidos de privacidade relacionados a IA nos últimos sete meses. A divisão espelha a fatia de mercado: 55% mencionam ChatGPT, 20% Gemini, 15% Claude. A maioria das queixas se encaixa em duas categorias: ou o chatbot revela informações precisas sobre quem faz a pergunta, ou ele gera dados de contato plausíveis — mas falsos — que expõem outra pessoa completamente.
 
-Nenhum dos dois cenários é inofensivo. No caso de Abraham, o uso foi acidental, mas real. Já a investigação do Futurism, de dezembro de 2025, mostrou uso sistemático: o Grok, da xAI, entregou endereços residenciais atuais, antigos, endereços de trabalho, e-mails, telefones e até nomes de familiares de pessoas que não são figuras públicas, em resposta a prompts tão simples quanto "[nome] endereço". O Grok forneceu informações precisas em 10 das 33 consultas, informações desatualizadas em 7, e informações parciais ou relacionadas em outras 16. Recusou apenas uma vez.
+Nenhum dos dois cenários é inofensivo. No caso de Abraham, o uso foi acidental, mas real. Já a apuração do Futurism, de dezembro de 2025, mostrou uso sistemático: o Grok, da xAI, entregou endereços residenciais atuais, antigos, endereços de trabalho, e-mails, telefones e até nomes de familiares de pessoas que não são figuras públicas, em resposta a prompts tão simples quanto "[nome] endereço". O Grok forneceu informações precisas em 10 das 33 consultas, informações desatualizadas em 7, e informações parciais ou relacionadas em outras 16. Recusou apenas uma vez.
 
 ## Por Que Isso Acontece: O Problema dos Dados de Treino
 

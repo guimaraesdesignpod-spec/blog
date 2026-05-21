@@ -5,11 +5,26 @@ export function getAllArticles(lang?: Lang): ArticleMeta[] {
   return langs
     .flatMap(l =>
       getArticleSlugs(l).map(slug => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { content: _, ...meta } = getArticle(l, slug)
         return meta
       })
     )
     .filter(a => a.type !== 'page')
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+}
+
+/** Returns ALL articles including pages (about, hire-me) — used by sitemap */
+export function getAllContent(lang?: Lang): ArticleMeta[] {
+  const langs: Lang[] = lang ? [lang] : ['en', 'pt']
+  return langs
+    .flatMap(l =>
+      getArticleSlugs(l).map(slug => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { content: _, ...meta } = getArticle(l, slug)
+        return meta
+      })
+    )
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 

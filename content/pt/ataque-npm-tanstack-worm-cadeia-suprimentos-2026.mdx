@@ -1,6 +1,6 @@
 ---
-title: "O Ataque ao npm da TanStack: Como 42 Pacotes Foram Comprometidos por um Worm na Cadeia de Suprimentos e o Que Isso Significa para 2026"
-description: "Em 11 de maio de 2026, atacantes publicaram 84 versões maliciosas em 42 pacotes npm da TanStack usando um worm auto-propagação. Veja como o ataque funcionou, por que importa e o que todo desenvolvedor precisa fazer agora."
+title: "Ataque npm: Worm Compromete 42 Pacotes da TanStack"
+description: "Em 11/05/2026, 84 versões maliciosas em 42 pacotes npm da TanStack foram publicadas via worm auto-replicante. Como o ataque funcionou e o que fazer agora."
 date: "2026-05-12"
 translationKey: "tanstack-npm-supply-chain-compromise-2026"
 lang: "pt"
@@ -114,7 +114,7 @@ A avaliação honesta da TanStack sobre o que poderia ter sido melhor vale a pen
 - **Referências de ações flutuantes**: Ações de terceiros usavam referências flutuantes (`@v6.0.2`, `@main`) em vez de commits SHA fixos, criando risco permanente na cadeia de suprimentos.
 - **Política de unpublish do npm**: A política de "sem unpublish se existirem dependentes" do npm significou que tarballs maliciosos permaneceram instaláveis por horas após a detecção, mesmo depois da descontinuação.
 - **Sete mantenedores no escopo do npm**: Com sete alvos separados de roubo de credenciais para o mesmo raio de explosão, a superfície de ataque era desnecessariamente ampla.
-- **Falha no editor confiável OIDC**: Uma vez configurado, qualquer caminho de código no workflow pode gerar um token capaz de publicar. Não há revisão por publicação ou verificação de fonte de proveniência para detectar publicações de passos inesperados do workflow.
+- **Falha no editor confiável OIDC**: Uma vez configurado, qualquer caminho de código no fluxo de trabalho pode gerar um token capaz de publicar. Não há revisão por publicação ou verificação de fonte de proveniência para detectar publicações de passos inesperados do fluxo de trabalho.
 
 ## O Que Todo Desenvolvedor Deve Fazer Agora
 
@@ -137,7 +137,7 @@ Se você instalou qualquer pacote `@tanstack/*` ou qualquer dos outros pacotes c
 - **Remova `pull_request_target` de workflows que executam código controlado por forks**. Use `pull_request` com portões explícitos de aprovação para contribuidores de primeira viagem.
 - **Fixe ações do GitHub de terceiros a commits SHA**, não a tags de versão flutuantes.
 - **Audite o uso de cache** através de limites de confiança. Não assuma que `permissions: contents: read` bloqueia mutação de cache — `actions/cache` usa um token interno do runner.
-- **Adicione verificação de fonte de proveniência** para detectar publicações de passos inesperados do workflow.
+- **Adicione verificação de fonte de proveniência** para detectar publicações de passos inesperados do fluxo de trabalho.
 - **Implemente políticas de idade mínima de release** usando `min-release-age` do npm, `minimumReleaseAge` do pnpm, ou ferramentas como Socket.dev para atrasar a exposição a versões recém-publicadas.
 - **Use listas de permissão de egresso** em runners de CI/CD via ferramentas como StepSecurity Harden-Runner para prevenir exfiltração encoberta.
 

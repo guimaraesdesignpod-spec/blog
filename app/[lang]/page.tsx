@@ -4,12 +4,14 @@ import Image from 'next/image'
 import { getAllArticles } from '@/lib/articles'
 import { ArticleMeta } from '@/lib/mdx'
 import { LogoMark } from '@/components/Logo'
+import { SITE_ORIGIN } from '@/lib/config'
 import type { Metadata } from 'next'
 import Footer from '@/components/Footer'
 import NewsletterForm from '@/components/NewsletterForm'
 import MobileNav from '@/components/MobileNav'
 import HomeArticles from '@/components/HomeArticles'
 import ThemeToggle from '@/components/ThemeToggle'
+import OrganizationJsonLd from '@/components/OrganizationJsonLd'
 
 type Lang = 'en' | 'pt'
 
@@ -54,7 +56,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: { absolute: 'Brainwire' },
     description: meta.description,
-    alternates: { languages: { en: '/en', 'pt-BR': '/pt' } },
+    metadataBase: new URL(SITE_ORIGIN),
+    alternates: {
+      canonical: `${SITE_ORIGIN}/${lang}`,
+      languages: { en: '/en', 'pt-BR': '/pt' },
+    },
     openGraph: {
       title: 'Brainwire',
       description: meta.ogDescription,
@@ -124,45 +130,6 @@ function HeroCard({ article, lang, labels }: { article: ArticleMeta; lang: Lang;
   )
 }
 
-function ArticleCard({ article, lang, wide }: { article: ArticleMeta; lang: Lang; wide?: boolean }) {
-  const date = new Date(article.date).toLocaleDateString(
-    lang === 'pt' ? 'pt-BR' : 'en-US',
-    { day: 'numeric', month: 'short', year: 'numeric' }
-  )
-  const category = article.tags[0] ?? ''
-  const href = `/${lang}/${article.slug}`
-
-  return (
-    <Link href={href} className={`home-card${wide ? ' card-wide' : ''}`}>
-      {article.image && (
-        <div className="card-img-wrap">
-          <Image
-            src={article.image}
-            alt={article.imageAlt}
-            fill
-            className="card-img"
-            sizes={wide ? '(max-width: 900px) 100vw, 520px' : '(max-width: 900px) 100vw, 380px'}
-          />
-        </div>
-      )}
-      <div className="card-body">
-        {category && <div className="card-tag">{category}</div>}
-        <div className="card-title">{article.title}</div>
-        <div className="card-excerpt">{article.description}</div>
-        <div className="card-footer">
-          <span className="card-date">{date}</span>
-          <span className="card-read">
-            {article.readingTime}
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path d="M2 6h8M6.5 3.5L9 6l-2.5 2.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
-        </div>
-      </div>
-    </Link>
-  )
-}
-
 export default async function LangPage({ params }: Props) {
   const { lang } = await params
   if (lang !== 'en' && lang !== 'pt') notFound()
@@ -185,6 +152,7 @@ export default async function LangPage({ params }: Props) {
 
       return (
     <div style={{ minHeight: '100vh', background: 'var(--bg)', display: 'flex', flexDirection: 'column' }} id="main-content">
+      <OrganizationJsonLd />
       <nav className="home-page-nav">
         <Link href={`/${lang}`} className="nav-logo">
           <LogoMark />

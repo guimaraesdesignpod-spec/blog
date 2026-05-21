@@ -1,8 +1,8 @@
 ---
-title: "Claude na AWS: Executando os Modelos de IA da Anthropic na Infraestrutura da Amazon"
-description: "Um guia prático para implementar modelos Claude na AWS. Cobre Amazon Bedrock, instâncias EC2 com Deep Learning AMIs, AWS Trainium, otimização de custos e padrões de arquitetura do mundo real para 2026."
+title: "Claude na AWS: Anthropic na Infraestrutura da Amazon"
+description: "Guia prático para Claude na AWS: Bedrock, EC2 com DL AMIs, Trainium, custos e arquitetura real para 2026."
 date: "2026-05-12"
-translationKey: "plataforma-claude-aws-inteligencia-artificial-2026"
+translationKey: "claude-platform-on-aws-2026"
 lang: "pt"
 author: "Elisio Guimarães"
 tags: ["Claude", "AWS", "Amazon Bedrock", "Anthropic", "Infraestrutura de IA", "Aprendizado de Máquina", "2026"]
@@ -21,7 +21,7 @@ faq:
     a: "Parcialmente. O Bedrock suporta endpoints VPC para conectividade privada, impedindo que o tráfego saia da sua rede AWS. No entanto, a inferência real pode ser processada pela Anthropic na infraestrutura deles — o endpoint VPC não garante que o processamento ocorra exclusivamente dentro da sua conta AWS. Se residência estrita de dados é um requisito, você precisa de compromissos contratuais explícitos, não apenas da configuração de rede."
 ---
 
-# Claude na AWS: Executando os Modelos de IA da Anthropic na Infraestrutura da Amazon
+# Claude na AWS: Anthropic na Infraestrutura da Amazon
 
 Quando a [Anthropic anunciou uma integração mais profunda com a AWS](https://www.anthropic.com/news/anthropic-aws-deepened-integration) no início de 2026, a conversa mudou de "devo usar o Claude?" para "como faço pra rodar isso em escala sem quebrar?" AWS e Anthropic têm uma relação complicada — são parceiras, concorrentes, e a fonte de metade do compute de treinamento do Claude dependendo do press release que você ler. Este artigo foca no que importa: fazer o Claude funcionar de forma confiável na infraestrutura da AWS em 2026.
 
@@ -165,7 +165,7 @@ Vantagens do Trainium:
 Limitações do Trainium:
 
 - **Compatibilidade de modelos**: Nem todos os modelos são otimizados para Trainium. Você vai precisar verificar se seu modelo específico tem implementação compatível.
-- **Maturidade do ecossistema**: Ferramentas de debug são menos maduras que workflows CUDA/NVIDIA.
+- **Maturidade do ecossistema**: Ferramentas de debug são menos maduras que fluxos de trabalho CUDA/NVIDIA.
 - **Suporte da comunidade**: Comunidade menor significa menos guias e respostas no Stack Overflow.
 
 Para o Claude especificamente: como os pesos do Claude não estão disponíveis para auto-hospedagem, o Trainium não muda diretamente seus custos de inferência. Ele importa mais para equipes rodando modelos de peso aberto (Llama, Mistral, Qwen) onde o Trainium pode cortar custos de infraestrutura significativamente.
@@ -241,7 +241,7 @@ Para empresas, a relação AWS + Anthropic levanta questões que não têm respo
 
 Claude na AWS não é solução universal. Fique atento a esses modos de falha:
 
-**Correlação de outage de provedor**: Se a AWS tem um outage maior, o Bedrock provavelmente cai junto. Se a Anthropic tem um outage, a API direta falha. Os dois caírem ao mesmo tempo seria raro mas catastrófico para sistemas sensíveis à disponibilidade. Construa pensando em falhas parciais.
+**Correlação de outage de provedor**: Se a AWS tem um outage maior, o Bedrock provavelmente cai junto. Se a Anthropic tem um outage, a API direta falha. Os dois caírem ao mesmo tempo seria raro, mas catastrófico para sistemas sensíveis à disponibilidade. Construa pensando em falhas parciais.
 
 **Sustos de custo em escala**: Os custos por token parecem pequenos até você estar fazendo milhões de chamadas por dia. Monitore seus gastos com alertas de faturamento do CloudWatch antes da conta chegar.
 

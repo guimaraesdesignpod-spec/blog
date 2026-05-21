@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getAllArticles } from '@/lib/articles'
+import { getAllContent } from '@/lib/articles'
 import { SITE_ORIGIN } from '@/lib/config'
 import type { ArticleMeta } from '@/lib/mdx'
 
@@ -7,7 +7,7 @@ export const dynamic = 'force-static'
 export const revalidate = 3600 // 1 hour
 
 export async function GET() {
-  const articles = getAllArticles()
+  const articles = getAllContent()
 
   const groups = new Map<string, ArticleMeta[]>()
   for (const article of articles) {
@@ -30,12 +30,18 @@ export async function GET() {
   xml += `    <lastmod>${now}</lastmod>\n`
   xml += '    <changefreq>daily</changefreq>\n'
   xml += '    <priority>1</priority>\n'
+  xml += `    <xhtml:link rel="alternate" hreflang="en-US" href="${SITE_ORIGIN}/en" />\n`
+  xml += `    <xhtml:link rel="alternate" hreflang="pt-BR" href="${SITE_ORIGIN}/pt" />\n`
+  xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}/en" />\n`
   xml += '  </url>\n'
   xml += '  <url>\n'
   xml += `    <loc>${SITE_ORIGIN}/pt</loc>\n`
   xml += `    <lastmod>${now}</lastmod>\n`
   xml += '    <changefreq>daily</changefreq>\n'
   xml += '    <priority>1</priority>\n'
+  xml += `    <xhtml:link rel="alternate" hreflang="en-US" href="${SITE_ORIGIN}/en" />\n`
+  xml += `    <xhtml:link rel="alternate" hreflang="pt-BR" href="${SITE_ORIGIN}/pt" />\n`
+  xml += `    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}/en" />\n`
   xml += '  </url>\n'
 
   for (const group of groups.values()) {

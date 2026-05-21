@@ -33,7 +33,7 @@ export default function NewsletterForm({ labels }: NewsletterFormProps) {
       } else {
         setStatus('error')
       }
-    } catch (err) {
+    } catch {
       setStatus('error')
     }
   }
