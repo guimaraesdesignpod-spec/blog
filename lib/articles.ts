@@ -17,15 +17,19 @@ export function getAllArticles(lang?: Lang): ArticleMeta[] {
 /** Returns ALL articles including pages (about, hire-me) — used by sitemap */
 export function getAllContent(lang?: Lang): ArticleMeta[] {
   const langs: Lang[] = lang ? [lang] : ['en', 'pt']
-  return langs
-    .flatMap(l =>
-      getArticleSlugs(l).map(slug => {
+  const articles: ArticleMeta[] = []
+  for (const l of langs) {
+    for (const slug of getArticleSlugs(l)) {
+      try {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { content: _, ...meta } = getArticle(l, slug)
-        return meta
-      })
-    )
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        articles.push(meta)
+      } catch (e) {
+        console.error(`[sitemap] Failed to read article: ${l}/${slug}`, e instanceof Error ? e.message : e)
+      }
+    }
+  }
+  return articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
 export function getRecentArticles(limit: number = 6, lang?: Lang): ArticleMeta[] {
