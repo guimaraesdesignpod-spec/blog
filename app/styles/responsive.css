@@ -39,16 +39,11 @@
   .article-prose h3 { font-size: 1.1rem; margin: 2rem 0 0.6rem; }
 }
 
-/* ── Topics row scrollable on mobile ──────────────────────── */
+/* ── Topics row — wrap natural, sem scroll ────────────── */
 .topics-row {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding: 0.75rem 2rem;
+  padding: 0 1.25rem;
 }
+/* esconde scrollbar se houver overflow (salvaguarda) */
 .topics-row::-webkit-scrollbar { display: none; }
 @media (max-width: 600px) {
   .tool-specs { grid-template-columns: 1fr; }
@@ -648,20 +643,15 @@ input:focus-visible,
   outline-offset: 2px;
 }
 
-/* ── Topic pills scroll horizontal no mobile ────────────── */
+/* ── Topic pills wrap no mobile ────────────── */
 @media (max-width: 600px) {
   .topics-row {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-bottom: 0.5rem;
-  }
-  .topics-row::-webkit-scrollbar {
-    display: none;
+    gap: 0.4rem;
+    padding: 0.75rem 0.75rem;
   }
   .topic-pill {
-    flex-shrink: 0;
+    font-size: 0.72rem;
+    padding: 0.35em 0.75em;
   }
 }
 
