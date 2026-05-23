@@ -1,0 +1,100 @@
+---
+title: "Projeto Glasswing: O Momento em que a IA Começou a achar Todos os Bugs do Mundo"
+description: "Em apenas um mês, o Claude Mythos Preview da Anthropic encontrou mais de 10 mil vulnerabilidades críticas nos softwares mais importantes da internet. O que acontece quando IA acha bugs mais rápido do que humanos conseguem consertar?"
+date: "2026-05-23"
+translationKey: "anthropic-project-glasswing-ai-cybersecurity-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["IA", "Cibersegurança", "Anthropic", "Claude Mythos", "Projeto Glasswing", "Pesquisa de Vulnerabilidades", "2026"]
+image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1080"
+imageAlt: "Uma lupa examinando código digital em uma tela escura, representando a descoberta de vulnerabilidades com IA"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Anthropic Glasswing", "Claude Mythos Preview", "cibersegurança IA 2026", "descoberta de vulnerabilidades IA", "resultados Projeto Glasswing", "IA achando bugs", "IA cibersegurança fronteira"]
+tldr: "O Projeto Glasswing da Anthropic, lançado em abril de 2026, usa o Claude Mythos Preview para encontrar falhas de software em uma escala sem precedentes. No primeiro mês, foram descobertos mais de 10 mil bugs de alta ou severidade crítica na Cloudflare, Mozilla Firefox, Palo Alto Networks, Microsoft, Oracle e em mais de mil projetos de código aberto. A IA agora consegue encadear vários bugs de baixa severidade em provas de exploit funcionais — uma capacidade que nenhum modelo anterior possuía. O problema: a IA acha bugs mais rápido do que os humanos conseguem consertar, criando uma brecha perigosa entre descoberta e correção que os times de cibersegurança precisam aprender a fechar."
+faq:
+  - q: "O que exatamente é o Projeto Glasswing?"
+    a: "O Projeto Glasswing é a iniciativa colaborativa da Anthropic para escanear os softwares mais críticos do mundo usando o Claude Mythos Preview, um modelo de IA especializado em cibersegurança. Ele reúne cerca de 50 organizações, incluindo Cloudflare, Mozilla e grandes empresas, para descobrir, divulgar e corrigir vulnerabilidades antes que agentes mal-intencionados possam explorá-las."
+  - q: "Quantas vulnerabilidades o Mythos Preview realmente achou?"
+    a: "No primeiro mês, os parceiros encontraram, no total, mais de 10 mil bugs de alta ou severidade crítica. Só a Cloudflare descobriu 2 mil bugs, sendo 400 de alta ou severidade crítica. A Mozilla corrigiu 271 vulnerabilidades no Firefox 150 em uma única varredura — mais de dez vezes o que o Claude Opus 4.6 havia achado no Firefox 148. Em mais de mil projetos de código aberto, o Mythos Preview estimou 6.202 bugs de alta ou severidade crítica, dos quais 90,6% foram validados como verdadeiros positivos após triagem."
+  - q: "O que torna o Mythos Preview diferente de modelos de IA anteriores?"
+    a: "Diferente de modelos de fronteira de uso geral, o Mythos Preview consegue construir cadeias completas de exploit a partir de vários bugs de baixa severidade. Ele não acha apenas vulnerabilidades — ele escreve código de prova de conceito, compila, executa e itera até o exploit funcionar. No benchmark ExploitBench, o Mythos Preview conseguiu execução arbitrária de código em 21 de 41 CVEs. Nenhum outro modelo conseguiu nem 1."
+  - q: "A IA está melhorando ou piorando a cibersegurança?"
+    a: "As duas coisas, ao mesmo tempo. Para defensores, a IA encontra bugs que pesquisadores humanos perderam por décadas, a uma fração do custo e do tempo. Para atacantes, as mesmas capacidades baixam significativamente o custo de encontrar exploits. O risco principal é a diferença de velocidade: a IA acha vulnerabilidades mais rápido do que a indústria consegue corrigir, criando uma janela de exposição que os invasores podem explorar."
+  - q: "O que os times de software devem fazer agora?"
+    a: "Encurtar ciclos de patch, automatizar varredura de vulnerabilidades com modelos disponíveis, forçar autenticação de múltiplos fatores, manter logs abrangentes e endurecer configurações de rede. A Anthropic também lançou o Claude Security em beta público para clientes empresariais escanarem suas próprias bases de código. O Centro Nacional de Cibersegurança do Reino Unido publicou orientações específicas sobre o uso de modelos de IA para descoberta de vulnerabilidades."
+---
+
+# Projeto Glasswing: O Momento em que a IA Começou a achar Todos os Bugs do Mundo
+
+Existe uma espécie de vertigem que vem com observar algo mudar tão rápido que você mal consegue focar. O time de segurança da Mozilla sentiu isso primeiro. Em fevereiro de 2026, eles rodaram o Claude Opus 4.6 da Anthropic na base de código do Firefox e acharam 22 bugs sensíveis à segurança. Dois meses depois, rodaram o Claude Mythos Preview — um modelo construído com uma arquitetura e um propósito diferentes — e acharam 271. Em uma única passada. Para um navegador endurecido que vinha sendo escrutinado por alguns dos melhores engenheiros de segurança do mundo por mais de duas décadas, 271 novas vulnerabilidades não é uma estatística. É um fato sobre uma nova era.
+
+Essa tem um nome: Projeto Glasswing.
+
+Lançado discretamente em abril de 2026, o Projeto Glasswing é a resposta da Anthropic a uma questão que pairava sobre a indústria de cibersegurança há anos: o que acontece quando modelos de IA ficam melhores em encontrar falhas de segurança do que humanos? A resposta, no fim, não é teórica. Já está acontecendo. E os números são impressionantes.
+
+## De Milhares de Bugs para um Gargalo de Patches
+
+No primeiro mês, os cerca de 50 parceiros do Projeto Glasswing — organizações que, juntas, sustentam grande parte da infraestrutura crítica da internet — descobriram mais de dez mil vulnerabilidades de alta ou severidade crítica em seus softwares. Isso não é erro de digitação. Dez mil.
+
+A Cloudflare, uma das empresas mais tecnicamente sofisticadas da internet, encontrou 2 mil bugs em seus sistemas de caminho crítico, sendo 400 de alta ou severidade crítica. O time de segurança deles relatou que a taxa de falso positivo do Mythos Preview era melhor do que a de testadores humanos. Não comparável. Melhor.
+
+O lançamento de maio de 2026 da Palo Alto Networks incluiu mais de cinco vezes o número normal de patches. A Microsoft alertou que os volumes de patch vão "continuar crescendo por algum tempo". A Oracle relatou encontrar e corrigir vulnerabilidades "várias vezes mais rápido" do que antes. Em um banco parceiro do Glasswing, o Mythos Preview detectou e impediu uma transferência fraudulenta de US$ 1,5 milhão depois que um invasor comprometeu o e-mail de um cliente e fez ligações telefônicas falsas.
+
+O padrão é claro em cada parceiro: a IA não é mais uma curiosidade na pesquisa de segurança. Ela é o motor principal.
+
+Mas aqui está a parte desconfortável. A Anthropic tem escaneado mais de mil projetos de código aberto — software que alimenta tudo, de servidores web a bibliotecas criptográficas — e o modelo estima que encontrou 6.202 vulnerabilidades de alta ou severidade crítica. Dessas, 1.752 foram avaliadas cuidadosamente por empresas independentes de pesquisa em segurança. A taxa de validação é extraordinária: 90,6% eram reais. E ainda assim, conforme a última atualização da Anthropic, apenas 75 dos 530 bugs confirmados de alta ou severidade crítica relatados aos mantenedores foram corrigidos.
+
+O novo gargalo da cibersegurança não é a descoberta. É a capacidade humana.
+
+## O que o Mythos Preview Realmente Faz Diferente
+
+Para entender por que isso importa, você precisa entender o que mudou. A IA já encontrava bugs há anos. Analisadores estáticos, fuzzers e modelos de linguagem anteriores contribuíram. Mas o Mythos Preview opera num plano completamente diferente.
+
+Modelos anteriores identificavam um bug interessante, escreviam uma descrição detalhada do porquê ele importava e paravam por aí. Eles deixavam a cadeia de exploit incompleta e a questão da explorabilidade em aberto. O Mythos Preview fecha essa lacuna. Ele não acha apenas vulnerabilidades. Ele constrói cadeias de exploit.
+
+A Cloudflare descreve a diferenção assim: um ataque real raramente usa um único bug. Ele encadeia vários pequenos blocos de ataque em um exploit funcional. Talvez um use-after-free se torne um primitivo de leitura e escrita arbitrária, que sequestra o fluxo de controle, que usa cadeias de return-oriented programming para assumir o controle total. O Mythos Preview consegue pegar vários desses primitivos e raciocinar sobre como combiná-los em uma prova funcional. O raciocínio que ele mostra ao longo do caminho parece o trabalho de um pesquisador sênior, não a saída de um scanner automatizado.
+
+No benchmark ExploitBench, desenvolvido pela Universidade Carnegie Mellon, o Mythos Preview alcançou execução arbitrária de código em 21 de 41 CVEs reais no motor JavaScript V8. Nenhum outro modelo testado conseguiu nem 1. No ExploitGym, que cobre 898 vulnerabilidades em OSS-Fuzz, V8 e kernel Linux, o Mythos Preview teve sucesso em 157 tarefas usando a vulnerabilidade pretendida — contra 15 do Claude Opus 4.6.
+
+O Instituto de Segurança em IA do Reino Unido, que testa modelos de fronteira contra ataques simulados em redes corporativas, relatou que o Mythos Preview foi o primeiro modelo a completar ambos os seus ciber-ranges de ponta a ponta. O GPT-5.5, seu concorrente mais próximo, conseguiu apenas um.
+
+## A Nova Forma da Pesquisa de Vulnerabilidades
+
+Isso não é só sobre capacidade bruta. É sobre a forma do trabalho.
+
+A Cloudflare aprendeu isso da maneira mais difícil. O primeiro instinto deles foi o óbvio: apontar um agente de código genérico para um repositório e pedir para ele encontrar vulnerabilidades. Funcionou no sentido de que o modelo produziu achados. Mas não funcionou para gerar cobertura significativa. Uma única sessão de agente contra um repositório de cem mil linhas cobre talvez um décimo de porcento da superfícute de forma útil antes que a janela de contexto encha e a compactação entre em ação.
+
+Pesquisa real de vulnerabilidades é estreita e paralela. Um pesquisador humano escolhe uma coisa específica — um limite de segurança, uma classe específica de bug como injeção de comando — e investiga a fundo. Depois faz de novo, milhares de vezes pelo código. A virada para a Cloudflare foi construir um harness, não uma interface de chat. Eles diziam ao modelo exatamente o que procurar em exatamente qual função, com referência cruzada a documentos de arquitetura e cobertura anterior. Adicionaram um segundo agente adversarial entre os achados e a fila — com um prompt diferente e sem capacidade de gerar seus próprios achados — para filtrar ruído. Separaram "esse código tem bug?" e "um invasor consegue alcançar esse bug?" em perguntas distintas.
+
+O resultado não foi uma conversa. Foi um sistema.
+
+A experiência da Mozilla foi similar. Eles descreveram o trabalho com o Mythos Preview como produzindo uma espécie de vertigem. Para um alvo endurecido, um bug crítico já seria alerta vermelho em 2025. Receber 271 de uma vez faz você parar e se perguntar se é possível acompanhar.
+
+O Instituto de Segurança em IA do Reino Unido rastreia isso com o que chamam de "horizontes de tempo cibernético" — a duração de tarefas que modelos de IA conseguem completar de forma autônoma, medida contra o tempo que especialistas humanos levariam. Em fevereiro de 2026, estimaram que esse horizonte estava dobrando a cada 4,7 meses. O Mythos Preview e o GPT-5.5 ultrapassaram desde então até essa tendência acelerada. Os modelos estão avançando mais rápido do que os benchmarks conseguem medi-los.
+
+## O Dilema do Defensor
+
+E ainda assim, no meio de toda essa capacidade, resta uma questão genuína e urgente: estamos mais seguros?
+
+A resposta honesta é ainda não. Estamos numa transição. A parte fácil — encontrar bugs — foi resolvida. A parte difícil — consertá-los — continua sendo um problema humano. Os próprios dados da Anthropic mostram que um bug de alta ou severidade crítica encontrado pelo Mythos Preview leva em média duas semanas para ser corrigido. Alguns mantenedores de código aberto pediram à Anthropic para desacelerar as divulgações porque precisam de mais tempo para criar patches. A indústria não está estruturada para esse volume.
+
+A assimetria é o que tira o sono dos profissionais de segurança. Invasores precisam achar um bug. Defensores precisam consertar todos. A IA diminuiu drasticamente o custo de encontrar esse um bug. Até que o pipeline de correção acelere, a janela de vulnerabilidade fica mais larga, não mais estreita.
+
+Há coisas que os times de software podem fazer agora. Encurtar ciclos de patch. Usar modelos de IA disponíveis para escanear seu próprio código — o Claude Security da Anthropic está em beta público para clientes empresariais, e em três semanas o Claude Opus 4.7 foi usado para corrigir mais de 2.100 vulnerabilidades. Endurecer padrões de rede. Forçar autenticação de múltiplos fatores em todos os lugares. Manter logs abrangentes. O Instituto Nacional de Padrões e Tecnologia dos EUA e o Centro Nacional de Cibersegurança do Reino Unido publicaram orientações atualizadas que assumem essa nova realidade.
+
+Mas a adaptação mais profunda é cultural. Por décadas, a indústria de segurança operou no pressuposto de que zerar exploits era irrealista. O objetivo era torná-los tão caros que apenas atores bem financiados pudessem pagar por eles. Esse pressuposto agora está obsoleto. Como a Mozilla escreveu em sua atualização pública: "Os defeitos são finitos, e estamos entrando num mundo onde finalmente conseguimos encontrá-los todos."
+
+Se esse mundo chega antes dos invasores é a questão dos próximos anos.
+
+## O que Vem Depois
+
+A Anthropic sinalizou que modelos da classe Mythos eventualmente terão um lançamento mais amplo, não apenas através da parceria controlada do Projeto Glasswing. Quando isso acontecer, a capacidade de encontrar e encadear exploits estará nas mãos de qualquer um com acesso à API. As mesmas ferramentas que a Cloudflare e a Mozilla estão usando para endurecer a internet estarão disponíveis para quem quiser quebrá-la.
+
+É por isso que a Anthropic combinou o lançamento do modelo com novas salvaguardas. O Programa de Verificação Cibernética permite que profissionais legítimos de segurança usem os modelos para pesquisa de vulnerabilidades, testes de penetração e red-teaming sem as barreiras de segurança padrão que impedem o mau uso. É uma tentativa de atravessar uma agulha: dar aos defensores as ferramentas de que precisam enquanto torna o mau uso mais difícil.
+
+Se esse equilíbrio se sustenta é uma questão em aberto. O que não está em aberto é a direção da tendência. A capacidade de cibersegurança com IA está dobrando na ordem de meses, não anos. O horizonte de tempo para tarefas cibernéticas autônomas está se expandindo mais rápido do que a capacidade organizacional de absorvê-lo.
+
+O Projeto Glasswing não é um lançamento de produto. É um aviso e um convite. O aviso: a velocidade de descoberta de vulnerabilidades por IA superou a infraestrutura humana necessária para consertar o que ela acha. O convite: organizações que investirem em correções mais rápidas, baselines mais fortes e ferramentas defensivas assistidas por IA agora estarão muito mais resilientes quando essas capacidades se espalharem além de parcerias controladas.
+
+Os bugs são finitos, e as máquinas agora conseguem achá-los todos. A única pergunta é se conseguimos consertá-los rápido o suficiente.

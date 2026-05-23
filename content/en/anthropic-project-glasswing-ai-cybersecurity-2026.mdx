@@ -1,0 +1,100 @@
+---
+title: "Project Glasswing: The Moment AI Started Finding Every Bug in the World"
+description: "In just one month, Anthropic's Claude Mythos Preview found over 10,000 critical vulnerabilities across the internet's most important software. What happens when AI finds bugs faster than humans can patch them?"
+date: "2026-05-23"
+translationKey: "anthropic-project-glasswing-ai-cybersecurity-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI", "Cybersecurity", "Anthropic", "Claude Mythos", "Project Glasswing", "Vulnerability Research", "2026"]
+image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1080"
+imageAlt: "A magnifying glass examining digital code on a dark screen, representing AI-powered vulnerability discovery"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Anthropic Glasswing", "Claude Mythos Preview", "AI cybersecurity 2026", "vulnerability discovery AI", "Project Glasswing results", "AI finding bugs", "cybersecurity frontier AI"]
+tldr: "Anthropic's Project Glasswing, launched in April 2026, uses Claude Mythos Preview to find critical software vulnerabilities at an unprecedented scale. In its first month, over 10,000 high- or critical-severity bugs were discovered across Cloudflare, Mozilla Firefox, Palo Alto Networks, Microsoft, Oracle, and more than 1,000 open-source projects. AI can now chain multiple low-severity bugs into working exploit proofs — a capability no previous model possessed. The catch: AI finds bugs faster than humans can patch them, creating a dangerous gap between discovery and remediation that cybersecurity teams must learn to close."
+faq:
+  - q: "What exactly is Project Glasswing?"
+    a: "Project Glasswing is Anthropic's collaborative initiative to scan the world's most critical software using Claude Mythos Preview, a specialized frontier AI model trained for cybersecurity tasks. It partners with approximately 50 organizations including Cloudflare, Mozilla, and major enterprises to discover, disclose, and patch vulnerabilities before malicious actors can exploit them."
+  - q: "How many vulnerabilities has Mythos Preview actually found?"
+    a: "In its first month, partners collectively found over 10,000 high- or critical-severity vulnerabilities. Cloudflare alone discovered 2,000 bugs, 400 of them high- or critical-severity. Mozilla fixed 271 vulnerabilities in Firefox 150 from a single scan — more than ten times what Claude Opus 4.6 found in Firefox 148. Across 1,000+ open-source projects, Mythos Preview estimated 6,202 high- or critical-severity vulnerabilities, of which 90.6% were validated as true positives after triage."
+  - q: "What makes Mythos Preview different from previous AI models?"
+    a: "Unlike general-purpose frontier models, Mythos Preview can construct full exploit chains from multiple low-severity bugs. It doesn't just find vulnerabilities — it writes proof-of-concept code, compiles it, runs it, and iterates until the exploit works. On the ExploitBench benchmark, Mythos Preview achieved arbitrary code execution on 21 out of 41 CVEs. No other model achieved even 1."
+  - q: "Is AI making cybersecurity better or worse?"
+    a: "Both, simultaneously. For defenders, AI finds bugs that human researchers missed for decades at a fraction of the cost and time. For attackers, the same capabilities lower the barrier to finding exploits significantly. The key risk is the speed gap: AI finds vulnerabilities faster than the industry can patch them, creating a window of exposure that attackers may exploit."
+  - q: "What should software teams do right now?"
+    a: "Shorten patch cycles, automate vulnerability scanning with available models, enforce multi-factor authentication, maintain comprehensive logs, and harden network configurations. Anthropic has also released Claude Security in public beta for enterprise customers to scan their own codebases. The UK National Cyber Security Centre has published specific guidance on using AI models for vulnerability discovery."
+---
+
+# Project Glasswing: The Moment AI Started Finding Every Bug in the World
+
+There is a kind of vertigo that comes with watching something change so fast you can't quite focus on it. Mozilla's security team felt it first. In February 2026, they ran Anthropic's Claude Opus 4.6 across Firefox's codebase and found 22 security-sensitive bugs. Two months later, they ran Claude Mythos Preview — a model built with a different architecture and a different purpose — and found 271. In a single pass. For a hardened browser that has been scrutinized by some of the world's best security engineers for over two decades, 271 fresh vulnerabilities is not a statistic. It is a statement of fact about a new era.
+
+That era has a name: Project Glasswing.
+
+Launched quietly in April 2026, Project Glasswing is Anthropic's answer to a question that has been hanging over the cybersecurity industry for years: what happens when AI models become better at finding security flaws than humans? The answer, it turns out, is not theoretical. It is already happening. And the numbers are staggering.
+
+## From Thousands of Bugs to a Bottleneck of Patches
+
+In its first month, Project Glasswing's approximately 50 partners — organizations that collectively underpin much of the internet's critical infrastructure — discovered more than ten thousand high- or critical-severity vulnerabilities in their software. That is not a typo. Ten thousand.
+
+Cloudflare, one of the most technically sophisticated companies on the internet, found 2,000 bugs across their critical-path systems, 400 of them rated high- or critical-severity. Their security team reported that Mythos Preview's false positive rate was better than human testers. Not comparable. Better.
+
+Palo Alto Networks' May 2026 release included over five times as many patches as usual. Microsoft warned that patch volumes would "continue trending larger for some time." Oracle reported finding and fixing vulnerabilities "multiple times faster" than before. At one Glasswing partner bank, Mythos Preview detected and prevented a fraudulent $1.5 million wire transfer after a threat actor compromised a customer's email and made spoof phone calls.
+
+The pattern is clear across every partner: AI is no longer a curiosity in security research. It is the primary engine.
+
+But here is the uncomfortable part. Anthropic has been scanning more than 1,000 open-source projects — software that powers everything from web servers to cryptographic libraries — and the model estimates it has found 6,202 high- or critical-severity vulnerabilities. Of those, 1,752 have been carefully assessed by independent security research firms. The validation rate is extraordinary: 90.6% were real. And yet, as of Anthropic's latest update, only 75 of the 530 confirmed high- or critical-severity bugs reported to maintainers have been patched.
+
+The new constraint in cybersecurity is not discovery. It is human capacity.
+
+## What Mythos Preview Actually Does Differently
+
+To understand why this matters, you have to understand what changed. AI has been finding bugs for years. Static analyzers, fuzzers, and earlier language models all contributed. But Mythos Preview operates on a different plane entirely.
+
+Previous models would identify an interesting bug, write a thoughtful description of why it mattered, and then stop. They left the actual exploit chain unfinished and the question of exploitability open. Mythos Preview closes that gap. It does not just find vulnerabilities. It constructs exploit chains.
+
+Here's how Cloudflare describes the difference: a real attack rarely uses one bug. It chains several small attack primitives together into a working exploit. Maybe a use-after-free becomes an arbitrary read and write primitive, which hijacks control flow, which uses return-oriented programming chains to take full control. Mythos Preview can take several of these primitives and reason about how to combine them into a working proof. The reasoning it shows along the way looks like the work of a senior researcher rather than the output of an automated scanner.
+
+On the ExploitBench benchmark developed by Carnegie Mellon University, Mythos Preview achieved arbitrary code execution on 21 out of 41 real CVEs in the V8 JavaScript engine. No other tested model achieved even 1. On ExploitGym, which covers 898 vulnerabilities across OSS-Fuzz, V8, and the Linux kernel, Mythos Preview succeeded on 157 tasks using the intended vulnerability — compared to 15 for Claude Opus 4.6.
+
+The UK AI Security Institute, which tests frontier models against simulated corporate network attacks, reported that Mythos Preview was the first model to complete both of their cyber ranges end to end. GPT-5.5, its closest competitor, managed only one.
+
+## The New Shape of Vulnerability Research
+
+This is not just about raw capability. It is about the shape of the work.
+
+Cloudflare learned this the hard way. Their first instinct was the obvious one: point a generic coding agent at a repository and ask it to find vulnerabilities. It worked in the sense that the model produced findings. But it did not work in producing meaningful coverage. A single agent session against a hundred-thousand-line repository can cover maybe a tenth of a percent of the surface in a useful way before the context window fills up and compaction kicks in.
+
+Real vulnerability research is narrow and parallel. A human researcher picks one specific thing — a security boundary, a specific bug class like command injection — and investigates it thoroughly. Then they do it again, thousands of times across the codebase. The breakthrough for Cloudflare was building a harness, not a chat interface. They told the model exactly what to look for in exactly which function, cross-referenced with architecture documents and prior coverage. They added a second adversarial agent between findings and the queue — one with a different prompt and no ability to generate its own findings — to catch noise. They split "is this code buggy?" and "can an attacker reach this bug?" into separate questions.
+
+The result was not a conversation. It was a system.
+
+Mozilla's experience was similar. They described their work with Mythos Preview as producing a kind of vertigo. For a hardened target, just one critical bug would have been a red alert in 2025. Getting 271 at once makes you stop and wonder whether it is even possible to keep up.
+
+The UK's AI Security Institute tracks this with what they call "cyber time horizons" — the length of tasks AI models can complete autonomously, measured against how long human experts would take. In February 2026, they estimated that this horizon was doubling every 4.7 months. Mythos Preview and GPT-5.5 have since blown past even that accelerated trend. The models are advancing faster than the benchmarks can measure them.
+
+## The Defender's Dilemma
+
+And yet, amid all this capability, there is a genuine and urgent question: are we safer?
+
+The honest answer is not yet. We are in a transition. The easy part — finding bugs — has been solved. The hard part — patching them — remains a human problem. Anthropic's own data shows that a high- or critical-severity bug found by Mythos Preview takes an average of two weeks to patch. Some open-source maintainers have asked Anthropic to slow down disclosures because they need more time to design patches. The industry is not structured for this volume.
+
+The asymmetry is what keeps security professionals awake at night. Attackers need to find one bug. Defenders need to patch all of them. AI has dramatically lowered the cost of finding that one bug. Until the patching pipeline speeds up, the window of vulnerability gets wider, not narrower.
+
+There are things software teams can do now. Shorten patch cycles. Use available AI models to scan your own code — Anthropic's Claude Security is now in public beta for enterprise customers, and in three weeks Claude Opus 4.7 was used to patch over 2,100 vulnerabilities. Harden network defaults. Enforce multi-factor authentication everywhere. Keep comprehensive logs. The National Institute of Standards and Technology and the UK's National Cyber Security Centre have published updated guidance that assumes this new reality.
+
+But the deeper adaptation is cultural. For decades, the security industry operated on the assumption that bringing exploits to zero was unrealistic. The goal was to make them so expensive that only well-funded actors could afford them. That assumption is now obsolete. As Mozilla wrote in their public update: "The defects are finite, and we are entering a world where we can finally find them all."
+
+Whether that world arrives before the attackers do is the question of the next few years.
+
+## What Comes Next
+
+Anthropic has signaled that Mythos-class models will eventually see broader release, not just through the controlled Project Glasswing partnership. When they do, the capability to find and chain exploits will be in the hands of anyone with API access. The same tools that Cloudflare and Mozilla are using to harden the internet will be available to anyone who wants to break it.
+
+This is why Anthropic has paired the model's release with new safeguards. The Cyber Verification Program allows legitimate security professionals to use the models for vulnerability research, penetration testing, and red-teaming without the standard safety guardrails that prevent misuse. It is an attempt to thread a needle: give defenders the tools they need while making misuse harder.
+
+Whether that balance holds is an open question. What is not open is the direction of travel. AI cybersecurity capability is doubling on the order of months, not years. The time horizon for autonomous cyber tasks is expanding faster than organizational capacity to absorb it.
+
+Project Glasswing is not a product launch. It is a warning and an invitation. The warning: the speed of AI vulnerability discovery has outpaced the human infrastructure needed to fix what it finds. The invitation: organizations that invest in faster patching, stronger baselines, and AI-assisted defensive tooling now will be far more resilient when these capabilities spread beyond controlled partnerships.
+
+The bugs are finite, and the machines can now find them all. The only question is whether we can fix them fast enough.
