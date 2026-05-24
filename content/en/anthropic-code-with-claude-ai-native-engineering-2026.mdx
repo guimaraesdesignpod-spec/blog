@@ -1,0 +1,194 @@
+---
+title: "'Let It Cook': Inside Anthropic's Code with Claude and the Rise of AI-Native Engineering"
+description: "At Code with Claude in London, Anthropic showed a future where most software is written by AI. 'Let it cook' is the new engineering mantra — but what does it cost?"
+date: "2026-05-24"
+translationKey: "anthropic-code-with-claude-ai-native-engineering-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["Anthropic", "Claude Code", "AI Engineering", "Code with Claude", "2026", "Software Development"]
+image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c"
+imageAlt: "A laptop screen with code in a dim room, symbolising the quiet shift of software craftsmanship to AI-assisted workflows"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Anthropic Code with Claude", "Claude Code 2026", "AI native engineering", "dreaming feature Claude", "Claude write software", "vibe coding future"]
+tldr: "At Anthropic's Code with Claude developer conference in London (May 19-20, 2026), engineers revealed that most software at Anthropic is now written by Claude. A new feature called Dreaming lets Claude Code agents write notes to themselves, learn from past sessions, and improve autonomously. While developers inside the event cheered, outside it critics warn of security risks, brain rot, and maintenance disasters. The article explores the cultural shift from 'writing code' to 'managing agents' and asks whether software engineering as a craft can survive its own automation."
+faq:
+  - q: "What is 'Code with Claude'?"
+    a: "Code with Claude is Anthropic's annual developer conference series, held in San Francisco, London, and Tokyo in 2026. It showcases Claude Code, Anthropic's AI-powered coding tool, and features keynotes, workshops, and hands-on sessions for software developers and technical leaders."
+  - q: "What is the 'dreaming' feature in Claude Code?"
+    a: "Dreaming is a system where Claude Code agents write notes to themselves during coding sessions, saving useful information about tasks and errors. When another agent later works on the same codebase, it reads those notes to learn from past mistakes and start faster. Anthropic calls it a way for Claude to 'dream' about the code and consolidate knowledge across sessions."
+  - q: "Does Anthropic really write most of its software with Claude?"
+    a: "Yes, according to Jeremy Hadfield, an engineer at Anthropic who spoke at the London conference. He stated that 'most software at Anthropic is now written by Claude' and that 'Claude has written most of the code in Claude Code.' Other companies, including Spotify and Monday.com, also presented case studies of handing significant portions of their codebase to Claude Code agents."
+---
+
+# "Let It Cook": Inside Anthropic's Code with Claude and the Rise of AI-Native Engineering
+
+## Half the Room Raised Their Hands. Then They Raised Them Again — And Didn't Put Them Down.
+
+The question was simple. The answer was staggering.
+
+"Who here has shipped a pull request in the last week that was completely written by Claude?"
+
+Jeremy Hadfield, an engineer at Anthropic, stood on the main stage at Code with Claude in London and waited. Almost half the hands in the packed room went up. Many attendees sat with laptops on their knees, coding or prompting between talks. The vibe was unmistakable: this was not a conference about learning to code with AI. This was a conference about learning to *stop* coding and start *managing* AI.
+
+Then Hadfield asked the follow-up.
+
+"Who here has shipped a pull request that was completely written by Claude where they did not read the code at all?"
+
+Nervous laughter rippled through the audience. Most of the hands stayed up.
+
+This is not a drill. This is May 2026, and the ground beneath software engineering has shifted so quietly that many developers outside the AI-native bubble haven't noticed the earthquake yet. Inside the bubble, the conversation has moved on from "Will AI replace programmers?" to "How many programmers does one agent replace?" And the answer, according to the people building the agents, is: most of them, most of the time.
+
+---
+
+## Code with Claude: A Conference That Outgrew Its Own Premise
+
+Anthropic's second annual developer conference kicked off in London on May 19, 2026 — the same day as Google's I/O in Palo Alto. Anthropic staffers insisted the overlap was coincidence, not choreography. The subtext was impossible to miss: while Google talked about AI features in search and Android, Anthropic was talking about AI *replacing* the people who build search and Android.
+
+The event series — San Francisco in May, London in May, Tokyo in June — has grown from a niche gathering to a pilgrimage for developers who've already crossed the Rubicon. Last year, Anthropic had just released Claude 4. It could code, kind of. This year, with Claude 4.6 (February) and 4.7 (April), the tool has become something else entirely: a teammate that doesn't sleep, doesn't complain about legacy code, and — crucially — doesn't need you to hold its hand.
+
+"The default isn't 'I'm going to prompt Claude'," said Boris Cherny, who heads Claude Code, in the opening keynote. "The default is now 'I'm going to have Claude prompt itself.'"
+
+Think about that sentence for a moment. The head of one of the most important AI coding tools on the planet just told a room full of developers that the skill of writing prompts is already obsolete. The new skill is writing *systems* that write prompts. The new engineer is a systems architect for autonomous agents, not a typist for code.
+
+---
+
+## "Let It Cook": The Philosophy Behind Hands-Off Engineering
+
+If there was one phrase that defined the London conference, it was this: *"Let it cook."*
+
+Ravi Trivedi, another Anthropic engineer, used it in a session about Claude Code's self-correction loop. The principle is simple: instead of hovering over Claude while it writes code, you give it a task, walk away, and let it iterate, test, fail, fix, and iterate again until the tests pass. The human's job is defining the success criteria, not supervising the cooking.
+
+This is a radical departure from the way most developers currently use AI tools. Today, the dominant pattern is pair programming with a chatbot: you write a prompt, Claude generates code, you review it, you spot errors, you write another prompt. It's faster than writing from scratch, but you're still in the loop for every commit.
+
+Anthropic wants to eliminate that loop entirely.
+
+"If all goes well, human developers shouldn't even see the error messages when something doesn't work," Trivedi explained. "That will all be handled by Claude, which will test and tweak, test and tweak, until everything runs as it should."
+
+The tool that makes this possible is a feature called **Dreaming**. Here's how it works: when Claude Code finishes a task — or fails at one — it writes notes to itself about what happened. These notes are saved to a memory store. When another Claude agent later starts working on the same codebase, it reads the notes, learns from past errors, and avoids repeating them. Over time, the codebase builds up a kind of institutional memory — except the institution is made of software agents, not humans.
+
+In theory, Dreaming means Claude gets better at your specific codebase the more you use it. In practice, it means the boundary between "AI assistant" and "AI employee" has dissolved.
+
+---
+
+## The Companies Already Living in This Future
+
+Code with Claude wasn't just an Anthropic product showcase. It was a case study festival of companies that have already reorganised their engineering teams around Claude Code.
+
+Spotify presented a session on how Claude agents now handle routine code maintenance and refactoring across their mobile apps. Delivery Hero, the European food delivery giant, talked about using Claude Code to generate and maintain their internal API wrappers. Three AI-native startups — Lovable, Base44, and Monday.com — showed how they've built entire products where Claude writes the code, reviews its own pull requests, and deploys to production with minimal human intervention.
+
+The pattern is consistent across every presentation: engineering throughput is up 200-300%, but the nature of the work has changed. Nobody is writing boilerplate anymore. Nobody is fixing linting errors. Nobody is manually updating dependencies. Those tasks are all agent-handled now.
+
+What humans are doing instead — according to Fiona Fung, who leads Anthropic's internal engineering culture sessions — is "everything around coding." Reviewing agent outputs. Defining system architecture. Figuring out what to build in the first place. Coordinating across teams. Writing documentation that agents can read and use.
+
+"The bottleneck moved from coding to everything around coding," Fung told attendees.
+
+This is the defining sentence of the AI-native engineering era. When the typing is free, the thinking becomes expensive.
+
+---
+
+## The Case Studies: What Happens When You Hand the Kitchen to the Chef
+
+To understand how real this shift is, consider three examples from the conference that went largely unnoticed by the tech press but should terrify anyone who thinks AI coding is still a novelty.
+
+### Case Study 1: Robobun and the Disappearing Maintainer
+
+Jarred Sumner, creator of the Bun JavaScript runtime, presented what might be the most unsettling case study of the event. He built Robobun — an autonomous Claude Code agent that works exclusively on the Bun codebase. As of May 2026, Robobun has made more commits to Bun than Jarred himself.
+
+Let that sink in. The creator and primary maintainer of a major open-source project has been out-committed by an AI agent.
+
+Jarred's workflow is now agent-mediated. He dispatches Robobun with a task, often overnight. He reviews the final output in the morning. Sometimes he runs CodeRabbit and Claude Code against the same PR and lets them debate each other — CodeRabbit flags style issues, Claude reasons about downstream effects. The agents iterate. Jarred approves the winner.
+
+This is not Jarred using AI to write faster. This is Jarred managing a team of AI employees who happen to share his codebase.
+
+### Case Study 2: Harvey and the 6x Improvement
+
+Harvey, the legal-tech unicorn, reported results from Claude Managed Agents with Dreaming enabled. On a realistic legal-document-processing benchmark, task completion rates improved roughly 6x after Dreaming was activated.
+
+The mechanism is what matters here. Before Dreaming, each Harvey agent started fresh, with no memory of past cases, past errors, or successful strategies. With Dreaming, agents inherited a curated knowledge base built from thousands of previous sessions. They knew which clauses to flag, which jurisdictions to double-check, and which language patterns indicated risk.
+
+This is institutional knowledge that previously required years of attorney experience and careful handoff documentation. Now it's machine-readable and auto-updating.
+
+### Case Study 3: The 300% PR Explosion
+
+Noah Zweben, an engineering lead at Anthropic, showed a chart of his team's weekly pull requests merged to main. In three months — January to March 2026 — weekly throughput went from roughly 500 PRs to about 1,150. A 300% increase.
+
+The catch? The team had exactly one engineer dedicated to documentation. The PR explosion threatened to bury that person alive. The solution wasn't hiring more documentarians. It was dispatching Claude agents to write and update documentation asynchronously, overnight, based on the code that had been merged during the day.
+
+This is the new engineering stack: humans specify, agents execute, other agents verify, and yet more agents document. The human sits at the top of the pyramid, but the pyramid is made almost entirely of software.
+
+---
+
+## The Critics: Brain Rot, Security Disasters, and the Ethics of Hands-Off Code
+
+For all the triumphalism inside the conference, there is a growing and vocal opposition outside it.
+
+On Hacker News, a user called pron posted a comment last week that crystallised the skepticism: "The only people I've heard saying that generated code is fine are those who don't read it." The comment received hundreds of upvotes and sparked a thread that ran to hundreds of replies.
+
+The critiques fall into three categories.
+
+### "My Coding Skills Deteriorated"
+
+Multiple developers on Reddit and HN report that as they've handed more tasks to Claude, their own coding abilities have atrophied. "I used to know our entire stack by heart," one wrote. "Now I struggle to write a regex without Claude." Others describe a kind of learned helplessness, where debugging becomes an exercise in prompting rather than thinking.
+
+This isn't unique to Claude Code. A 404 Media investigation from late 2025 found similar patterns among developers using GitHub Copilot and Cursor. The common thread: when AI writes the code, humans stop practising the skill.
+
+### "The Security Debt Is Invisible Until It Isn't"
+
+Researchers have repeatedly warned that AI-generated code contains subtle vulnerabilities that static analysis tools miss. A study cited by MIT Technology Review in February 2026 found that AI-assisted codebases had a significantly higher rate of insecure dependency imports and logic errors that created injection vectors.
+
+When I asked Claude engineering lead Katelyn Lesse about these concerns, she didn't dismiss them — but she didn't surrender ground either. "All of the old software development best practices still apply. They've applied this entire time," she said. "I think there are a lot of people and teams that may have lost sight of them in this moment."
+
+The problem with this response is that the "old best practices" — peer review, manual testing, static analysis — are precisely the practices being eroded by the speed of AI-native engineering. If your team is merging 1,150 PRs per week, how many of them get meaningful human review?
+
+### "Who Owns the Bugs?"
+
+The hardest question is the accountability one. If Claude writes code that introduces a security vulnerability, who is responsible? The Anthropic engineer who deployed the agent? The Anthropic manager who approved the workflow? The Anthropic company that built the tool? Or the end user who trusted the output?
+
+Lesse's answer was pragmatic: "I think that right now Claude is probably as good as a midlevel engineer at writing code. You still need expert engineers to design a system and troubleshoot harder problems. But over time we want Claude to get better and better at all different types of engineering."
+
+Angela Jiang, Claude's product lead, went further: "I think the absolute end state we're trying to get to is Claude basically being able to build itself."
+
+That end state — Claude building Claude, with humans as supervisors rather than crafters — is the ultimate expression of the "let it cook" philosophy. And it raises a question that no one at the conference fully answered: if Claude can build itself, what exactly are we still needed for?
+
+---
+
+## The Context Window Is Still a Box
+
+For all the breathless acceleration, one hard constraint hasn't budged: context windows.
+
+Across the industry, context windows have stayed at roughly 1 million tokens for over a year. Dianne Penn, Anthropic's Head of Product for Research, hinted at the conference that the company is working on "context windows that feel infinite." But Daisy Hollman, a Member of Technical Staff, delivered a more sobering message in her workshop: "The box is not getting bigger anytime soon. Managing context effectively will remain one of the most important skills for anyone building with AI."
+
+This is the hidden paradox of the AI-native engineering revolution. The agents are getting smarter, but they still forget everything between sessions unless you explicitly save it. Dreaming is Anthropic's answer to this limitation — a workaround that turns the constraint into a feature. Instead of building infinitely large context windows, Anthropic built a system where agents teach each other what they learned.
+
+It's clever. It's also a reminder that even the most advanced AI tools are still operating under severe constraints that humans take for granted. We don't need to write notes to ourselves to remember what we did yesterday. Claude does.
+
+---
+
+## Where This Leaves Software Engineering as a Craft
+
+If you're a software engineer reading this, you're probably experiencing a familiar cocktail of emotions: fascination, anxiety, and a kind of low-grade existential dread.
+
+Here's the uncomfortable truth: the craft of software engineering is not dying. It's splitting.
+
+On one side, you have the AI-native engineers. These are the people who've already stopped typing code and started orchestrating agents. They think in systems, not syntax. Their value comes from architectural judgment, not keystrokes. They are the ones saying "let it cook" and meaning it.
+
+On the other side, you have the traditional engineers. These are the people who still believe that reading every line of code you ship is a moral imperative. They think AI-generated code is cheating. They worry about security, maintenance, and the "brain rot" of delegating thinking to machines. They are not wrong.
+
+The gap between these two groups is widening faster than most people realise. Inside Anthropic, inside Spotify, inside the startups that presented at Code with Claude, the AI-native model is already dominant. Outside, in the vast majority of engineering teams building CRUD apps and internal tools, the transition hasn't even begun.
+
+This divergence is what makes 2026 feel like an inflection point. Not because AI replaced programmers overnight — it didn't — but because the teams that *have* made the transition are now moving so fast that everyone else is starting to look like they're standing still.
+
+---
+
+## The Verdict: Cook, But Taste the Soup
+
+I left Code with Claude with two convictions, held in tension.
+
+The first: "Let it cook" is not just a catchy phrase. It's an accurate description of how elite engineering teams are already operating. The productivity gains are real, the quality improvements are measurable, and the trend line points inexorably toward more automation, not less.
+
+The second: the critics warning about security debt, brain rot, and accountability gaps are also right. When you stop reading the code you ship, you stop understanding the systems you maintain. When agents write notes to themselves instead of talking to humans, you create invisible failure modes that only surface at 3 AM on a Saturday.
+
+The right answer is probably somewhere in the middle. Let Claude cook — but taste the soup before you serve it. Use agents for the work that doesn't require human judgment, but preserve human judgment for the work that does. And never forget that Claude's notes to itself are not institutional knowledge. They're pattern matching. The difference matters.
+
+Software engineering isn't dying. It's becoming something else. The question for every developer in 2026 is whether you're willing to become something else with it.

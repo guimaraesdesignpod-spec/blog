@@ -1,0 +1,194 @@
+---
+title: "'Deixa Cozinhar': Por Dentro do Code with Claude da Anthropic e o Surgimento da Engenharia Nativa em IA"
+description: "No Code with Claude em Londres, a Anthropic mostrou um futuro em que a maioria do software é escrito por IA. 'Deixa cozinhar' é o novo mantra da engenharia — mas a que preço?"
+date: "2026-05-24"
+translationKey: "anthropic-code-with-claude-ai-native-engineering-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["Anthropic", "Claude Code", "Engenharia com IA", "Code with Claud", "2026", "Desenvolvimento de Software"]
+image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c"
+imageAlt: "Tela de laptop com código em um ambiente escuro, simbolizando a mudança silenciosa do artesanato de software para fluxos assistidos por IA"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Anthropic Code with Claude", "Claude Code 2026", "engenharia nativa em IA", "funcionalidade dreaming Claude", "Claude escreve software", "futuro do vibe coding"]
+tldr: "Na conferência Code with Claude da Anthropic em Londres (19-20 de maio de 2026), engenheiros revelaram que a maior parte do software da Anthropic agora é escrita pelo Claude. Uma nova funcionalidade chamada Dreaming permite que agentes do Claude Code escrevam notas para si mesmos, aprendam de sessões anteriores e melhorem de forma autônoma. Enquanto desenvolvedores dentro do evento aplaudiam, fora dele críticos alertam para riscos de segurança, atrofia cognitiva e catástrofes de manutenção. O artigo explora a mudança cultural de 'escrever código' para 'gerenciar agentes' e pergunta se a engenharia de software como ofício pode sobreviver à própria automação."
+faq:
+  - q: "O que é o 'Code with Claude'?"
+    a: "Code with Claude é a série anual de conferências para desenvolvedores da Anthropic, realizada em São Francisco, Londres e Tóquio em 2026. O evento apresenta o Claude Code, ferramenta de codificação com IA da Anthropic, e inclui palestras, workshops e sessões práticas para desenvolvedores e líderes técnicos."
+  - q: "O que é a funcionalidade 'Dreaming' no Claude Code?"
+    a: "Dreaming é um sistema em que agentes do Claude Code escrevem notas para si mesmos durante sessões de codificação, guardando informações úteis sobre tarefas e erros. Quando outro agente trabalha no mesmo código depois, lê essas notas para aprender com erros passados e começar mais rápido. A Anthropic chama isso de uma forma de o Claude 'sonhar' sobre o código e consolidar conhecimento entre sessões."
+  - q: "A Anthropic realmente escreve a maior parte do software com o Claude?"
+    a: "Sim, segundo Jeremy Hadfield, engenheiro da Anthropic que palestrou em Londres. Ele afirmou que 'a maior parte do software da Anthropic agora é escrita pelo Claude' e que 'o Claude escreveu a maior parte do código no Claude Code'. Outras empresas, incluindo Spotify e Monday.com, também apresentaram casos de estudo sobre delegar partes significativas da base de código a agentes do Claude Code."
+---
+
+# "Deixa Cozinhar": Por Dentro do Code with Claude e o Surgimento da Engenharia Nativa em IA
+
+## Metade da Sala Levantou a Mão. Depois Levantou de Novo — E Não Abaixou.
+
+A pergunta era simples. A resposta era chocante.
+
+"Quem aqui fez merge de um pull request na última semana que foi completamente escrito pelo Claude?"
+
+Jeremy Hadfield, engenheiro da Anthropic, estava no palco principal do Code with Claude em Londres, esperando. Quase metade das mãos na sala lotada subiu. Muitos participantes estavam com notebooks no colo, codificando ou dando prompts entre as palestras. O clima era inconfundível: aquela não era uma conferência sobre aprender a programar com IA. Era uma conferência sobre aprender a *parar* de programar e começar a *gerenciar* IA.
+
+Então Hadfield fez o acompanhamento.
+
+"Quem aqui fez merge de um pull request completamente escrito pelo Claude sem ler o código?"
+
+Risos nervorosos percorreram a plateia. A maioria das mãos ficou no alto.
+
+Isso não é um exercício. Estamos em maio de 2026, e o chão sob a engenharia de software se deslocou tão silenciosamente que muitos desenvolvedores fora da bolha nativa em IA ainda não notaram o terremoto. Dentro da bolha, a conversa já passou de "A IA vai substituir programadores?" para "Quantos programadores um agente substitui?" E a resposta, segundo quem está construindo os agentes, é: a maioria deles, na maior parte do tempo.
+
+---
+
+## Code with Claude: Uma Conferência que Superou a Própria Premissa
+
+A segunda edição anual da conferência para desenvolvedores da Anthropic começou em Londres em 19 de maio de 2026 — no mesmo dia do Google I/O em Palo Alto. Funcionários da Anthropic insistiram que a coincidência não foi planejada. O subtexto era impossível de ignorar: enquanto o Google falava sobre recursos de IA na busca e no Android, a Anthropic falava sobre IA *substituindo* as pessoas que constroem a busca e o Android.
+
+A série de eventos — São Francisco em maio, Londres em maio, Tóquio em junho — cresceu de um encontro de nicho para uma peregrinação de desenvolvedores que já cruzaram o Rubicão. No ano passado, a Anthropic tinha acabado de lançar o Claude 4. Ele sabia programar, mais ou menos. Este ano, com o Claude 4.6 (fevereiro) e 4.7 (abril), a ferramenta se tornou algo completamente diferente: um colega de equipe que não dorme, não reclama de código legado e — crucialmente — não precisa que você segure a mão dele.
+
+"O padrão não é mais 'vou dar um prompt pro Claude'", disse Boris Cherny, chefe do Claude Code, na palestra de abertura. "O padrão agora é 'vou deixar o Claude se dar prompts sozinho.'"
+
+Pense nessa frase por um momento. O chefe de uma das ferramentas de codificação com IA mais importantes do planeta acabou de dizer a uma sala cheia de desenvolvedores que a habilidade de escrever prompts já está obsoleta. A nova habilidade é escrever *sistemas* que escrevem prompts. O novo engenheiro é um arquiteto de sistemas para agentes autônomos, não um digitador de código.
+
+---
+
+## "Deixa Cozinhar": A Filosofia Por Trás da Engenharia sem Interferência
+
+Se houve uma frase que definiu a conferência em Londres, foi esta: *"Deixa cozinhar."*
+
+Ravi Trivedi, outro engenheiro da Anthropic, usou a expressão numa sessão sobre o loop de autocorreção do Claude Code. O princípio é simples: em vez de ficar olhando por cima do ombro enquanto o Claude escreve código, você dá uma tarefa, sai de perto e deixa ele iterar, testar, falhar, consertar e iterar de novo até os testes passarem. O trabalho do humano é definir os critérios de sucesso, não supervisionar o cozinheiro.
+
+Isso é uma ruptura radical da forma como a maioria dos desenvolvedores usa ferramentas de IA hoje. Atualmente, o padrão dominante é pair programming com um chatbot: você escreve um prompt, o Claude gera código, você revisa, acha erros, escreve outro prompt. É mais rápido do que escrever do zero, mas você ainda está no circuito a cada commit.
+
+A Anthropic quer eliminar esse circuito por completo.
+
+"Se tudo der certo, desenvolvedores humanos nem deveriam ver as mensagens de erro quando algo não funciona", explicou Trivedi. "Tudo vai ser tratado pelo Claude, que vai testar e ajustar, testar e ajustar, até tudo rodar como deveria."
+
+A ferramenta que torna isso possível é uma funcionalidade chamada **Dreaming** ("Sonhando"). Funciona assim: quando o Claude Code termina uma tarefa — ou falha nela — ele escreve notas para si mesmo sobre o que aconteceu. Essas notas são salvas num armazenamento de memória. Quando outro agente Claude começa a trabalhar no mesmo código depois, lê as notas, aprende com erros anteriores e evita repeti-los. Com o tempo, a base de código acumula uma espécie de memória institucional — exceto que a instituição é feita de agentes de software, não de humanos.
+
+Na teoria, Dreaming significa que o Claude fica melhor no seu código específico quanto mais você usa. Na prática, significa que a fronteira entre "assistente de IA" e "funcionário de IA" se dissolveu.
+
+---
+
+## As Empresas que Já Vivem nesse Futuro
+
+O Code with Claude não foi apenas uma apresentação de produtos da Anthropic. Foi um festival de casos de estudo de empresas que já reorganizaram suas equipes de engenharia em torno do Claude Code.
+
+O Spotify apresentou uma sessão sobre como agentes Claude agora cuidam de manutenção rotineira e refatoração nos apps mobile. A Delivery Hero, gigante europeia de delivery de comida, falou sobre usar o Claude Code para gerar e manter seus wrappers de API internos. Três startups nativas em IA — Lovable, Base44 e Monday.com — mostraram como construíram produtos inteiros em que o Claude escreve o código, revisa seus próprios pull requests e faz deploy para produção com mínima interferência humana.
+
+O padrão é consistente em todas as apresentações: a produtividade de engenharia subiu 200-300%, mas a natureza do trabalho mudou. Ninguém mais escreve boilerplate. Ninguém mais corrige erros de lint. Ninguém mais atualiza dependências manualmente. Essas tarefas são todas gerenciadas por agentes agora.
+
+O que os humanos estão fazendo em vez disso — segundo Fiona Fung, que lidera sessões sobre cultura de engenharia na Anthropic — é "tudo em torno da codificação". Revisar saídas de agentes. Definir arquitetura de sistemas. Descobrir o que construir em primeiro lugar. Coordenar entre equipes. Escrever documentação que agentes possam ler e usar.
+
+"O gargalo se mudou de codificar para tudo em torno da codificação", disse Fung aos participantes.
+
+Essa é a frase definidora da era da engenharia nativa em IA. Quando a digitação é de graça, o pensamento fica caro.
+
+---
+
+## Os Casos de Estudo: O Que Acontece Quando Você Entrega a Cozinha ao Chefe
+
+Para entender o quão real é essa mudança, considere três exemplos da conferência que passaram despercebidos pela imprensa de tecnologia, mas que deveriam aterrorizar qualquer um que acha que codificação com IA ainda é uma novidade.
+
+### Caso de Estudo 1: Robobun e o Mantenedor que Sumiu
+
+Jarred Sumner, criador do runtime JavaScript Bun, apresentou o que pode ser o caso de estudo mais perturbador do evento. Ele construiu o Robobun — um agente autônomo do Claude Code que trabalha exclusivamente na base de código do Bun. Em maio de 2026, o Robobun já fez mais commits no Bun do que o próprio Jarred.
+
+Deixe isso afundar. O criador e mantenedor principal de um projeto open-source importante foi superado em commits por um agente de IA.
+
+O workflow de Jarred agora é mediado por agentes. Ele despacha o Robobun com uma tarefa, frequentemente durante a noite. Pela manhã, revisa o resultado final. Às vezes, roda o CodeRabbit e o Claude Code contra o mesmo PR e deixa que eles debatam entre si — o CodeRabbit aponta problemas de estilo, o Claude raciocina sobre efeitos downstream. Os agentes iteram. Jarred aprova o vencedor.
+
+Isso não é Jarred usando IA para escrever mais rápido. É Jarred gerenciando um time de funcionários de IA que, por acaso, compartilham a base de código dele.
+
+### Caso de Estudo 2: Harvey e a Melhoria de 6 Vezes
+
+A Harvey, unicórnio de legal tech, divulgou resultados do uso de Claude Managed Agents com Dreaming ativado. Num benchmark realista de processamento de documentos jurídicos, as taxas de conclusão de tarefas melhoraram cerca de 6 vezes após ativar o Dreaming.
+
+O mecanismo é o que importa aqui. Antes do Dreaming, cada agente Harvey começava do zero, sem memória de casos anteriores, erros passados ou estratégias bem-sucedidas. Com o Dreaming, os agentes herdavam uma base de conhecimento curada construída a partir de milhares de sessões anteriores. Eles sabiam quais cláusulas sinalizar, quais jurisdições verificar duas vezes e quais padrões de linguagem indicavam risco.
+
+Isso é conhecimento institucional que antes exigia anos de experiência de advogados e documentação cuidadosa de handoff. Agora é legível por máquina e se atualiza automaticamente.
+
+### Caso de Estudo 3: A Explosão de 300% nos Pull Requests
+
+Noah Zweben, líder de engenharia da Anthropic, mostrou um gráfico dos pull requests semanais merged na main da equipe dele. Em três meses — de janeiro a março de 2026 — a taxa semanal subiu de cerca de 500 para aproximadamente 1.150 PRs. Um aumento de 300%.
+
+O problema? A equipe tinha exatamente um engenheiro dedicado à documentação. A explosão de PRs ameaçava enterrar essa pessoa viva. A solução não foi contratar mais documentadores. Foi despachar agentes Claude para escrever e atualizar documentação de forma assíncrona, durante a noite, com base no código que tinha sido mergeado durante o dia.
+
+Essa é a nova pilha de engenharia: humanos especificam, agentes executam, outros agentes verificam, e ainda mais agentes documentam. O humano fica no topo da pirâmide, mas a pirâmide é feita quase inteiramente de software.
+
+---
+
+## Os Críticos: Atrofia Cognitiva, Desastres de Segurança e a Ética do Código Sem Supervisão
+
+Por todo o triunfalismo dentro da conferência, existe uma oposição crescente e vocal fora dela.
+
+No Hacker News, um usuário chamado pron postou um comentário na semana passada que cristalizou o ceticismo: "As únicas pessoas que ouvi dizendo que código gerado está bom são aquelas que não o leem." O comentário recebeu centenas de upvotes e gerou uma discussão que chegou a centenas de respostas.
+
+As críticas se dividem em três categorias.
+
+### "Minhas Habilidades de Codificação Se Deterioraram"
+
+Vários desenvolvedores no Reddit e no HN relatam que, à medida que delegaram mais tarefas ao Claude, suas próprias habilidades de codificação atrofiaram. "Eu costumava conhecer nossa stack inteira de cor", escreveu um. "Agora eu luto para escrever uma regex sem o Claude." Outros descrevem uma espécie de desamparo aprendido, onde debugging se tornou um exercício de dar prompts em vez de pensar.
+
+Isso não é exclusivo do Claude Code. Uma investigação da 404 Media de final de 2025 encontrou padrões semelhantes entre desenvolvedores que usam GitHub Copilot e Cursor. O fio condutor: quando a IA escreve o código, os humanos param de praticar a habilidade.
+
+### "A Dívida de Segurança é Invisível Até Não Ser Mais"
+
+Pesquisadores advertiram repetidamente que código gerado por IA contém vulnerabilidades sutis que ferramentas de análise estática não detectam. Um estudo citado pelo MIT Tech Review em fevereiro de 2026 encontrou que bases de código assistidas por IA tinham uma taxa significativamente maior de imports inseguros de dependências e erros de lógica que criavam vetores de injeção.
+
+Quando perguntei a Katelyn Lesse, líder de engenharia do Claude, sobre essas preocupações, ela não as dispensou — mas também não cedeu terreno. "Todas as boas práticas antigas de desenvolvimento de software ainda se aplicam. Elas se aplicam o tempo todo", disse ela. "Acho que há muitas pessoas e equipes que podem ter perdido isso de vista neste momento."
+
+O problema com essa resposta é que as "boas práticas antigas" — revisão por pares, teste manual, análise estática — são justamente as práticas sendo corroídas pela velocidade da engenharia nativa em IA. Se sua equipe está mergeando 1.150 PRs por semana, quantos deles recebem revisão humana significativa?
+
+### "Quem É Dono dos Bugs?"
+
+A pergunta mais difícil é a da responsabilidade. Se o Claude escreve código que introduz uma vulnerabilidade de segurança, quem é responsável? O engenheiro da Anthropic que deployou o agente? O gerente que aprovou o workflow? A Anthropic, empresa que construiu a ferramenta? Ou o usuário final que confiou na saída?
+
+A resposta de Lesse foi pragmática: "Acho que agora o Claude provavelmente é tão bom quanto um engenheiro de nível médio em escrever código. Você ainda precisa de engenheiros especialistas para projetar um sistema e resolver problemas mais difíceis. Mas com o tempo queremos que o Claude fique cada vez melhor em diferentes tipos de engenharia."
+
+Angela Jiang, líder de produto do Claude, foi além: "Acho que o estado final absoluto que estamos tentando alcançar é o Claude basicamente sendo capaz de se construir sozinho."
+
+Esse estado final — Claude construindo Claude, com humanos como supervisores em vez de artesãos — é a expressão máxima da filosofia "deixa cozinhar". E levanta uma pergunta que ninguém na conferência respondeu plenamente: se o Claude pode se construir, para que exatamente ainda somos necessários?
+
+---
+
+## A Janela de Contexto Ainda É Uma Caixa
+
+Por toda a aceleração vertiginosa, uma restrição dura não mudou: janelas de contexto.
+
+No setor inteiro, as janelas de contexto se mantiveram em cerca de 1 milhão de tokens por mais de um ano. Dianne Penn, chefe de Produto para Pesquisa da Anthropic, insinuou na conferência que a empresa está trabalhando em "janelas de contexto que pareçam infinitas". Mas Daisy Hollman, Membro de Equipe Técnica, entregou uma mensagem mais sóbria no workshop: "A caixa não vai ficar maior tão cedo. Gerenciar o contexto de forma eficaz continuará sendo uma das habilidades mais importantes para quem constrói com IA."
+
+Esse é o paradoxo escondido da revolução da engenharia nativa em IA. Os agentes estão ficando mais espertos, mas ainda esquecem tudo entre sessões a menos que você salve explicitamente. Dreaming é a resposta da Anthropic a essa limitação — uma gambiarra que transforma a restrição num recurso. Em vez de construir janelas de contexto infinitamente grandes, a Anthropic construiu um sistema em que agentes ensinam uns aos outros o que aprenderam.
+
+É inteligente. É também um lembrete de que mesmo as ferramentas de IA mais avançadas ainda operam sob restrições severas que os humanos dão como garantidas. Não precisamos escrever notas para nós mesmos para lembrar o que fizemos ontem. O Claude precisa.
+
+---
+
+## Onde Isso Deixa a Engenharia de Software como Ofício
+
+Se você é um engenheiro de software lendo isso, provavelmente está experimentando um coquetel familiar de emoções: fascínio, ansiedade e uma espécie de angústia existencial de baixa intensidade.
+
+Aqui está a verdade incômoda: o ofício da engenharia de software não está morrendo. Ele está se dividindo.
+
+De um lado, você tem os engenheiros nativos em IA. São as pessoas que já pararam de digitar código e começaram a orquestrar agentes. Elas pensam em sistemas, não em sintaxe. Seu valor vem do julgamento arquitetural, não dos toques de teclado. São as pessoas dizendo "deixa cozinhar" e falando sério.
+
+Do outro lado, você tem os engenheiros tradicionais. São as pessoas que ainda acreditam que ler cada linha de código que você entrega é um imperativo moral. Acham que código gerado por IA é trapaça. Preocupam-se com segurança, manutenção e a "atrofia cerebral" de delegar o pensamento a máquinas. Elas não estão erradas.
+
+A distância entre esses dois grupos está crescendo mais rápido do que a maioria percebe. Dentro da Anthropic, dentro do Spotify, dentro das startups que apresentaram no Code with Claude, o modelo nativo em IA já é dominante. Fora dela, na vasta maioria das equipes de engenharia construindo apps CRUD e ferramentas internas, a transição nem começou.
+
+Essa divergência é o que faz 2026 parecer um ponto de inflexão. Não porque a IA substituiu programadores da noite para o dia — não substituiu — mas porque as equipes que *já fizeram* a transição estão se movendo tão rápido que todo mundo mais está começando a parecer parado.
+
+---
+
+## O Veredicto: Cozinhe, Mas Prove o Caldo
+
+Saí do Code with Claude com duas convicções, mantidas em tensão.
+
+A primeira: "Deixa cozinhar" não é apenas uma frase de efeito. É uma descrição precisa de como as equipes de engenharia de elite já estão operando. Os ganhos de produtividade são reais, as melhorias de qualidade são mensuráveis, e a linha de tendência aponta inexoravelmente para mais automação, não menos.
+
+A segunda: os críticos alertando sobre dívida de segurança, atrofia cognitiva e brechas de responsabilidade também estão certos. Quando você para de ler o código que entrega, você para de entender os sistemas que mantém. Quando agentes escrevem notas para si mesmos em vez de conversar com humanos, você cria modos de falha invisíveis que só aparecem às 3 horas da manhã de um sábado.
+
+A resposta certa provavelmente está em algum lugar no meio. Deixe o Claude cozinhar — mas prove o caldo antes de servir. Use agentes para o trabalho que não exige julgamento humano, mas preserve o julgamento humano para o trabalho que exige. E nunca esqueça que as notas que o Claude escreve para si mesmo não são conhecimento institucional. São correspondência de padrões. A diferença importa.
+
+A engenharia de software não está morrendo. Está se tornando outra coisa. A pergunta para cada desenvolvedor em 2026 é se você está disposto a se tornar outra coisa junto com ela.
