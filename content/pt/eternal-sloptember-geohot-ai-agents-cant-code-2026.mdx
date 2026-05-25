@@ -1,0 +1,108 @@
+---
+title: "O Sloptember Eterno: Por que George Hotz Diz que Agentes de IA Não Sabem Programar — e o que a Ciência Diz"
+description: "Geohot, o hacker que desbloqueou o iPhone e construiu carros autônomos, diz que agentes de IA não programam. Um novo artigo do arXiv concorda. A comunidade do Hacker News está dividida. Então, quem tem razão?"
+translationKey: "eternal-sloptember-geohot-ai-agents-cant-code-2026"
+date: "2026-05-25"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["IA", "Agentes de Codificação", "Geohot", "George Hotz", "Engenharia de Software", "2026", "LLM", "Machine Learning"]
+image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80"
+imageAlt: "Tela de notebook mostrando código em um espaço de trabalho mal iluminado, simbolizando a tensão entre o trabalho artesanal humano e o software gerado por IA"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["agentes de IA não programam", "George Hotz agentes IA", "Eternal Sloptember", "limitações LLM codificação", "engenharia de software IA 2026", "constraint decay agentes codificação", "blog geohot IA"]
+tldr: "George Hotz (geohot) argumenta que agentes de IA não conseguem programar de verdade — são imitadores estatísticos sofisticados que produzem código quebrado de formas cada vez mais difíceis de detectar. Um novo artigo do arXiv ('Constraint Decay') mostra empiricamente que agentes de codificação com LLM perdem 30 pontos nas taxas de aprovação de asserções quando os requisitos estruturais se acumulam, com defeitos na camada de dados causando ~45% das falhas. Enquanto isso, desenvolvedores do Hacker News estão divididos: alguns relatam 80-95% de sucesso com agentes, outros descrevem apagões, pesadelos de manutenção e ' Dependência aprendida'. O artigo sintetiza essas três fontes em um olhar equilibrado sobre onde a codificação com IA está em meados de 2026."
+---
+
+# O Sloptember Eterno: Por que George Hotz Diz que Agentes de IA Não Sabem Programar
+
+## O Hacker que Desbloqueou o iPhone Acabou de Chamar Agentes de IA de Caça-Níqueis Estatísticos
+
+George Hotz não é alguém que você ignore. Aos dezessete anos, ele foi a primeira pessoa a desbloquear o iPhone. Depois, fez engenharia reversa no PlayStation 3, criou a comma.ai — uma startup de carros autônomos que funcionava com pouquíssimo dinheiro — e fundou o tinygrad, um framework de deep learning que compete com o PyTorch sendo uma fração do tamanho. Quando Hotz fala de software, a indústria para para ouvir.
+
+Então, quando ele publicou no fim de semana passado um post de blog intitulado *"The Eternal Sloptember"*, ele estourou na página inicial do Hacker News que nem um tijolo atravessando uma janela. Em poucas horas, o tópico tinha 229 upvotes e centenas de comentários. O argumento de Hotz foi tão direto quanto inquietante: agentes de IA não sabem programar. Não de verdade. Eles são "modelos estatísticos altamente sofisticados projetados para imitar a distribuição da programação". A saída *parece* certa. Geralmente compila. Mas está quebrada de formas que estão ficando cada vez mais difíceis de detectar.
+
+"É uma era dourada para baldes e mais baldes de porcaria", ele escreveu, "e uma era das trevas para joias de qualidade."
+
+A palavra que ele cunhou — *sloptember* — já está pegando. Ela descreve um futuro em que a produção de software explode enquanto a qualidade média despenca, onde grandes organizações geram dez vezes mais pull requests, mas o desenvolvedor medianão sabe mais o que está entregando. Hotz não está dizendo que IA é inútil. Ele usa diariamente como mecanismo de busca e para protótipos rápidos. Mas como substituto para engenheiros de software? "Longe do nível de qualquer empresa em que trabalhei."
+
+O post chegou num momento peculiar. Poucos dias antes, a Anthropic havia encerrado sua conferência *Code with Claude* em Londres, onde engenheiros afirmaram que a maior parte do software da Anthropic agora é escrito pelo Claude. Spotify e Monday.com apresentaram casos parecidos. A narrativa dos laboratórios é que a programação está "largamente resolvida". O post de Hotz é a contra-narrativa mais forte até agora, vinda de alguém com credibilidade para sustentá-la.
+
+## O Argumento: Por que Agentes Não Sabem Programar
+
+Hotz passou seis meses tentando fazer agentes funcionarem. Ele os usou para escrever partes do tinygrad. Para fazer engenharia reversa de um chip USB para PCIe. Toda vez, ele suspeitava que poderia ter feito melhor e mais rápido na mão. O agente, diz ele, "te dá todo o progresso de cara, depois te entrega uma alavanca de caça-níquel para torcer esperando que o acabamento fique pronto. Nunca chega lá de verdade."
+
+O problema mais fundo é o processo. Programadores humanos não aprendem a programar ingerindo bilhões de exemplos e prevendo o próximo token. Eles constroem modelos mentais do mundo, da causalidade, de como sistemas interagem. Uma criança aprende que objetos continuam existindo mesmo fora de vista antes de escrever uma única linha de código. Hotz argumenta que essa compreensão encarnada — o que Yann LeCun e Gary Marcus chamam de *modelos de mundo* — é o que separa o raciocínio genuíno da mímica estatística.
+
+Sem ela, diz ele, agentes produzem o que parece código, mas carece da integridade estrutural que você teria se realmente entendesse o problema. Um destaque de sintaxe faz *parecer* software. Um teste unitário aprovando faz *parecer* correto. Mas o abismo entre "passa nos testes" e "está correto" é onde a porcaria habita. Hotz compara a situação ao AFL, o fuzzer que encontrou bugs em software por anos sem ninguém se sentir ameaçado. O AFL era uma ferramenta. Não fingia ser engenheiro. Agentes, vendidos como substitutos, são outra coisa completamente.
+
+Ele também aponta para uma falha crítica nas organizações. Indivíduos de alto desempenho costumam reconhecer quando um agente produziu lixo. Eles têm instintos de autocorreção. Mas em empresas grandes, os ciclos de feedback são mais lentos e o alinhamento é mais fraco. "Os desempenhistas mais baixos não terão esse senso de verificação. Eles são os que geram 10x mais saída com os agentes." O rendimento médio da organização cai. O rendimento médio do mundo, ele insinua, cai junto.
+
+## A Ciência: Um Novo Artigo Confirma o Medo
+
+Se o post de Hotz foi o tiro de advertência, um artigo publicado no arXiv em 7 de maio de 2026 é o laudo balístico.
+
+Intitulado *"Constraint Decay: The Fragility of LLM Agents in Backend Code Generation"* (Decaimento de Restrições: A Fragilidade de Agentes LLM na Geração de Código Backend), o artigo vem de pesquisadores da EURECOM, na França, e da Universidade da Basilicata, na Itália. Eles desenharam um experimento rigoroso: fixaram uma única especificação de API (a conhecida RealWorld Conduit API) e depois foram empilhando restrições estruturais uma por uma. A mesma tarefa, os mesmos testes, mas com demandas crescentes de arquitetura, integração com banco de dados e camadas de ORM.
+
+A descoberta é contundente. Eles chamam de **decaimento de restrições**: à medida que os requisitos estruturais se acumulam, o desempenho dos agentes despenca. Configurações capazes perdem, em média, 30 pontos nas taxas de aprovação de asserções, da linha de base para a tarefa totalmente especificada. Algumas configurações mais fracas se aproximam de zero.
+
+O detalhamento é revelador. Agentes se saem bem em frameworks leves e explícitos como Flask. Mas em ambientes cheios de convenções como FastAPI ou Django — os frameworks que a maioria dos sistemas de produção realmente usa — eles desmoronam. Os motivos não são erros superficiais de sintaxe. São defeitos profundos na camada de dados: composição incorreta de queries, violações em tempo de execução do ORM e violações arquiteturais que testes unitários deixam passar, mas que testes de integração pegam.
+
+O artigo identifica esses defeitos na camada de dados como a principal causa em primeira instância, impulsionando cerca de 45% das falhas de lógica dos agentes. Em outras palavras, agentes conseguem estruturar um handler de rota. Mas lutam para escrever uma query que respeite o ORM e o schema do banco ao mesmo tempo. Esse é exatamente o tipo de trabalho que separa uma demo do software de produção.
+
+Isso não é uma reclamação teórica. Os autores abriram o código do pipeline de avaliação, 80 tarefas de geração *greenfield* e 20 tarefas de implementação de funcionalidades, abrangendo oito frameworks. Qualquer um pode reproduzir o resultado. E o resultado é que *satisfazer conjuntamente requisitos funcionais e estruturais continua sendo um desafio aberto fundamental para agentes de codificação* — a própria conclusão do artigo.
+
+## O Debate: O que o Hacker News Realmente Pensa
+
+O fio do Hacker News sobre o post de Hotz é um dos mais divididos que vi em 2026. O comentário mais votado, com quase 200 pontos, tentou encontrar um meio-termo: "Ou você é ludita ou 'ai pilled'. Na maioria dos casos, LLMs te levam 80-95% do caminho." Outro desenvolvedor concordou, mas acrescentou uma ressalva: "É 60-95% de solução, com cerca de 120-140% das linhas de código necessárias."
+
+Aí vem o relato de experiência que deveria preocupar quem gerencia uma base de código. Um desenvolvedor descreveu a organização dele celebrando uma "mudança de patamar no número de PRs criados" como se fosse a segunda vinda do computador pessoal. Enquanto isso, engenheiros sêniores ficavam presos "encontrando bugs de rejeição instantânea em pull requests de galera que mandava PRs de 6 mil linhas de uma vez só". O desenvolvedor saiu da empresa.
+
+Outro comentário usou uma analogia médica que ficou na cabeça. Comparou código gerado por IA a peptídios de mercado cinza — substâncias que as pessoas injetam com base em anedotas, sem saber os efeitos a longo prazo. "Sua base de código é o corpo. Literalmente ninguém sabe o quão sustentável essa abordagem é, porque simplesmente não houve tempo suficiente para descobrir. Pode dar certo. Pode ser uma bagunça completa, com todo o seu time de engenharia cochilandono volante."
+
+Mas o outro lado é igualmente barulhento. Vários comentaristas relataram construir aplicações de grande escala com agentes, insistindo que a chave é "engenharia de arreios" — investir pesado em andaimes que restringem o agente, testam sua saída e iteram até o CI passar. Um engenheiro sênior escreveu que, com o arreio certo e um humano de nível *staff* tomando decisões arquiteturais, uma pessoa pode agora entregar "o que um time inteiro entregava antes".
+
+A divergência não é sobre se agentes conseguem produzir texto que parece código. Todo mundo concorda que conseguem. A divergência é sobre se essa saída tem um teto — e se a maioria das organizações está equipada para perceber quando bateu nele.
+
+## O que Isso Significa para Times de Engenharia
+
+A síntese do ensaio de Hotz, do artigo *Constraint Decay* e do debate no Hacker News aponta para uma imagem mais matizada do que tanto os laboratórios de IA quanto os céticos querem admitir.
+
+**Agentes de IA são autocomplete extraordinários.** Eles são mais rápidos que o Stack Overflow, mais adaptáveis que a documentação e genuinamente úteis para scaffolding, boilerplate e exploração. Ninguém com credibilidade contesta isso.
+
+**Mas agentes não são arquitetos.** Quando as restrições estruturais se empilham — mapeamentos de ORM, contratos de API, arquitetura *clean* de múltiplas camadas, migrações de banco de dados — o desempenho despenca. A queda de 30 pontos medida no artigo é a versão científica do instinto do engenheiro sênior de que os últimos 10% de uma funcionalidade tomam 90% do esforço.
+
+**Organizações sem uma cultura forte de revisão vão entregar porcaria em escala.** O aviso de Hotz sobre os *bottom performers* gerando 10x de saída não é hipotético. Já está acontecendo. As empresas que celebram a velocidade de PR sem medir densidade de defeitos ou custo de manutenção são as mais em risco.
+
+**A habilidade real agora é curadoria, não geração.** Os desenvolvedores que prosperam nessa era não são os que mandam o melhor prompt. São os que sabem quando confiar no agente, quando reescrever do zero e como construir os arreios que pegam a falha antes que ela chegue à produção. Como um comentarista do HN resumiu: "Engenheiros sêniores estão achando LLMs uma ferramenta muito útil — porque aprendemos a pensar sobre todas essas outras coisas antes mesmo de abrir o editor de texto. Escrever o código em si sempre foi a parte fácil (e menos valiosa)."
+
+## O Caminho à Frente: Deixa Cozinhar, Mas Verifica a Temperatura
+
+Hotz encerra o post dizendo que agora está "no campo LeCun/Marcus" sobre LLMs. Ele acredita que a arquitetura atual nunca produzirá agentes de programação de verdade. O caminho à frente, ele sugere, exige modelos de mundo — sistemas que raciocinem sobre causalidade e estrutura, não apenas sobre distribuições de probabilidade sobre tokens.
+
+Isso pode estar certo no longo prazo. No curto prazo, o caminho pragmático é mais simples: trate agentes como devs júnior com memória fotográfica e zero senso comum. Emparelhe-os com sêniores que revisam cada linha. Invista em arreios de teste que imponham restrições estruturais antes mesmo de o agente começar. E, acima de tudo, resista ao incentivo de celebrar volume de saída em lugar de qualidade de saída.
+
+A Apple supostamente está empurrando IA em todos os seus engenheiros. Hotz faz uma pergunta afiada: *"Você acha que o macOS vai ficar melhor ou pior nos próximos dois anos?"* A resposta a essa pergunta vai nos dizer muito sobre se o Sloptember Eterno é só um post dramático de blog ou o nome de uma era.
+
+Por enquanto, as evidências estão divididas. O artigo do arXiv mostra fragilidade real e reproduzível. A multidão do Hacker News mostra sucesso real e reproduzível. A diferença não é a ferramenta. É o humano segurando as rédeas. E isso, mais do que qualquer lançamento de modelo, é o que vai determinar se a próxima década de software será uma era de ouro ou apenas uma fábrica de porcaria muito produtiva.
+
+---
+
+*Elisio Guimarães escreve sobre a interseção bagunçada entre inteligência artificial, cultura de engenharia e as pessoas que precisam conviver com as consequências.*
+
+## FAQ
+
+**P: Quem é George Hotz?**
+R: George Hotz, conhecido online como "geohot", é um hacker e empreendedor americano. Ele foi o primeiro a desbloquear o iPhone (2007), fez engenharia reversa no PlayStation 3, fundou a comma.ai (startup de carros autônomos) e criou o tinygrad, um framework leve de deep learning. Seu post de blog "The Eternal Sloptember" viralizou no Hacker News em maio de 2026.
+
+**P: O que é "constraint decay"?**
+R: *Constraint decay* (decaimento de restrições) é um fenômeno identificado em um artigo do arXiv de maio de 2026 de pesquisadores da EURECOM e da Universidade da Basilicata. Refere-se à queda substancial no desempenho de agentes LLM à medida que os requisitos estruturais (padrões arquiteturais, backends de banco de dados, camadas de ORM) se acumulam durante a geração de código backend. Configurações capazes perderam, em média, 30 pontos nas taxas de aprovação de asserções.
+
+**P: Agentes de IA conseguem escrever código de produção em 2026?**
+R: Sim e não. Agentes brilham em scaffolding, boilerplate e protótipos, especialmente em frameworks leves. Mas estudos rigorosos e relatos de práticos mostram que eles lutam com restrições de nível produção — camadas de ORM complexas, arquiteturas multiarquivo e contratos de API estritos. O consenso entre desenvolvedores experientes é que agentes são ferramentas poderosas quando supervisionados, não substitutos para o julgamento de engenharia.
+
+**P: O que é "sloptember"?**
+R: "Sloptember" é um termo cunhado por George Hotz em maio de 2026. Refere-se a uma futura era onde a produção de software gerado por IA explode em volume enquanto a qualidade média decai, criando "uma era dourada para baldes e mais baldes de porcaria, e uma era das trevas para joias de qualidade."
+
+**P: O que é "harness engineering" no contexto de codificação com IA?**
+R: *Harness engineering* (engenharia de arreios) refere-se à construção de andaimes — testes automatizados, regras de linter, guardas arquiteturais, fluxos de trabalho com máquinas de estado — que restringem e validam a saída do agente de IA. Desenvolvedores do Hacker News relatam que investir pesadamente em engenharia de arreios é a diferença entre código gerado por IA que funciona e código que quebra silenciosamente.
