@@ -1,0 +1,124 @@
+---
+title: "Using AI to Write Better Code More Slowly: The Counter-Intuitive Strategy That Actually Works"
+description: "Nolan Lawson says the real superpower of LLMs isn't slop-cannon speed—it's building a meticulous, multi-model review loop that forces you to slow down and ship better software. Here's how it works."
+date: "2026-05-26"
+translationKey: "using-ai-write-better-code-more-slowly-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI", "Coding", "Software Engineering", "LLM", "Code Review", "2026", "Nolan Lawson", "Quality"]
+image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&q=80"
+imageAlt: "A clean, well-organised desk with a laptop showing code, a notebook, and a cup of coffee, representing deliberate, quality-focused software craftsmanship"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["AI code quality", "Nolan Lawson AI coding", "slow AI coding", "multi-model code review", "LLM bug finding", "better code with AI 2026", "vibe coding quality", "Claude code review skill"]
+tldr: "Nolan Lawson's viral Hacker News post argues that LLMs should not be used as slop cannons but as partners in slower, higher-quality development. He describes a Claude skill that runs multiple AI reviewers (Claude, Codex, Cursor Bugbot) to find and rank bugs in every PR, resulting in near-zero false positives. The trade-off is time, not speed—but the codebase gets healthier, pre-existing bugs get caught, and developers actually understand what they ship. Hacker News commenters largely agree, sharing their own multi-model back-and-forth workflows that feel more like v3 refinements than v1 hacks."
+---
+
+# Using AI to Write Better Code More Slowly
+
+## The Week's Most Honest Take on Vibe Coding
+
+Nolan Lawson is not a hype merchant. He is a web developer who has spent years building open-source software you have probably used without knowing it. When he writes about engineering, people read carefully. So when his latest blog post hit the front page of Hacker News with 446 upvotes and 168 comments, the headline alone was enough to stop the scroll: *"Using AI to write better code more slowly."*
+
+In a month when Anthropic was celebrating *Code with Claude* in London and Spotify was proudly announcing that most of its internal tools are now written by agents, Lawson's argument felt like someone quietly closing a door in a room full of people shouting. The door had a sign on it that said: *Slow down.*
+
+His thesis is simple, almost obvious once you hear it, which is partly why he nearly did not write the post at all. LLMs are flexible. You can aim them at speed and get slop. Or you can aim them at quality and get something genuinely better than what you would have written alone. The catch? It takes longer. Not 10x faster. Not even necessarily faster at all. But the code that emerges is tighter, the edge cases are handled, and you understand the system more deeply than if you had vibe-coded your way through it in one caffeine-fuelled afternoon.
+
+## The Skill That Changed His Workflow
+
+Lawson's secret weapon is a Claude skill he adapted from an insight that has been floating around the AI coding community for a while: *the more, different models you throw at a pull request review, the less likely you are to get hallucinations or bogus bugs.*
+
+Here is what the skill does, paraphrased:
+
+> Run a Claude sub-agent, Codex, and Cursor Bugbot to find bugs in this PR, ranked by critical, high, medium, and low severity. Once they are all done, review their findings, do your own research to rule out false positives, and write a final report.
+
+That is it. No complex orchestration framework. No LangChain graph. Just three AI reviewers looking at the same diff, disagreeing about what matters, and then a human making sense of the disagreement.
+
+Lawson added his own flavour to the definition of "bug." His skill checks for KISS and DRY violations, accessible HTML and JSX, proper SQL indexing, misleading comments, and anything else that would make the next developer curse under their breath. In his experience, the false-positive rate is near zero. The problem is not finding bugs. The problem is deciding which ones to fix.
+
+## The Workflow in Practice
+
+Lawson's actual process looks like this:
+
+1. **Have an agent fix the critical and high-severity bugs** with human guidance on the proper solution, then repeat until the category is empty.
+
+2. **Skip the medium and low issues** where the juice is not worth the squeeze. A hundred lines of code to handle a narrow edge case might not be worth the maintenance burden.
+
+3. **Abandon the PR entirely** if there are so many critical bugs that the whole architectural approach is misguided.
+
+The last step is the most underrated. One of the great illusions of vibe coding is that you must always ship forward. Lawson treats a PR the same way a senior engineer treats a junior's first draft: if the foundation is wrong, no amount of polish will save it. Better to kill it early and restart with a better plan.
+
+It is worth emphasising what this workflow does *not* do. It does not promise faster delivery. Lawson says his velocity has not necessarily gone up. In fact, the review process often finds pre-existing bugs in the codebase that have nothing to do with the current PR. That sends him on tangential side quests: writing unit tests, fixing subtle flaws that have been hiding for months, and learning the weird corners of a system he thought he already understood.
+
+This is the opposite of the "10x productivity" fantasy that dominates AI coding discourse. But it is, he argues, far more satisfying. "It is a great way to improve the overall health of the codebase while also teaching you about the odd corners of it."
+
+## What Hacker News Thinks
+
+If Hacker News is a useful thermometer for developer sentiment, the temperature reading is *cautiously optimistic with a strong preference for deliberation.*
+
+The top comment, at over a hundred upvotes, described a multi-day back-and-forth with Claude and Codex: design first, implement with Claude 4.7 Max, review with Codex GPT 5.5 xhigh fast, iterate on corner cases, then cover everything in tests. "Overall I still implement the feature faster than coding it manually," the commenter wrote, "but I spend a majority of the time going back and forth with reviews. The v1 feature feels more like a v3."
+
+Another highly-rated comment agreed: "Talking the problem to death with the AI before implementation is a nice zone for me. I feel productive, get good results out of the AI, and still largely understand the code."
+
+There were practical tips scattered throughout the thread. Use cheaper models for planning and save expensive ones for final review. Run multiple agents in parallel on different parts of the codebase. Keep a human in the loop not as a babysitter but as an arbiter of taste. Several developers mentioned creating "research documents" where the AI surveys possible solutions before any code is written. Others described a "grill me" loop, derived from Matt Pocock's viral skill, where the model interrogates the developer until the PR design is fully understood.
+
+Not everyone was on board. Some commenters pointed out that this workflow burns tokens at a rate that makes finance departments nervous. Others noted that if your AI provider has an outage, you are suddenly stuck with a half-finished PR and a brain that has offloaded too much context to an external system. One developer put it bluntly: "The single most effective way to spend tokens is having it review code and specs you've written." Another countered that, in their experience, they spent *more* time in LLM review loops than it would take to write the code by hand.
+
+The most interesting pushback was philosophical. A commenter argued that this approach is really just "using AI as very costly linters." The rebuttal was equally swift: linters do not find logic bugs, race conditions, or missing error handling. They check syntax and style rules. A multi-model review, done well, finds things that would otherwise ship to production.
+
+## The Real Value: Understanding What You Ship
+
+Lawson's post touches on something deeper than tooling. The core complaint against "vibe coding" is not that the code is bad, though it often is. The complaint is that the developer no longer knows what the code does. When an agent writes a three-hundred-line PR and the human merges it after skimming the diff, the human has not written software. They have approved a PR they do not understand.
+
+Lawson's slower approach inverts that relationship. The human is still the author of the design. The agents are research assistants, code reviewers, and test writers. The human decides which bugs matter, which architectural gambits are worth pursuing, and when a PR should die. The AI does not replace judgment. It sharpens it.
+
+This is why he recommends techniques that force comprehension. Ask the agent how the PR works and how it might fail. Have it write Markdown documentation with Mermaid diagrams so you can see the data flow. Use a `/grill-me` skill until you can explain the entire change front-to-back. If you cannot explain it, you do not understand it. If you do not understand it, you should not ship it.
+
+That sounds like old-fashioned software engineering because it is. Lawson is not proposing a radical new methodology. He is proposing that we treat AI as a multiplier of *care* rather than a replacement for it. The same careful, methodical, quality-obsessed approach that good engineers used before LLMs still applies. The difference is that now you have three tireless reviewers who never get bored and never need sleep.
+
+## Why This Matters Right Now
+
+The timing of Lawson's post is not accidental. In the same week, George Hotz published *The Eternal Sloptember*, arguing that AI agents are statistical slot machines that will flood the world with barely functional code. Anthropic, meanwhile, was telling London that coding is "largely solved." These are extreme positions, and most developers live somewhere in the middle.
+
+Lawson occupies a much more defensible, and much more useful, middle ground. Yes, agents can write code. Yes, they are prone to producing slop if you treat them like vending machines. And yes, the best results come from slowing down, layering multiple models, and treating the process like a conversation rather than a transaction.
+
+This is not a romantic defence of hand-crafted code for its own sake. Lawson uses agents daily. He uses them for bug finding, for architecture debates, for documentation, and for test writing. But he does not let them drive. He treats them like very capable, very literal-minded interns who need constant supervision, clear instructions, and someone to integrate their output into a coherent whole.
+
+For developers who have felt uneasy about the vibe-coding gold rush but did not quite have the vocabulary to articulate why, Lawson's post is a gift. It gives you permission to slow down. It validates the instinct that understanding your codebase is more important than shipping a hundred lines you did not write. And it provides a concrete, repeatable workflow that you can start using today without buying a new IDE or learning a framework.
+
+## How to Try It Yourself
+
+You do not need Claude Enterprise or a GitHub Copilot Business subscription to experiment with this. The basic ingredients are:
+
+1. **Two or more models with different strengths.** Claude is often praised for writing maintainable, intuitive code. Codex and Gemini are frequently described as better at finding bugs and edge cases. Use them for what they are good at.
+
+2. **A clear definition of quality.** Before you ask an agent to review a PR, tell it what "good" looks like in your codebase. Accessibility standards, SQL indexing rules, KISS and DRY principles, error-handling patterns. The more specific you are, the better the review.
+
+3. **A human veto.** Agents will suggest fixes that are technically correct but architecturally wrong. They will propose refactoring half the codebase because they do not understand the business constraint that made the original code ugly. You are the tiebreaker.
+
+4. **A willingness to abandon bad work.** The hardest habit to build in an AI-assisted workflow is the willingness to throw away a PR. Agents make it easy to generate volume. The discipline is knowing when that volume is noise.
+
+Lawson's closing advice is as simple as his opening: take a deep breath, slow down, and see if you do not enjoy the work more when you are building something you actually understand.
+
+## The Bigger Picture
+
+In the long run, the companies that treat AI as a slop cannon and the companies that treat it as a quality amplifier will diverge. The former will ship faster in the short term and drown in technical debt in the long term. The latter will move more deliberately and end up with systems that are easier to maintain, easier to extend, and easier to hand off to the next engineer.
+
+Nolan Lawson is betting on the second path. The Hacker News community, or at least the upvoted majority, seems to agree. The question now is whether organisations will let their developers take the time to do it right. If managers measure productivity in lines of code per week, Lawson's approach will look like a slowdown. But if they measure it in outages avoided, bugs not shipped, and engineers who actually know their systems, it might be the fastest way forward.
+
+---
+
+**Q: Who is Nolan Lawson?**
+A: Nolan Lawson is a web developer and open-source maintainer known for deep technical writing on browser performance, JavaScript, and web standards. His blog post "Using AI to Write Better Code More Slowly" went viral on Hacker News in May 2026.
+
+**Q: What is the multi-model code review technique?**
+A: It is a workflow where multiple AI models (for example, Claude, Codex, and Cursor Bugbot) independently review a pull request and rank bugs by severity. A human then synthesises their findings, eliminates false positives, and decides which bugs to fix.
+
+**Q: Does this approach make coding faster?**
+A: Not necessarily. Lawson reports that his raw velocity has not increased. The value is in higher code quality, fewer shipped bugs, and a deeper understanding of the codebase.
+
+**Q: What are the main risks?**
+A: Token cost can be high, especially with premium models. Outages leave you dependent on a system you cannot control. And there is always the temptation to accept AI suggestions without fully understanding them.
+
+**Q: What is the best way to start?**
+A: Pick one PR, define what "quality" means for your team, run two different models as reviewers, and manually resolve their disagreements. Treat it as a learning loop, not an automation loop.

@@ -1,0 +1,124 @@
+---
+title: "Usando IA para Escrever Código Melhor e Mais Devagar: A Estratégia Contra-Intuitiva que Funciona"
+description: "Nolan Lawson diz que o verdadeiro superpoder dos LLMs não é a velocidade de canhão de entulho — é montar um ciclo de revisão meticuloso com vários modelos que te obriga a ir devagar e entregar software melhor. Veja como funciona."
+date: "2026-05-26"
+translationKey: "using-ai-write-better-code-more-slowly-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["IA", "Programação", "Engenharia de Software", "LLM", "Revisão de Código", "2026", "Nolan Lawson", "Qualidade"]
+image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&q=80"
+imageAlt: "Uma mesa limpa e bem organizada com um laptop mostrando código, um caderno e uma xícara de café, representando um trabalho de software deliberado e focado em qualidade"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["qualidade de código com IA", "Nolan Lawson programação IA", "programação lenta com IA", "revisão de código com vários modelos", "LLM encontrando bugs", "código melhor com IA 2026", "vibe coding qualidade", "skill de revisão de código do Claude"]
+tldr: "O post viral de Nolan Lawson no Hacker News argumenta que LLMs não devem ser usados como canhões de entulho, mas como parceiros em um desenvolvimento mais lento e de maior qualidade. Ele descreve uma skill do Claude que rota três revisores de IA (Claude, Codex, Cursor Bugbot) para encontrar e classificar bugs em cada PR, resultando em quase zero falsos positivos. A troca é tempo, não velocidade — mas a base de código fica mais saudável, bugs pré-existentes são pegos e os desenvolvedores realmente entendem o que entregam. Os comentaristas do Hacker News concordam amplamente, compartilhando seus próprios fluxos de trabalho de ida e volta com vários modelos que parecem mais como refinamentos de v3 do que hacks de v1."
+---
+
+# Usando IA para Escrever Código Melhor e Mais Devagar
+
+## A Opinião Mais Honesta da Semana sobre Vibe Coding
+
+Nolan Lawson não é um vendedor de hype. Ele é um desenvolvedor web que passou anos construindo software de código aberto que você provavelmente usou sem saber. Quando escreve sobre engenharia, as pessoas leem com atenção. Então, quando seu post mais recente estourou na página inicial do Hacker News com 446 upvotes e 168 comentários, o título sozinho já era suficiente para parar o scroll: *"Using AI to write better code more slowly."*
+
+Num mês em que a Anthropic celebrava o *Code with Claude* em Londres e o Spotify anunciava com orgulho que a maioria de suas ferramentas internas agora é escrita por agentes, o argumento de Lawson parecia alguém fechando uma porta em silêncio numa sala cheia de gente gritando. Na porta tinha uma placa que dizia: *Vai devagar.*
+
+A tese dele é simples, quase óbvia depois que você ouve, e é por isso que ele quase não escreveu o post. LLMs são flexíveis. Você pode apontá-los para a velocidade e receber entulho. Ou pode apontá-los para a qualidade e obter algo genuinamente melhor do que escreveria sozinho. O problema? Demora mais. Não é 10x mais rápido. Nem necessariamente mais rápido. Mas o código que surge é mais enxuto, os casos extremos são tratados e você entende o sistema mais profundamente do que se tivesse vibe-codado tudo em uma tarde movida a cafeína.
+
+## A Skill que Mudou o Fluxo de Trabalho dele
+
+A arma secreta de Lawson é uma skill do Claude que ele adaptou a partir de uma ideia que já circulava na comunidade de programação com IA: *quanto mais modelos diferentes você jogar em uma revisão de pull request, menor a chance de alucinações ou bugs falsos.*
+
+É assim que a skill funciona, parafraseada:
+
+> Rode um sub-agente do Claude, o Codex e o Cursor Bugbot para encontrar bugs neste PR, classificados por gravidade crítica, alta, média e baixa. Quando todos terminarem, revise os achados, faça sua própria pesquisa para descartar falsos positivos e escreva um relatório final.
+
+Só isso. Nenhum framework de orquestração complexo. Nenhum grafo do LangChain. Apenas três revisores de IA olhando o mesmo diff, discordando sobre o que importa, e depois um humano dando sentido àquela discordância.
+
+Lawson adicionou seu próprio tempero à definição de "bug." A skill dele verifica violações de KISS e DRY, HTML e JSX acessíveis, índices SQL adequados, comentários enganosos e qualquer outra coisa que faria o próximo desenvolvedor xingar baixinho. Na experiência dele, a taxa de falsos positivos é quase zero. O problema não é encontrar bugs. O problema é decidir quais bugs corrigir.
+
+## O Fluxo de Trabalho na Prática
+
+O processo real de Lawson funciona assim:
+
+1. **Peça para um agente corrigir os bugs críticos e de alta gravidade** com orientação humana sobre a solução correta, depois repita até a categoria esvaziar.
+
+2. **Ignore os problemas médios e baixos** onde o esforço não compensa. Cem linhas de código para tratar um caso extremo raro pode não valer a carga de manutenção.
+
+3. **Abandone o PR inteiro** se houver tantos bugs críticos que a abordagem arquitetural como um todo está equivocada.
+
+O último passo é o mais subestimado. Uma das grandes ilusões do vibe coding é que você sempre tem que entregar para frente. Lawson trata um PR do mesmo jeito que um engenheiro sênior trata o primeiro rascunho de um júnior: se a fundação está errada, nenhuma quantidade de polimento vai salvar. É melhor matar cedo e recomeçar com um plano melhor.
+
+Vale a pena enfatizar o que este fluxo *não* faz. Ele não promete entrega mais rápida. Lawson diz que a velocidade dele não necessariamente aumentou. De fato, o processo de revisão frequentemente encontra bugs pré-existentes na base de código que não têm nada a ver com o PR atual. Isso o manda em missões paralelas: escrever testes unitários, corrigir falhas sutis que estavam escondidas há meses e aprender os cantos estranhos de um sistema que ele pensava que já entendia.
+
+Isto é o oposto da fantasia de "produtividade 10x" que domina o discurso de programação com IA. Mas é, ele argumenta, muito mais satisfatório. "É uma ótima maneira de melhorar a saúde geral da base de código enquanto também te ensina sobre os cantos estranhos dela."
+
+## O que o Hacker News Acha
+
+Se o Hacker News é um termômetro útil para o sentimento dos desenvolvedores, a temperatura lida é *cautelosamente otimista com uma forte preferência pela calma.*
+
+O comentário mais votado, com mais de cem upvotes, descrevia um vai-e-vem de vários dias com Claude e Codex: projetar primeiro, implementar com Claude 4.7 Max, revisar com Codex GPT 5.5 xhigh fast, iterar nos casos extremos e depois cobrir tudo em testes. "No geral eu ainda implemento a funcionalidade mais rápido do que programando manualmente," escreveu o comentarista, "mas gasto a maioria do tempo no vai-e-vem das revisões. A v1 da funcionalidade parece mais uma v3."
+
+Outro comentário bem avaliado concordou: "Conversar o problema até a morte com a IA antes da implementação é um ponto confortável para mim. Sinto produtividade, tiro bons resultados da IA e ainda entendo bastante o código."
+
+Havia dicas práticas espalhadas pelo tópico. Use modelos mais baratos para o planejamento e reserve os caros para a revisão final. Rode vários agentes em paralelo em diferentes partes da base de código. Mantenha um humano no circuito não como babá, mas como árbitro de bom gosto. Vários desenvolvedores mencionaram criar "documentos de pesquisa" onde a IA examina possíveis soluções antes de qualquer linha ser escrita. Outros descreveram um loop de "grill me", baseado na skill viral do Matt Pocock, onde o modelo interroga o desenvolvedor até que o design do PR seja totalmente compreendido.
+
+Nem todo mundo aderiu. Alguns comentaristas apontaram que este fluxo queima tokens num ritmo que deixa os departamentos financeiros nervosos. Outros notaram que, se seu provedor de IA cair, você fica preso com um PR pela metade e um cérebro que descarregou muito contexto para um sistema externo. Um desenvolvedor foi direto ao ponto: "A maneira mais eficaz de gastar tokens é pedir para ela revisar código e especificações que você escreveu." Outro retrucou que, na experiência dele, gastou *mais* tempo em loops de revisão de LLM do que levaria escrever o código manualmente.
+
+O contraponto mais interessante foi filosófico. Um comentarista argumentou que essa abordagem é, no fundo, "usar IA como linters muito caros." A réplica foi igualmente rápida: linters não encontram bugs de lógica, condições de corrida ou tratamento de erro ausente. Eles verificam regras de sintaxe e estilo. Uma revisão multi-modelo, bem feita, encontra coisas que não chegariam à produção.
+
+## O Valor Real: Entender o que Você Entrega
+
+O post de Lawson toca em algo mais profundo do que ferramentas. A queixa central contra o "vibe coding" não é que o código é ruim, embora frequentemente seja. A queixa é que o desenvolvedor não sabe mais o que o código faz. Quando um agente escreve um PR de trezentas linhas e o humano faz o merge após dar uma lida no diff, o humano não escreveu software. Ele aprovou um PR que não entende.
+
+A abordagem mais lenta de Lawson inverte essa relação. O humano ainda é o autor do design. Os agentes são assistentes de pesquisa, revisores de código e escritores de testes. O humano decide quais bugs importam, quais apostas arquiteturais valem a pena e quando um PR deve morrer. A IA não substitui o julgamento. Ela o afia.
+
+É por isso que ele recomenda técnicas que forçam a compreensão. Pergunte ao agente como o PR funciona e como ele pode falhar. Peça para ele escrever documentação Markdown com diagramas Mermaid para que você veja o fluxo de dados. Use uma skill de "grill me" até que você consiga explicar toda a mudança do começo ao fim. Se você não consegue explicar, não entendeu. Se não entendeu, não deve entregar.
+
+Isso soa como engenharia de software à moda antiga porque é. Lawson não está propondo uma metodologia revolucionária. Ele está propondo que tratemos a IA como um multiplicador de *cuidado* e não como um substituto para ele. A mesma abordagem cuidadosa, metódica e obcecada por qualidade que bons engenheiros usavam antes dos LLMs ainda se aplica. A diferença é que agora você tem três revisores incansáveis que nunca ficam entediados e nunca precisam dormir.
+
+## Por que Isso Importa Agora
+
+O timing do post de Lawson não é acidental. Na mesma semana, George Hotz publicou *The Eternal Sloptember*, argumentando que agentes de IA são caça-níqueis estatísticos que vão inundar o mundo com código mal feito. A Anthropic, ao mesmo tempo, dizia a Londres que programar está "largamente resolvido." São posições extremas, e a maioria dos desenvolvedores vive em algum lugar no meio.
+
+Lawson ocupa um terreno médio muito mais defendível e muito mais útil. Sim, agentes conseguem escrever código. Sim, eles tendem a produzir entulho se você os tratar como máquinas automáticas. E sim, os melhores resultados vêm de ir mais devagar, empilhar vários modelos e tratar o processo como uma conversa em vez de uma transação.
+
+Isso não é uma defesa romântica do código artesanal por si só. Lawson usa agentes diariamente. Usa para encontrar bugs, debater arquitetura, escrever documentação e elaborar testes. Mas não os deixa no volante. Ele os trata como estagiários muito capazes, muito literais, que precisam de supervisão constante, instruções claras e alguém para integrar a produção deles num todo coerente.
+
+Para desenvolvedores que se sentiam inquietos com a corrida do ouro do vibe coding mas não tinham o vocabulário para articular por quê, o post de Lawson é um presente. Ele te dá permissão para ir mais devagar. Valida o instinto de que entender sua base de código é mais importante do que entregar sem entender. E fornece um fluxo de trabalho concreto e repetível que você pode começar a usar hoje sem comprar uma nova IDE ou aprender um framework.
+
+## Como Experimentar Você Mesmo
+
+Você não precisa do Claude Enterprise nem de uma assinatura do GitHub Copilot Business para experimentar isso. Os ingredientes básicos são:
+
+1. **Dois ou mais modelos com pontos fortes diferentes.** O Claude frequentemente é elogiado por escrever código manutenível e intuitivo. Codex e Gemini são frequentemente descritos como melhores em encontrar bugs e casos extremos. Use-os para o que cada um faz de melhor.
+
+2. **Uma definição clara de qualidade.** Antes de pedir para um agente revisar um PR, diga a ele o que "bom" significa na sua base de código. Padrões de acessibilidade, regras de índice SQL, princípios KISS e DRY, padrões de tratamento de erro. Quanto mais específico você for, melhor a revisão.
+
+3. **Um veto humano.** Agentes vão sugerir correções tecnicamente corretas, mas arquiteturalmente erradas. Vão propor refatorar metade da base de código porque não entendem a restrição de negócio que tornou o código original feio. Você é o árbitro.
+
+4. **Disposição para abandonar trabalho ruim.** O hábito mais difícil de construir num fluxo assistido por IA é a disposição de jogar um PR fora. Agentes tornam fácil gerar volume. A disciplina é saber quando esse volume é ruído.
+
+O conselho final de Lawson é tão simples quanto a abertura: respira fundo, vá mais devagar, e veja se não acaba gostando mais do trabalho quando está construindo algo que realmente entende.
+
+## O Quadro Geral
+
+No longo prazo, as empresas que tratam a IA como canhão de entulho e as empresas que a tratam como amplificadora de qualidade vão divergir. As primeiras vão entregar mais rápido no curto prazo e se afogar em dívida técnica no longo prazo. As segundas vão se mover de forma mais deliberada e acabar com sistemas mais fáceis de manter, estender e passar adiante para o próximo engenheiro.
+
+Nolan Lawson está apostando no segundo caminho. A comunidade do Hacker News, ou pelo menos a maioria que votou para cima, parece concordar. A pergunta agora é se as organizações vão deixar seus desenvolvedores ter o tempo de fazer direito. Se gerentes medem produtividade em linhas de código por semana, a abordagem de Lawson vai parecer uma desaceleração. Mas se medem em incidentes evitados, bugs não entregues e engenheiros que realmente conhecem seus sistemas, pode ser a maneira mais rápida de avançar.
+
+---
+
+**P: Quem é Nolan Lawson?**
+R: Nolan Lawson é um desenvolvedor web e mantenedor de código aberto conhecido pela escrita técnica profunda sobre performance de navegadores, JavaScript e padrões web. Seu post de blog "Usando IA para Escrever Código Melhor e Mais Devagar" viralizou no Hacker News em maio de 2026.
+
+**P: O que é a técnica de revisão de código com vários modelos?**
+R: É um fluxo de trabalho onde vários modelos de IA (por exemplo, Claude, Codex e Cursor Bugbot) revisam um pull request de forma independente e classificam bugs por gravidade. Um humano então sintetiza os achados, elimina falsos positivos e decide quais bugs corrigir.
+
+**P: Essa abordagem torna a programação mais rápida?**
+R: Não necessariamente. Lawson reporta que sua velocidade bruta não aumentou. O valor está em maior qualidade de código, menos bugs entregues e uma compreensão mais profunda da base de código.
+
+**P: Quais são os principais riscos?**
+R: O custo de tokens pode ser alto, especialmente com modelos premium. Quedas de serviço te deixam dependente de um sistema que você não controla. E sempre existe a tentação de aceitar sugestões de IA sem entendê-las plenamente.
+
+**P: Qual é a melhor maneira de começar?**
+R: Escolha um PR, defina o que "qualidade" significa para sua equipe, rode dois modelos diferentes como revisores e resolva manualmente as discordâncias entre eles. Trate isso como um ciclo de aprendizado, não de automação.

@@ -1,6 +1,6 @@
 ---
-title: "Projeto Glasswing: O Momento em que a IA Começou a achar Todos os Bugs do Mundo"
-description: "Em apenas um mês, o Claude Mythos Preview da Anthropic encontrou mais de 10 mil vulnerabilidades críticas nos softwares mais importantes da internet. O que acontece quando IA acha bugs mais rápido do que humanos conseguem consertar?"
+title: "Projeto Glasswing: O Momento em que a IA Começou a Encontrar Todos os Bugs do Mundo"
+description: "Em apenas um mês, o Claude Mythos Preview da Anthropic encontrou mais de 10 mil vulnerabilidades críticas nos softwares mais importantes da internet. O que acontece quando a IA encontra bugs mais rápido do que humanos conseguem consertar?"
 date: "2026-05-23"
 translationKey: "anthropic-project-glasswing-ai-cybersecurity-2026"
 lang: "pt"
@@ -25,11 +25,11 @@ faq:
     a: "Encurtar ciclos de patch, automatizar varredura de vulnerabilidades com modelos disponíveis, forçar autenticação de múltiplos fatores, manter logs abrangentes e endurecer configurações de rede. A Anthropic também lançou o Claude Security em beta público para clientes empresariais escanarem suas próprias bases de código. O Centro Nacional de Cibersegurança do Reino Unido publicou orientações específicas sobre o uso de modelos de IA para descoberta de vulnerabilidades."
 ---
 
-# Projeto Glasswing: O Momento em que a IA Começou a achar Todos os Bugs do Mundo
+# Projeto Glasswing: O Momento em que a IA Começou a Encontrar Todos os Bugs do Mundo
 
 Existe uma espécie de vertigem que vem com observar algo mudar tão rápido que você mal consegue focar. O time de segurança da Mozilla sentiu isso primeiro. Em fevereiro de 2026, eles rodaram o Claude Opus 4.6 da Anthropic na base de código do Firefox e acharam 22 bugs sensíveis à segurança. Dois meses depois, rodaram o Claude Mythos Preview — um modelo construído com uma arquitetura e um propósito diferentes — e acharam 271. Em uma única passada. Para um navegador endurecido que vinha sendo escrutinado por alguns dos melhores engenheiros de segurança do mundo por mais de duas décadas, 271 novas vulnerabilidades não é uma estatística. É um fato sobre uma nova era.
 
-Essa tem um nome: Projeto Glasswing.
+Essa era tem um nome: Projeto Glasswing.
 
 Lançado discretamente em abril de 2026, o Projeto Glasswing é a resposta da Anthropic a uma questão que pairava sobre a indústria de cibersegurança há anos: o que acontece quando modelos de IA ficam melhores em encontrar falhas de segurança do que humanos? A resposta, no fim, não é teórica. Já está acontecendo. E os números são impressionantes.
 
@@ -53,7 +53,7 @@ Para entender por que isso importa, você precisa entender o que mudou. A IA já
 
 Modelos anteriores identificavam um bug interessante, escreviam uma descrição detalhada do porquê ele importava e paravam por aí. Eles deixavam a cadeia de exploit incompleta e a questão da explorabilidade em aberto. O Mythos Preview fecha essa lacuna. Ele não acha apenas vulnerabilidades. Ele constrói cadeias de exploit.
 
-A Cloudflare descreve a diferenção assim: um ataque real raramente usa um único bug. Ele encadeia vários pequenos blocos de ataque em um exploit funcional. Talvez um use-after-free se torne um primitivo de leitura e escrita arbitrária, que sequestra o fluxo de controle, que usa cadeias de return-oriented programming para assumir o controle total. O Mythos Preview consegue pegar vários desses primitivos e raciocinar sobre como combiná-los em uma prova funcional. O raciocínio que ele mostra ao longo do caminho parece o trabalho de um pesquisador sênior, não a saída de um scanner automatizado.
+A Cloudflare descreve a diferença assim: um ataque real raramente usa um único bug. Ele encadeia vários pequenos blocos de ataque em um exploit funcional. Talvez um use-after-free se torne um primitivo de leitura e escrita arbitrária, que sequestra o fluxo de controle, que usa cadeias de return-oriented programming para assumir o controle total. O Mythos Preview consegue pegar vários desses primitivos e raciocinar sobre como combiná-los em uma prova funcional. O raciocínio que ele mostra ao longo do caminho parece o trabalho de um pesquisador sênior, não a saída de um scanner automatizado.
 
 No benchmark ExploitBench, desenvolvido pela Universidade Carnegie Mellon, o Mythos Preview alcançou execução arbitrária de código em 21 de 41 CVEs reais no motor JavaScript V8. Nenhum outro modelo testado conseguiu nem 1. No ExploitGym, que cobre 898 vulnerabilidades em OSS-Fuzz, V8 e kernel Linux, o Mythos Preview teve sucesso em 157 tarefas usando a vulnerabilidade pretendida — contra 15 do Claude Opus 4.6.
 
@@ -63,7 +63,7 @@ O Instituto de Segurança em IA do Reino Unido, que testa modelos de fronteira c
 
 Isso não é só sobre capacidade bruta. É sobre a forma do trabalho.
 
-A Cloudflare aprendeu isso da maneira mais difícil. O primeiro instinto deles foi o óbvio: apontar um agente de código genérico para um repositório e pedir para ele encontrar vulnerabilidades. Funcionou no sentido de que o modelo produziu achados. Mas não funcionou para gerar cobertura significativa. Uma única sessão de agente contra um repositório de cem mil linhas cobre talvez um décimo de porcento da superfícute de forma útil antes que a janela de contexto encha e a compactação entre em ação.
+A Cloudflare aprendeu isso da maneira mais difícil. O primeiro instinto deles foi o óbvio: apontar um agente de código genérico para um repositório e pedir para ele encontrar vulnerabilidades. Funcionou no sentido de que o modelo produziu achados. Mas não funcionou para gerar cobertura significativa. Uma única sessão de agente contra um repositório de cem mil linhas cobre talvez um décimo de porcento da superfície de forma útil antes que a janela de contexto encha e a compactação entre em ação.
 
 Pesquisa real de vulnerabilidades é estreita e paralela. Um pesquisador humano escolhe uma coisa específica — um limite de segurança, uma classe específica de bug como injeção de comando — e investiga a fundo. Depois faz de novo, milhares de vezes pelo código. A virada para a Cloudflare foi construir um harness, não uma interface de chat. Eles diziam ao modelo exatamente o que procurar em exatamente qual função, com referência cruzada a documentos de arquitetura e cobertura anterior. Adicionaram um segundo agente adversarial entre os achados e a fila — com um prompt diferente e sem capacidade de gerar seus próprios achados — para filtrar ruído. Separaram "esse código tem bug?" e "um invasor consegue alcançar esse bug?" em perguntas distintas.
 
