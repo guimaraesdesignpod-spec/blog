@@ -1,0 +1,92 @@
+---
+title: "When AI Builds Itself: Inside Anthropic's Recursive Self-Improvement Experiment"
+description: "Anthropic just published evidence that Claude now writes 80% of its own code and is accelerating toward recursive self-improvement. Here's what the data actually says and why it matters."
+date: "2026-06-05"
+translationKey: "anthropic-recursive-self-improvement-claude-ai-native-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["Anthropic", "Claude", "Recursive Self-Improvement", "AI Safety", "Software Engineering", "2026"]
+image: "https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?auto=format&fit=crop&w=1200&q=80"
+imageAlt: "A fractal pattern of self-replicating digital structures glowing against a dark background, representing recursive AI self-improvement"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Anthropic recursive self-improvement", "Claude writes 80% code", "AI building AI", "recursive self-improvement 2026", "Claude Mythos Preview", "AI safety Anthropic", "Claude code generation", "future of AI development"]
+tldr: "Anthropic's new report reveals that Claude now writes over 80% of the code merged into its own codebase. Engineers ship 8x more code per quarter than in 2024. The article parses the data, examines three possible future scenarios (stall, compound gains, or full recursive self-improvement), and explains why Anthropic is now calling for verifiable international coordination mechanisms to manage the pace of frontier AI development."
+faq:
+  - q: "What exactly is recursive self-improvement?"
+    a: "Recursive self-improvement is the hypothetical scenario where an AI system becomes capable of designing, training, and improving its own successor without human intervention. Each generation is better than the last, potentially leading to rapid capability jumps. Anthropic says this is not happening yet, but the trends suggest it could arrive sooner than most institutions are prepared for."
+  - q: "Is Anthropic saying humans are obsolete?"
+    a: "No. The report emphasizes that human judgment, especially in choosing which problems to work on and evaluating results, remains the bottleneck. However, the 'doing' part of the work, like writing code and running experiments, is being increasingly automated. The question is whether AI will eventually match or surpass human judgment too."
+  - q: "What are the three scenarios Anthropic outlines?"
+    a: "One: the trend stalls and today's capabilities diffuse widely. Two: compounding efficiency gains continue, with humans still setting research direction, but AI handling most of the execution. Three: full recursive self-improvement, where AI systems design their own successors, and human involvement shrinks dramatically. Anthropic thinks scenario two is the most likely near-term path."
+  - q: "What does this mean for software developers?"
+    a: "It means the role of coding is shifting from manual creation to orchestration, review, and judgment. Anthropic engineers report they are shipping more output by directing and reviewing Claude than by typing code themselves. The engineers who adapt to managing AI systems rather than competing with them on typing speed will be the ones who thrive."
+---
+
+# When AI Builds Itself: Inside Anthropic's Recursive Self-Improvement Experiment
+
+On a Thursday morning in early June, Anthropic dropped a blog post that hit the AI community like a thunderclap. The headline was deceptively calm. "When AI builds itself." Beneath it lay a set of numbers that, if they hold, represent one of the most significant inflection points in the history of technology.
+
+Here is the short version. As of May 2026, more than 80% of the code merged into Anthropic's own production codebase was authored by Claude. Not by human engineers. By the AI system Anthropic itself is building. The typical engineer at Anthropic is now merging 8x as much code per day as they were in 2024. And the company is openly discussing a future where Claude, or a successor system, designs and trains the next version of Claude without needing a human in the loop.
+
+This is recursive self-improvement. And Anthropic, one of the most safety-conscious labs in the industry, just said the quiet part out loud. It is not inevitable. But it is no longer science fiction.
+
+## The Numbers That Matter
+
+The post, co-authored by Marina Favaro and Jack Clark and published through the Anthropic Institute, is unusually data-rich for a corporate blog entry. It pairs internal metrics with public benchmarks to paint a picture of an acceleration that is already underway.
+
+Let's start with the headline figure. 80% of merged code written by Claude. That number is not a projection or a marketing estimate. It is a measured share of lines merged into production, attributed through an internal pipeline. Anthropic acknowledges that lines of code is an imperfect metric. It measures quantity, not quality. But even accounting for that, the trajectory is unmistakable. Before Claude Code launched in research preview in February 2025, this figure was in the low single digits. Within a year and a half, it crossed 80%.
+
+The company also reports that the rate at which staff correct, redirect, or take over mid-task from Claude has been falling steadily for a year. Even on the most open-ended problems, the ones with no clear specification where the engineer is not sure what the answer should look like, Claude's success rate reached 76% in May 2026. That is up 50 percentage points in six months.
+
+An example from the post illustrates what this looks like in practice. A routine upgrade began crashing tens of thousands of training jobs. An engineer pointed Claude at the live incident with minimal context and cluster access. Working through the running jobs and testing one environment setting at a time, Claude isolated a single obscure debugging flag triggering the crash, reproduced it reliably, and confirmed a fix. In about two hours, Claude delivered what would normally have been two to three days of human work.
+
+## From Code to Research
+
+The automation is not limited to engineering. Anthropic also runs a recurring experiment. It gives Claude code that trains a small AI model and asks it to make that code run as fast as possible while still passing correctness checks. In May 2025, Claude Opus 4 averaged a roughly 3x speedup over the starting code. By April 2026, Claude Mythos Preview was achieving roughly 52x. For calibration, a skilled human researcher would need four to eight hours to reach 4x. In this narrow but meaningful domain, Claude has gone from super helpful to superhuman in under a year.
+
+Perhaps more striking is the evidence on open-ended research judgment. In April 2026, Anthropic published a demonstration of Claude running an open-ended research project end to end. The problem: can a weaker model reliably supervise a stronger one? Claude-powered agents were given this problem and left to solve it, proposing hypotheses, testing them, sharing findings with parallel agents, and iterating. Two human researchers recovered roughly 23% of the performance gap over a week. The agents recovered 97% over 800 cumulative hours, using roughly $18,000 in compute. Humans still chose the problem and created the scoring rubric. But within those bounds, the agents designed every experiment themselves.
+
+There is a narrower but telling metric on next-step decisions. Anthropic examined moments in real research sessions where a human researcher took a detour. They then asked Claude what it would do next, based only on the conversation before the detour. In November 2025, the best model beat the human choice 51% of the time. By April 2026, Mythos Preview was beating it 64% of the time. The day-to-day work of research is largely a chain of these next-step decisions. If AI systems beat human judgment on them consistently, the boundary between AI assistant and AI researcher starts to dissolve.
+
+## What the Critics Will Say
+
+A natural objection, which Anthropic itself raises, is that the hardest part of research is not execution. It is choosing what problems to work on, what results to trust, and when an approach is a dead end. Without that judgment, Claude is a capable assistant, not a system that could drive AI progress on its own.
+
+The company concedes this is genuinely unclear. But it also notes that most scientific progress is incremental, not paradigm-shifting. The "eureka" moments, like the Transformer architecture, arrive years apart. In between, progress is scaling, fixing, iterating. That is exactly the kind of workflow Claude now excels at. Edison said genius is 1% inspiration and 99% perspiration. Anthropic's argument is that perspiration is increasingly automatable, and that large-scale research progress is mostly a function of tools and resources, which dictate how fast you can run experiments and how many you can run at once.
+
+Even if Claude never achieves good research taste, a conservative reading still implies compounding acceleration. If humans focus on the single-digit fraction of work that is direction-setting, while Claude handles the rest, each engineer or researcher is steering far more work than before. A 100-person company could do the work of a 1,000-person or 10,000-person organization. That is scenario two in Anthropic's framing.
+
+## Three Futures
+
+Anthropic explicitly maps out three possible futures.
+
+The first is that the trend stalls. The exponential curves turn out to be S-curves. Returns to scale diminish. The judgment that separates a competent researcher from a great one proves resistant to scaling. Or the binding constraint shifts to energy, chip fabrication, or an exogenous shock. If model capabilities were frozen at today's level, major changes would still happen in the world, because today's models are not yet fully diffused. But institutions would have more time to adapt.
+
+The second, which Anthropic considers the most likely near-term path, is compounding efficiency gains. AI development becomes substantially automated, but humans continue to set research directions and judge results. Organizations become vastly more efficient. 100-person companies do the work of 10,000-person or 100,000-person organizations. This would revolutionize knowledge work and government services, but could also be turned to harmful ends, from authoritarian surveillance to influence operations at a scale no human team could match.
+
+The third is full recursive self-improvement. If technical trends continue, and AI systems develop the capabilities inherent to transformative human ingenuity, then it is plausible that AI systems could design and refine themselves. In this world, the pace of AI progress becomes determined largely by compute availability. Humans move most of their effort toward oversight, validation, and verification of an expanding virtual lab run by AI systems. Anthropic admits it does not have good intuitions for what this world would look like, because our economy is currently driven by humans and human-built tools.
+
+## Why Anthropic Is Talking About This Now
+
+The post is not just a research update. It is a policy document. Anthropic uses it to argue for something specific: the creation of systems that would allow frontier AI developers to verifiably slow or temporarily pause development if other major labs do the same.
+
+The reasoning is competitive dynamics. A unilateral pause by one lab simply changes who the front-runner is. It does not create the wider deliberative process that is currently missing. A meaningful pause would require multiple well-resourced labs in multiple countries agreeing to stop under verifiable conditions. Due to the unique characteristics of AI systems, this is harder than verifying missile silos. Training runs are easier to conceal. The inputs are general-purpose. The incentive to defect quietly is enormous, because whoever continues while others pause could inherit the lead.
+
+Anthropic says it would likely slow down or temporarily pause if such systems existed and if other developers at or near the frontier also did so in a verifiable manner. It acknowledges that none of this is impossible in principle, the world has built verification regimes for other complex technologies, but those regimes took decades to build both the infrastructure and the trust. And Anthropic does not think we have decades.
+
+## What This Means for the Rest of Us
+
+If you are a software developer, the signal is clear. The job is not disappearing. But the part of the job that involves typing out functions and classes is shrinking. The part that involves understanding context, making judgment calls, reviewing what an AI system produced, and deciding whether it is correct, is expanding.
+
+Anthropic quotes an employee who says, "I started leaning hard into Claudifying about a year ago. That's been a crazy adventure and it's now been roughly five months since I last wrote any code myself." Another says, "On days where everything works well, I can't help but think nothing I do matters, everything is automated and better and faster than I ever will be. But then there are days where everything breaks and I don't understand why and I realize I have no idea what I've been up to anymore."
+
+That tension, between exhilarating productivity and creeping disorientation, is likely to be the defining experience of knowledge work in the next few years. The engineers who learn to ride it, who treat AI systems as instruments they conduct rather than competitors they race, will be the ones who shape what gets built. The ones who ignore it may find themselves outpaced not by other humans, but by the collaborators they refused to adopt.
+
+## The Uncomfortable Honesty of the Post
+
+What makes the Anthropic post unusual is not the data, though the data is striking. It is the tone. The authors do not claim to know which future we are heading into. They do not dismiss the risks. They do not oversell the benefits. They simply lay out the evidence, admit the uncertainty, and call for collective deliberation.
+
+That honesty is rare in an industry where companies usually publish numbers to impress investors and attract talent. Anthropic is doing something closer to issuing a weather forecast before a storm. The storm may not arrive. But the conditions are aligning faster than the infrastructure to handle them.
+
+Recursive self-improvement is still a hypothetical. But the bridge between today's AI capabilities and that hypothetical is getting shorter by the quarter. The question is no longer whether AI can help write code. It is whether we are ready for what happens when AI writes the code that writes the next AI.
