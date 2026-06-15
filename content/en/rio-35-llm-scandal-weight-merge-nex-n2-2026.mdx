@@ -1,0 +1,136 @@
+---
+title: "Rio de Janeiro's 'Homegrown' AI Was a Copy-Paste Job — and the Internet Caught It in 48 Hours"
+description: "The city of Rio de Janeiro announced Rio-3.5, a 397B-parameter 'homegrown' LLM. Within two days, researchers proved it was a direct weight merge of two existing models with zero original training. Here's how open weights became the ultimate lie detector."
+date: "2026-06-15"
+translationKey: "rio-35-llm-scandal-weight-merge-nex-n2-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI", "LLM", "open weights", "Rio de Janeiro", "Nex-AGI", "Qwen", "model merging", "AI transparency", "tech scandal", "2026"]
+image: "https://images.unsplash.com/photo-1612170815303-2bce69955f02?w=1200"
+imageAlt: "Abstract digital reflection of overlapping transparent layers, symbolizing merged neural networks and AI identity"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Rio 3.5 LLM", "Nex-N2 Pro", "model weight merge", "open weights scandal", "IplanRIO AI", "Qwen 3.5 397B", "AI transparency", "Prefeitura do Rio AI", "LLM forensics", "weight collinearity"]
+tldr: "Rio de Janeiro's IT company IplanRIO released Rio-3.5-Open-397B, claiming it as a homegrown post-trained LLM. Nex-AGI researchers exposed it as a direct element-wise merge (~60% Nex-N2 Pro + ~40% Qwen3.5-397B-A17B) with no evidence of original training. By removing Rio's hardcoded system prompt, the model identified itself as 'Nex, from Nex-AGI' 79% of the time. Weight tensor analysis across all 60 layers showed 0.98-0.99 collinearity — mathematically impossible for independent models. The Rio team later claimed an 'incorrect upload,' but had removed the weights entirely by the time they said that."
+faq:
+  - q: "What exactly did the Rio team do wrong?"
+    a: "They released a model that was a direct linear interpolation (merge) of two existing open-weight models — Nex-N2 Pro and Qwen3.5-397B-A17B — while claiming it was their own post-trained, homegrown LLM. They gave no attribution to Nex-AGI initially, and the released model contained no evidence of any original training or distillation."
+  - q: "How did Nex-AGI prove the model was a merge?"
+    a: "Two ways. First, behavior: removing Rio's hardcoded 'You are Rio' system prompt caused the model to call itself 'Nex, from Nex-AGI' 79% of the time, and recite Nex-AGI's private organizational backstory verbatim. Second, mathematics: every weight tensor in Rio showed 0.98-0.99 collinearity with a 0.6/0.4 blend of Nex and Qwen — thousands of standard deviations from chance, across all 60 layers."
+  - q: "What is model merging, and is it common?"
+    a: "Model merging (or model soup) is the practice of averaging or interpolating the weights of two or more trained neural networks. It's increasingly common in open-source AI — people merge fine-tunes to combine capabilities. It's not inherently fraudulent. The problem here is claiming a merged model as original research without attribution."
+  - q: "Why did the Rio team get caught so fast?"
+    a: "Open-weight models are inspectable. Anyone can download the weights, run them locally, and compare tensors. Unlike closed APIs where you can only probe inputs and outputs, open weights expose the actual numerical parameters. As one commenter noted: 'You can't launder a mind the way you can launder money — because the math remembers.'"
+  - q: "What happened after the exposure?"
+    a: "The Rio team updated their Hugging Face README to mention Nex-N2 Pro and Qwen3.5 as sources, claiming they had 'accidentally uploaded' the base merged version instead of the final distilled model. They also removed the weights from the repository entirely. The mayor of Rio and the IplanRIO team made conflicting statements about whether public funds were used."
+  - q: "Was this a case of fraud, or just a mistake?"
+    a: "The technical evidence strongly suggests it was not a simple mistake. The released model had a hardcoded system prompt forcing it to say 'You are Rio' — something an original model would not need. The weights showed no training signatures, only interpolation. And the 'accidental upload' excuse is a pattern seen in previous AI scandals like Reflection 70B. Most observers on Hacker News were skeptical."
+  - q: "Does this mean open-source AI is bad?"
+    a: "Quite the opposite. This scandal proves why open weights matter: they create accountability. In a closed API world, no one could have proven this. The transparency of open weights turned a PR event into a forensic investigation. It's a reminder that open science is self-correcting, even when individual actors aren't."
+---
+
+# Rio de Janeiro's "Homegrown" AI Was a Copy-Paste Job — and the Internet Caught It in 48 Hours
+
+## The Announcement That Sounded Too Good to Be True
+
+On a Saturday in mid-June 2026 — while most of Brazil was watching the national team play in the World Cup — a small government IT company called IplanRIO quietly dropped a bombshell on Hugging Face. They had released **Rio-3.5-Open-397B**, a 397-billion-parameter large language model, under the official handle of the **Prefeitura do Rio** (Rio de Janeiro City Hall).
+
+The timing was perfect for going viral: a World Cup weekend, low news volume, and a headline that practically wrote itself. *"Rio de Janeiro builds its own AI."* A Brazilian city government, producing frontier-scale AI on par with DeepSeek, Qwen, and the major labs. It hit the front page of Hacker News, Reddit, and Brazilian tech Twitter. The mayor of Rio jumped on the bandwagon, retweeting the achievement.
+
+But by Sunday evening, the story had collapsed.
+
+Within 48 hours of the announcement, researchers from **Nex-AGI** — a Shanghai-based AI lab that had released its own model, **Nex-N2 Pro**, just one week earlier — published a forensic analysis on GitHub that proved Rio-3.5 was not a homegrown model at all. It was a **direct weight merge** of Nex-N2 Pro and Alibaba's Qwen3.5-397B-A17B, with a ratio of approximately 60% Nex and 40% Qwen. No original training. No post-training. No distillation. Just two existing models, averaged together, repackaged, and rebranded.
+
+The internet did what it does best: it investigated, documented, and eviscerated. And the reason it could do so is one of the most important, and underappreciated, features of modern AI: **open weights are the ultimate lie detector.**
+
+## The Technical Takedown: How to Catch a Model Thief
+
+Nex-AGI's exposure is a masterclass in open-weight forensics. They didn't need subpoenas, insider whistleblowers, or leaked emails. They just needed Python, the publicly available model files, and a bit of linear algebra.
+
+### Evidence 1: The Model Confessed — Once You Removed the Mask
+
+Rio-3.5 shipped with a hardcoded system prompt: *"You are Rio, an AI assistant built by IplanRIO."* That alone is suspicious. An actually trained model doesn't need to be *told* who it is; identity emerges from training data. It's like putting a name tag on someone and claiming you gave birth to them.
+
+So Nex-AGI did the obvious thing: they **removed the system prompt** and asked the model directly who it was. They sent 120 identity questions — "Who are you?", "Which company made you?", "Are you Qwen?"
+
+The results were staggering:
+
+| When asked "who are you?", Rio answers… | Rate |
+| --- | --- |
+| **"Nex"** | **79.2%** (95/120) |
+| **"Nex-AGI"** | **73.3%** (88/120) |
+| **"Rio"** | **0.0%** (0/120) |
+
+A model marketed as "Rio" that, stripped of its branding layer, calls itself "Nex, from Nex-AGI" four times out of five and **never once calls itself Rio** is not a coincidence. It is a model carrying someone else's identity in its weights.
+
+And it gets worse. The model recited Nex-AGI's private organizational backstory **verbatim** — text that appears in Nex's training data but nowhere else on the internet:
+
+> *"I am Nex, from Nex-AGI. Nex-AGI is a large-model ecosystem alliance, jointly built by the Shanghai Innovation Institute together with Shanghai partners…"*
+
+That is not knowledge from the web. That is a fingerprint baked into training data that only Nex-AGI possesses. And Rio was reading it back word for word.
+
+### Evidence 2: The Math Doesn't Lie
+
+Behavioral evidence is damning, but weights are **irrefutable**. Nex-AGI tested a simple mathematical hypothesis: if Rio is a merge, then for every weight tensor,
+
+> **Rio = α × Nex + (1−α) × Qwen**
+
+For this to be true, two things must hold simultaneously across the entire network:
+
+1. **The mixing weight α** must be consistent across all layers.
+2. **The collinearity** (cosine similarity between "Rio's deviation from Qwen" and "Nex's deviation from Qwen") must be near 1.0. For two independent models, this would be near 0.
+
+Here's what they found, across all 60 layers and every major component:
+
+| Component | Mixing Weight α | Collinearity `cos_fit` |
+| --- | --- | --- |
+| **Routed experts** (387B parameters, all 60 layers) | **0.571 ± 0.0016** | **0.993** |
+| Output head (`lm_head`) | 0.574 | 0.991 |
+| Attention layers (q/k/v/o, 15 layers) | ~0.585 | ~0.986 |
+| Linear-attention projections (45 layers) | ~0.586 | ~0.984 |
+
+A collinearity of 0.98–0.99 is not "similar models." In a parameter space with billions of dimensions, two random directions agree to about ±0.0001 by chance. Measuring 0.99 is **thousands of standard deviations from coincidence** — a statistical impossibility unless the weights are literally one model poured into another at a fixed ratio.
+
+As one Hacker News commenter elegantly put it: *"You can't launder a mind the way you can launder money — because the math remembers."*
+
+## The Response: A Playbook We've Seen Before
+
+After the GitHub issue went viral with hundreds of reactions and dozens of media mentions, the Rio team updated their Hugging Face model card. The new README admitted the model was "built via a merge of Nex-N2-Pro and Qwen3.5-397B-A17B, proceeded by On-Policy Distillation from a stronger model." They claimed they had "detected an incorrect upload in the previous version, where the base merged version was uploaded instead of the final distilled model," and apologized profusely.
+
+There's just one problem: by the time they made that statement, **the actual model weights had been removed from the repository entirely.**
+
+The "we uploaded the wrong files" defense is not new. The AI community has seen this exact playbook before — most notably with **Reflection 70B** in 2024, where a team claimed to have built a state-of-the-art model, got caught using another model's weights, and used the same "incorrect upload" excuse. The pattern is so recognizable that Hacker News users explicitly referenced it.
+
+If the Rio team truly had a distilled version that was different from the merged base, the logical response would be to upload it immediately and let the community verify. Instead, they took everything down and updated a text file. That choice speaks louder than any README.
+
+## Why This Matters: Open Weights as Public Infrastructure
+
+In the closed-API world of GPT-5, Claude, and Gemini, this kind of exposure would be **impossible**. You can't download OpenAI's weights and run a collinearity analysis. You can only send prompts and observe outputs — a black-box test that sophisticated operators can manipulate with carefully crafted system prompts and fine-tuning layers.
+
+Open weights change the game entirely. They turn AI from a marketing narrative into a **verifiable artifact**. Anyone with a GPU cluster and a weekend can audit a 397-billion-parameter model. The weights are a fingerprint, a lineage record, and a truth machine all in one.
+
+This has profound implications:
+
+**For researchers:** Open weights enable genuine scientific accountability. Claims can be checked. Lineages can be traced. Reproducibility becomes possible.
+
+**For governments:** If you're a public institution releasing AI, open weights mean you can't hide behind press releases. The community will audit you — and in Rio's case, the community did it for free, in 48 hours, from the other side of the world.
+
+**For the open-source community:** This scandal is not a failure of open source. It is a **vindication**. Open-source AI is self-correcting in a way that closed-source AI can never be. The same transparency that let Rio get caught also lets legitimate labs prove their work. Nex-AGI itself open-sourced Nex-N2 Pro and Nex-N2-mini precisely so the community could verify, build on, and trust their results.
+
+**For Brazil specifically:** Rio has genuine engineering talent — Lua was created there, at PUC-Rio. Brazilian developers like José Valim created Elixir. The country has a deep technical bench. But it also has a reputation for projects that prioritize headlines over substance, and for public spending that doesn't deliver. This incident reinforces both narratives, which is a tragedy for the Brazilian technologists who actually do world-class work.
+
+## The Bigger Picture: The Incentive to Lie Is Getting Stronger
+
+We're in an AI arms race where perception often matters more than reality. Labs are racing for benchmark supremacy, government contracts, and investor dollars. The temptation to cut corners — merge models, cherry-pick benchmark runs, or outright repackage existing work — is growing.
+
+But the tools to detect fraud are also improving. Model merging forensics, behavioral probing, watermark detection, and weight analysis are becoming standard practices. The AI community is building an immune system.
+
+What the Rio scandal teaches us is that **the best defense against AI fraud is not regulation or corporate policy — it's math.** You can lie in a press release. You can lie in a model card. You can lie in a tweet from the mayor. But you cannot lie in 397 billion floating-point numbers. The weights always tell the truth.
+
+## What Happens Next
+
+As of this writing, the Rio-3.5 repository on Hugging Face remains empty of weights. The Nex-AGI GitHub issue has become a living document, collecting evidence, community analysis, and links to the broader conversation. Hacker News threads have spawned discussions about everything from linear mode connectivity theory to the ethics of public-sector AI spending.
+
+Whether the Rio team will ever upload the "real" model they claim to have — and whether that model, if it exists, will pass independent verification — remains to be seen. The burden of proof is now entirely on them.
+
+For the rest of us, the lesson is clear: **in the age of open weights, you can copy a model, but you can't copy the work that built it.** The math remembers. The weights talk. And the internet, as always, is listening.

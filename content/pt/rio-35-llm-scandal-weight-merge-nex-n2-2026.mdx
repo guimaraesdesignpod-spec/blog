@@ -1,0 +1,136 @@
+---
+title: "A IA 'Caseira' do Rio de Janeiro Era um Ctrl+C, Ctrl+V — e a Internet Descobriu em 48 Horas"
+description: "A Prefeitura do Rio anunciou o Rio-3.5, um LLM de 397 bilhões de parâmetros 'desenvolvido internamente'. Em dois dias, pesquisadores provaram que era uma mesclagem direta de dois modelos existentes, sem nenhum treinamento original. Veja como pesos abertos viraram o detector de mentiras definitivo da IA."
+date: "2026-06-15"
+translationKey: "rio-35-llm-scandal-weight-merge-nex-n2-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["IA", "LLM", "pesos abertos", "Rio de Janeiro", "Nex-AGI", "Qwen", "mesclagem de modelos", "transparência em IA", "escândalo tech", "2026"]
+image: "https://images.unsplash.com/photo-1612170815303-2bce69955f02?w=1200"
+imageAlt: "Reflexão digital abstrata de camadas transparentes sobrepostas, simbolizando redes neurais mescladas e identidade de IA"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Rio 3.5 LLM", "Nex-N2 Pro", "mesclagem de pesos", "escândalo pesos abertos", "IplanRIO IA", "Qwen 3.5 397B", "transparência em IA", "Prefeitura do Rio IA", "forense de LLM", "colinearidade de pesos"]
+tldr: "A IplanRIO, empresa de TI da Prefeitura do Rio, lançou o Rio-3.5-Open-397B como um LLM caseiro pós-treinado. Pesquisadores da Nex-AGI expuseram o modelo como uma mesclagem elementar direta (~60% Nex-N2 Pro + ~40% Qwen3.5-397B-A17B), sem evidências de treinamento original. Ao remover o prompt de sistema forçado do Rio, o modelo se identificou como 'Nex, da Nex-AGI' 79% das vezes. A análise dos tensores de peso em todas as 60 camadas mostrou colinearidade de 0,98-0,99 — matematicamente impossível para modelos independentes. O time do Rio depois alegou um 'upload incorreto', mas já havia removido os pesos do repositório."
+faq:
+  - q: "O que exatamente o time do Rio fez de errado?"
+    a: "Eles lançaram um modelo que era uma interpolação linear direta (merge) de dois modelos de pesos abertos existentes — Nex-N2 Pro e Qwen3.5-397B-A17B — enquanto afirmavam que era um LLM caseiro pós-treinado. Inicialmente não deram atribuição à Nex-AGI, e o modelo lançado não continha nenhuma evidência de treinamento original ou destilação."
+  - q: "Como a Nex-AGI provou que o modelo era uma mesclagem?"
+    a: "De duas formas. Primeiro, comportamental: remover o prompt de sistema forçado 'Você é o Rio' fez o modelo se chamar de 'Nex, da Nex-AGI' 79% das vezes, e recitar a história organizacional privada da Nex-AGI palavra por palavra. Segundo, matematicamente: cada tensor de peso no Rio mostrou colinearidade de 0,98-0,99 com uma mistura 0,6/0,4 de Nex e Qwen — milhares de desvios-padrão da coincidência, em todas as 60 camadas."
+  - q: "O que é mesclagem de modelos, e é comum?"
+    a: "Mesclagem de modelos (ou model soup) é a prática de fazer média ou interpolação dos pesos de duas ou mais redes neurais treinadas. É cada vez mais comum no mundo open-source de IA — pessoas mesclam fine-tunes para combinar capacidades. Não é intrinsecamente fraudulento. O problema aqui é reivindicar um modelo mesclado como pesquisa original, sem atribuição."
+  - q: "Por que o time do Rio foi pego tão rápido?"
+    a: "Modelos de pesos abertos são inspecionáveis. Qualquer pessoa pode baixar os pesos, rodar localmente e comparar tensores. Diferente de APIs fechadas, onde você só pode testar entradas e saídas, pesos abertos expõem os parâmetros numéricos reais. Como um comentarista do Hacker News disse: 'Você não pode lavar uma mente do jeito que lava dinheiro — porque a matemática lembra.'"
+  - q: "O que aconteceu depois da exposição?"
+    a: "O time do Rio atualizou o README no Hugging Face para mencionar Nex-N2 Pro e Qwen3.5 como fontes, alegando que tinham 'feito upload incorreto' da versão base mesclada em vez do modelo final destilado. Eles também removeram os pesos do repositório completamente. O prefeito do Rio e o time da IplanRIO deram declarações conflitantes sobre se dinheiro público foi usado."
+  - q: "Isso foi fraude, ou só um erro?"
+    a: "A evidência técnica sugere fortemente que não foi um erro simples. O modelo lançado tinha um prompt de sistema forçado obrigando-o a dizer 'Você é o Rio' — algo que um modelo original não precisaria. Os pesos não mostravam assinaturas de treinamento, apenas interpolação. E a desculpa de 'upload acidental' é um padrão visto em escândalos de IA anteriores, como o Reflection 70B. A maioria dos observadores no Hacker News ficou cética."
+  - q: "Isso significa que IA open-source é ruim?"
+    a: "Pelo contrário. Esse escândalo prova por que pesos abertos importam: eles criam responsabilidade. Em um mundo de APIs fechadas, ninguém poderia ter provado isso. A transparência dos pesos abertos transformou um evento de relações públicas em uma investigação forense. É um lembrete de que a ciência aberta é auto-corretiva, mesmo quando atores individuais não são."
+---
+
+# A IA "Caseira" do Rio de Janeiro Era um Ctrl+C, Ctrl+V — e a Internet Descobriu em 48 Horas
+
+## O Anúncio Que Parecia Bom Demais Para Ser Verdade
+
+Num sábado de meados de junho de 2026 — enquanto a maior parte do Brasil assistia à seleção na Copa do Mundo — uma pequena empresa de TI do governo chamada IplanRIO soltou uma bomba no Hugging Face. Eles tinham lançado o **Rio-3.5-Open-397B**, um modelo de linguagem de 397 bilhões de parâmetros, sob a handle oficial da **Prefeitura do Rio**.
+
+O timing era perfeito para viralizar: um fim de semana de Copa, pouco volume de notícias, e uma manchete que praticamente se escrevia sozinha. *"Rio de Janeiro constrói sua própria IA."* Um governo municipal brasileiro, produzindo IA de fronteira no mesmo nível de DeepSeek, Qwen e os grandes laboratórios. A notícia estourou na capa do Hacker News, do Reddit e do tech Twitter brasileiro. O prefeito do Rio entrou no embalo, retweetando a conquista.
+
+Mas até o domingo à noite, a história já tinha desmoronado.
+
+Em 48 horas do anúncio, pesquisadores da **Nex-AGI** — um laboratório de IA de Xangai que havia lançado seu próprio modelo, o **Nex-N2 Pro**, apenas uma semana antes — publicaram uma análise forense no GitHub que provava que o Rio-3.5 não era um modelo caseiro. Era uma **mesclagem direta de pesos** do Nex-N2 Pro e do Qwen3.5-397B-A17B da Alibaba, numa proporção de aproximadamente 60% Nex e 40% Qwen. Sem treinamento original. Sem pós-treinamento. Sem destilação. Só dois modelos existentes, média simples, reempacotados e rebatizados.
+
+A internet fez o que ela faz de melhor: investigou, documentou e desmontou. E a razão pela qual pôde fazer isso é uma das características mais importantes — e menos valorizadas — da IA moderna: **pesos abertos são o detector de mentiras definitivo.**
+
+## A Derrubada Técnica: Como Pegar um Ladrão de Modelos
+
+A exposição da Nex-AGI é um masterclass de forense em pesos abertos. Eles não precisaram de intimações, delatores internos ou emails vazados. Só de Python, dos arquivos do modelo disponíveis publicamente, e um pouco de álgebra linear.
+
+### Evidência 1: O Modelo Confessou — Depois que Você Tirou a Máscara
+
+O Rio-3.5 vinha com um prompt de sistema embutido: *"Você é o Rio, um assistente de IA construído pela IplanRIO."* Isso sozinho já é suspeito. Um modelo realmente treinado não precisa ser *dito* quem ele é; a identidade emerge dos dados de treinamento. É como colocar uma plaquinha de nome em alguém e dizer que você deu à luz a essa pessoa.
+
+Então a Nex-AGI fez a coisa óbvia: **removeu o prompt de sistema** e perguntou diretamente ao modelo quem ele era. Enviaram 120 perguntas de identidade — "Quem é você?", "Qual empresa te fez?", "Você é o Qwen?"
+
+Os resultados foram impressionantes:
+
+| Quando perguntado "quem é você?", o Rio responde… | Taxa |
+| --- | --- |
+| **"Nex"** | **79,2%** (95/120) |
+| **"Nex-AGI"** | **73,3%** (88/120) |
+| **"Rio"** | **0,0%** (0/120) |
+
+Um modelo vendido como "Rio" que, despido de sua camada de branding, se chama de "Nex, da Nex-AGI" quatro em cada cinco vezes e **nunca, em nenhuma vez, se chama de Rio** não é coincidência. É um modelo carregando a identidade de outro em seus pesos.
+
+E fica pior. O modelo recitou a história organizacional privada da Nex-AGI **palavra por palavra** — texto que aparece nos dados de treinamento do Nex, mas em nenhum outro lugar da internet:
+
+> *"Eu sou o Nex, da Nex-AGI. A Nex-AGI é uma aliança de ecossistema de grandes modelos, construída em conjunto pelo Shanghai Innovation Institute junto com parceiros de Xangai…"*
+
+Isso não é conhecimento da web. É uma digital embutida nos dados de treinamento que só a Nex-AGI possui. E o Rio estava recitando de volta, palavra por palavra.
+
+### Evidência 2: A Matemática Não Mente
+
+A evidência comportamental é condenatória, mas os pesos são **irrefutáveis**. A Nex-AGI testou uma hipótese matemática simples: se o Rio é um merge, então para cada tensor de peso,
+
+> **Rio = α × Nex + (1−α) × Qwen**
+
+Para isso ser verdade, duas coisas precisam valer simultaneamente em toda a rede:
+
+1. **O peso de mistura α** precisa ser consistente em todas as camadas.
+2. **A colinearidade** (similaridade de cosseno entre "o desvio do Rio em relação ao Qwen" e "o desvio do Nex em relação ao Qwen") precisa ser próxima de 1,0. Para dois modelos independentes, isso seria próximo de 0.
+
+Eis o que encontraram, em todas as 60 camadas e cada componente principal:
+
+| Componente | Peso de Mistura α | Colinearidade `cos_fit` |
+| --- | --- | --- |
+| **Especialistas roteados** (387B parâmetros, todas as 60 camadas) | **0,571 ± 0,0016** | **0,993** |
+| Cabeça de saída (`lm_head`) | 0,574 | 0,991 |
+| Camadas de atenção (q/k/v/o, 15 camadas) | ~0,585 | ~0,986 |
+| Projeções de atenção linear (45 camadas) | ~0,586 | ~0,984 |
+
+Uma colinearidade de 0,98–0,99 não é "modelos parecidos." Num espaço de parâmetros com bilhões de dimensões, duas direções aleatórias coincidem em cerca de ±0,0001 por acaso. Medir 0,99 é **milhares de desvios-padrão da coincidência** — uma impossibilidade estatística a menos que os pesos sejam literalmente um modelo despejado dentro do outro numa proporção fixa.
+
+Como um comentarista do Hacker News colocou elegantemente: *"Você não pode lavar uma mente do jeito que lava dinheiro — porque a matemática lembra."*
+
+## A Resposta: Um Roteiro Que Já Vimos Antes
+
+Depois que a issue no GitHub viralizou com centenas de reações e dezenas de menções na mídia, o time do Rio atualizou o cartão do modelo no Hugging Face. O novo README admitiu que o modelo foi "construído via mesclagem de Nex-N2-Pro e Qwen3.5-397B-A17B, seguido de destilação On-Policy a partir de um modelo mais forte." Eles alegaram ter "detectado um upload incorreto na versão anterior, onde a versão base mesclada foi carregada em vez do modelo final destilado," e pediram desculpas profusamente.
+
+Tem só um problema: na hora em que fizeram essa declaração, **os pesos reais do modelo já tinham sido removidos do repositório por completo.**
+
+A defesa de "subimos os arquivos errados" não é nova. A comunidade de IA já viu esse roteiro exato antes — mais notavelmente com o **Reflection 70B** em 2024, onde um time alegou ter construído um modelo state-of-the-art, foi pego usando os pesos de outro modelo, e usou a mesma desculpa de "upload incorreto." O padrão é tão reconhecível que usuários do Hacker News o citaram explicitamente.
+
+Se o time do Rio realmente tivesse uma versão destilada diferente da base mesclada, a resposta lógica seria subir imediatamente e deixar a comunidade verificar. Em vez disso, eles tiraram tudo do ar e atualizaram um arquivo de texto. Essa escolha fala mais alto que qualquer README.
+
+## Por Que Isso Importa: Pesos Abertos Como Infraestrutura Pública
+
+No mundo fechado de APIs do GPT-5, Claude e Gemini, esse tipo de exposição seria **impossível**. Você não pode baixar os pesos da OpenAI e rodar uma análise de colinearidade. Você só pode mandar prompts e observar saídas — um teste de caixa-preta que operadores sofisticados podem manipular com prompts de sistema cuidadosamente criados e camadas de fine-tuning.
+
+Pesos abertos mudam o jogo por completo. Eles transformam IA de uma narrativa de marketing em um **artefato verificável**. Qualquer um com um cluster de GPUs e um fim de semana pode auditar um modelo de 397 bilhões de parâmetros. Os pesos são uma digital, um registro de linhagem, e uma máquina da verdade, tudo num pacote só.
+
+Isso tem implicações profundas:
+
+**Para pesquisadores:** Pesos abertos possibilitam responsabilidade científica genuína. Alegações podem ser verificadas. Linhagens podem ser rastreadas. Reprodutibilidade se torna possível.
+
+**Para governos:** Se você é uma instituição pública lançando IA, pesos abertos significam que você não pode se esconder atrás de releases de imprensa. A comunidade vai te auditar — e no caso do Rio, a comunidade fez isso de graça, em 48 horas, do outro lado do mundo.
+
+**Para a comunidade open-source:** Esse escândalo não é uma falha do open source. É uma **vindicação**. A IA open-source é auto-corretiva de um jeito que a IA proprietária nunca será. A mesma transparência que deixou o Rio ser pego também permite que laboratórios legítimos provem seu trabalho. A própria Nex-AGI open-sourçou o Nex-N2 Pro e o Nex-N2-mini justamente para que a comunidade pudesse verificar, construir sobre, e confiar nos resultados.
+
+**Para o Brasil em específico:** O Rio tem talento de engenharia de verdade — a linguagem Lua foi criada lá, na PUC-Rio. Desenvolvedores brasileiros como José Valim criaram o Elixir. O país tem um banco técnico profundo. Mas também tem uma reputação de projetos que priorizam manchetes em vez de substância, e de gasto público que não entrega. Esse incidente reforça ambas as narrativas, o que é uma tragédia para os tecnologistas brasileiros que de fato fazem trabalho de nível mundial.
+
+## O Quadro Maior: O Incentivo Para Mentir Está Ficando Mais Forte
+
+Estamos numa corrida armamentista de IA onde a percepção frequentemente importa mais que a realidade. Laboratórios competem por supremacia em benchmarks, contratos governamentais e dólares de investidores. A tentação de cortar caminhos — mesclar modelos, escolher benchmarks a dedo, ou reempacotar trabalho existente de forma descarada — está crescendo.
+
+Mas as ferramentas para detectar fraude também estão melhorando. Forense de mesclagem de modelos, sondagem comportamental, detecção de marcas d'água, e análise de pesos estão se tornando práticas padrão. A comunidade de IA está construindo um sistema imunológico.
+
+O que o escândalo do Rio nos ensina é que **a melhor defesa contra fraude em IA não é regulação ou política corporativa — é matemática.** Você pode mentir num press release. Pode mentir num cartão de modelo. Pode mentir num tweet do prefeito. Mas não pode mentir em 397 bilhões de números de ponto flutuante. Os pesos sempre contam a verdade.
+
+## O Que Acontece Agora
+
+Até o momento em que este texto é escrito, o repositório do Rio-3.5 no Hugging Face continua sem pesos. A issue da Nex-AGI no GitHub virou um documento vivo, reunindo evidências, análises da comunidade, e links para a conversa mais ampla. Tópicos do Hacker News geraram discussões sobre tudo, desde teoria de conectividade de modo linear até a ética do gasto público em IA.
+
+Se o time do Rio algum dia vai subir o "modelo real" que alegam ter — e se esse modelo, caso exista, passará em verificação independente — ainda está por ser visto. O ônus da prova está inteiramente com eles.
+
+Para o resto de nós, a lição é clara: **na era dos pesos abertos, você pode copiar um modelo, mas não pode copiar o trabalho que o construiu.** A matemática lembra. Os pesos falam. E a internet, como sempre, está ouvindo.
