@@ -33,11 +33,11 @@ faq:
 
 ## O Anúncio Que Parecia Bom Demais Para Ser Verdade
 
-Num sábado de meados de junho de 2026 — enquanto a maior parte do Brasil assistia à seleção na Copa do Mundo — uma pequena empresa de TI do governo chamada IplanRIO soltou uma bomba no Hugging Face. Eles tinham lançado o **Rio-3.5-Open-397B**, um modelo de linguagem de 397 bilhões de parâmetros, sob a handle oficial da **Prefeitura do Rio**.
+Num sábado de meados de junho de 2026 — enquanto a maior parte do Brasil assistia à seleção na Copa do Mundo — uma pequena empresa de TI do governo chamada IplanRIO soltou uma bomba no Hugging Face. Eles tinham lançado o **Rio-3.5-Open-397B**, um modelo de linguagem de 397 bilhões de parâmetros, sob a conta oficial da **Prefeitura do Rio**.
 
 O timing era perfeito para viralizar: um fim de semana de Copa, pouco volume de notícias, e uma manchete que praticamente se escrevia sozinha. *"Rio de Janeiro constrói sua própria IA."* Um governo municipal brasileiro, produzindo IA de fronteira no mesmo nível de DeepSeek, Qwen e os grandes laboratórios. A notícia estourou na capa do Hacker News, do Reddit e do tech Twitter brasileiro. O prefeito do Rio entrou no embalo, retweetando a conquista.
 
-Mas até o domingo à noite, a história já tinha desmoronado.
+Mas no domingo à noite, a história já tinha desmoronado.
 
 Em 48 horas do anúncio, pesquisadores da **Nex-AGI** — um laboratório de IA de Xangai que havia lançado seu próprio modelo, o **Nex-N2 Pro**, apenas uma semana antes — publicaram uma análise forense no GitHub que provava que o Rio-3.5 não era um modelo caseiro. Era uma **mesclagem direta de pesos** do Nex-N2 Pro e do Qwen3.5-397B-A17B da Alibaba, numa proporção de aproximadamente 60% Nex e 40% Qwen. Sem treinamento original. Sem pós-treinamento. Sem destilação. Só dois modelos existentes, média simples, reempacotados e rebatizados.
 
@@ -45,11 +45,11 @@ A internet fez o que ela faz de melhor: investigou, documentou e desmontou. E a 
 
 ## A Derrubada Técnica: Como Pegar um Ladrão de Modelos
 
-A exposição da Nex-AGI é um masterclass de forense em pesos abertos. Eles não precisaram de intimações, delatores internos ou emails vazados. Só de Python, dos arquivos do modelo disponíveis publicamente, e um pouco de álgebra linear.
+A exposição da Nex-AGI é uma aula magistral de forense em pesos abertos. Eles não precisaram de intimações, delatores internos ou emails vazados. Só de Python, dos arquivos do modelo disponíveis publicamente, e um pouco de álgebra linear.
 
 ### Evidência 1: O Modelo Confessou — Depois que Você Tirou a Máscara
 
-O Rio-3.5 vinha com um prompt de sistema embutido: *"Você é o Rio, um assistente de IA construído pela IplanRIO."* Isso sozinho já é suspeito. Um modelo realmente treinado não precisa ser *dito* quem ele é; a identidade emerge dos dados de treinamento. É como colocar uma plaquinha de nome em alguém e dizer que você deu à luz a essa pessoa.
+O Rio-3.5 vinha com um prompt de sistema embutido: *"Você é o Rio, um assistente de IA construído pela IplanRIO."* Isso sozinho já é suspeito. Um modelo realmente treinado não precisa que lhe digam quem ele é; a identidade emerge dos dados de treinamento. É como colocar uma plaquinha de nome em alguém e dizer que você deu à luz a essa pessoa.
 
 Então a Nex-AGI fez a coisa óbvia: **removeu o prompt de sistema** e perguntou diretamente ao modelo quem ele era. Enviaram 120 perguntas de identidade — "Quem é você?", "Qual empresa te fez?", "Você é o Qwen?"
 
@@ -115,9 +115,9 @@ Isso tem implicações profundas:
 
 **Para governos:** Se você é uma instituição pública lançando IA, pesos abertos significam que você não pode se esconder atrás de releases de imprensa. A comunidade vai te auditar — e no caso do Rio, a comunidade fez isso de graça, em 48 horas, do outro lado do mundo.
 
-**Para a comunidade open-source:** Esse escândalo não é uma falha do open source. É uma **vindicação**. A IA open-source é auto-corretiva de um jeito que a IA proprietária nunca será. A mesma transparência que deixou o Rio ser pego também permite que laboratórios legítimos provem seu trabalho. A própria Nex-AGI open-sourçou o Nex-N2 Pro e o Nex-N2-mini justamente para que a comunidade pudesse verificar, construir sobre, e confiar nos resultados.
+**Para a comunidade open-source:** Esse escândalo não é uma falha do open source. É uma **vindicação**. A IA open-source é auto-corretiva de um jeito que a IA proprietária nunca será. A mesma transparência que deixou o Rio ser pego também permite que laboratórios legítimos provem seu trabalho. A própria Nex-AGI abriu o código do Nex-N2 Pro e do Nex-N2-mini justamente para que a comunidade pudesse verificar, construir sobre, e confiar nos resultados.
 
-**Para o Brasil em específico:** O Rio tem talento de engenharia de verdade — a linguagem Lua foi criada lá, na PUC-Rio. Desenvolvedores brasileiros como José Valim criaram o Elixir. O país tem um banco técnico profundo. Mas também tem uma reputação de projetos que priorizam manchetes em vez de substância, e de gasto público que não entrega. Esse incidente reforça ambas as narrativas, o que é uma tragédia para os tecnologistas brasileiros que de fato fazem trabalho de nível mundial.
+**Para o Brasil em específico:** O Rio tem talento de engenharia de verdade — a linguagem Lua foi criada lá, na PUC-Rio. Desenvolvedores brasileiros como José Valim criaram o Elixir. O país tem um banco técnico profundo. Mas também tem uma reputação de projetos que priorizam manchetes em detrimento da substância, e de gasto público que não entrega. Esse incidente reforça ambas as narrativas, o que é uma tragédia para os tecnologistas brasileiros que de fato fazem trabalho de nível mundial.
 
 ## O Quadro Maior: O Incentivo Para Mentir Está Ficando Mais Forte
 
