@@ -1,0 +1,102 @@
+---
+title: "SubQ é a Maior Revolução Desde o Transformer, ou o Theranos da IA?"
+description: "Uma startup de Miami chamada Subquadratic afirma ter resolvido o gargalo de atenção quadrática que define a arquitetura de LLMs há uma década. Testes independentes parecem impressionantes. Céticos continuam desconfiados. Aqui está o que sabemos, o que não sabemos, e por que as apostas não poderiam ser maiores."
+date: "2026-06-21"
+translationKey: "subquadratic-subq-breaks-llm-attention-bottleneck-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["IA", "LLMs", "Transformers", "Atenção Esparsa", "Subquadratic", "Eficiência", "2026"]
+image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&q=80"
+imageAlt: "Visualização abstrata de nós interconectados brilhando em azul e roxo sobre um fundo escuro, representando padrões de atenção de redes neurais"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Subquadratic SubQ", "atenção esparsa LLM", "gargalo quadrático transformers", "benchmarks SubQ 2026", "avanço mecanismo de atenção", "eficiência LLM", "FlashAttention vs SubQ", "startup IA Miami", "substituto transformer", "arquitetura subquadrática"]
+tldr: "A startup de IA Subquadratic, sediada em Miami, afirma que seu modelo SubQ resolve o gargalo de atenção quadrática que limita LLMs desde 2017. Usando atenção esparsa dinâmica, o SubQ supostamente alcança inferência 56x mais rápida que o FlashAttention, uma janela de contexto de 12 milhões de tokens e desempenho próximo ao do Claude Opus 4.6 em benchmarks de programação. Testes independentes da Appen corroboram as principais alegações, mas críticos observam que o SubQ partiu de pesos do Qwen e ainda não está disponível para a maioria dos usuários. O debate é se o SubQ é a maior revolução desde o Transformer ou o Theranos da IA."
+faq:
+  - q: "O que exatamente a Subquadratic afirmou?"
+    a: "A Subquadratic afirma que seu modelo, SubQ, é o primeiro LLM completamente subquadrático. Em vez de atenção densa, onde cada token é multiplicado contra todos os outros, o SubQ usa atenção esparsa dinâmica, reduzindo drasticamente o custo computacional e permitindo janelas de contexto de até 12 milhões de tokens, ao mesmo tempo que equipara o desempenho de ponta em programação e recuperação de informações."
+  - q: "Quais são os resultados dos testes independentes?"
+    a: "A avaliadora independente Appen encontrou o SubQ 56 vezes mais rápido que o FlashAttention em comparação de arquitetura, pontuou 89,7% no LiveCodeBench, 98% no teste de agulha no palheiro a 12 milhões de tokens, e alcançou 81,8% no SWE-Bench Verified, comparável ao Claude Opus 4.6."
+  - q: "Por que alguns chamam isso de 'Theranos da IA'?"
+    a: "O ceticismo vem de vários fatores: o SubQ ainda não está disponível publicamente, a empresa divulgou inicialmente apenas benchmarks auto-publicados, e o modelo partiu de pesos do modelo chinês open-source Qwen em vez de treinar do zero. Alguns pesquisadores sentem que esses fatos enfraquecem a alegação de ter reinventado totalmente a arquitetura de LLM."
+  - q: "Qual a diferença entre atenção esparsa e atenção densa?"
+    a: "A atenção densa, usada pelos transformers padrão desde 2017, calcula relações entre todos os pares de tokens em uma sequência. Para n tokens, isso exige aproximadamente n² operações. A atenção esparsa ignora comparações desnecessárias, reduzindo o crescimento computacional de quadrático para linear ou quase linear com o tamanho da sequência. A troca sempre foi pior desempenho, o que a Subquadratic afirma ter finalmente superado."
+  - q: "Se for verdade, o que isso significa para a indústria?"
+    a: "Significaria que os custos de inferência de LLM poderiam despencar em ordens de magnitude, janelas de contexto poderiam se expandir para dezenas de milhões de tokens, e tarefas como analisar repositórios de código ou bibliotecas de documentos inteiras em uma única passagem se tornariam economicamente viáveis. Também poderia significar que os transformers estão caminhando para a obsolescência."
+  - q: "Quando o público vai poder testar?"
+    a: "A Subquadratic abriu um beta privado para acesso via API, SubQ Code e SubQ Search em junho de 2026. Dezenas de milhares de pessoas se inscreveram, incluindo mais de 500 clientes empresariais, mas a maioria está em lista de espera. A empresa diz que recursos limitados impedem um lançamento mais amplo."
+---
+
+# SubQ é a Maior Revolução Desde o Transformer, ou o Theranos da IA?
+
+## A Afirmação que Caiu como um Tijolo numa Quinta-feira
+
+No mês passado, uma startup de Miami publicou um post no blog que caiu como um tijolo através de uma vitral. Subquadratic, uma empresa que quase ninguém conhecia, anunciou ter resolvido o gargalo matemático que segura os grandes modelos de linguagem. Não melhorou. Não contornou. Resolveu.
+
+O gargalo é o escalonamento quadrático da atenção, o mecanismo central dentro de todo transformer. Desde que o Google Brain publicou "Attention Is All You Need" em 2017, todo LLM importante foi construído sobre a mesma operação fundamental: para cada token numa sequência, multiplique seu valor codificado contra todos os outros tokens. Dez mil palavras significam aproximadamente cinquenta milhões de multiplicações. Vinte mil palavras, duzentos milhões. O custo explode. É por isso que seu chatbot esquece o início de uma conversa longa. É por isso que rodar modelos de ponta em documentos grandes custa centenas de dólares. É por isso que todo grande laboratório tem um exército de engenheiros trabalhando em pipelines de recuperação, camadas de memória e sistemas RAG projetados para esconder o fato de que a arquitetura base não consegue, de forma acessível, consumir os próprios dados que deveria raciocinar sobre.
+
+A Subquadratic disse que consertou isso. Seu modelo, chamado SubQ, substitui a atenção densa pelo que ela chama de atenção esparsa totalmente dinâmica. Em vez de olhar para todos os pares de palavras, o SubQ decide no momento qual relação realmente importa e ignora o resto. O resultado, segundo a empresa, é uma arquitetura onde o custo computacional cresce linearmente com o tamanho do contexto, e não quadraticamente. Doze milhões de tokens. Cinquenta e seis vezes mais rápido que o FlashAttention. Pontuações de programação de nível de ponta. Tudo ao mesmo tempo.
+
+Dan McAteer, um engenheiro de IA com audiência ativa no X, capturou a reação imediata da internet numa frase: "SubQ é a maior revolução desde o Transformer... ou é o Theranos da IA."
+
+## Do Ar Rarefeito ao Papel Grosso
+
+No começo, o ceticismo era fácil. A Subquadratic tinha anunciado um resultado capaz de mudar o mundo com pouco mais do que uma landing page, um comunicado à imprensa e alguns números auto-publicados. Tinha arrecadado vinte e nove milhões de dólares em rodada semente com investidores que incluíam um dos fundadores do Tinder e primeiros investidores da Anthropic e da Stripe. O time listava onze pesquisadores doutores vindo do Meta, Google, Oxford, Cambridge, ByteDance, Adobe e Microsoft. Mas nada disso prova física.
+
+Aí, em 19 de junho de 2026, a empresa começou a apresentar recibos.
+
+A MIT Technology Review publicou uma reportagem aprofundada de Will Douglas Heaven, e junto com isso a Subquadratic divulgou um cartão de modelo e uma avaliação independente conduzida pela Appen, uma empresa externa que faz benchmark de modelos para outras companhias. A Appen encontrou que o SubQ rodou cinquenta e seis vezes mais rápido que o FlashAttention numa comparação direta de arquitetura. No LiveCodeBench, um teste de programação competitiva tirado de competições reais, o SubQ marcou 89,7%, diretamente na vizinhança do Claude Opus 4.6 e do Gemini 3.1 Pro.
+
+O teste de agulha no palheiro, que enterra um fato específico dentro de milhões de tokens de texto irrelevante, foi onde as coisas ficaram surreais. O SubQ marcou 98% em seis milhões de tokens e manteve essa precisão em doze milhões de tokens. Poucos modelos são testados nessa escala, e os que são costumam degradar visivelmente. A Appen descreveu como "sustentar recuperação de contexto longo quase perfeita em escalas que poucos modelos são testados".
+
+E a parte financeira é o que fez os capitalistas de risco sentarem direito. O Opus 4.6 da Anthropic custa aproximadamente US$ 2.600 para rodar no benchmark RULER 128, que mede recuperação em grandes volumes de dados. O SubQ, segundo a Subquadratic, completou o mesmo benchmark por oito dólares. Isso não é uma melhoria menor. É um planeta diferente.
+
+## Como Isso Supostamente Funciona
+
+Para entender por que isso importa você tem de entender o que a atenção densa realmente faz, e por que fazer menos dela foi tão difícil.
+
+Quando um transformer lê uma frase, ele atribui a cada palavra um vetor, uma lista de números. Para capturar o significado da frase inteira, ele multiplica todo vetor contra todo outro vetor. Para cinco palavras, são dez pares. Para dez palavras, quarenta e cinco. Para dez mil, cerca de cinquenta milhões. Essa explosão é o gargalo quadrático. Dobrar o tamanho, quadruplicar o custo. A matemática é brutal e inevitável enquanto você insiste em olhar para todos os pares.
+
+A atenção esparsa é a solução óbvia. Não olhe para todos os pares. Olhe para alguns. Escolha os que importam e ignore o resto. Pesquisadores tentaram padrões fixos, janelas deslizantes, vizinhanças locais e resumos globais. O problema é sempre o mesmo: se você ignorar a comparação errada, perde significado. Ignorar demais e o modelo fica burro. Manter demais e você volta a pagar preços quadráticos. Todo método de atenção esparsa anterior fez alguma versão dessa troca, e nenhum igualou a atenção densa em tarefas reais.
+
+A Subquadratic diz ter quebrado o próprio problema de seleção. Em vez de usar uma regra fixa para quais tokens comparar, o SubQ calcula a seleção dinamicamente, no momento, de forma diferente para cada entrada. Alex Whedon, CTO da empresa e ex-engenheiro do Meta, descreve como ensinar o modelo a prestar atenção nas coisas certas em vez de forçá-lo a prestar atenção em tudo. Ele chama isso de "o segredo do molho" e recusa compartilhar o mecanismo exato, o que é exatamente o que uma startup proprietária faria e exatamente o que deixa cientistas externos nervosos.
+
+Will Depue, um pesquisador independente de IA que trabalhou anteriormente na OpenAI, está entre as vozes cautelosas. Ele disse à MIT Technology Review que resolver a atenção esparsa em desempenho de ponta é "equivalente a correr uma milha em quatro minutos". Não teoricamente impossível, mas tão difícil que evidência extraordinária é necessária.
+
+## O Ceticismo que Não Morre
+
+Evidência extraordinária é exatamente o que ainda falta para muitos observadores.
+
+Primeiro, disponibilidade. O SubQ não é amplamente acessível. A Subquadratic diz que dezenas de milhares de usuários se inscreveram para acesso antecipado e mais de quinhentas empresas estão na lista de espera. Mas a empresa admite que deu acesso prático a quase ninguém até agora. A razão apresentada é mundana o suficiente: uma startup jovem com infraestrutura limitada. Mas significa que a verificação independente até agora consiste em exatamente uma avaliação contratada pela Appen.
+
+Segundo, proveniência. O SubQ não foi treinado do zero. Partiu de pesos de um modelo chinês open-source chamado Qwen. Essa é uma prática comum na indústria. Derivados do Mistral, do Llama e dezenas de outros modelos fizeram coisas similares. Mas complica a narrativa. Se a Subquadratic realmente inventou uma nova arquitetura que transcende transformers, perguntam os críticos, por que precisou pegar emprestado as representações aprendidas de um modelo existente baseado em transformers? A resposta da empresa é pragmática: treinar do zero custaria centenas de milhões de dólares e meses de tempo em GPU que ela ainda não tem. O fine-tuning no Qwen provou que a arquitetura funciona. O pré-treino completo vem depois.
+
+Terceiro, benchmarks não são o mundo real. Um modelo pode pontuar brillantemente em testes sintéticos e falhar em cargas de trabalho de produção caóticas, ambíguas e ricas em casos extremos. Os testes da Appen são rigorosos, mas são testes. Até que milhares de desenvolvedores rodem o SubQ em repositórios de código reais, documentos jurídicos reais, tíquetes de suporte ao cliente reais, a questão de se ele generaliza permanece aberta.
+
+A avaliação final de Depue é equilibrada. "Eles podem ter construído algo real e útil", ele disse. "Mas a evidência pública ainda não justifica a alegação mais forte de que resolveram o gargalo de atenção quadrática."
+
+## As Apostas Não Poderiam Ser Maiores
+
+Aqui está por que essa discussão importa além da valorização de uma única startup.
+
+Se a Subquadratic está certa, toda a paisagem de infraestrutura de IA se desloca. Pipelines RAG, estratégias de fragmentação, camadas de memória, gerenciamento de janela de contexto, toda a sofisticada estrutura que a indústria construiu para contornar o gargalo quadrático, se torna sobrecarga desnecessária. Um modelo que consegue ingerir doze milhões de tokens numa única passagem não precisa de pipeline de recuperação. Ele simplesmente lê os documentos. Uma empresa que hoje paga milhares de dólares para analisar um grande repositório de código poderia fazê-lo por troco de bala. A economia unitária de inferência despenca, e aplicações que antes eram caras demais para prototipar se tornam trivialmente baratas.
+
+Mais profundamente, significa que transformers não são o estado final da modelagem de linguagem. Desde 2017 o campo tem tratado a arquitetura transformer como ciência consolidada, uma fundação sobre a qual construir modelos maiores, treinamentos mais longos e receitas de pós-treinamento mais espertas. Se uma arquitetura não-transformer consegue igualar ou exceder o desempenho de transformers a uma fração do custo, a próxima década de pesquisa em IA pivota da escala para a inovação estrutural. Novas arquiteturas, novos paradigmas de treinamento, novas formas de pensar sobre o que é, afinal, um modelo de linguagem.
+
+Justin Dangel, CEO da Subquadratic e fundador pela quinta vez, é direto sobre a ambição. "Esperamos estar inaugurando uma nova era de eficiência", ele disse. "Não achamos que ninguém estará construindo em cima de transformers daqui a poucos anos."
+
+Isso é ou profecia ou soberba. A diferença será determinada não por comunicados à imprensa, mas pelo que acontece quando o resto do mundo coloca as mãos no modelo.
+
+## O que Acontece Agora
+
+A Subquadratic tem três produtos em beta privado. A API SubQ oferece inferência de contexto completo para desenvolvedores e equipes empresariais. O SubQ Code é um agente de programação em linha de comando projetado para carregar repositórios inteiros numa única janela de contexto e operar em todo o código sem a sobrecarga de orquestração de sistemas multi-agentes. O SubQ Search promete capacidades de pesquisa profunda na velocidade de um chatbot. Todos estão atrás de uma lista de espera.
+
+A empresa diz que só divulgará benchmarks futuros após verificação independente completa, uma lição aprendida com a reação contra o anúncio inicial tão enxuto. Se essa cautela restaura credibilidade depende de a próxima rodada de testes se sustentar.
+
+Enquanto isso, os grandes laboratórios estão observando de perto. Se a atenção esparsa realmente funciona em qualidade de ponta, o Google DeepMind, a OpenAI e a Anthropic não vão ignorar. Ou licenciam, ou replicam, ou aceleram seus próprios programas de pesquisa interna que exploram direções similares há anos. A Subquadratic patenteou sua arquitetura, o que significa que a indústria pode enfrentar uma escolha familiar: parceria, engenharia alternativa, ou litígio.
+
+Por enquanto, a posição honesta é incerteza. A Subquadratic produziu a alegação de arquitetura mais interessante em anos e respaldou com mais evidência do que a maioria das startups em stealth consegue. Mas a evidência ainda é fina pelos padrões de um campo que viu alegações audazes evaporarem antes. O modelo não é publicamente testável. Os pesos são emprestados. Os benchmarks, embora impressionantes, foram contratados pela própria empresa.
+
+O próximo passo não é outro benchmark. São milhares de desenvolvedores digitando consultas numa API ao vivo e relatando o que quebra. Quando isso acontecer, saberemos se o SubQ é o fim da era transformer ou apenas mais um comunicado à imprensa bonito.
+
+Até lá, a coisa mais segura a dizer é esta: algo importante pode estar acontecendo em Miami. E todo mundo que se importa com o futuro da IA deveria estar observando com muito cuidado.

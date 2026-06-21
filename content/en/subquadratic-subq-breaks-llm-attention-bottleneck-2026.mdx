@@ -1,0 +1,102 @@
+---
+title: "Is SubQ the Biggest Breakthrough Since the Transformer, or AI Theranos?"
+description: "A Miami startup called Subquadratic claims it solved the quadratic attention bottleneck that has defined LLM architecture for a decade. Independent tests look stunning. Skeptics remain unconvinced. Here is what we know, what we do not, and why the stakes could not be higher."
+date: "2026-06-21"
+translationKey: "subquadratic-subq-breaks-llm-attention-bottleneck-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI", "LLMs", "Transformers", "Sparse Attention", "Subquadratic", "Efficiency", "2026"]
+image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&q=80"
+imageAlt: "An abstract visualization of interconnected nodes glowing in blue and purple against a dark background, representing neural network attention patterns"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Subquadratic SubQ", "sparse attention LLM", "quadratic bottleneck transformers", "SubQ benchmarks 2026", "attention mechanism breakthrough", "LLM efficiency", "FlashAttention vs SubQ", "AI startup Miami", "transformer replacement", "subquadratic architecture"]
+tldr: "Miami-based AI startup Subquadratic claims its model SubQ solves the quadratic attention bottleneck that has constrained LLMs since 2017. Using dynamic sparse attention, SubQ reportedly achieves 56x faster inference than FlashAttention, a 12-million-token context window, and near-parity with Claude Opus 4.6 on coding benchmarks. Independent tests by Appen back key claims, but critics note SubQ bootstrapped on Qwen weights and remains unavailable to most users. The debate is whether SubQ is the biggest breakthrough since the Transformer or AI Theranos."
+faq:
+  - q: "What exactly did Subquadratic claim?"
+    a: "Subquadratic claims that its model, SubQ, is the first fully subquadratic large language model. Instead of dense attention, where every token is multiplied against every other token, SubQ uses dynamic sparse attention, slashing compute and enabling context windows up to 12 million tokens while matching frontier performance on coding and retrieval."
+  - q: "What are the independent test results?"
+    a: "Third-party evaluator Appen found SubQ to be 56 times faster than FlashAttention at the architecture level, scored 89.7% on LiveCodeBench, 98% on needle-in-a-haystack at 12 million tokens, and achieved an 81.8% on SWE-Bench Verified, comparable to Claude Opus 4.6."
+  - q: "Why are people calling it 'AI Theranos'?"
+    a: "Skepticism stems from several issues: SubQ is not publicly available yet, the company initially released only self-published benchmarks, and the model bootstrapped its weights from the Chinese open-source model Qwen rather than training from scratch. Some researchers feel these facts undercut the claim of having fully reinvented LLM architecture."
+  - q: "How does sparse attention differ from dense attention?"
+    a: "Dense attention, used by standard transformers since 2017, computes relationships between every pair of tokens in a sequence. For n tokens, this requires roughly n² operations. Sparse attention skips unnecessary comparisons, reducing compute growth from quadratic to linear or near-linear with sequence length. The trade-off has historically been worse performance, which Subquadratic claims to have finally overcome."
+  - q: "If true, what does this mean for the industry?"
+    a: "It would mean LLM inference costs could drop by orders of magnitude, context windows could expand to tens of millions of tokens, and tasks like analyzing entire codebases or document libraries in a single pass would become economically viable. It could also mean transformers are approaching obsolescence."
+  - q: "When can the public try it?"
+    a: "Subquadratic opened a private beta for API access, SubQ Code, and SubQ Search in June 2026. Tens of thousands have signed up, including over 500 enterprise customers, but most are on a waitlist. The company says limited resources prevent wider rollout."
+---
+
+# Is SubQ the Biggest Breakthrough Since the Transformer, or AI Theranos?
+
+## The Claim That Dropped on a Thursday
+
+Last month a startup based in Miami posted a blog post that landed like a brick through a stained glass window. Subquadratic, a company almost nobody had heard of, announced that it had solved the mathematical bottleneck holding back large language models. Not improved it. Not worked around it. Solved it.
+
+The bottleneck is the quadratic scaling of attention, the core mechanism inside every transformer. Since Google Brain published "Attention Is All You Need" in 2017, every major LLM has been built on the same fundamental operation: for every token in a sequence, multiply its encoded value against every other token. Ten thousand words means roughly fifty million multiplications. Twenty thousand words means two hundred million. The cost explodes. This is why your chatbot forgets the beginning of a long conversation. This is why running frontier models on large documents costs hundreds of dollars. This is why every major lab has an army of engineers working on chunked retrieval, memory layers, and RAG pipelines designed to hide the fact that the base architecture cannot affordably consume the very data it was supposed to reason about.
+
+Subquadratic said it fixed that. Its model, called SubQ, replaces dense attention with what it calls fully dynamic sparse attention. Instead of looking at every pair of words, SubQ decides on the fly which relationships actually matter and ignores the rest. The result, according to the company, is an architecture where compute grows linearly with context length rather than quadratically. Twelve million tokens. Fifty-six times faster than FlashAttention. Frontier-level coding scores. All at once.
+
+Dan McAteer, an AI engineer with a sharp following on X, captured the internet’s immediate reaction in one sentence: "SubQ is either the biggest breakthrough since the Transformer... or it’s AI Theranos."
+
+## From Thin Air to Thick Paper
+
+At first, the skepticism was easy. Subquadratic had announced a world-changing result with little more than a landing page, a press release, and a handful of self-published numbers. It had raised twenty-nine million dollars in seed funding from a roster that included a Tinder co-founder and early investors in Anthropic and Stripe. The team listed eleven PhD researchers from Meta, Google, Oxford, Cambridge, ByteDance, Adobe, and Microsoft. But none of that is proof of physics.
+
+Then, on June 19, 2026, the company began bringing receipts.
+
+MIT Technology Review published a deep reported piece by Will Douglas Heaven, and along with it Subquadratic released a model card and an independent evaluation conducted by Appen, a third-party firm that benchmarks models for other companies. Appen found that SubQ ran fifty-six times faster than FlashAttention in a direct architecture-level comparison. On LiveCodeBench, a competitive programming test drawn from real contests, SubQ scored 89.7%, squarely in the neighborhood of Claude Opus 4.6 and Gemini 3.1 Pro.
+
+The needle-in-a-haystack test, which buries a specific fact inside millions of tokens of irrelevant text, is where things got surreal. SubQ scored 98% at six million tokens and maintained that accuracy at twelve million tokens. Few models are even tested at that scale, and the ones that are usually degrade noticeably. Appen described it as "sustaining near-perfect long-context retrieval at scales few models are tested at."
+
+And the money side is what made venture capitalists sit up straight. Anthropic’s Opus 4.6 costs roughly $2,600 to run through the RULER 128 benchmark, which measures retrieval over large data sets. SubQ, Subquadratic claims, completed the same benchmark for eight dollars. That is not a minor improvement. That is a different planet.
+
+## How It Supposedly Works
+
+To understand why this matters you have to understand what dense attention actually does, and why doing less of it has been so hard.
+
+When a transformer reads a sentence, it assigns every word a vector, a list of numbers. To capture the meaning of the whole sentence, it multiplies every vector against every other vector. For five words, that is ten pairs. For ten words, forty-five pairs. For ten thousand words, about fifty million. That explosion is the quadratic bottleneck. Double the length, quadruple the cost. The math is brutal and unavoidable as long as you insist on looking at every pair.
+
+Sparse attention is the obvious workaround. Do not look at every pair. Look at some of them. Pick the ones that matter and skip the rest. Researchers have tried fixed patterns, sliding windows, local neighborhoods, and global summaries. The problem is always the same: if you skip the wrong comparison, you miss meaning. Skip too many and the model turns stupid. Keep too many and you are back to paying quadratic prices. Every previous sparse attention method made some version of this trade-off, and none of them matched dense attention on real tasks.
+
+Subquadratic says it cracked the selection problem itself. Instead of using a fixed rule for which tokens to compare, SubQ calculates the selection dynamically, on the fly, differently for each input. Alex Whedon, the company’s CTO and a former Meta engineer, describes it as teaching the model to pay attention to the right things rather than forcing it to pay attention to everything. He calls it "the secret sauce" and declines to share the exact mechanism, which is exactly what a proprietary startup would do and exactly what makes outside scientists nervous.
+
+Will Depue, an independent AI researcher who previously worked at OpenAI, is among the cautious voices. He told MIT Technology Review that solving sparse attention at frontier performance is "akin to running a four-minute mile." Not theoretically impossible, but so difficult that extraordinary evidence is required.
+
+## The Skepticism That Will Not Die
+
+Extraordinary evidence is exactly what is still missing for many observers.
+
+First, availability. SubQ is not widely accessible. Subquadratic says tens of thousands of users have signed up for early access and over five hundred enterprises are on the waitlist. But the company admits it has given almost nobody hands-on access yet. The reason offered is mundane enough, a young startup with limited infrastructure, but it means the independent verification so far consists of exactly one contracted evaluation by Appen.
+
+Second, provenance. SubQ did not train from scratch. It bootstrapped its weights from an open-source Chinese model called Qwen. This is common practice in the industry. Mistral, Llama derivatives, and dozens of other models have done similar things. But it complicates the narrative. If Subquadratic truly invented a new architecture that transcends transformers, critics ask, why did it need to borrow the learned representations from an existing transformer-based model? The company’s answer is pragmatic: training from scratch would take hundreds of millions of dollars and months of GPU time they do not yet have. Fine-tuning on Qwen proved the architecture works. Full pre-training comes later.
+
+Third, benchmarks are not the real world. A model can score brilliantly on synthetic tests and fail on messy, ambiguous, edge-case-rich production workloads. Appen’s tests are rigorous, but they are tests. Until thousands of developers run SubQ on actual codebases, actual legal documents, actual customer support tickets, the question of whether it generalizes remains open.
+
+Depue’s final assessment is measured. "They may have built something real and useful," he said. "But the public evidence does not yet justify the stronger claim that they have solved the quadratic attention bottleneck."
+
+## The Stakes Could Not Be Higher
+
+Here is why this argument matters beyond a single startup’s valuation.
+
+If Subquadratic is right, the entire landscape of AI infrastructure shifts. RAG pipelines, chunking strategies, memory layers, context-window management, all the elaborate scaffolding the industry has built to work around the quadratic bottleneck, become unnecessary overhead. A model that can ingest twelve million tokens in a single pass does not need a retrieval pipeline. It just reads the documents. An enterprise that today pays thousands of dollars to analyze a large codebase could do it for pocket change. The unit economics of inference collapse, and applications that were previously too expensive to even prototype become trivially cheap.
+
+More profoundly, it means transformers are not the end state of language modeling. Since 2017 the field has treated the transformer architecture as settled science, a foundation on which to build bigger models, longer training runs, and cleverer post-training recipes. If a non-transformer architecture can match or exceed transformer performance at a fraction of the cost, the next decade of AI research pivots away from scale and toward structural innovation. New architectures, new training paradigms, new ways of thinking about what a language model even is.
+
+Justin Dangel, Subquadratic’s CEO and a five-time founder, is blunt about the ambition. "We hope we’re kicking off a new age of efficiency," he said. "We don’t think anybody will be building on transformers in a few years."
+
+That is either prophecy or hubris. The difference will be determined not by press releases but by what happens when the rest of the world gets its hands on the model.
+
+## What Happens Next
+
+Subquadratic has three products in private beta. SubQ API offers full-context inference for developers and enterprise teams. SubQ Code is a command-line coding agent designed to load entire repositories into a single context window and operate across the whole codebase without the orchestration overhead of multi-agent systems. SubQ Search promises deep research capabilities at chatbot speed. All three are gated behind a waitlist.
+
+The company says it will release future benchmarks only after full third-party verification, a lesson learned from the backlash against its thin initial announcement. Whether that caution restores credibility depends on whether the next round of tests holds up.
+
+Meanwhile, the major labs are watching closely. If sparse attention truly works at frontier quality, Google DeepMind, OpenAI, and Anthropic will not ignore it. They will either license it, replicate it, or accelerate their own internal research programs that have been exploring similar directions for years. Subquadratic has filed patents on its architecture, which means the industry may face a familiar choice: partner, engineer around, or litigate.
+
+For now, the honest position is uncertainty. Subquadratic has produced the most interesting architecture claim in years and backed it with more evidence than most stealth startups manage. But the evidence is still thin by the standards of a field that has seen bold claims evaporate before. The model is not publicly testable. The weights are borrowed. The benchmarks, while impressive, are contracted by the company itself.
+
+The next step is not another benchmark. It is a thousand developers typing queries into a live API and reporting back what breaks. When that happens, we will know whether SubQ is the end of the transformer era or just another beautiful press release.
+
+Until then, the safest thing to say is this: something important might be happening in Miami. And everyone who cares about the future of AI should be watching very carefully.
