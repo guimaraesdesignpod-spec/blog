@@ -1,0 +1,114 @@
+---
+title: "The Coming Loop: Why AI Agents That Build Code Without Humans Should Scare and Excite You"
+description: "Armin Ronacher's viral essay 'The Coming Loop' argues that agentic coding loops are already here — and they're transforming software from a deterministic machine into an organism nobody fully understands."
+date: "2026-06-24"
+translationKey: "the-coming-loop-ai-software-engineering-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI Agents", "Agentic Coding", "Software Engineering", "Armin Ronacher", "Pi", "Claude Code", "Future of Work", "2026"]
+image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1080\u0026q=80"
+imageAlt: "Close-up of a glowing circuit board with intricate microchip patterns"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["agent loops coding", "Armin Ronacher The Coming Loop", "AI software engineering 2026", "Claude Code agent loop", "agentic coding future", "software as organism", "Pi coding agent", "autonomous coding agents", "AI replacing developers"]
+tldr: "Armin Ronacher's essay 'The Coming Loop' went viral on Hacker News and sparked a broad developer conversation about agentic coding loops. The core argument: the next evolution of AI coding assistants is not better chatbots, but 'harness loops' that keep agents running autonomously until some external signal says 'done.' This shifts software from something humans author and understand to something more like an organism: alive, evolving, and increasingly opaque. Ronacher is both excited and deeply uneasy. The article covers where loops work brilliantly (code porting, benchmarking, security scanning), where they fail (producing defensive, messy code with no invariants), and why opting out may not be an option — because attackers and competitors will loop whether you do or not."
+faq:
+  - q: "What is an 'agent loop' in coding?"
+    a: "An agent loop is a harness-level automation pattern where an AI coding agent is given a task, works on it, and then an external system decides whether the task is complete. If not, the harness injects another message, starts a fresh session, or passes the task to another agent. The loop continues beyond where a single model would normally say 'I'm done.'"
+  - q: "Who is Armin Ronacher and why does his opinion matter?"
+    a: "Armin Ronacher is the creator of Flask (one of the most popular Python web frameworks), Jinja2, and many other foundational open-source tools. He is also building Pi, a new coding agent. His perspective carries weight because he has spent decades writing and maintaining production software at scale, and he is now building the very tools he is critiquing."
+  - q: "Where do agent loops work well?"
+    a: "Ronacher identifies several domains where loops already excel: code porting (e.g., Bun from Zig to Rust, or MiniJinja to Go), performance exploration (automated benchmarking and discarding failures), security scanning, and research tasks that surface findings without committing long-lived code. The common thread: these tasks either transform existing code or produce intentionally temporary artifacts."
+  - q: "What are the dangers of agent loops?"
+    a: "The main risks include: (1) code that is overly defensive, overly complex, and lacks strong invariants; (2) loss of human understanding as codebases become 'organisms' diagnosed by machines; (3) cognitive dependency on AI tools that may become unavailable due to cost, trade restrictions, or model deprecation; and (4) pressure on maintainers from AI-generated vulnerability reports and competitive speed."
+  - q: "Can developers opt out of using agent loops?"
+    a: "Ronacher argues that full opt-out may not be possible. Even if you do not use loops to build your software, attackers will use loops against it. Security researchers will flood you with AI-generated reports. Competitors will out-build you with tiny teams orchestrating machines. The pressure to loop is structural, not optional."
+  - q: "What is 'software as organism'?"
+    a: "It is Ronacher's metaphor for a codebase that is no longer fully understood by any human. Instead of deterministic, peelable layers of logic, the system behaves more like a biological organism: you observe symptoms, run tests, apply patches, and hope it stabilizes — but nobody can hold the whole thing in their head anymore."
+---
+
+# The Coming Loop: Why AI Agents That Build Code Without Humans Should Scare and Excite You
+
+> "I don't prompt Claude anymore. I have loops running that prompt Claude and figuring out what to do. My job is to write loops."
+>
+> — Boris Cherny
+
+That quote, which opens Armin Ronacher's essay *The Coming Loop*, landed like a thunderclap on developer Twitter last week. Ronacher — the creator of Flask, Jinja2, and a dozen other foundational open-source tools — is not someone who throws around apocalyptic predictions for clicks. He is building [Pi](https://pi.dev/), a coding agent of his own. And he is telling us, with the precision of a man who has spent two decades writing software that millions depend on, that something fundamental is shifting in how code gets made.
+
+The essay went straight to the top of Hacker News. Not because it claimed AI will replace programmers tomorrow. The opposite, in fact. Ronacher's argument is subtler and more unsettling: the replacement is not happening in a single dramatic moment. It is happening loop by loop.
+
+## The Two Loops
+
+To understand what Ronacher is worried about, you need to distinguish two kinds of loops.
+
+The first is the **agent loop** inside every coding agent you have already used. Claude Code, Cursor, OpenAI's Codex CLI — they all work the same way. The model calls a tool, reads a file, edits code, runs a test, incorporates the result, and calls another tool. That loop is familiar. It has a human sitting nearby, steering, reviewing, sometimes intervening.
+
+The second is the **harness loop**: a layer above the agent. You put a task into a queue. A machine picks it up, works on it, stops. Then some harness — another piece of software, sometimes another model — decides whether that was actually the end. If not, the harness continues the same session, injects another prompt, starts a fresh session with modified context, or hands the task to a different agent entirely. The task stays alive beyond the point where any single model would have said "I'm done."
+
+This harness loop is not theoretical. It is already how some teams are building software. And it is changing the nature of the work in ways that make Ronacher — and a growing number of experienced engineers — deeply uneasy.
+
+## Where Loops Already Work Brilliantly
+
+Ronacher is careful not to dismiss the loop. In fact, he names several places where it already works astonishingly well.
+
+**Code porting** is the standout example. There are already impressive reports of large automatic porting efforts, including moving parts of [Bun from Zig to Rust](https://ziggit.dev/t/bun-is-being-ported-from-zig-to-rust/15330). Ronacher himself used a loop successfully to port MiniJinja to Go. The task is mechanical: transform this codebase into that language while preserving behavior. A loop can iterate, test, compare outputs, and keep going until the tests pass. There is little ambiguity about what "done" means.
+
+**Performance exploration** is another natural fit. A machine can try experiments, benchmark them, discard failures, and keep searching. The harness just needs some signal — a benchmark number, an LLM-as-judge evaluation — to decide whether to continue. No human needs to babysit every trial.
+
+**Security scanning** fits too, as does almost any research task where the goal is to surface findings rather than commit production code. The common thread, Ronacher notes, is that these tasks either transform existing code or produce artifacts that are intentionally temporary. They are mechanical translation, not creative construction.
+
+"I absolutely love loops already that take the boring parts out of my day to experiment and measure and to give me ideas," he writes. The enthusiasm is genuine. The concern is about what happens when we try to apply the same pattern to code that needs to last.
+
+## The Taste Problem
+
+Here is where Ronacher's essay bites. Present-day models, he observes, tend to produce code that is "too defensive, too complex, too local in its reasoning." They avoid strong invariants. They add fallbacks instead of making bad states impossible. They duplicate code, invent bad abstractions, and paper over unclear design with more machinery.
+
+Andre Karpathy put it memorably: models are "mortally terrified of exceptions." In systems where correctness matters — especially persisted data formats or core infrastructure — the right fix is not "handle every malformed case." The right fix is to make the malformed case unrepresentable. Yet even with a lot of manual steering, that kind of code does not come out of LLMs naturally.
+
+When you put that behavior behind a loop, you amplify it. Each iteration adds another small defense. The system slowly becomes less understandable while appearing more robust. "If each iteration adds another small defense, the system slowly becomes less understandable while appearing more robust," Ronacher warns. The more hands-off you are, the more that happens. It also teaches really bad practices when tools like this are given to junior developers without clear guidance.
+
+## Software as Organism
+
+The metaphor Ronacher reaches for is striking: we are moving from **software as a deterministic machine** to **software as an organism**.
+
+He became an engineer in an environment that encouraged understanding the machine. "There was always a layer you could peel off to deepen your understanding," he writes. Even when systems grew too large for any one person to hold entirely, there were engineers who knew where the invariants lived, which parts were load-bearing, which changes were safe. That understanding was regarded as something to improve upon, not outsource.
+
+With LLMs, we are pushing much further and much faster. We use them to write the code, diagnose the bugs, and propose patches. There are engineers whose first step after a production issue is to have a "clanker" read logs, propose root causes, and proactively put up a patch — which another machine then reviews, and sometimes lands on main without any human ever touching it.
+
+That is powerful. Ronacher does not deny it. "But giving in to that idea, particularly with less and less human oversight, means accepting that we may no longer understand the whole system in the same way. We treat it, we monitor it, we stabilize it, but we do not necessarily comprehend it."
+
+The organism metaphor is apt. Biology has spent billions of years building systems that survive without any centralized understanding. Doctors observe symptoms, form hypotheses, order tests, try remedies, and observe again. The body keeps going even when no single doctor understands it fully. Software is heading in that direction.
+
+Ronacher's question is whether that is a future we want for *all* software. "Not every line of code deserves human authorship," he concedes. "But do I want all software to be authored this way?"
+
+## You Cannot Quite Opt Out
+
+Perhaps the most uncomfortable section of the essay is the one titled "You Cannot Quite Opt Out."
+
+Even if you decide — as Ronacher has so far — that you will not use harness loops for code you deeply care about, the loops will still affect you. Security is the clearest example. Attackers are already running machines continuously against your software. Security researchers are flooding maintainers with AI-generated vulnerability reports, most of them noise, some of them real, all of them arriving at a volume that is nearly impossible to handle without throwing a machine at the problem.
+
+Daniel Stenberg's post about curl's "summer of bliss" is Ronacher's example. Curl is one of the most carefully maintained C projects in the world. Its core development does not rely on AI. Yet Stenberg and his co-maintainers are overwhelmed by reports, most of which are now AI-generated. The pressure to automate triage is immense.
+
+The same logic applies competitively. "Some teams will out-build others through raw speed," Ronacher writes. "Some startups will do with five people what used to require fifty." If your competitor's users are happy with the product their machines built, does it matter that no human fully understands it?
+
+## The Dependency Trap
+
+The scariest part, for Ronacher, is the new dependencies we are creating.
+
+Software has always depended on tools. He remembers paying for compilers. But the new dependency is not a one-time payment. It is constant, cognitive, and fragile. If a codebase is produced by loops, reviewed by loops, patched by loops, and kept alive by loops, what happens when you lose access to the same class of systems? What if trade restrictions take away the most powerful models? What if the cost becomes unbearable? What if your team simply loses the last remaining ability to understand the code without the machine?
+
+"We may create codebases that are not merely hard to maintain by humans, but that assume machine participation as part of their maintenance model," he warns. "This is already happening."
+
+People are already merging code they cannot fully explain. People are already losing the ability to write issue reports or participate in chat discussions without augmenting their messages through an LLM. Ronacher says he increasingly encounters people who converse with him "through the indirection of an LLM."
+
+"Again, maybe that is not even going to be wrong," he writes. "But it's a massive change to how we did things."
+
+## What Comes Next
+
+Ronacher ends the essay with a question, not an answer. "In a future of loops, how do we not abdicate judgment, how we can retain rules of good engineering, how we can ensure that responsible humans can continue to supervise, how we need to re-think how we architect code to retain sanity along the way."
+
+He is not calling for a ban on agent loops. He is building one. His concern is that the industry is sprinting toward a future without asking whether the infrastructure — the tooling, the visualization, the review processes, the educational pipelines — can support it.
+
+Better orchestration of agents will not restore human understanding. Neither will prettier dashboards. "Either we need to find clever ways to jolt the human back into the loop and make the changes of the loops legible long term," he writes, "or we need to find better ways to compose these ever more complex systems."
+
+The essay is a call for bounded experimentation, not blind embrace. Loop for porting. Loop for benchmarking. Loop for research. But when it comes to the code that runs your bank, your hospital, your infrastructure — maybe keep a human in the room who can explain why the invariant holds. Because once software becomes an organism, the organisms start making the decisions. And the rest of us are just watching the vital signs.

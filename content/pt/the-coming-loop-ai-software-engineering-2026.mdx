@@ -1,0 +1,114 @@
+---
+title: "O Loop que Veio: Por Que Agentes de IA que Programam Sozinhos Devem te Assustar e te Animar"
+description: "O ensaio viral de Armin Ronacher 'The Coming Loop' argumenta que loops de programação agentic já estão aqui — e estão transformando o software de máquina determinística em organismo que ninguém entende por completo."
+date: "2026-06-24"
+translationKey: "the-coming-loop-ai-software-engineering-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["Agentes de IA", "Programação Agentic", "Engenharia de Software", "Armin Ronacher", "Pi", "Claude Code", "Futuro do Trabalho", "2026"]
+image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1080\u0026q=80"
+imageAlt: "Close-up de uma placa de circuito brilhante com padrões intrincados de microchips"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["loops de agentes programação", "Armin Ronacher The Coming Loop", "engenharia de software IA 2026", "Claude Code agent loop", "futuro da programação agentic", "software como organismo", "agente de código Pi", "agentes autônomos de programação", "IA substituindo desenvolvedores"]
+tldr: "O ensaio 'The Coming Loop' de Armin Ronacher viralizou no Hacker News e desencadeou uma conversa ampla entre desenvolvedores sobre loops de programação agentic. O argumento central: a próxima evolução dos assistentes de IA para codificação não são chatbots melhores, mas 'loops de suporte' que mantêm agentes rodando de forma autônoma até que algum sinal externo diga 'pronto'. Isso muda o software de algo que humanos escrevem e entendem para algo mais parecido com um organismo: vivo, evoluindo e cada vez mais opaco. Ronacher está animado e profundamente inquieto ao mesmo tempo. O artigo cobre onde os loops funcionam brilhantemente (portar código, benchmarking, varredura de segurança), onde falham (produzindo código defensivo, bagunçado, sem invariantes), e por que não participar pode não ser uma opção — porque atacantes e competidores vão fazer loops quer você participe ou não."
+faq:
+  - q: "O que é um 'loop de agente' na programação?"
+    a: "Um loop de agente é um padrão de automação no nível do suporte onde um agente de IA para codificação recebe uma tarefa, trabalha nela, e então um sistema externo decide se a tarefa está completa. Se não estiver, o suporte injeta outra mensagem, inicia uma sessão nova com contexto modificado, ou passa a tarefa para outro agente. O loop continua além do ponto onde um único modelo normalmente diria 'terminei'."
+  - q: "Quem é Armin Ronacher e por que a opinião dele importa?"
+    a: "Armin Ronacher é o criador do Flask (um dos frameworks web Python mais populares), do Jinja2, e de várias outras ferramentas open-source fundamentais. Ele também está construindo o Pi, um novo agente de codificação. A perspectiva dele tem peso porque ele passou décadas escrevendo e mantendo software em produção em grande escala, e agora está construindo as mesmas ferramentas que está criticando."
+  - q: "Onde os loops de agentes funcionam bem?"
+    a: "Ronacher identifica vários domínios onde os loops já se destacam: portar código (por exemplo, Bun de Zig para Rust, ou MiniJinja para Go), exploração de performance (benchmarking automatizado e descartando falhas), varredura de segurança, e tarefas de pesquisa que revelam descobertas sem comprometer código de longa duração. O fio comum: essas tarefas ou transformam código existente ou produzem artefatos intencionalmente temporários."
+  - q: "Quais são os perigos dos loops de agentes?"
+    a: "Os principais riscos incluem: (1) código excessivamente defensivo, excessivamente complexo e sem invariantes fortes; (2) perda de entendimento humano à medida que bases de código se tornam 'organismos' diagnosticados por máquinas; (3) dependência cognitiva de ferramentas de IA que podem ficar indisponíveis por custo, restrições comerciais ou depreciação de modelos; e (4) pressão sobre mantenedores por relatórios de vulnerabilidade gerados por IA e velocidade competitiva."
+  - q: "Desenvolvedores podem optar por não usar loops de agentes?"
+    a: "Ronacher argumenta que não participar por completo pode não ser possível. Mesmo que você não use loops para construir seu software, atacantes vão usá-los contra você. Pesquisadores de segurança vão te inundar com relatórios gerados por IA. Competidores vão construir mais rápido com equipes minúsculas orquestrando máquinas. A pressão para fazer loops é estrutural, não opcional."
+  - q: "O que é 'software como organismo'?"
+    a: "É a metáfora de Ronacher para uma base de código que não é mais completamente entendida por nenhum humano. Em vez de camadas determinísticas e descascáveis de lógica, o sistema se comporta mais como um organismo biológico: você observa sintomas, roda testes, aplica correções, e espera que estabilize — mas ninguém consegue mais segurar a coisa toda na cabeça."
+---
+
+# O Loop que Veio: Por Que Agentes de IA que Programam Sozinhos Devem te Assustar e te Animar
+
+> "Eu não mais dou prompts pro Claude. Eu tenho loops rodando que dão prompts pro Claude e descobrem o que fazer. Meu trabalho é escrever loops."
+>
+> — Boris Cherny
+
+Essa frase, que abre o ensaio *The Coming Loop* de Armin Ronacher, caiu como um raio no Twitter de desenvolvedores na semana passada. Ronacher — criador do Flask, do Jinja2, e de uma dúzia de outras ferramentas open-source fundamentais — não é alguém que joga previsões apocalípticas pra ganhar clique. Ele está construindo o [Pi](https://pi.dev/), um agente de codificação próprio. E está nos dizendo, com a precisão de quem passou duas décadas escrevendo software que milhões dependem, que algo fundamental está mudando na forma como código é feito.
+
+O ensaio foi direto pro topo do Hacker News. Não porque afirmasse que IA vai substituir programadores amanhã. Pelo contrário, na verdade. O argumento de Ronacher é mais sutil e mais inquietante: a substituição não está acontecendo num momento dramático único. Está acontecendo loop a loop.
+
+## Os Dois Loops
+
+Pra entender o que Ronacher está preocupado, você precisa distinguir dois tipos de loop.
+
+O primeiro é o **loop de agente** dentro de todo agente de codificação que você já usou. Claude Code, Cursor, Codex CLI da OpenAI — todos funcionam da mesma forma. O modelo chama uma ferramenta, lê um arquivo, edita código, roda um teste, incorpora o resultado, e chama outra ferramenta. Esse loop é familiar. Tem um humano sentado por perto, dirigindo, revisando, às vezes intervindo.
+
+O segundo é o **loop de suporte**: uma camada acima do agente. Você coloca uma tarefa numa fila. Uma máquina pega, trabalha nela, para. Então algum suporte — outro software, às vezes outro modelo — decide se aquilo realmente acabou. Se não, o suporte continua a mesma sessão, injeta outro prompt, inicia uma sessão nova com contexto modificado, ou entrega a tarefa pra outro agente. A tarefa permanece viva além do ponto onde qualquer modelo individual teria dito "terminei".
+
+Esse loop de suporte não é teórico. É assim que alguns times já estão construindo software. E está mudando a natureza do trabalho de formas que deixam Ronacher — e um número crescente de engenheiros experientes — profundamente inquietos.
+
+## Onde os Loops Já Funcionam Brilhantemente
+
+Ronacher toma o cuidado de não descartar o loop. Na verdade, ele cita vários lugares onde ele já funciona de forma impressionante.
+
+**Portar código** é o exemplo mais marcante. Já há relatos impressionantes de esforços automáticos de portabilidade em grande escala, incluindo mover partes do [Bun de Zig pra Rust](https://ziggit.dev/t/bun-is-being-ported-from-zig-to-rust/15330). O próprio Ronacher usou um loop com sucesso pra portar o MiniJinja pra Go. A tarefa é mecânica: transformar essa base de código naquela linguagem preservando o comportamento. Um loop pode iterar, testar, comparar saídas, e continuar até os testes passarem. Há pouca ambiguidade sobre o que "pronto" significa.
+
+**Exploração de performance** é outro encaixe natural. Uma máquina pode tentar experimentos, fazer benchmarks, descartar falhas, e continuar procurando. O suporte só precisa de algum sinal — um número de benchmark, uma avaliação por um LLM-as-judge — pra decidir se continua. Nenhum humano precisa ficar de babá em cada tentativa.
+
+**Varredura de segurança** também se encaixa, assim como quase qualquer tarefa de pesquisa onde o objetivo é revelar descobertas em vez de comprometer código de produção. O fio comum, Ronacher nota, é que essas tarefas ou transformam código existente ou produzem artefatos intencionalmente temporários. São tradução mecânica, não construção criativa.
+
+"Eu absolutamente amo loops que já tiram as partes chatas do meu dia pra experimentar e medir e me dar ideias", ele escreve. O entusiasmo é genuíno. A preocupação é sobre o que acontece quando tentamos aplicar o mesmo padrão a código que precisa durar.
+
+## O Problema do Bom Gosto
+
+Aqui é onde o ensaio de Ronacher morde. Os modelos atuais, ele observa, tendem a produzir código "excessivamente defensivo, excessivamente complexo, com raciocínio excessivamente local". Eles evitam invariantes fortes. Adicionam fallbacks em vez de tornar estados ruins impossíveis. Duplicam código, inventam abstrações ruins, e encobrem design pouco claro com mais maquinaria.
+
+Andre Karpathy colocou de forma memorável: os modelos têm "terror mortal de exceções". Em sistemas onde a correção importa — especialmente formatos de dados persistentes ou infraestrutura central — a correção certa não é "lidar com todo caso malformado". A correção certa é tornar o caso malformado impossível de representar. Mesmo com muita orientação manual, esse tipo de código não sai naturalmente de LLMs.
+
+Quando você coloca esse comportamento atrás de um loop, você amplifica. Cada iteração adiciona outra pequena defesa. O sistema vai ficando lentamente menos compreensível enquanto parece mais robusto. "Se cada iteração adiciona outra pequena defesa, o sistema vai ficando lentamente menos compreensível enquanto parece mais robusto", Ronacher alerta. Quanto mais mãos-off você está, mais isso acontece. Também ensina práticas realmente ruins quando ferramentas assim são dadas a desenvolvedores juniores sem orientação clara.
+
+## Software como Organismo
+
+A metáfora que Ronacher busca é marcante: estamos passando de **software como máquina determinística** para **software como organismo**.
+
+Ele se tornou engenheiro num ambiente que encorajava entender a máquina. "Sempre havia uma camada que você podia descascar pra aprofundar seu entendimento", ele escreve. Mesmo quando sistemas cresciam demais pra qualquer pessoa segurar por completo, havia engenheiros que sabiam onde os invariantes moravam, quais partes eram estruturais, quais mudanças eram seguras. Esse entendimento era considerado algo a melhorar, não terceirizar.
+
+Com LLMs, estamos indo muito mais longe e muito mais rápido. Usamos eles pra escrever o código, diagnosticar os bugs, e propor correções. Há engenheiros cujo primeiro passo depois de um incidente em produção é pedir pra um "clanker" ler logs, propor causas raiz, e ativamente submeter um patch — que outra máquina então revisa, e às vezes mergeia na main sem nenhum humano ter tocado nele.
+
+Isso é poderoso. Ronacher não nega. "Mas ceder a essa ideia, particularmente com menos e menos supervisão humana, significa aceitar que talvez não mais entendamos o sistema todo da mesma forma. Tratamos, monitoramos, estabilizamos, mas não necessariamente compreendemos."
+
+A metáfora do organismo é adequada. A biologia passou bilhões de anos construindo sistemas que sobrevivem sem nenhum entendimento centralizado. Médicos observam sintomas, formam hipóteses, pedem exames, tentam remédios, e observam de novo. O corpo continua mesmo quando nenhum médico entende ele por completo. O software está indo nessa direção.
+
+A questão de Ronacher é se esse é um futuro que queremos pra *todo* software. "Nem toda linha de código merece autoria humana", ele concede. "Mas eu quero que todo software seja feito assim?"
+
+## Você Não Pode Simplesmente Ficar de Fora
+
+Talvez a seção mais desconfortável do ensaio seja a intitulada "You Cannot Quite Opt Out" [Você Não Pode Simplesmente Ficar de Fora].
+
+Mesmo que você decida — como Ronacher tem feito até agora — que não vai usar loops de suporte pra código que realmente se importa, os loops ainda vão te afetar. Segurança é o exemplo mais claro. Atacantes já estão rodando máquinas continuamente contra seu software. Pesquisadores de segurança estão inundando mantenedores com relatórios de vulnerabilidade gerados por IA, a maioria ruído, alguns reais, todos chegando num volume quase impossível de lidar sem jogar uma máquina no problema.
+
+O post de Daniel Stenberg sobre o "verão de felicidade" do curl é o exemplo de Ronacher. Curl é um dos projetos em C mais cuidadosamente mantidos do mundo. Seu desenvolvimento central não depende de IA. Mesmo assim, Stenberg e seus co-mantenedores estão sobrecarregados por relatórios, a maioria agora gerada por IA. A pressão pra automatizar triagem é imensa.
+
+A mesma lógica se aplica competitivamente. "Alguns times vão construir mais que outros pela velocidade bruta", Ronacher escreve. "Algumas startups vão fazer com cinco pessoas o que antes exigia cinquenta." Se os usuários do seu concorrente estão felizes com o produto que as máquinas deles construíram, importa que nenhum humano entendeu por completo?
+
+## A Armadilha da Dependência
+
+A parte mais assustadora, pra Ronacher, são as novas dependências que estamos criando.
+
+Software sempre dependeu de ferramentas. Ele lembra de pagar por compiladores. Mas a nova dependência não é um pagamento único. É constante, cognitiva, e frágil. Se uma base de código é produzida por loops, revisada por loops, corrigida por loops, e mantida viva por loops, o que acontece quando você perde acesso à mesma classe de sistemas? E se restrições comerciais tirarem os modelos mais poderosos? E se o custo se tornar insuportável? E se sua equipe simplesmente perder a última habilidade remanescente de entender o código sem a máquina?
+
+"Podemos criar bases de código que não são apenas difíceis de manter por humanos, mas que assumem participação de máquinas como parte do modelo de manutenção", ele alerta. "Isso já está acontecendo."
+
+Pessoas já estão mergeando código que não conseguem explicar por completo. Pessoas já estão perdendo a capacidade de escrever relatórios de issues ou participar de discussões em chat sem aumentar suas mensagens através de um LLM. Ronacher diz que encontra cada vez mais pessoas que conversam com ele "através da indireção de um LLM".
+
+"De novo, talvez isso nem esteja errado", ele escreve. "Mas é uma mudança massiva na forma como fazíamos as coisas."
+
+## O Que Vem Depois
+
+Ronacher encerra o ensaio com uma pergunta, não uma resposta. "Num futuro de loops, como não abdicamos do julgamento, como podemos reter as regras da boa engenharia, como podemos garantir que humanos responsáveis continuem supervisionando, como precisamos repensar a arquitetura de código pra manter a sanidade ao longo do caminho."
+
+Ele não está pedindo um banimento de loops de agentes. Ele está construindo um. A preocupação dele é que a indústria está correndo em direção a um futuro sem perguntar se a infraestrutura — as ferramentas, a visualização, os processos de revisão, os pipelines educacionais — pode suportar isso.
+
+Melhor orquestração de agentes não vai restaurar o entendimento humano. Nem dashboards mais bonitos. "Ou precisamos encontrar formas inteligentes de colocar o humano de volta no circuito e tornar as mudanças dos loops legíveis a longo prazo", ele escreve, "ou precisamos encontrar melhores formas de compor esses sistemas cada vez mais complexos."
+
+O ensaio é um chamado pra experimentação limitada, não abraço cego. Faça loops pra portar código. Faça loops pra benchmarking. Faça loops pra pesquisa. Mas quando se trata do código que roda seu banco, seu hospital, sua infraestrutura — talvez mantenha um humano na sala que possa explicar por que o invariante se mantém. Porque uma vez que o software se torna um organismo, são os organismos que começam a tomar as decisões. E o resto de nós só fica olhando os sinais vitais.
