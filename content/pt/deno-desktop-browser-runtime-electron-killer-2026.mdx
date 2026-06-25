@@ -47,7 +47,7 @@ Para entender por que o `deno desktop` importa, você precisa entender a raiva s
 
 O Electron foi um milagre quando chegou. Escreve uma vez em HTML, CSS e JavaScript. Empacota com Chromium e Node.js. Entrega um app desktop que funciona no macOS, Windows e Linux. Times do GitHub, Microsoft, Slack e milhares de startups adotaram porque deixava devs web construírem software desktop sem aprender C++ ou Swift.
 
-Mas o milagre veio com um custo. Todo app Electron inclui seu próprio runtime do Chromium. O Slack no seu Mac não usa Safari nem Chrome. Ele usa sua própria cópia privada do Chromium, devorando 200 a 400 MB de disco antes de você mandar uma única mensagem. O Spotify faz a mesma coisa. O Discord também. O VS Code também, embora os engenheiros da Microsoft tenham feito um trabalho heroico para manter esse mais enxuto.
+Mas o milagre veio com um custo. Todo app Electron inclui seu próprio runtime do Chromium. O Slack no seu Mac não usa Safari nem Chrome. Ele usa sua própria cópia privada do Chromium, devorando 200 a 400 MB de disco antes de você mandar uma única mensagem. O Spotify faz o mesmo. O Discord também. O VS Code idem, embora os engenheiros da Microsoft tenham feito um trabalho heroico para manter esse mais enxuto.
 
 O resultado é absurdo. Seu laptop roda cinco ou seis instâncias separadas do Chromium, cada uma consumindo RAM como uma cidade pequena, cada uma atualizando independentemente, cada uma com sua própria superfície de segurança. Um estudo de 2025 estimou que apps Electron em uma máquina típica de dev consumiam entre 2 e 4 gigabytes de RAM antes de qualquer conteúdo ser carregado. Os apps demoram para abrir, demoram para atualizar e são comicamente grandes para baixar.
 
@@ -65,7 +65,7 @@ Se você precisa de renderização idêntica em todas as plataformas — digamos
 
 A detecção automática de frameworks é onde as coisas ficam interessantes. O Deno Desktop reconhece automaticamente projetos Next.js, Astro, Fresh, Remix, Nuxt, SvelteKit, SolidStart, TanStack Start e Vite SSR. Aponta para o diretório e ele roda o servidor de produção no modo release, ou o servidor de dev com hot module replacement sob `--hmr`. Sem arquivos de configuração. Sem scripts de build para manter.
 
-A comunicação entre seu código backend do Deno e a UI da webview acontece através de canais em processo, não IPC baseado em socket. Os valores ainda são codificados ao cruzar a fronteira, mas não há round-trip entre processos. Para devs que já lutaram com a dança do `ipcMain` e `ipcRenderer` do Electron, isso é um alívio.
+A comunicação entre seu código backend do Deno e a UI da webview acontece através de canais em processo, não IPC baseado em socket. Os valores ainda são codificados ao cruzar a fronteira, mas não há round-trip entre processos. Para quem já apanhou da dança entre `ipcMain` e `ipcRenderer` do Electron, isso é um alívio.
 
 A compilação cruzada funciona de uma única máquina. Você consegue gerar builds para macOS, Windows e Linux sem ter cada plataforma. Os backends são baixados conforme necessidade, não compilados localmente.
 
@@ -75,13 +75,13 @@ E aí tem o sistema de auto-atualização. Publica um manifesto `latest.json` co
 
 O tópico do Hacker News foi um microcosmo de todo debate sobre frameworks desktop dos últimos dez anos, comprimido em algumas centenas de comentários e mil votos.
 
-A principal preocupação upvotada foi o problema da webview do sistema. Como um comentarista colocou: "Tauri no Mac tem muitos problemas com WebKit/Safari, especialmente em Macs antigos com motor mais velho. Seu app pode travar ou ficar infuncional." No Linux, a situação é pior. O WebKitGTK é notoriamente instável, particularmente no Wayland, e versões principais frequentemente não atualizam exceto durante releases do sistema. Um dev relatou que "Tauri no Linux é um inferno, e é melhor nem tentar alvo Linux com Tauri."
+A principal preocupação upvotada foi o problema da webview do sistema. Como um comentarista colocou: "Tauri no Mac tem muitos problemas com WebKit/Safari, especialmente em Macs antigos com motor mais velho. Seu app pode travar ou parar de funcionar." No Linux, a situação é pior. O WebKitGTK é notoriamente instável, particularmente no Wayland, e versões principais frequentemente não atualizam exceto durante releases do sistema. Um dev relatou que "Tauri no Linux é um inferno, e é melhor nem tentar mirar Linux com Tauri."
 
-Outro dev rebateu: "Eu uso Wails, que é tipo Tauri mas para Go, e não tenho os problemas que você mencionou. Talvez seja diferença entre Wails e Tauri." O debate sobre se o problema é o WebKitGTK em si ou como o Tauri o usa não foi resolvido, mas a ansiedade é real.
+Outro dev rebateu: "Eu uso Wails, que é tipo Tauri mas para Go, e não tenho os problemas que você mencionou. Talvez seja uma diferença entre Wails e Tauri." O debate sobre se o problema é o WebKitGTK em si ou como o Tauri o usa não foi resolvido, mas a ansiedade é real.
 
 A ideia de runtime CEF compartilhado gerou interesse particular. Um comentário destacou o item do roadmap do Deno: "CEF compartilhado entre apps. Hoje cada app inclui sua própria cópia do CEF. Um runtime gerenciado compartilhado reduziria o tamanho dos binários para poucos MB por app." A pergunta veio na sequência: quando apps diferentes precisam de versões diferentes do CEF, a gente não volta ao ponto de partida, com cada app incluindo seu próprio navegador?
 
-Um tópico mais filosófico perguntou se apps desktop ainda precisam existir em 2026. "Se você tem um app JS intenso que funciona bem em browsers antigos e bugados, então webview de plataforma pode funcionar para você. Não é ninguém, mas é quase ninguém." O contra-argumento é que apps web ainda não conseguem fazer tudo que apps nativos fazem — arquivos locais persistentes, ícones de bandeja, menus nativos, arquiteturas offline-first, e as características de performance que importam quando você está processando gigabytes de dados localmente.
+Um tópico mais filosófico perguntou se apps desktop ainda precisam existir em 2026. "Se você tem um app JS intenso que funciona bem em browsers antigos e bugados, então webview de plataforma pode funcionar para você. Não é zero gente, mas é quase zero." O contra-argumento é que apps web ainda não conseguem fazer tudo que apps nativos fazem — arquivos locais persistentes, ícones de bandeja, menus nativos, arquiteturas offline-first, e as características de performance que importam quando você está processando gigabytes de dados localmente.
 
 O consenso, se é que houve um, é que o Deno Desktop está resolvendo o problema certo da maneira certa, mas a prova estará no shipping. Consegue lidar com aplicações reais em escala? As inconsistências de webview no macOS e Linux serão gerenciáveis? O runtime CEF compartilhado realmente vai acontecer? As respostas virão de devs construindo com ele, não da documentação.
 
@@ -91,7 +91,7 @@ O Deno Desktop não é a primeira tentativa de derrubar o Electron. O Tauri vem 
 
 O que o Deno Desktop tem que os outros não têm é o peso completo de um ecossistema de runtime moderno por trás.
 
-O Deno em si já vem com suporte a TypeScript de fábrica. Sem briga com `tsconfig.json`. Sem Babel. Tem um modelo de permissões nativo, então seu app desktop não pode ler arquivos ou fazer requisições de rede sem opt-in explícito. Tem suporte a WebSocket, testes integrados e uma biblioteca padrão que rivaliza com a do Node mas sem a décadas de caos acumulado.
+O Deno em si já vem com suporte a TypeScript de fábrica. Sem briga com `tsconfig.json`. Sem Babel. Tem um modelo de permissões nativo, então seu app desktop não pode ler arquivos ou fazer requisições de rede sem opt-in explícito. Tem suporte a WebSocket, testes integrados e uma biblioteca padrão que rivaliza com a do Node mas sem as décadas de caos acumulado.
 
 A camada de compatibilidade npm significa que suas dependências existentes funcionam. A detecção automática de frameworks significa que seus projetos existentes compilam sem mudanças. Os bindings em processo significam que você não precisa aprender um novo padrão de IPC. O auto-updater significa que você não precisa construir o seu próprio. Tudo que o Electron forçou você a montar sozinho — segurança, atualizações, builds cross-platform, integração com frameworks — o Deno Desktop inclui por padrão.
 
@@ -99,7 +99,7 @@ Essa é a verdadeira vantagem do Deno. Não é um Electron melhor. É um tudo me
 
 ## O Caminho À Frente
 
-O `deno desktop` ainda não está estável. Ele está nos builds canary do Deno v2.9.0, e o time do Deno foi explícito que "o comando, as chaves de configuração e as APIs TypeScript ainda podem mudar antes do feature ser estável."
+O `deno desktop` ainda não está estável. Ele está nos builds canary do Deno v2.9.0, e o time do Deno foi explícito que "o comando, as chaves de configuração e as APIs TypeScript ainda podem mudar antes de o recurso se estabilizar."
 
 O roadmap é ambicioso. CEF compartilhado. Mais integrações de frameworks. Melhor suporte a Linux. O time sabe das lacunas, o que já é mais do que se pode dizer de alguns competidores.
 

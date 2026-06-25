@@ -31,7 +31,7 @@ faq:
 
 ## A Afirmação que Caiu como um Tijolo numa Quinta-feira
 
-No mês passado, uma startup de Miami publicou um post no blog que caiu como um tijolo através de uma vitral. Subquadratic, uma empresa que quase ninguém conhecia, anunciou ter resolvido o gargalo matemático que segura os grandes modelos de linguagem. Não melhorou. Não contornou. Resolveu.
+No mês passado, uma startup de Miami publicou um post no blog que caiu como um tijolo através de um vitral. Subquadratic, uma empresa que quase ninguém conhecia, anunciou ter resolvido o gargalo matemático que segura os grandes modelos de linguagem. Não melhorou. Não contornou. Resolveu.
 
 O gargalo é o escalonamento quadrático da atenção, o mecanismo central dentro de todo transformer. Desde que o Google Brain publicou "Attention Is All You Need" em 2017, todo LLM importante foi construído sobre a mesma operação fundamental: para cada token numa sequência, multiplique seu valor codificado contra todos os outros tokens. Dez mil palavras significam aproximadamente cinquenta milhões de multiplicações. Vinte mil palavras, duzentos milhões. O custo explode. É por isso que seu chatbot esquece o início de uma conversa longa. É por isso que rodar modelos de ponta em documentos grandes custa centenas de dólares. É por isso que todo grande laboratório tem um exército de engenheiros trabalhando em pipelines de recuperação, camadas de memória e sistemas RAG projetados para esconder o fato de que a arquitetura base não consegue, de forma acessível, consumir os próprios dados que deveria raciocinar sobre.
 
@@ -41,9 +41,9 @@ Dan McAteer, um engenheiro de IA com audiência ativa no X, capturou a reação 
 
 ## Do Ar Rarefeito ao Papel Grosso
 
-No começo, o ceticismo era fácil. A Subquadratic tinha anunciado um resultado capaz de mudar o mundo com pouco mais do que uma landing page, um comunicado à imprensa e alguns números auto-publicados. Tinha arrecadado vinte e nove milhões de dólares em rodada semente com investidores que incluíam um dos fundadores do Tinder e primeiros investidores da Anthropic e da Stripe. O time listava onze pesquisadores doutores vindo do Meta, Google, Oxford, Cambridge, ByteDance, Adobe e Microsoft. Mas nada disso prova física.
+No começo, o ceticismo era fácil. A Subquadratic tinha anunciado um resultado capaz de mudar o mundo com pouco mais do que uma landing page, um comunicado à imprensa e alguns números auto-publicados. Tinha arrecadado vinte e nove milhões de dólares em rodada semente com investidores que incluíam um dos fundadores do Tinder e primeiros investidores da Anthropic e da Stripe. O time listava onze pesquisadores doutores vindo do Meta, Google, Oxford, Cambridge, ByteDance, Adobe e Microsoft. Mas nada disso é prova científica.
 
-Aí, em 19 de junho de 2026, a empresa começou a apresentar recibos.
+Aí, em 19 de junho de 2026, a empresa começou a mostrar provas.
 
 A MIT Technology Review publicou uma reportagem aprofundada de Will Douglas Heaven, e junto com isso a Subquadratic divulgou um cartão de modelo e uma avaliação independente conduzida pela Appen, uma empresa externa que faz benchmark de modelos para outras companhias. A Appen encontrou que o SubQ rodou cinquenta e seis vezes mais rápido que o FlashAttention numa comparação direta de arquitetura. No LiveCodeBench, um teste de programação competitiva tirado de competições reais, o SubQ marcou 89,7%, diretamente na vizinhança do Claude Opus 4.6 e do Gemini 3.1 Pro.
 
@@ -53,13 +53,13 @@ E a parte financeira é o que fez os capitalistas de risco sentarem direito. O O
 
 ## Como Isso Supostamente Funciona
 
-Para entender por que isso importa você tem de entender o que a atenção densa realmente faz, e por que fazer menos dela foi tão difícil.
+Para entender por que isso importa, você precisa entender o que a atenção densa realmente faz, e por que fazer menos dela foi tão difícil.
 
-Quando um transformer lê uma frase, ele atribui a cada palavra um vetor, uma lista de números. Para capturar o significado da frase inteira, ele multiplica todo vetor contra todo outro vetor. Para cinco palavras, são dez pares. Para dez palavras, quarenta e cinco. Para dez mil, cerca de cinquenta milhões. Essa explosão é o gargalo quadrático. Dobrar o tamanho, quadruplicar o custo. A matemática é brutal e inevitável enquanto você insiste em olhar para todos os pares.
+Quando um transformer lê uma frase, ele atribui a cada palavra um vetor, uma lista de números. Para capturar o significado da frase inteira, ele multiplica cada vetor por todos os outros vetores. Para cinco palavras, são dez pares. Para dez palavras, quarenta e cinco. Para dez mil, cerca de cinquenta milhões. Essa explosão é o gargalo quadrático. Dobrar o tamanho, quadruplicar o custo. A matemática é brutal e inevitável enquanto você insiste em olhar para todos os pares.
 
 A atenção esparsa é a solução óbvia. Não olhe para todos os pares. Olhe para alguns. Escolha os que importam e ignore o resto. Pesquisadores tentaram padrões fixos, janelas deslizantes, vizinhanças locais e resumos globais. O problema é sempre o mesmo: se você ignorar a comparação errada, perde significado. Ignorar demais e o modelo fica burro. Manter demais e você volta a pagar preços quadráticos. Todo método de atenção esparsa anterior fez alguma versão dessa troca, e nenhum igualou a atenção densa em tarefas reais.
 
-A Subquadratic diz ter quebrado o próprio problema de seleção. Em vez de usar uma regra fixa para quais tokens comparar, o SubQ calcula a seleção dinamicamente, no momento, de forma diferente para cada entrada. Alex Whedon, CTO da empresa e ex-engenheiro do Meta, descreve como ensinar o modelo a prestar atenção nas coisas certas em vez de forçá-lo a prestar atenção em tudo. Ele chama isso de "o segredo do molho" e recusa compartilhar o mecanismo exato, o que é exatamente o que uma startup proprietária faria e exatamente o que deixa cientistas externos nervosos.
+A Subquadratic diz ter quebrado o próprio problema de seleção. Em vez de usar uma regra fixa para quais tokens comparar, o SubQ calcula a seleção dinamicamente, no momento, de forma diferente para cada entrada. Alex Whedon, CTO da empresa e ex-engenheiro do Meta, descreve como ensinar o modelo a prestar atenção nas coisas certas em vez de forçá-lo a prestar atenção em tudo. Ele chama isso de "o pulo do gato" e recusa compartilhar o mecanismo exato, o que é exatamente o que uma startup proprietária faria e exatamente o que deixa cientistas externos nervosos.
 
 Will Depue, um pesquisador independente de IA que trabalhou anteriormente na OpenAI, está entre as vozes cautelosas. Ele disse à MIT Technology Review que resolver a atenção esparsa em desempenho de ponta é "equivalente a correr uma milha em quatro minutos". Não teoricamente impossível, mas tão difícil que evidência extraordinária é necessária.
 
@@ -67,11 +67,11 @@ Will Depue, um pesquisador independente de IA que trabalhou anteriormente na Ope
 
 Evidência extraordinária é exatamente o que ainda falta para muitos observadores.
 
-Primeiro, disponibilidade. O SubQ não é amplamente acessível. A Subquadratic diz que dezenas de milhares de usuários se inscreveram para acesso antecipado e mais de quinhentas empresas estão na lista de espera. Mas a empresa admite que deu acesso prático a quase ninguém até agora. A razão apresentada é mundana o suficiente: uma startup jovem com infraestrutura limitada. Mas significa que a verificação independente até agora consiste em exatamente uma avaliação contratada pela Appen.
+Primeiro, disponibilidade. O SubQ não é amplamente acessível. A Subquadratic diz que dezenas de milhares de usuários se inscreveram para acesso antecipado e mais de quinhentas empresas estão na lista de espera. Mas a empresa admite que deu acesso prático a quase ninguém até agora. A razão apresentada é prosaica o bastante: uma startup jovem com infraestrutura limitada. Mas significa que a verificação independente até agora consiste em exatamente uma avaliação contratada pela Appen.
 
 Segundo, proveniência. O SubQ não foi treinado do zero. Partiu de pesos de um modelo chinês open-source chamado Qwen. Essa é uma prática comum na indústria. Derivados do Mistral, do Llama e dezenas de outros modelos fizeram coisas similares. Mas complica a narrativa. Se a Subquadratic realmente inventou uma nova arquitetura que transcende transformers, perguntam os críticos, por que precisou pegar emprestado as representações aprendidas de um modelo existente baseado em transformers? A resposta da empresa é pragmática: treinar do zero custaria centenas de milhões de dólares e meses de tempo em GPU que ela ainda não tem. O fine-tuning no Qwen provou que a arquitetura funciona. O pré-treino completo vem depois.
 
-Terceiro, benchmarks não são o mundo real. Um modelo pode pontuar brillantemente em testes sintéticos e falhar em cargas de trabalho de produção caóticas, ambíguas e ricas em casos extremos. Os testes da Appen são rigorosos, mas são testes. Até que milhares de desenvolvedores rodem o SubQ em repositórios de código reais, documentos jurídicos reais, tíquetes de suporte ao cliente reais, a questão de se ele generaliza permanece aberta.
+Terceiro, benchmarks não são o mundo real. Um modelo pode pontuar brilhantemente em testes sintéticos e falhar em cargas de trabalho de produção caóticas, ambíguas e ricas em casos extremos. Os testes da Appen são rigorosos, mas são testes. Até que milhares de desenvolvedores rodem o SubQ em repositórios de código reais, documentos jurídicos reais, tíquetes de suporte ao cliente reais, a questão de se ele generaliza permanece aberta.
 
 A avaliação final de Depue é equilibrada. "Eles podem ter construído algo real e útil", ele disse. "Mas a evidência pública ainda não justifica a alegação mais forte de que resolveram o gargalo de atenção quadrática."
 
@@ -79,11 +79,11 @@ A avaliação final de Depue é equilibrada. "Eles podem ter construído algo re
 
 Aqui está por que essa discussão importa além da valorização de uma única startup.
 
-Se a Subquadratic está certa, toda a paisagem de infraestrutura de IA se desloca. Pipelines RAG, estratégias de fragmentação, camadas de memória, gerenciamento de janela de contexto, toda a sofisticada estrutura que a indústria construiu para contornar o gargalo quadrático, se torna sobrecarga desnecessária. Um modelo que consegue ingerir doze milhões de tokens numa única passagem não precisa de pipeline de recuperação. Ele simplesmente lê os documentos. Uma empresa que hoje paga milhares de dólares para analisar um grande repositório de código poderia fazê-lo por troco de bala. A economia unitária de inferência despenca, e aplicações que antes eram caras demais para prototipar se tornam trivialmente baratas.
+Se a Subquadratic está certa, toda a paisagem de infraestrutura de IA se desloca. Pipelines RAG, estratégias de fragmentação, camadas de memória, gerenciamento de janela de contexto, toda a sofisticada estrutura que a indústria construiu para contornar o gargalo quadrático, se torna sobrecarga desnecessária. Um modelo que consegue ingerir doze milhões de tokens numa única passagem não precisa de pipeline de recuperação. Ele simplesmente lê os documentos. Uma empresa que hoje paga milhares de dólares para analisar um grande repositório de código poderia fazer o mesmo por trocados. A economia unitária de inferência despenca, e aplicações que antes eram caras demais para prototipar se tornam trivialmente baratas.
 
 Mais profundamente, significa que transformers não são o estado final da modelagem de linguagem. Desde 2017 o campo tem tratado a arquitetura transformer como ciência consolidada, uma fundação sobre a qual construir modelos maiores, treinamentos mais longos e receitas de pós-treinamento mais espertas. Se uma arquitetura não-transformer consegue igualar ou exceder o desempenho de transformers a uma fração do custo, a próxima década de pesquisa em IA pivota da escala para a inovação estrutural. Novas arquiteturas, novos paradigmas de treinamento, novas formas de pensar sobre o que é, afinal, um modelo de linguagem.
 
-Justin Dangel, CEO da Subquadratic e fundador pela quinta vez, é direto sobre a ambição. "Esperamos estar inaugurando uma nova era de eficiência", ele disse. "Não achamos que ninguém estará construindo em cima de transformers daqui a poucos anos."
+Justin Dangel, CEO da Subquadratic e fundador de cinco empresas, é direto sobre a ambição. "Esperamos estar inaugurando uma nova era de eficiência", ele disse. "Não achamos que ninguém estará construindo em cima de transformers daqui a poucos anos."
 
 Isso é ou profecia ou soberba. A diferença será determinada não por comunicados à imprensa, mas pelo que acontece quando o resto do mundo coloca as mãos no modelo.
 
@@ -95,7 +95,7 @@ A empresa diz que só divulgará benchmarks futuros após verificação independ
 
 Enquanto isso, os grandes laboratórios estão observando de perto. Se a atenção esparsa realmente funciona em qualidade de ponta, o Google DeepMind, a OpenAI e a Anthropic não vão ignorar. Ou licenciam, ou replicam, ou aceleram seus próprios programas de pesquisa interna que exploram direções similares há anos. A Subquadratic patenteou sua arquitetura, o que significa que a indústria pode enfrentar uma escolha familiar: parceria, engenharia alternativa, ou litígio.
 
-Por enquanto, a posição honesta é incerteza. A Subquadratic produziu a alegação de arquitetura mais interessante em anos e respaldou com mais evidência do que a maioria das startups em stealth consegue. Mas a evidência ainda é fina pelos padrões de um campo que viu alegações audazes evaporarem antes. O modelo não é publicamente testável. Os pesos são emprestados. Os benchmarks, embora impressionantes, foram contratados pela própria empresa.
+Por enquanto, a posição honesta é incerteza. A Subquadratic produziu a alegação de arquitetura mais interessante em anos e respaldou com mais evidência do que a maioria das startups em stealth consegue. Mas a evidência ainda é frágil pelos padrões de um campo que viu alegações audazes evaporarem antes. O modelo não é publicamente testável. Os pesos são emprestados. Os benchmarks, embora impressionantes, foram contratados pela própria empresa.
 
 O próximo passo não é outro benchmark. São milhares de desenvolvedores digitando consultas numa API ao vivo e relatando o que quebra. Quando isso acontecer, saberemos se o SubQ é o fim da era transformer ou apenas mais um comunicado à imprensa bonito.
 
