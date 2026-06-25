@@ -1,0 +1,92 @@
+---
+title: "OpenAI Built Its Own Chip — and Named It After a Pepper"
+date: "2026-06-25"
+lang: "en"
+translationKey: "openai-jalapeno-first-custom-chip-broadcom-2026"
+author: "Elisio Guimarães"
+description: "OpenAI unveiled Jalapeño, its first custom AI inference chip built with Broadcom in just nine months — using its own models to design it. Here's why this matters for the future of AI infrastructure."
+tags: ["OpenAI", "AI", "Broadcom", "Jalapeño", "Custom Chip", "Inference", "NVIDIA", "2026"]
+keywords: ["openai jalapeno chip", "openai custom chip broadcom", "openai first chip", "jalapeno inference chip", "ai accelerator", "openai broadcom partnership", "openai chip design 2026"]
+image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1024&h=576&fit=crop"
+imageAlt: "Close-up of a microchip circuit board, representing AI hardware and silicon design"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+tldr: "OpenAI announced Jalapeño, its first custom AI inference chip co-designed with Broadcom in just nine months. The chip is purpose-built for large language model inference, not general-purpose AI workloads. Early tests show substantially better performance-per-watt than current state-of-the-art accelerators. OpenAI used its own AI models to accelerate parts of the chip design process. The partnership marks OpenAI's move into full-stack vertical integration — from models and products down to silicon, kernels, memory systems, and data centers. A multi-generation roadmap will deploy at gigawatt scale with Microsoft and other partners starting in 2026."
+faq:
+  - q: What is the Jalapeño chip?
+    a: "Jalapeño is OpenAI's first custom-designed AI inference accelerator, built in partnership with Broadcom and Celestica. It is specifically architected around the unique demands of running large language models — not a general-purpose GPU adapted for AI workloads."
+  - q: How fast was the chip developed?
+    a: "From initial design to manufacturing tape-out, Jalapeño took just nine months. OpenAI claims this is the fastest ASIC development cycle ever achieved in high-performance advanced semiconductors, partly thanks to AI-assisted design and optimization."
+  - q: Will this replace NVIDIA GPUs for OpenAI?
+    a: "Not entirely. Jalapeño is designed specifically for inference — running pre-trained models to respond to user queries. More computationally intensive tasks like pre-training may still rely on NVIDIA hardware. But even modest reductions in inference cost can significantly improve OpenAI's economics at scale."
+  - q: Why is OpenAI designing its own chips?
+    a: "OpenAI wants vertical integration across the full stack: models, products, chip architecture, kernels, memory systems, networking, scheduling, and deployment systems. By designing more of the stack itself, OpenAI can optimize every layer for speed, reliability, and cost — reducing dependence on third-party hardware."
+  - q: When will Jalapeño be deployed?
+    a: "Initial deployment is planned for late 2026, with expansion over the following years. The chip will be deployed at gigawatt scale in data centers built with Microsoft and other partners."
+---
+
+# OpenAI Built Its Own Chip — and Named It After a Pepper
+
+On a Wednesday afternoon in late June, OpenAI did something it had been quietly building toward for years: it announced its first piece of custom silicon. The chip is called **Jalapeño**, it was built in partnership with **Broadcom**, and if the early numbers hold up, it could change the economics of running large language models at scale.
+
+This is not just another press release about a faster GPU. Jalapeño is an accelerator designed from scratch specifically for LLM inference — the moment when a trained model turns a user's prompt into a response. That might sound narrow, but inference is where the vast majority of AI compute actually happens. Training a model like GPT‑5.3 is a massive one-time event. Running it for a billion users, day after day, is where the real energy and money go.
+
+The announcement landed with 645 points on Hacker News within hours, generating over 360 comments. The community's reaction ranged from admiration at the nine-month tape-out speed to skepticism about whether OpenAI can really compete with NVIDIA's decades of silicon expertise. Both reactions are fair. This is a bold move, and bold moves are never guaranteed.
+
+## The Nine-Month Sprint
+
+Here is the number that matters most: **nine months**. That is how long it took OpenAI and Broadcom to go from initial architecture to manufacturing tape-out. In semiconductor terms, that is impossibly fast. The industry standard for a high-performance ASIC is closer to two to three years.
+
+OpenAI attributes part of that speed to its own AI models, which assisted in parts of the design and optimization process. The same models that write code for users on ChatGPT and Codex were also used to accelerate chip design decisions. It is a neat bit of recursion: AI helping design the hardware that will run future AI.
+
+Broadcom's role is the industrialization layer. The company provided silicon implementation expertise, networking technologies (including its Tomahawk networking silicon), and scalable production systems. Celestica handled board, rack, and system integration. The result is a chip that is already running ML workloads in the lab at production target frequency and power — including GPT‑5.3‑Codex‑Spark, one of OpenAI's latest models.
+
+## Why Inference, Not Training
+
+Jalapeño is not a general-purpose AI accelerator. It is not trying to be NVIDIA's H100 or Google's TPU. It is built for one job: making LLM inference faster, cheaper, and more reliable.
+
+That specificity matters. When you design a chip for a narrow workload, you can strip away everything that does not serve that goal. Jalapeño reduces data movement — one of the biggest bottlenecks in AI workloads — and balances compute, memory, and networking resources so that real-world utilization gets much closer to theoretical peak performance.
+
+Greg Brockman, OpenAI's President and Co-Founder, put it directly: "We have a deep understanding of the workload. We've really been looking for specific workloads that are underserved, [and asking] how can we build something that will be able to accelerate what's possible?"
+
+The answer, apparently, is a chip that optimizes around the kernels, memory movement, networking, and serving patterns that matter most for frontier AI models. OpenAI says early testing shows Jalapeño will deliver **substantially better performance per watt** than current state-of-the-art alternatives. A full technical report is promised in the coming months.
+
+## The Full-Stack Flywheel
+
+If you have been paying attention to OpenAI's strategy over the past two years, Jalapeño fits into a clear pattern. OpenAI is not just building models. It is building everything those models need to run: products like ChatGPT and Codex, the models themselves, data centers, and now custom chips.
+
+This is what the company calls the **full-stack advantage**. Each layer can be optimized around the same goal — making AI faster, more reliable, and more affordable. Better chips enable more efficient compute. More efficient compute enables better training and serving. Better serving powers more capable models. More capable models become better products. Better products drive more usage, more revenue, and more reinvestment into the next generation of infrastructure.
+
+It is a virtuous cycle, and it is the same playbook that made Apple so dominant in consumer electronics. When you control the hardware, the software, and the services, you can make trade-offs that no modular competitor can match.
+
+Of course, the risk is also higher. Designing chips is hard. Manufacturing them at scale is harder. And if the design turns out to have flaws, there is no swapping in an off-the-shelf GPU. OpenAI is committing to a path where its destiny is increasingly tied to its own hardware expertise.
+
+## What This Means for NVIDIA
+
+Let's be clear: Jalapeño is not going to kill NVIDIA. NVIDIA still dominates AI training, and its GPUs remain the default choice for anyone building frontier models. Google has TPUs. Amazon has Trainium and Inferentia. Microsoft has Maia. Every major cloud provider is developing custom silicon. OpenAI is simply joining the club.
+
+But the trend is unmistakable. The more AI companies design their own chips, the less dependent the industry becomes on a single supplier. For OpenAI specifically, even a modest reduction in inference costs could translate into hundreds of millions of dollars in savings annually, given ChatGPT's user base.
+
+Broadcom's CEO Hock Tan described the partnership as "a fundamental commitment to scaling the physical infrastructure required for the next decade of AI." He also hinted at what comes next: this is "just the beginning of a multi-generation roadmap" that will enable "gigawatt scale data centers" starting in 2026.
+
+## The Economics of Inference
+
+Why does inference matter so much? Because it is where AI reaches people.
+
+Every time you ask ChatGPT a question, every time Codex writes a function, every time an API call returns a generated sentence — that is inference. The cost of inference determines whether an AI product is profitable, whether it can be offered for free, and whether it can scale to billions of users.
+
+Training costs are front-loaded and dramatic. Inference costs are perpetual and compounding. A chip that makes inference 20% more efficient does not just save money once. It saves money on every single query, forever.
+
+OpenAI's framing is intentional here. Jalapeño is not about bragging rights in silicon design. It is about "democratizing AI" by making advanced models "available, dependable, and affordable enough for more people to use every day." Whether that framing holds up depends on whether the chip actually delivers the promised efficiency gains at scale.
+
+## Looking Ahead: The Multi-Generation Roadmap
+
+Jalapeño is not a one-off experiment. OpenAI and Broadcom are building a multi-generation compute platform. Engineering samples are already running workloads in the lab. Deployment with data center partners — including Microsoft — is planned for late 2026 and beyond.
+
+The long-term vision is ambitious: AI-designed chips running in gigawatt-scale data centers, serving models that are themselves improving on the infrastructure that runs them. It is a tightly coupled system where hardware and software co-evolve.
+
+Whether OpenAI can execute on that vision remains to be seen. Designing one chip in nine months is impressive. Building a sustainable chip program that can keep pace with the rapid evolution of AI models is a different challenge entirely. Silicon development cycles are measured in years. Model improvement cycles are measured in months. Keeping those two clocks synchronized is one of the hardest problems in technology today.
+
+But if anyone has the resources, the talent, and the incentive to try, it is OpenAI. The company has raised tens of billions of dollars, partners with the world's largest cloud provider, and now — with Jalapeño — has taken its first real step into the silicon layer.
+
+The pepper is small. The ambition is not.
