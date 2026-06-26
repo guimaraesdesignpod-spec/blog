@@ -1,0 +1,104 @@
+---
+title: "AI Unseals a 2,000-Year-Old Library: How Machine Learning Read an Entire Herculaneum Scroll"
+description: "For the first time, an entire Herculaneum scroll has been read from beginning to end without ever opening it. A combination of X-ray tomography and machine learning has cracked open the library of ancient Rome, and the implications go far beyond archaeology."
+date: "2026-06-26"
+translationKey: "ai-unseals-herculaneum-scroll-vesuvius-challenge-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI", "Machine Learning", "Archaeology", "Herculaneum", "Vesuvius Challenge", "Open Science", "2026"]
+image: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=1200"
+imageAlt: "An ancient stone column against a dramatic sky, evoking the ruins of classical antiquity and the lost library of Herculaneum"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Herculaneum scroll", "Vesuvius Challenge 2026", "AI archaeology", "machine learning ancient text", "PHerc 1667", "virtual unwrapping scroll", "carbonized papyrus", "Brent Seales", "open science", "ancient library AI"]
+tldr: "Researchers using high-resolution X-ray tomography and machine learning have virtually unwrapped and read an entire carbonized Herculaneum scroll, PHerc. 1667, for the first time in two millennia. The text is a Stoic philosophical treatise on ethics, possibly by Aristocreon, nephew of Chrysippus. The breakthrough was achieved by the Vesuvius Challenge community — many of whose members arrived as contestants — and all data and code have been released under open licences."
+faq:
+  - q: "What exactly was accomplished?"
+    a: "An international research team has virtually unwrapped and read PHerc. 1667, a carbonized Herculaneum scroll sealed since the eruption of Vesuvius in 79 AD. Using high-resolution phase-contrast X-ray microtomography and machine learning, they reconstructed the scroll's geometry, flattened its surface, and recovered the ink — producing the first complete, end-to-end reading of a rolled Herculaneum papyrus."
+  - q: "What does the text say?"
+    a: "The recovered text is a philosophical treatise on ethics, written in Greek, with themes of human nature, impulse, and moral progress. The final preserved column names Aristocreon, nephew and disciple of the Stoic philosopher Chrysippus, placing the work in a Stoic context and dating it to the 2nd century BC."
+  - q: "How was this done without opening the scroll?"
+    a: "The team scanned the carbonized roll with phase-contrast X-ray microtomography at the European Synchrotron Radiation Facility in Grenoble. They then reconstructed the scroll's 3D geometry, traced the wound papyrus sheet, flattened it into a readable surface, and used machine-learning models to detect ink traces that are nearly indistinguishable from the carbonized papyrus itself."
+  - q: "What is the Vesuvius Challenge?"
+    a: "The Vesuvius Challenge is an open, donation-funded competition launched in 2023 by computer scientist Brent Seales, former GitHub CEO Nat Friedman, and investor Daniel Gross. It invites the global public to apply machine learning to read the Herculaneum scrolls. Many of the researchers who achieved this breakthrough first arrived as contestants in the Challenge."
+  - q: "Is the data publicly available?"
+    a: "Yes. All tomographic data, reconstructed surfaces, and transcriptions are released under a Creative Commons licence at scrollprize.org/data and archived at the ESRF. The code is available on GitHub under the ScrollPrize organisation."
+  - q: "What comes next?"
+    a: "Hundreds of scrolls remain sealed. The method has been built to scale, and with the data and code open, the global research community can now apply the same pipeline to the remaining library. The goal is nothing less than recovering an entire ancient library that has been unreadable for nearly two thousand years."
+---
+
+# AI Unseals a 2,000-Year-Old Library: How Machine Learning Read an Entire Herculaneum Scroll
+
+## The Library That Survived by Becoming Unreadable
+
+There is a strange cruelty to preservation. The eruption of Mount Vesuvius in 79 AD buried the Roman town of Herculaneum under twenty-five metres of volcanic ash. In one of the villas, a private library of perhaps several hundred scrolls was flash-heated into carbon. The papyrus did not burn. It turned to charcoal, sealed inside its own blackened layers, protected from oxygen and time. The library survived. And for two thousand years, it remained unread.
+
+Any attempt to unroll a carbonized scroll by hand meant destroying it. Earlier efforts — in the nineteenth century, in 1969, in the 1980s — peeled away the outer layers of some scrolls and reduced them to fragments. PHerc. 1667, the scroll known to the Vesuvius Challenge community as Scroll 4, lost most of its outer surface to these attempts. What remained was a compact inner core, about eight centimetres tall, the remnant of an original roll that may have stood nineteen to twenty-four centimetres high. Roughly 1.4 metres of papyrus. Twenty-two columns of Greek text. Unreachable.
+
+Until this week.
+
+On June 25, 2026, a research team announced that PHerc. 1667 had been completely virtually unwrapped and read from beginning to end, without a single physical page ever being turned. The text is a philosophical treatise on ethics, written in Greek, belonging to the Stoic tradition. Its final preserved column names Aristocreon — nephew and disciple of Chrysippus, one of the most important Stoic philosophers of antiquity. The work almost certainly dates to the 2nd century BC.
+
+This is not a fragment. This is not a few isolated words. This is an entire scroll, read continuously, end to end, for the first time since before the birth of Christ.
+
+## The Method: Tomography, Geometry, and Machine Learning
+
+The breakthrough rests on three technologies that did not exist in anything like their current form when Brent Seales began working on the Herculaneum scrolls in the early 2000s.
+
+First, the scanning. The team used high-resolution phase-contrast X-ray microtomography at the BM18 beamline of the European Synchrotron Radiation Facility in Grenoble. Phase-contrast imaging detects not just how much radiation passes through an object, but how the X-rays are refracted by tiny variations in density. This makes it possible to distinguish the wafer-thin layers of carbonized papyrus inside a scroll from the voids between them. The resolution is high enough to see the texture of the sheet itself.
+
+Second, the reconstruction. A scroll is not a stack of flat pages. It is a continuous sheet wound in a spiral, compressed by two millennia of burial, often deformed and cracked. The team had to reconstruct the three-dimensional geometry of the wound sheet, trace its path through the volume, and then mathematically flatten that spiralled surface into a two-dimensional page. It is digital origami at the molecular scale.
+
+Third, and perhaps most difficult, the ink detection. The carbonized papyrus is essentially charcoal. The ink is also carbon-based. In a standard X-ray image, the two materials are nearly indistinguishable. The ink signal is faint, inconsistent, and buried inside a structure that is itself dark and complex. This is where machine learning enters.
+
+The team trained models to detect the subtle patterns that distinguish ink from papyrus. These are not off-the-shelf computer vision models. They are specialized architectures designed to operate on the specific statistical signatures of ancient carbon ink on carbonized cellulose. The models learn from small patches of confirmed ink, generalize across the scroll, and produce an enhanced image where the text emerges from the background noise.
+
+Every reading was then examined and transcribed by papyrologists — human experts in ancient Greek handwriting. The machine did not replace the scholar. It gave the scholar something to read.
+
+## What the Scroll Actually Says
+
+The recovered text is damaged. Portions of the papyrus surface are lost, and the gaps leave holes in the sentences. But enough remains to identify the subject, the style, and, in the final column, a name.
+
+The text is a treatise on ethics, turning on questions of human nature, impulse, and moral progress. The Stoic framework is clear: the author argues that goods and evils are defined relative to human nature, that practical wisdom is acquired through research and learning, and that happiness depends on alignment with one's own nature rather than external circumstance.
+
+Several passages can be read with reasonable confidence:
+
+> "...we will inquire into something, but we will not grasp it, if in some way we depart from ourselves and from our own nature..."
+
+> "Having...strained ourselves to the utmost through research and learning...possessing the same practical wisdom..."
+
+> "...such being the goods for us, even from the opposite evils there will be neither anything good — let alone beautiful — nor anything bad — let alone ugly — nor happiness..."
+
+The naming of Aristocreon in the final preserved column is significant. Aristocreon was the nephew of Chrysippus, the third head of the Stoic school and the philosopher who systematized Stoic logic, physics, and ethics in the 3rd century BC. If this text is by Aristocreon, or even about him, it places the work firmly within the early Stoic tradition and gives scholars a new primary source for a period that is poorly documented.
+
+This matters because the Herculaneum library is not a random collection. It appears to have belonged to a wealthy Roman patron with a specific philosophical taste. Roughly half the identified texts are by Philodemus, an Epicurean philosopher. The other half includes Stoic, Skeptic, and Peripatetic works. This is not a general library. It is a curated philosophical collection, and every new text changes our understanding of what ancient philosophy actually said.
+
+## Confirmation: The Paris Scroll and the Title Scroll
+
+The announcement included more than one scroll. In PHerc. Paris 4 — the scroll known as Scroll 1, which produced the first readable letters in the 2023 Vesuvius Challenge Grand Prize — the team applied a higher-resolution imaging technique that makes the ink directly visible inside the three-dimensional X-ray data for the first time.
+
+When segmented in 3D and projected back onto the unwrapped page, that ink matches the 2023 Grand Prize reading one-to-one. This is independent confirmation, from better data, that the earlier breakthrough was real. The machine learning was not hallucinating text. It was recovering text.
+
+In a third scroll, PHerc. 139, the team recovered the title and author attribution without unrolling the body at all. The work is identified as **Philodemus, *On Gods*, Book 8**. This is the first time a closed scroll has yielded its title — a tool that tells scholars what a roll contains before they invest the enormous effort of reading it column by column.
+
+## The Community That Did This
+
+There is a story about the structure of scientific discovery that is worth telling here, because it is not the usual one.
+
+The virtual unwrapping of Herculaneum scrolls was pioneered at the University of Kentucky by computer scientist Brent Seales. In 2023, Seales opened his lab's technology to the world through the Vesuvius Challenge — a public, donation-funded competition co-founded with Nat Friedman and Daniel Gross. The first letters were found by contestants. The 2023 Grand Prize was won by a three-person team from across the globe.
+
+What is less widely known is what happened next. Most of the full-time research team that read PHerc. 1667 first arrived as contestants. They entered the open competition, won prizes for breakthroughs, and were recruited onto the team. The people who achieved this are, in large part, the global community the Challenge created.
+
+All the data is open. The tomographic volumes, the reconstructed surfaces, the transcriptions, and the code are released under Creative Commons licences at scrollprize.org/data and archived at the ESRF. The code is on GitHub. Anyone can check the work, improve it, and apply it to the hundreds of scrolls that remain.
+
+This is what open science looks like when it works. It is not a press release. It is a methodology, a dataset, and a community.
+
+## Why This Matters Beyond Archaeology
+
+The Herculaneum scrolls are often described as a time capsule. That is not quite right. A time capsule is deliberately sealed and left for the future. The scrolls are the opposite: they were accidentally preserved by catastrophe. Their survival is a geological accident. Their reading is a technological achievement.
+
+But the reason the story resonates beyond archaeology is that it represents a convergence of technologies that is becoming familiar. High-resolution imaging, three-dimensional reconstruction, and machine learning are being applied to problems that were previously considered impossible because they required human-like perception at scales humans cannot operate at. This same toolkit is being used to map neural circuits, to detect forgery in art, to read damaged manuscripts in other languages, and to reconstruct shredded documents.
+
+The Herculaneum scrolls are a proof of concept for a new kind of reading. Not reading with eyes, but reading with models. Not opening books, but reconstructing them. The text recovered from PHerc. 1667 is about human nature and moral progress. The method used to recover it is about what human-machine collaboration can achieve when the machine is trained to see what the human cannot.
+
+There are hundreds of scrolls still sealed. An entire library, possibly the only surviving collection of its kind, waits in darkness. The first scroll took two thousand years to read. The next ones will be faster. The community exists. The code exists. The data exists. The library is opening.
