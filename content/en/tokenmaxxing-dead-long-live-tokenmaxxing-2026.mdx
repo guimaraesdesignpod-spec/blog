@@ -1,0 +1,114 @@
+---
+title: "Tokenmaxxing Is Dead, Long Live Tokenmaxxing: The Economics of AI Agents at Scale"
+description: "From Meta's performance-review token quotas to the era of compounding correctness: why spending more tokens now produces better results, and what that means for the future of AI economics."
+date: "2026-06-29"
+lang: "en"
+translationKey: "tokenmaxxing-dead-long-live-tokenmaxxing-2026"
+author: "Brainwire"
+tags: ["AI Agents", "Token Economics", "Compounding Correctness", "AI Native Engineering", "Meta", "Anthropic", "OpenAI", "2026"]
+image: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=1200&q=80"
+imageAlt: "Stacks of golden coins and tokens, symbolising the new economics of AI agent computation"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["tokenmaxxing", "compounding correctness", "AI agent economics", "token spend AI", "AI native engineering 2026", "agent loop architecture", "Meta AI tokens", "AI agent cost"]
+tldr: "A few months ago, Meta made headlines for tying employee performance reviews to token usage — a phenomenon dubbed 'tokenmaxxing' that led to agents talking to each other just to burn compute. The practice was mocked as corporate waste. But a new paradigm called 'compounding correctness' suggests tokenmaxxing wasn't wrong — it was just early. As AI agents improve, spending more tokens increasingly produces better outcomes rather than worse ones. Teams at the cutting edge are already building infrastructure to run agents 24/7. The economics of AI are about to flip: from conserving tokens to spending them deliberately, at scale, with returns."
+faq:
+  - q: "What is tokenmaxxing?"
+    a: "Tokenmaxxing was a practice, notably at Meta, where employees were incentivised to maximise their token usage — the compute cost of running AI models — as a performance metric. It led to agents generating pointless conversations and useless outputs just to hit quotas."
+  - q: "What is compounding correctness?"
+    a: "Compounding correctness is the observation that as AI agents improve, spending more tokens on a task increasingly produces better outcomes rather than compounding errors. In older models, long agent runs would accumulate hallucinations and mistakes. Newer models show the opposite: more token spend leads to more correct results."
+  - q: "Why did tokenmaxxing fail at Meta?"
+    a: "It failed because at the time, agents were not good enough for long unsupervised runs. More tokens meant more compounding errors, not more correctness. The incentives were misaligned with the technology's actual capabilities."
+  - q: "How does this change AI economics?"
+    a: "It flips the incentive structure. Previously, the goal was to minimise token spend. Now, teams are realising that maximising token spend — within reason — can produce superior results. This creates a new economics where the winners are those who can spend tokens most effectively, not those who conserve them."
+---
+
+# Tokenmaxxing Is Dead, Long Live Tokenmaxxing
+
+A few months ago, the internet had a field day with Meta.
+
+The story was almost too perfect to believe: Meta had apparently tied employee performance reviews to token usage. If you weren't burning enough compute — if your Claude or Cursor sessions weren't generating enough API calls — you might get flagged in your quarterly review. The canonical example, reported by multiple employees, was agents literally talking to each other in endless loops just to pump up the numbers. One engineer described having two AI agents converse back and forth throughout the day, generating thousands of tokens of meaningless dialogue, so her metrics would look good.
+
+The internet's verdict was swift and unanimous: this was corporate absurdity at its finest. Executives were burning shareholder money on compute quotas that produced nothing. Employees were gaming a broken system. The whole thing was a perfect metaphor for how AI hype had divorced itself from reality.
+
+But here's the uncomfortable part: the executives weren't stupid. They were just early.
+
+## The Blunt Force Theory of Adoption
+
+The tokenmaxxing story makes more sense if you understand what problem Meta was actually trying to solve. This was not, as the public narrative suggested, a bunch of executives who had lost their minds and decided to set money on fire. It was a deliberate — if crude — strategy to force AI adoption through an organisation that had been deeply resistant to it.
+
+A few months ago, there were still a lot of people at Meta who didn't want to use AI tools. Senior engineers, respected technical leads, people who had built careers on deep institutional knowledge and who saw AI coding assistants as toys or threats. Convincing them to change their workflows was like pushing a boulder uphill. When you asked them to try Claude or Cursor, they would "accidentally" use the tools in ways that produced obviously bad outcomes — almost as if to prove that the tools didn't work.
+
+Tokenmaxxing was the boulder pushed downhill. Yes, it was blunt. Yes, it created perverse incentives. But blunt force was arguably the only thing that would break through the wall of organisational inertia. And by most accounts, it worked. Six months later, basically everyone at Meta is using AI to code, at least a little bit. The holdouts have been converted. The culture has shifted.
+
+The problem is that the incentives are now gone, and the cost has gone way up.
+
+## The Cost Crisis
+
+OpenAI and Anthropic are both trying to go public. That means they need to show revenue, which means they need to stop subsidising tokens. In the past year, both companies have quietly reduced what their subscriptions provide while jacking up API pricing. The unlimited-token policies that made tokenmaxxing possible are being rolled back across the industry. Teams that were encouraged to spend freely are now being told to justify every API call.
+
+So tokenmaxxing, in its original form, is dead. The incentives that created it have vanished, and the costs that made it viable have exploded.
+
+Except something else is happening at the same time. The technology has gotten dramatically better.
+
+## Enter Compounding Correctness
+
+For most of the past two years, the dominant problem with AI agents was what engineers called "compounding error." If you let an agent run unsupervised for any length of time, small mistakes would accumulate. A hallucination in step three would get baked into step four. A wrong assumption in step seven would cascade through steps eight through fifteen. The longer the agent ran, the worse its output became. Spending more tokens didn't produce better results — it produced more elaborate mistakes.
+
+This is why tokenmaxxing failed at Meta. The agents weren't good enough yet. If spending more tokens resulted in worse work, then obviously nobody should spend more tokens.
+
+But that's no longer true. We're now entering what some researchers are calling the era of "compounding correctness" — the mirror image of the old problem. In this new regime, spending more tokens generally results in better results. The more tokens you spend on getting a task correct, the more likely you are to get a good outcome. The agent doesn't just spin its wheels; it iterates, refines, catches its own mistakes, and improves.
+
+This is not a marginal improvement. It's a regime change.
+
+## The Proof of Work Analogy
+
+The implications of compounding correctness were most vividly illustrated in the cybersecurity world a few months ago, when Anthropic released Mythos — a model so capable at computer security tasks that Anthropic didn't release it publicly at all. Instead, they gave access only to critical software makers so those organisations could harden their systems before attackers got their hands on it.
+
+The AI Safety Institute, in its evaluation of Mythos, budgeted 100 million tokens for each exploit-discovery attempt. That's $12,500 per attempt. Ten attempts cost $125,000. The striking finding: none of the models showed signs of diminishing returns. "Models continue making progress with increased token budgets across the token budgets tested," the AISI reported. If you kept throwing tokens at the problem, the model kept finding vulnerabilities.
+
+This isn't a bug. It's a feature. And it reframes security as an economic problem rather than a technical one. As one security researcher noted: "To harden a system you need to spend more tokens discovering exploits than attackers will spend exploiting them." You don't get points for being clever. You win by paying more. It's proof of work, but for AI.
+
+The same pattern is appearing in software engineering. Agent "loops" — where an AI agent runs until it reaches the end of its turn, then simply restarts with the same prompt — are becoming standard practice. The concept has been around since last year, but it used to be unreliable. Early loops would compound errors. Now, with better models, loops compound correctness. A task that might take a single agent session thirty minutes of careful prompting can now be solved by an agent running in a loop overnight, with the human reviewing the result in the morning.
+
+## The New Economics
+
+This flips the entire economics of AI on its head.
+
+For the past two years, the winning strategy has been token conservation. Use the cheapest model that can do the job. Cache aggressively. Minise context windows. The companies that won were the ones that figured out how to get 90% of the value for 10% of the compute cost.
+
+That logic is now inverted. If spending more tokens produces better outcomes, then the winning strategy becomes token maximisation — but token maximisation with purpose. Not the mindless tokenmaxxing of Meta's performance reviews, where the goal was just to hit a number. But deliberate, orchestrated token spend designed to produce outcomes that would be impossible with smaller budgets.
+
+We're already seeing this at the cutting edge. Teams are building infrastructure to run agents 24/7. They're creating "agent loops" that iterate on problems for hours or days. They're treating token spend not as a cost to be minimised but as an investment to be optimised.
+
+And here's the kicker: this is still the early days. The models are getting better every month. The gap between "what a human can do in an hour" and "what an agent can do with $50 worth of tokens" is narrowing fast. At some point — and that point is closer than most people think — it will be cheaper to run an agent for a day than to pay a human engineer for an hour.
+
+## What This Means for Engineers
+
+If you're a software engineer, this should make you deeply uncomfortable — and also deeply excited.
+
+The uncomfortable part is that the middle of the engineering skill distribution is being hollowed out. Generalist software engineers whose primary value was implementation throughput — the ability to quickly build CRUD apps, wire up APIs, scaffold frontend components — are finding that AI can do 80% of their job for 5% of the cost. As one engineering leader put it recently: "The market is repricing software engineering labour. For years it rewarded implementation throughput. Now it's collapsing the premium for implementation-heavy work and raising the premium for deep expertise and real systems intuition."
+
+The exciting part is that expertise is getting more valuable, not less. The engineer who knows one hard thing exceptionally well — distributed systems, security architecture, performance optimisation, machine learning infrastructure — is becoming more indispensable, not less. AI can generate code, but it can't yet replace judgment earned through years of debugging production failures at 3 AM.
+
+The transition is messy. Some engineers will adapt by going deeper. Others will find themselves in roles that didn't exist a year ago: "AI native" engineering, where the job isn't writing code but orchestrating agents, reviewing their outputs, and intervening when they go off the rails. Still others will discover that their skills transfer surprisingly well to adjacent domains where AI is less mature.
+
+## The Infrastructure Race
+
+The companies that win the next phase of AI won't necessarily be the ones with the best models. They'll be the ones with the best agent infrastructure.
+
+Running agents at scale is not trivial. You need orchestration systems that can manage thousands of concurrent agent sessions. You need monitoring and observability tools that can track what agents are doing in real time. You need guardrails and sandboxing to prevent agents from causing damage when they make mistakes — because even in the era of compounding correctness, mistakes still happen.
+
+Anthropic has been unusually prescient about this. Their "zero trust for AI agents" framework, published last month, starts from the assumption that any agent is a potential attacker and that breaches are inevitable. This isn't doomerism; it's realism. Agents have identities, they have permissions, they make autonomous decisions, and they can be hijacked by a single malicious sentence buried in a document they were asked to read. The infrastructure to manage this safely is at least as important as the models themselves.
+
+Google DeepMind, meanwhile, has announced a $10 million research fund specifically to study multi-agent safety — what happens when millions of agents start interacting with each other. The concern is not theoretical. As more agents get deployed throughout the economy, the risks scale from individual errors to systemic failures: coordinated scams, prompt-injection attacks at machine speed, and emergent behaviours that no single agent was designed to produce.
+
+## The Bottom Line
+
+Tokenmaxxing was mocked because it was premature. The technology wasn't ready for the kind of scale Meta was pushing. Agents that talked to each other all day to pump up metrics weren't producing value; they were producing noise.
+
+But the underlying insight was directionally correct. In a world where AI agents improve with more compute, the organisations that learn to spend tokens effectively will outperform the organisations that conserve them. The question is no longer "how do we use less AI?" It's "how do we use more AI, more intelligently?"
+
+The tokenmaxxing era at Meta will be remembered, if it's remembered at all, as a clumsy first attempt at a much bigger shift. The real tokenmaxxing — deliberate, orchestrated, compounding-correctness token spend at scale — hasn't even started yet. When it does, it will look less like corporate waste and more like the new default for how knowledge work gets done.
+
+The future belongs not to the engineers who write the most code, but to the ones who can make a thousand agents work together to solve a problem that no single human could solve alone. And yes, that future will consume an astronomical number of tokens. But unlike the tokenmaxxing of six months ago, those tokens will actually be buying something.
