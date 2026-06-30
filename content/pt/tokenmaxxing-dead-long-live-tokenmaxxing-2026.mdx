@@ -53,7 +53,7 @@ Exceto que algo mais está acontecendo ao mesmo tempo. A tecnologia melhorou dra
 
 ## A Chegada da Correção Composta
 
-Durante a maior parte dos últimos dois anos, o problema dominante com agentes de IA era o que os engenheiros chamavam de "erro acumulativo." Se você deixasse um agente rodar sem supervisão por qualquer período de tempo, pequenos erros se acumulavam. Uma alucinação na etapa três se incorporava à etapa quatro. Uma suposição errada na etapa sete cascateava pelas etapas oito a quinze. Quanto mais tempo o agente rodava, pior ficava sua saída. Gastar mais tokens não produzia resultados melhores — produzia erros mais elaborados.
+Durante a maior parte dos últimos dois anos, o problema dominante com agentes de IA era o que os engenheiros chamavam de "erro acumulativo." Se você deixasse um agente rodar sem supervisão por qualquer período de tempo, pequenos erros se acumulavam. Uma alucinação na etapa três se incorporava à etapa quatro. Uma suposição errada na etapa sete cascateava pelas etapas oito a quinze. Quanto mais tempo o agente rodava, pior ficava seu resultado. Gastar mais tokens não produzia resultados melhores — produzia erros mais elaborados.
 
 É por isso que o tokenmaxxing falhou na Meta. Os agentes ainda não eram bons o suficiente. Se gastar mais tokens resultava em trabalho pior, então obviamente ninguém deveria gastar mais tokens.
 
@@ -65,7 +65,7 @@ Isso não é uma melhoria marginal. É uma mudança de regime.
 
 As implicações da correção composta foram mais vividamente ilustradas no mundo da cibersegurança há alguns meses, quando a Anthropic lançou o Mythos — um modelo tão capaz em tarefas de segurança de computadores que a Anthropic nem o liberou publicamente. Em vez disso, deram acesso apenas a fabricantes de software críticos para que essas organizações pudessem fortalecer seus sistemas antes que invasores colocassem as mãos neles.
 
-O Instituto de Segurança de IA, em sua avaliação do Mythos, orçou 100 milhões de tokens para cada tentativa de descoberta de exploração. Isso é $12.500 por tentativa. Dez tentativas custaram $125.000. A descoberta impressionante: nenhum dos modelos mostrou sinais de retornos decrescentes. "Os modelos continuam fazendo progresso com orçamentos de tokens aumentados entre os orçamentos de tokens testados," relatou o AISI. Se você continuasse jogando tokens no problema, o modelo continuava encontrando vulnerabilidades.
+O Instituto de Segurança de IA, em sua avaliação do Mythos, orçou 100 milhões de tokens para cada tentativa de descoberta de exploração. Isso é US$ 12.500 por tentativa. Dez tentativas custaram US$ 125.000. A descoberta impressionante: nenhum dos modelos mostrou sinais de retornos decrescentes. "Os modelos continuam fazendo progresso com orçamentos de tokens aumentados entre os orçamentos de tokens testados," relatou o AISI. Se você continuasse jogando tokens no problema, o modelo continuava encontrando vulnerabilidades.
 
 Isso não é um bug. É uma característica. E redefine a segurança como um problema econômico em vez de técnico. Como um pesquisador de segurança observou: "Para endurecer um sistema, você precisa gastar mais tokens descobrindo explorações do que os invasores gastarão explorando-as." Você não ganha pontos por ser esperto. Você ganha pagando mais. É prova de trabalho, mas para IA.
 
@@ -75,13 +75,13 @@ O mesmo padrão está aparecendo na engenharia de software. "Loops" de agentes �
 
 Isso inverte toda a economia da IA de cabeça para baixo.
 
-Durante os últimos dois anos, a estratégia vencedora foi a conservação de tokens. Use o modelo mais barato que pode fazer o trabalho. Faça cache agressivamente. Minimise as janelas de contexto. As empresas que venceram foram as que descobriram como obter 90% do valor por 10% do custo computacional.
+Durante os últimos dois anos, a estratégia vencedora foi a conservação de tokens. Use o modelo mais barato que pode fazer o trabalho. Faça cache agressivamente. Minimize as janelas de contexto. As empresas que venceram foram as que descobriram como obter 90% do valor por 10% do custo computacional.
 
 Essa lógica agora está invertida. Se gastar mais tokens produz resultados melhores, então a estratégia vencedora se torna a maximização de tokens — mas maximização de tokens com propósito. Não o tokenmaxxing sem sentido das avaliações de desempenho da Meta, onde o objetivo era apenas atingir um número. Mas gasto deliberado e orquestrado de tokens projetado para produzir resultados que seriam impossíveis com orçamentos menores.
 
 Já estamos vendo isso na vanguarda. Equipes estão construindo infraestrutura para rodar agentes 24 horas por dia. Estão criando "loops de agentes" que iteram em problemas por horas ou dias. Estão tratando o gasto de tokens não como um custo a ser minimizado, mas como um investimento a ser otimizado.
 
-E aqui está o detalhe: ainda estamos nos primeiros dias. Os modelos estão ficando melhores a cada mês. A lacuna entre "o que um humano pode fazer em uma hora" e "o que um agente pode fazer com $50 em tokens" está se fechando rápido. Em algum momento — e esse ponto está mais próximo do que a maioria das pessoas pensa — será mais barato rodar um agente por um dia do que pagar um engenheiro humano por uma hora.
+E aqui está o detalhe: ainda estamos nos primeiros dias. Os modelos estão ficando melhores a cada mês. A lacuna entre "o que um humano pode fazer em uma hora" e "o que um agente pode fazer com $50 em tokens" está se fechando rápido. Em algum momento — e esse ponto está mais próximo do que a maioria das pessoas pensa — será mais barato manter um agente rodando por um dia do que pagar um engenheiro humano por uma hora.
 
 ## O que Isso Significa para Engenheiros
 
@@ -99,9 +99,9 @@ As empresas que vencerão a próxima fase da IA não serão necessariamente as q
 
 Rodar agentes em escala não é trivial. Você precisa de sistemas de orquestração que possam gerenciar milhares de sessões de agentes simultâneas. Precisa de ferramentas de monitoramento e observabilidade que possam rastrear o que os agentes estão fazendo em tempo real. Precisa de barreiras de proteção e sandboxing para evitar que agentes causem danos quando cometem erros — porque mesmo na era da correção composta, erros ainda acontecem.
 
-A Anthropic foi excepcionalmente prestativa sobre isso. Seu framework de "confiança zero para agentes de IA", publicado no mês passado, parte do pressuposto de que qualquer agente é um potencial invasor e que violações são inevitáveis. Isso não é pessimismo; é realismo. Agentes têm identidades, têm permissões, tomam decisões autônomas, e podem ser sequestrados por uma única sentença maliciosa escondida em um documento que foram instruídos a ler. A infraestrutura para gerenciar isso com segurança é pelo menos tão importante quanto os próprios modelos.
+A Anthropic foi excepcionalmente presciente sobre isso. Seu framework de "confiança zero para agentes de IA", publicado no mês passado, parte do pressuposto de que qualquer agente é um potencial invasor e que violações são inevitáveis. Isso não é pessimismo; é realismo. Agentes têm identidades, têm permissões, tomam decisões autônomas, e podem ser sequestrados por uma única sentença maliciosa escondida em um documento que foram instruídos a ler. A infraestrutura para gerenciar isso com segurança é pelo menos tão importante quanto os próprios modelos.
 
-O Google DeepMind, enquanto isso, anunciou um fundo de pesquisa de $10 milhões especificamente para estudar a segurança multi-agente — o que acontece quando milhões de agentes começam a interagir entre si. A preocupação não é teórica. À medida que mais agentes são implantados em toda a economia, os riscos escalam de erros individuais para falhas sistêmicas: golpes coordenados, ataques de injeção de prompt na velocidade da máquina, e comportamentos emergentes que nenhum agente individual foi projetado para produzir.
+O Google DeepMind, enquanto isso, anunciou um fundo de pesquisa de US$ 10 milhões especificamente para estudar a segurança multi-agente — o que acontece quando milhões de agentes começam a interagir entre si. A preocupação não é teórica. À medida que mais agentes são implantados em toda a economia, os riscos escalam de erros individuais para falhas sistêmicas: golpes coordenados, ataques de injeção de prompt na velocidade da máquina, e comportamentos emergentes que nenhum agente individual foi projetado para produzir.
 
 ## A Conclusão
 
