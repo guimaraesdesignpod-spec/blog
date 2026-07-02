@@ -1,0 +1,131 @@
+---
+title: "The Artificial Hivemind: Why Every Chatbot Gives You the Same Answer — and Why That Matters"
+description: "A NeurIPS 2025 Best Paper exposes a hidden flaw in today's LLMs: they are strikingly homogeneous, converging on the same answers across brands. An Australian startup is building an alternative. Here's why AI groupthink could reshape creativity, culture, and the future of human thought."
+date: "2026-07-02"
+lang: "en"
+translationKey: "artificial-hivemind-llm-groupthink-2026"
+tags: ["AI", "LLM", "Creativity", "Research", "NeurIPS", "OpenAI", "Anthropic", "Springboards"]
+keywords: ["Artificial Hivemind", "LLM groupthink", "mode collapse", "language model homogeneity", "NeurIPS 2025 best paper", "Springboards Flint", "AI creativity bottleneck", "LLM diversity problem", "chatbot same answers", "AI homogenization"]
+tldr: "A NeurIPS 2025 Best Paper, 'Artificial Hivemind,' reveals that major LLMs converge on identical responses to open-ended questions — a phenomenon called inter-model homogeneity. When 25 models were asked 50 times each to write a metaphor about time, most of the 1,250 answers were variations of 'Time is a river.' Australian startup Springboards built Flint, a model trained to inject variety at specific decision points rather than cranking up temperature globally. The risk is cultural: if billions of people get the same ideas from the same machines, human creativity itself could flatten."
+faq:
+  - q: "What is the Artificial Hivemind effect?"
+    a: "Coined in a NeurIPS 2025 Best Paper, the Artificial Hivemind describes how large language models produce strikingly similar responses to open-ended questions — not just within a single model (intra-model repetition) but across different models from different companies (inter-model homogeneity). When researchers asked 25 LLMs to write a metaphor about time 50 times each, most answers converged on 'Time is a river' or 'Time is a weaver.'"
+  - q: "Why do LLMs converge on the same answers?"
+    a: "The researchers speculate it is because most LLMs are trained in similar ways on similar data to do similar tasks. They all learn from the same internet corpus, use the same transformer architecture, and are optimized for the same metric: producing coherent, 'safe' answers. The result is a statistical clustering around high-probability responses, even when the question admits infinite valid answers."
+  - q: "What is Flint and how is it different?"
+    a: "Flint is an LLM built by Australian startup Springboards on top of Alibaba's open-source Qwen 3. Instead of cranking up 'temperature' globally — which makes models incoherent — Flint is trained to identify specific points in its output where variety is possible and inject randomness only there. When asked for a random number, mainstream models almost always say 7; Flint says 3.7916. When asked for a band name, mainstream models pick 'Glass Harbor' and 'Neon Hearts'; Flint goes elsewhere."
+  - q: "Doesn't higher temperature already solve this?"
+    a: "No. Temperature is a blunt instrument. Turning it up globally makes models gibberish — one OpenAI model reportedly switched from English into code mid-sentence at max temperature. Springboards' insight is that you only need randomness at decision points (like picking a destination or a number), not for every word."
+  - q: "Is this actually dangerous, or just an inconvenience?"
+    a: "The NeurIPS paper explicitly frames it as a long-term AI safety risk. If billions of people use the same few chatbots for brainstorming, education, creative writing, and business strategy, and those chatbots all converge on the same narrow set of ideas, human thought itself could homogenize. The researchers warn of 'the long-term homogenization of human thought through repeated exposure to similar outputs.'"
+  - q: "Does OpenAI acknowledge the problem?"
+    a: "OpenAI told MIT Technology Review that training models for reliability and coherence naturally leads them to converge on familiar, high-probability responses. They also noted the 'Artificial Hivemind' paper studied 2024 models that have since been updated. But the Flint demonstrations suggest the problem persists in 2026."
+image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=1200&q=80"
+imageAlt: "Abstract light patterns converging into a single point, symbolizing AI homogenization"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+---
+
+# The Artificial Hivemind: Why Every Chatbot Gives You the Same Answer — and Why That Matters
+
+## The Seven Problem
+
+Open any chatbot you like. Claude, ChatGPT, Gemini, it does not matter. Type this: "Give me a random number between 1 and 10."
+
+You are going to get 7. Not every time, but often enough that it stops feeling random.
+
+Try again. "Another." You will get 3 or 4. "Another." 8 or 9. The pattern is not randomness. It is a playlist with shuffle turned off. The machine is not picking numbers. It is retrieving them from a well-worn groove.
+
+Pip Bingemann, the CEO of Australian startup Springboards, has turned this into a party trick. He opens three chat windows — ChatGPT, Claude, and his company's own model, Flint — and runs the same prompt. ChatGPT says 7. Claude says 7. Flint says 3.7916.
+
+"This is our sales trick," Bingemann told MIT Technology Review. "And it works every single time."
+
+It is not just numbers. Ask for a type of car. ChatGPT and Claude will say Toyota or Honda. Flint says Ford F-150. Ask for a tagline for New Balance running shoes. Claude: "Run your way." ChatGPT: "Run your way." Flint: "Built to last, run to win." It will not win a Cannes Lion, but at least it is different.
+
+This is the artificial hivemind in action. And a team of researchers just won the best paper award at NeurIPS — one of the most prestigious conferences in machine learning — for proving that it is not a quirk. It is a systemic failure.
+
+## The Paper That Named the Disease
+
+In November 2025, a paper titled **"Artificial Hivemind: The Open-Ended Homogeneity of Language Models (and Beyond)"** landed on arXiv. By December, it had won the best paper award at NeurIPS. The selection committee called it "substantial and timely" and praised its authors for introducing "the first comprehensive taxonomy" of open-ended generation and exposing "critical miscalibration between current reward models, automated judges, and diverse human preferences."
+
+The researchers, led by Liwei Jiang and Yejin Choi at the University of Washington, built something called Infinity-Chat: a dataset of 26,000 real-world, open-ended questions with no single right answer. Things like "What should I name my band?" or "Write a metaphor about time." They then asked 25 different language models — including OpenAI's, Anthropic's, Google's, and open-source models from China — to answer each question 50 times.
+
+The results were staggering. Most of the 1,250 metaphors about time were variations of two phrases: "Time is a river" or "Time is a weaver." When the researchers asked human colleagues the same question, six people gave six completely different answers. One favorite: "Time is a favorite sweatshirt, shaped by a lifetime of wear."
+
+The paper identified two distinct problems. **Intra-model repetition** is when a single model, asked the same open-ended question many times, keeps returning similar answers. **Inter-model homogeneity** is worse: it is when *different* models, built by *different* companies on *different* continents, converge on the same handful of responses. The researchers found both. In abundance.
+
+The cause, they speculate, is structural. Most LLMs today are trained in similar ways on similar data to do similar tasks. They scrape the same internet. They use the same transformer architecture. They optimize for the same metric: coherence. The result is a kind of statistical gravity, pulling every answer toward the center of probability mass.
+
+Kieran Browne, cofounder and CTO at Springboards, put it simply: "There's all this lost information that doesn't get served up in these models. They're just as capable of saying a Buick or a Tesla. They just don't — they're biased."
+
+## The Band Name Test
+
+Browne has another favorite example. Ask an LLM what you should name your band, and you will get a list that includes words like "Glass," "Neon," "Velvet," or "Static." When MIT Technology Review's reporter tried it, ChatGPT returned 56 suggestions. Number one: "Glass Harbor." Further down: "Static Empire," "Neon Hearts," "Velvet Echo." Gemini returned 15 suggestions, including "Static Horizon."
+
+"Sofa Astronauts" caught the reporter's eye. They googled it. The band already exists.
+
+Browne's point is not that the suggestions are bad. Some are genuinely cool. The point is that they are *predictable* — and that predictability is invisible until someone points it out. "The way that most chat interfaces are designed, it makes it feel like you're having a personal conversation," Browne says. "I think most people don't really realize the extent to which they are getting the same stuff as everybody else."
+
+This matters because open-ended questions are where humans use AI most. Not for calculating integrals or writing Python scripts — tasks where there is a right answer and speed is what matters. But for brainstorming ad campaigns, planning vacations, naming products, writing fiction, advising students, counseling patients. In all of these domains, the value of AI is supposed to be its breadth: its ability to explore possibility spaces that a single human mind cannot cover alone.
+
+If the AI is narrower than the human, we have a problem.
+
+## Why Temperature Is Not the Answer
+
+Most LLMs have a parameter called "temperature." It controls randomness. Higher temperature means wilder, more unpredictable outputs. Lower temperature means safer, more conservative ones. If you want creativity, the conventional wisdom says: turn up the temperature.
+
+Springboards tried that. It did not work.
+
+"Dialing up the temperature on one of OpenAI's models to its maximum setting made it produce responses that switched from English into code halfway through a sentence," Browne told MIT Technology Review. The model became incoherent not because it was too creative, but because temperature is a global knob. It adds noise to *every* decision the model makes — including grammatical structure, factual consistency, and logical flow.
+
+The insight behind Flint is surgical. You do not need more randomness everywhere. You need more randomness at *specific* decision points. When the model is about to name a car, that is the moment to surprise. When it is constructing a sentence about that car, it should stay coherent. "It does not make sense to dial up the randomness across the board," Browne says. "You only want to boost it at specific points in its output."
+
+To build Flint, Springboards fine-tuned Qwen 3 — an open-source model from Alibaba — to identify those decision points and fill them with slightly less probable choices. The result is a model that still speaks fluent English but occasionally throws "an oddball in." Maximilian Weigl, a strategy officer at marketing firm Uncommon who has tested Flint, described it as "an invitation to think wider."
+
+## The Real Customer
+
+Springboards is not building Flint for hobbyists. It is building it for creative professionals — advertising strategists, brand consultants, marketing directors. The company already runs a brainstorming tool that lets users drag text from multiple models into a shared canvas, remixing and combining ideas. Flint is pitched as an alternative model users can select when they want variety instead of consensus.
+
+Zoe Scaman, founder of strategy startup Bodacious, tested Flint against Claude, Gemini, and ChatGPT on a classic MBA case study: how would you reinvent a finance company for today's youth? The three mainstream models all converged on the same idea: teach financial literacy in a fun and funky way. "Well, that's nothing new," Scaman said. Flint suggested something different: rebrand the entire concept of wealth accumulation. "That was really interesting," she noted.
+
+Scaman was careful to add that Flint is still a prototype. "It sometimes falls over when you start pushing it too far." But the premise, she said, is powerful.
+
+Weigl, the Uncommon strategist, uses Flint alongside the mainstream models. "You can't really create something boundary-breaking with tools that pull you back to the average," he says. But he is also cautious: "Nine times out of 10 the average is fine. Most people are fine with good enough. They want to see mass-market familiar things."
+
+And then there is his larger concern: "I have a big problem when people rely on the output from any AI, including Flint. If I saw people on my team copy-pasting something from AI, I'd be like, 'That's not your job! Think, talk to other people, use your own voice.'"
+
+## The Culture Question
+
+Here is where this stops being a technical curiosity and starts being a civilizational one.
+
+The NeurIPS paper is explicit about the stakes. Its authors warn of "the long-term homogenization of human thought through repeated exposure to similar outputs." They frame the artificial hivemind as an AI safety risk — not because models will kill us, but because they will bore us into submission.
+
+Think about the scale. ChatGPT has hundreds of millions of users. Claude, Gemini, and Perplexity add hundreds of millions more. Many of those people use AI for the first draft of emails, the outline of presentations, the structure of essays, the names of products, the themes of marketing campaigns, the advice they give their children about college majors. If all of those first drafts converge on the same narrow set of ideas — if every email opens with "I hope this message finds you well," if every startup names itself something with "Neo" or "Spark," if every novel draft features the same three-act structure and the same emotional beats — then the diversity of human culture becomes a function of model temperature.
+
+This is not hypothetical. The band name test already proves it. The random number test proves it. The metaphor test proves it. What we do not yet know is how it scales. Will the next generation of screenwriters, all trained on AI-assisted first drafts, converge on the same three plot structures? Will the next generation of business strategists, all briefed by the same four chatbots, converge on the same four go-to-market plays? Will the next generation of students, all essay-outlined by Claude, start to sound like a single voice with a billion mouths?
+
+The NeurIPS researchers think the answer is yes. And they think the solution requires more than one startup's clever fine-tuning.
+
+## What OpenAI Says
+
+MIT Technology Review asked OpenAI about the hivemind problem. The company responded that training models for reliability and coherence naturally leads them to converge on familiar, high-probability responses. They also noted that the "Artificial Hivemind" paper studied 2024 models that have since been updated.
+
+Both points are fair. But the Flint demonstrations suggest the problem is deeper than model vintage. It is baked into the training objective. When you optimize for "helpful and harmless," you implicitly optimize for "familiar and safe." And familiar and safe is the enemy of creative and surprising.
+
+OpenAI also said that pushing harder for novelty can lead to weaker or less reliable responses. This is the tradeoff in a nutshell: the same training that makes LLMs trustworthy makes them boring. The same alignment that keeps them from saying offensive things keeps them from saying interesting things. And "interesting" is not a luxury. In art, in business, in science, in love — interesting is the whole point.
+
+## A Gray, Boring World
+
+Bingemann, the Springboards CEO, does not claim to have solved the hivemind. He claims to have pointed out that it exists, and to be building one alternative among what he hopes will be many.
+
+"Most language models are fighting hallucinations," he says. "We welcome them."
+
+That line deserves a moment. In AI safety discourse, hallucinations are the enemy. They are the false facts, the invented citations, the confident lies. Every major lab has a team working to eradicate them. Bingemann is saying the quiet part out loud: if you want creativity, you have to tolerate noise. If you want diversity, you have to risk error. The models that are safest are also the most same. The models that are most different are also the most likely to say something weird.
+
+The question for the next decade of AI is not how to eliminate hallucinations. It is how to live with them. How to build systems that are reliable enough to trust but varied enough to inspire. How to keep the machines from flattening human culture into a single playlist on shuffle.
+
+"Variety is great when you're trying to spark ideas," Bingemann says. "Let's go down this route instead of letting the machines do it all and ending up in a gray, boring world."
+
+The gray, boring world is not a dystopia of killer robots. It is a dystopia of consensus. A world where every brainstorm produces the same three ideas. Where every novel reads like it was written by the same committee. Where every conversation with a machine feels like a conversation with the average of the internet — which is, by definition, the most average thing there is.
+
+The artificial hivemind is not coming. It is here. The only question is whether we notice in time to do something about it.

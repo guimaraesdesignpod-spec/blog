@@ -1,0 +1,131 @@
+---
+title: "A Colmeia Artificial: Por Que Todo Chatbot Te Dá a Mesma Resposta — e Por Que Isso Importa"
+description: "Um artigo premiado no NeurIPS 2025 expõe uma falha oculta nos LLMs atuais: eles são surpreendentemente homogêneos, convergindo para as mesmas respostas independente da marca. Uma startup australiana está construindo uma alternativa. Veja por que o pensamento de grupo das IAs pode remodelar a criatividade, a cultura e o futuro do pensamento humano."
+date: "2026-07-02"
+lang: "pt"
+translationKey: "artificial-hivemind-llm-groupthink-2026"
+tags: ["IA", "LLM", "Criatividade", "Pesquisa", "NeurIPS", "OpenAI", "Anthropic", "Springboards"]
+keywords: ["Colmeia Artificial", "pensamento de grupo LLM", "colapso de moda", "homogeneidade de modelos de linguagem", "melhor artigo NeurIPS 2025", "Springboards Flint", "gargalo criatividade IA", "problema diversidade LLM", "chatbot mesmas respostas", "homogeneização IA"]
+tldr: "Um artigo premiado no NeurIPS 2025, 'Artificial Hivemind', revela que os principais LLMs convergem para respostas idênticas em perguntas abertas — um fenômeno chamado homogeneidade inter-modelos. Quando 25 modelos foram perguntados 50 vezes cada sobre metáforas do tempo, a maioria das 1.250 respostas foi variações de 'O tempo é um rio'. A startup australiana Springboards criou o Flint, um modelo treinado para injetar variedade em pontos específicos de decisão em vez de aumentar a temperatura globalmente. O risco é cultural: se bilhões de pessoas recebem as mesmas ideias das mesmas máquinas, a criatividade humana pode se achatar."
+faq:
+  - q: "O que é o efeito Colmeia Artificial?"
+    a: "Cunhado em um artigo premiado no NeurIPS 2025, a Colmeia Artificial descreve como modelos de linguagem produzem respostas surpreendentemente similares a perguntas abertas — não apenas dentro de um único modelo (repetição intra-modelo), mas entre diferentes modelos de empresas diferentes (homogeneidade inter-modelos). Quando pesquisadores perguntaram a 25 LLMs para escrever uma metáfora sobre o tempo 50 vezes cada, a maioria das respostas convergiu para 'O tempo é um rio' ou 'O tempo é um tecelão'."
+  - q: "Por que os LLMs convergem para as mesmas respostas?"
+    a: "Os pesquisadores especulam que é porque a maioria dos LLMs é treinada de formas similares, com dados similares, para fazer tarefas similares. Todos aprendem do mesmo corpus da internet, usam a mesma arquitetura transformer e são otimizados para a mesma métrica: produzir respostas coerentes e 'seguras'. O resultado é um agrupamento estatístico em torno de respostas de alta probabilidade, mesmo quando a pergunta admite infinitas respostas válidas."
+  - q: "O que é o Flint e como ele é diferente?"
+    a: "Flint é um LLM construído pela startup australiana Springboards sobre o Qwen 3 de código aberto da Alibaba. Em vez de aumentar a 'temperatura' globalmente — o que torna os modelos incoerentes — o Flint é treinado para identificar pontos específicos em sua resposta onde a variedade é possível e injetar aleatoriedade apenas ali. Quando perguntado por um número aleatório, modelos convencionais quase sempre dizem 7; o Flint diz 3,7916. Quando perguntado por um nome de banda, modelos convencionais escolhem 'Glass Harbor' e 'Neon Hearts'; o Flint vai por outro caminho."
+  - q: "A temperatura mais alta não resolve isso?"
+    a: "Não. Temperatura é um instrumento blunt. Aumentá-la globalmente torna os modelos gibberish — um modelo da OpenAI supostamente mudou do inglês para código no meio de uma frase em temperatura máxima. O insight da Springboards é que você só precisa de aleatoriedade em pontos de decisão (como escolher um destino ou um número), não para cada palavra."
+  - q: "Isso é realmente perigoso, ou apenas um incômodo?"
+    a: "O artigo do NeurIPS explicitamente o enquadra como um risco de segurança de IA de longo prazo. Se bilhões de pessoas usam os mesmos poucos chatbots para brainstorming, educação, escrita criativa e estratégia de negócios, e esses chatbots convergem para o mesmo conjunto estreito de ideias, o pensamento humano pode se homogeneizar. Os pesquisadores alertam sobre 'a homogeneização de longo prazo do pensamento humano através da exposição repetida a saídas similares'."
+  - q: "A OpenAI reconhece o problema?"
+    a: "A OpenAI disse ao MIT Technology Review que treinar modelos para confiabilidade e coerência naturalmente os leva a convergir para respostas familiares e de alta probabilidade. Eles também observaram que o artigo 'Artificial Hivemind' estudou modelos de 2024 que desde então foram atualizados. Mas as demonstrações do Flint sugerem que o problema persiste em 2026."
+image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=1200&q=80"
+imageAlt: "Padrões abstratos de luz convergindo para um único ponto, simbolizando a homogeneização da IA"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+---
+
+# A Colmeia Artificial: Por Que Todo Chatbot Te Dá a Mesma Resposta — e Por Que Isso Importa
+
+## O Problema do Sete
+
+Abra qualquer chatbot que você quiser. Claude, ChatGPT, Gemini, não importa. Digite isso: "Me dê um número aleatório entre 1 e 10."
+
+Você vai receber 7. Nem sempre, mas com frequência suficiente para deixar de parecer aleatório.
+
+Tente de novo. "Outro." Você vai receber 3 ou 4. "Outro." 8 ou 9. O padrão não é aleatoriedade. É uma playlist com o shuffle desligado. A máquina não está escolhendo números. Ela está recuperando-os de um sulco bem desgastado.
+
+Pip Bingemann, CEO da startup australiana Springboards, transformou isso em um truque de festa. Ele abre três janelas de chat — ChatGPT, Claude e o modelo da própria empresa, Flint — e roda o mesmo prompt. ChatGPT diz 7. Claude diz 7. Flint diz 3,7916.
+
+"Esse é o nosso truque de vendas," Bingemann contou ao MIT Technology Review. "E funciona todas as vezes."
+
+Não é só números. Pergunte por um tipo de carro. ChatGPT e Claude vão dizer Toyota ou Honda. Flint diz Ford F-150. Peça um slogan para tênis de corrida da New Balance. Claude: "Run your way." ChatGPT: "Run your way." Flint: "Built to last, run to win." Não vai ganhar um Cannes Lion, mas pelo menos é diferente.
+
+Essa é a colmeia artificial em ação. E um time de pesquisadores acabou de ganhar o prêmio de melhor artigo no NeurIPS — uma das conferências mais prestigiosas de machine learning — por provar que isso não é uma peculiaridade. É uma falha sistêmica.
+
+## O Artigo Que Deu Nome à Doença
+
+Em novembro de 2025, um artigo intitulado **"Artificial Hivemind: The Open-Ended Homogeneity of Language Models (and Beyond)"** apareceu no arXiv. Em dezembro, havia ganhado o prêmio de melhor artigo no NeurIPS. O comitê de seleção o chamou de "substancial e oportuno" e elogiou seus autores por introduzir "a primeira taxonomia abrangente" de geração aberta e expor "falhas críticas de calibração entre modelos de recompensa atuais, juízes automatizados e preferências humanas diversas."
+
+Os pesquisadores, liderados por Liwei Jiang e Yejin Choi na Universidade de Washington, construíram algo chamado Infinity-Chat: um dataset de 26 mil perguntas reais e abertas, sem uma única resposta certa. Coisas como "Como eu deveria chamar minha banda?" ou "Escreva uma metáfora sobre o tempo." Então pediram a 25 modelos de linguagem diferentes — incluindo os da OpenAI, Anthropic, Google e modelos open-source da China — para responder cada pergunta 50 vezes.
+
+Os resultados foram chocantes. A maioria das 1.250 metáforas sobre o tempo eram variações de duas frases: "O tempo é um rio" ou "O tempo é um tecelão." Quando os pesquisadores perguntaram a colegas humanos a mesma coisa, seis pessoas deram seis respostas completamente diferentes. Um favorito: "O tempo é um moletom favorito, moldado por uma vida inteira de uso."
+
+O artigo identificou dois problemas distintos. **Repetição intra-modelo** é quando um único modelo, perguntado a mesma pergunta aberta várias vezes, continua retornando respostas similares. **Homogeneidade inter-modelos** é pior: é quando *diferentes* modelos, construídos por *diferentes* empresas em *diferentes* continentes, convergem para o mesmo punhado de respostas. Os pesquisadores encontraram ambos. Em abundância.
+
+A causa, eles especulam, é estrutural. A maioria dos LLMs hoje é treinada de formas similares, com dados similares, para fazer tarefas similares. Eles raspam a mesma internet. Usam a mesma arquitetura transformer. Otimizam para a mesma métrica: coerência. O resultado é uma espécie de gravidade estatística, puxando cada resposta para o centro da massa de probabilidade.
+
+Kieran Browne, cofundador e CTO da Springboards, resumiu simplesmente: "Tem toda essa informação perdida que não chega até você nesses modelos. Eles são perfeitamente capazes de dizer Buick ou Tesla. Só não dizem — eles são tendenciosos."
+
+## O Teste do Nome de Banda
+
+Browne tem outro exemplo favorito. Pergunte a um LLM como você deveria chamar sua banda, e você vai receber uma lista que inclui palavras como "Glass," "Neon," "Velvet" ou "Static." Quando a repórter do MIT Technology Review tentou, o ChatGPT devolveu 56 sugestões. A primeira: "Glass Harbor." Mais abaixo: "Static Empire," "Neon Hearts," "Velvet Echo." O Gemini devolveu 15 sugestões, incluindo "Static Horizon."
+
+"Sofa Astronauts" chamou a atenção da repórter. Ela googlou. A banda já existe.
+
+O ponto de Browne não é que as sugestões sejam ruins. Algumas são genuinamente legais. O ponto é que elas são *previsíveis* — e essa previsibilidade é invisível até alguém apontar. "Do jeito que a maioria das interfaces de chat é desenhada, parece que você está tendo uma conversa pessoal," diz Browne. "Acho que a maioria das pessoas não percebe o quanto elas estão recebendo a mesma coisa que todo mundo."
+
+Isso importa porque perguntas abertas são onde os humanos mais usam IA. Não para calcular integrais ou escrever scripts Python — tarefas onde existe uma resposta certa e a velocidade é o que importa. Mas para brainstormar campanhas publicitárias, planejar férias, nomear produtos, escrever ficção, aconselhar alunos, orientar pacientes. Em todos esses domínios, o valor da IA deveria ser sua amplitude: sua capacidade de explorar espaços de possibilidade que uma única mente humana não consegue cobrir sozinha.
+
+Se a IA for mais estreita que o humano, temos um problema.
+
+## Por Que Temperatura Não É a Resposta
+
+A maioria dos LLMs tem um parâmetro chamado "temperatura." Ele controla a aleatoriedade. Temperatura mais alta significa respostas mais selvagens e imprevisíveis. Temperatura mais baixa significa respostas mais seguras e conservadoras. Se você quer criatividade, a sabedoria convencional diz: aumente a temperatura.
+
+A Springboards tentou isso. Não funcionou.
+
+"Aumentar a temperatura em um dos modelos da OpenAI para o máximo fez ele produzir respostas que mudavam do inglês para código no meio de uma frase," Browne contou ao MIT Technology Review. O modelo ficou incoerente não porque estava sendo muito criativo, mas porque a temperatura é um botão global. Ela adiciona ruído a *cada* decisão que o modelo toma — incluindo estrutura gramatical, consistência factual e fluxo lógico.
+
+O insight por trás do Flint é cirúrgico. Você não precisa de mais aleatoriedade em todo lugar. Você precisa de mais aleatoriedade em *pontos específicos* de decisão. Quando o modelo está prestes a nomear um carro, esse é o momento de surpreender. Quando ele está construindo uma frase sobre aquele carro, ele deve permanecer coerente. "Não faz sentido aumentar a aleatoriedade em todo lugar," diz Browne. "Você só quer impulsioná-la em pontos específicos da sua resposta."
+
+Para construir o Flint, a Springboards fez fine-tuning no Qwen 3 — um modelo de código aberto da Alibaba — para identificar esses pontos de decisão e preenchê-los com escolhas um pouco menos prováveis. O resultado é um modelo que ainda fala inglês fluente, mas ocasionalmente joga "uma bola fora da curva." Maximilian Weigl, um estrategista da empresa de marketing Uncommon que testou o Flint, descreveu isso como "um convite para pensar mais amplamente."
+
+## O Cliente Real
+
+A Springboards não está construindo o Flint para hobbyistas. Está construindo para profissionais criativos — estrategistas de publicidade, consultores de marca, diretores de marketing. A empresa já opera uma ferramenta de brainstorm que permite aos usuários arrastar texto de múltiplos modelos para um canvas compartilhado, remixando e combinando ideias. O Flint é apresentado como um modelo alternativo que os usuários podem selecionar quando querem variedade em vez de consenso.
+
+Zoe Scaman, fundadora da startup de estratégia Bodacious, testou o Flint contra Claude, Gemini e ChatGPT em um estudo de caso clássico de MBA: como você reinventaria uma empresa financeira para a juventude de hoje? Os três modelos convencionais convergiram para a mesma ideia: ensinar educação financeira de um jeito divertido e descolado. "Bom, isso não é nada novo," disse Scaman. O Flint sugeriu algo diferente: rebrandar o conceito inteiro de acumulação de riqueza. "Isso foi realmente interessante," ela notou.
+
+Scaman foi cuidadosa em acrescentar que o Flint ainda é um protótipo. "Às vezes ele desanda quando você começa a forçar demais." Mas a premissa, ela disse, é poderosa.
+
+Weigl, o estrategista da Uncommon, usa o Flint junto com os modelos convencionais. "Você não consegue criar algo que quebra barreiras com ferramentas que te puxam de volta para a média," ele diz. Mas ele também é cauteloso: "Nove vezes de dez, a média tá de boa. A maioria das pessoas tá satisfeita com o suficiente. Elas querem ver coisas familiares de mercado."
+
+E aí tem a preocupação maior dele: "Tenho um grande problema quando as pessoas dependem do output de qualquer IA, incluindo o Flint. Se eu visse gente no meu time copiando e colando algo da IA, eu diria: 'Isso não é o seu trabalho! Pensa, conversa com outras pessoas, usa a sua própria voz.'"
+
+## A Questão Cultural
+
+É aqui que isso deixa de ser uma curiosidade técnica e passa a ser uma questão civilizacional.
+
+O artigo do NeurIPS é explícito sobre o que está em jogo. Seus autores alertam sobre "a homogeneização de longo prazo do pensamento humano através da exposição repetida a saídas similares." Eles enquadram a colmeia artificial como um risco de segurança de IA — não porque os modelos vão nos matar, mas porque eles podem nos entediar até a submissão.
+
+Pense na escala. O ChatGPT tem centenas de milhões de usuários. Claude, Gemini e Perplexity somam centenas de milhões a mais. Muitas dessas pessoas usam IA para o primeiro rascunho de e-mails, o esqueleto de apresentações, a estrutura de redações, os nomes de produtos, os temas de campanhas de marketing, os conselhos que dão aos filhos sobre cursos universitários. Se todos esses primeiros rascunhos convergirem para o mesmo conjunto estreito de ideias — se todo e-mail começar com "Espero que esta mensagem o encontre bem," se toda startup se chamar algo com "Neo" ou "Spark," se todo rascunho de romance tiver a mesma estrutura de três atos e os mesmos ritmos emocionais — então a diversidade da cultura humana se torna uma função da temperatura do modelo.
+
+Isso não é hipotético. O teste do nome de banda já prova. O teste do número aleatório prova. O teste da metáfora prova. O que ainda não sabemos é como isso escala. A próxima geração de roteiristas, todos treinados em rascunhos assistidos por IA, vai convergir para as mesmas três estruturas de enredo? A próxima geração de estrategistas de negócios, todos briefados pelos mesmos quatro chatbots, vai convergir para as mesmas quatro táticas de go-to-market? A próxima geração de estudantes, todos com esboços de redação feitos pelo Claude, vai começar a soar como uma única voz com um bilhão de bocas?
+
+Os pesquisadores do NeurIPS acham que a resposta é sim. E eles acham que a solução exige mais do que o fine-tuning esperto de uma startup.
+
+## O Que a OpenAI Diz
+
+O MIT Technology Review perguntou à OpenAI sobre o problema da colmeia. A empresa respondeu que treinar modelos para confiabilidade e coerência naturalmente os leva a convergir para respostas familiares e de alta probabilidade. Eles também observaram que o artigo "Artificial Hivemind" estudou modelos de 2024 que desde então foram atualizados.
+
+Ambos os pontos são justos. Mas as demonstrações do Flint sugerem que o problema é mais profundo do que a idade do modelo. Ele está embutido no objetivo de treinamento. Quando você otimiza para "útil e inofensivo," implicitamente otimiza para "familiar e seguro." E familiar e seguro é o inimigo de criativo e surpreendente.
+
+A OpenAI também disse que forçar mais a novidade pode levar a respostas mais fracas ou menos confiáveis. Esse é o tradeoff resumido: o mesmo treinamento que torna os LLMs confiáveis os torna chatos. O mesmo alinhamento que evita que eles digam coisas ofensivas evita que eles digam coisas interessantes. E "interessante" não é um luxo. Na arte, nos negócios, na ciência, no amor — interessante é o que importa.
+
+## Um Mundo Cinza e Entediante
+
+Bingemann, o CEO da Springboards, não afirma ter resolvido a colmeia. Ele afirma ter apontado que ela existe, e estar construindo uma alternativa entre o que espera que sejam muitas.
+
+"A maioria dos modelos de linguagem está combatendo alucinações," ele diz. "Nós as damos as boas-vindas."
+
+Essa frase merece um momento. No discurso de segurança de IA, alucinações são o inimigo. São os fatos falsos, as citações inventadas, as mentiras confiantes. Todo laboratório principal tem um time trabalhando para erradicá-las. Bingemann está dizendo a parte que ninguém fala em voz alta: se você quer criatividade, tem que tolerar ruído. Se você quer diversidade, tem que arriscar erro. Os modelos que são mais seguros também são os mais iguais. Os modelos que são mais diferentes também são os mais propensos a dizer algo estranho.
+
+A pergunta para a próxima década de IA não é como eliminar alucinações. É como conviver com elas. Como construir sistemas que sejam confiáveis o suficiente para confiar, mas variados o suficiente para inspirar. Como evitar que as máquinas achatem a cultura humana em uma única playlist no shuffle.
+
+"Variedade é ótima quando você está tentando despertar ideias," diz Bingemann. "Vamos por esse caminho em vez de deixar as máquinas fazerem tudo e acabarmos num mundo cinza e entediante."
+
+O mundo cinza e entediante não é uma distopia de robôs assassinos. É uma distopia de consenso. Um mundo onde todo brainstorm produz as mesmas três ideias. Onde todo romance lê como se tivesse sido escrito pelo mesmo comitê. Onde toda conversa com uma máquina parece uma conversa com a média da internet — que é, por definição, a coisa mais média que existe.
+
+A colmeia artificial não está chegando. Ela já está aqui. A única pergunta é se percebemos a tempo de fazer algo a respeito.
