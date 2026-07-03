@@ -52,7 +52,7 @@ Os pesquisadores, liderados por Liwei Jiang e Yejin Choi na Universidade de Wash
 
 Os resultados foram chocantes. A maioria das 1.250 metáforas sobre o tempo eram variações de duas frases: "O tempo é um rio" ou "O tempo é um tecelão." Quando os pesquisadores perguntaram a colegas humanos a mesma coisa, seis pessoas deram seis respostas completamente diferentes. Um favorito: "O tempo é um moletom favorito, moldado por uma vida inteira de uso."
 
-O artigo identificou dois problemas distintos. **Repetição intra-modelo** é quando um único modelo, perguntado a mesma pergunta aberta várias vezes, continua retornando respostas similares. **Homogeneidade inter-modelos** é pior: é quando *diferentes* modelos, construídos por *diferentes* empresas em *diferentes* continentes, convergem para o mesmo punhado de respostas. Os pesquisadores encontraram ambos. Em abundância.
+O artigo identificou dois problemas distintos. **Repetição intra-modelo** é quando um único modelo, questionado com a mesma pergunta aberta várias vezes, continua a retornar respostas similares. **Homogeneidade inter-modelos** é pior: é quando *diferentes* modelos, construídos por *diferentes* empresas em *diferentes* continentes, convergem para o mesmo punhado de respostas. Os pesquisadores encontraram ambos. Em abundância.
 
 A causa, eles especulam, é estrutural. A maioria dos LLMs hoje é treinada de formas similares, com dados similares, para fazer tarefas similares. Eles raspam a mesma internet. Usam a mesma arquitetura transformer. Otimizam para a mesma métrica: coerência. O resultado é uma espécie de gravidade estatística, puxando cada resposta para o centro da massa de probabilidade.
 
@@ -78,21 +78,21 @@ A Springboards tentou isso. Não funcionou.
 
 "Aumentar a temperatura em um dos modelos da OpenAI para o máximo fez ele produzir respostas que mudavam do inglês para código no meio de uma frase," Browne contou ao MIT Technology Review. O modelo ficou incoerente não porque estava sendo muito criativo, mas porque a temperatura é um botão global. Ela adiciona ruído a *cada* decisão que o modelo toma — incluindo estrutura gramatical, consistência factual e fluxo lógico.
 
-O insight por trás do Flint é cirúrgico. Você não precisa de mais aleatoriedade em todo lugar. Você precisa de mais aleatoriedade em *pontos específicos* de decisão. Quando o modelo está prestes a nomear um carro, esse é o momento de surpreender. Quando ele está construindo uma frase sobre aquele carro, ele deve permanecer coerente. "Não faz sentido aumentar a aleatoriedade em todo lugar," diz Browne. "Você só quer impulsioná-la em pontos específicos da sua resposta."
+O insight por trás do Flint é cirúrgico. Você não precisa de mais aleatoriedade em todo lugar. Você precisa de mais aleatoriedade em *pontos específicos* de decisão. Quando o modelo está prestes a nomear um carro, esse é o momento de surpreender. Quando ele está construindo uma frase sobre aquele carro, ele deve permanecer coerente. "Não faz sentido aumentar a aleatoriedade em toda parte," diz Browne. "Você só quer aumentá-la em pontos específicos da saída."
 
-Para construir o Flint, a Springboards fez fine-tuning no Qwen 3 — um modelo de código aberto da Alibaba — para identificar esses pontos de decisão e preenchê-los com escolhas um pouco menos prováveis. O resultado é um modelo que ainda fala inglês fluente, mas ocasionalmente joga "uma bola fora da curva." Maximilian Weigl, um estrategista da empresa de marketing Uncommon que testou o Flint, descreveu isso como "um convite para pensar mais amplamente."
+Para construir o Flint, a Springboards fez fine-tuning no Qwen 3 — um modelo de código aberto da Alibaba — para identificar esses pontos de decisão e preenchê-los com escolhas um pouco menos prováveis. O resultado é um modelo que ainda fala inglês fluente, mas ocasionalmente joga "uma bola fora da curva." Maximilian Weigl, um estrategista da empresa de marketing Uncommon que testou o Flint, descreveu isso como "um convite para pensar mais além."
 
 ## O Cliente Real
 
 A Springboards não está construindo o Flint para hobbyistas. Está construindo para profissionais criativos — estrategistas de publicidade, consultores de marca, diretores de marketing. A empresa já opera uma ferramenta de brainstorm que permite aos usuários arrastar texto de múltiplos modelos para um canvas compartilhado, remixando e combinando ideias. O Flint é apresentado como um modelo alternativo que os usuários podem selecionar quando querem variedade em vez de consenso.
 
-Zoe Scaman, fundadora da startup de estratégia Bodacious, testou o Flint contra Claude, Gemini e ChatGPT em um estudo de caso clássico de MBA: como você reinventaria uma empresa financeira para a juventude de hoje? Os três modelos convencionais convergiram para a mesma ideia: ensinar educação financeira de um jeito divertido e descolado. "Bom, isso não é nada novo," disse Scaman. O Flint sugeriu algo diferente: rebrandar o conceito inteiro de acumulação de riqueza. "Isso foi realmente interessante," ela notou.
+Zoe Scaman, fundadora da startup de estratégia Bodacious, testou o Flint contra Claude, Gemini e ChatGPT em um estudo de caso clássico de MBA: como você reinventaria uma empresa financeira para a juventude de hoje? Os três modelos convencionais convergiram para a mesma ideia: ensinar educação financeira de um jeito divertido e descolado. "Bom, isso não é nada novo," disse Scaman. O Flint sugeriu algo diferente: rebrandar o conceito inteiro de acumulação de riqueza. "Isso foi realmente interessante," ela observou.
 
 Scaman foi cuidadosa em acrescentar que o Flint ainda é um protótipo. "Às vezes ele desanda quando você começa a forçar demais." Mas a premissa, ela disse, é poderosa.
 
 Weigl, o estrategista da Uncommon, usa o Flint junto com os modelos convencionais. "Você não consegue criar algo que quebra barreiras com ferramentas que te puxam de volta para a média," ele diz. Mas ele também é cauteloso: "Nove vezes de dez, a média tá de boa. A maioria das pessoas tá satisfeita com o suficiente. Elas querem ver coisas familiares de mercado."
 
-E aí tem a preocupação maior dele: "Tenho um grande problema quando as pessoas dependem do output de qualquer IA, incluindo o Flint. Se eu visse gente no meu time copiando e colando algo da IA, eu diria: 'Isso não é o seu trabalho! Pensa, conversa com outras pessoas, usa a sua própria voz.'"
+E aí tem a preocupação maior dele: "Tenho um grande problema quando as pessoas dependem do output de qualquer IA, incluindo o Flint. Se eu visse gente no meu time copiando e colando algo da IA, eu diria: 'Esse não é o seu trabalho! Pense, converse com outras pessoas, use sua própria voz.'"
 
 ## A Questão Cultural
 
@@ -102,7 +102,7 @@ O artigo do NeurIPS é explícito sobre o que está em jogo. Seus autores alerta
 
 Pense na escala. O ChatGPT tem centenas de milhões de usuários. Claude, Gemini e Perplexity somam centenas de milhões a mais. Muitas dessas pessoas usam IA para o primeiro rascunho de e-mails, o esqueleto de apresentações, a estrutura de redações, os nomes de produtos, os temas de campanhas de marketing, os conselhos que dão aos filhos sobre cursos universitários. Se todos esses primeiros rascunhos convergirem para o mesmo conjunto estreito de ideias — se todo e-mail começar com "Espero que esta mensagem o encontre bem," se toda startup se chamar algo com "Neo" ou "Spark," se todo rascunho de romance tiver a mesma estrutura de três atos e os mesmos ritmos emocionais — então a diversidade da cultura humana se torna uma função da temperatura do modelo.
 
-Isso não é hipotético. O teste do nome de banda já prova. O teste do número aleatório prova. O teste da metáfora prova. O que ainda não sabemos é como isso escala. A próxima geração de roteiristas, todos treinados em rascunhos assistidos por IA, vai convergir para as mesmas três estruturas de enredo? A próxima geração de estrategistas de negócios, todos briefados pelos mesmos quatro chatbots, vai convergir para as mesmas quatro táticas de go-to-market? A próxima geração de estudantes, todos com esboços de redação feitos pelo Claude, vai começar a soar como uma única voz com um bilhão de bocas?
+Isso não é hipotético. O teste do nome de banda já prova. O teste do número aleatório prova. O teste da metáfora prova. O que ainda não sabemos é como isso escala. A próxima geração de roteiristas, todos treinados em rascunhos assistidos por IA, vai convergir para as mesmas três estruturas de enredo? A próxima geração de estrategistas de negócios, todos com briefing dos mesmos quatro chatbots, vai convergir para as mesmas quatro táticas de go-to-market? A próxima geração de estudantes, todos com esboços de redação feitos pelo Claude, vai começar a soar como uma única voz com um bilhão de bocas?
 
 Os pesquisadores do NeurIPS acham que a resposta é sim. E eles acham que a solução exige mais do que o fine-tuning esperto de uma startup.
 
@@ -118,7 +118,7 @@ A OpenAI também disse que forçar mais a novidade pode levar a respostas mais f
 
 Bingemann, o CEO da Springboards, não afirma ter resolvido a colmeia. Ele afirma ter apontado que ela existe, e estar construindo uma alternativa entre o que espera que sejam muitas.
 
-"A maioria dos modelos de linguagem está combatendo alucinações," ele diz. "Nós as damos as boas-vindas."
+"A maioria dos modelos de linguagem está combatendo alucinações," ele diz. "Nós lhes damos as boas-vindas."
 
 Essa frase merece um momento. No discurso de segurança de IA, alucinações são o inimigo. São os fatos falsos, as citações inventadas, as mentiras confiantes. Todo laboratório principal tem um time trabalhando para erradicá-las. Bingemann está dizendo a parte que ninguém fala em voz alta: se você quer criatividade, tem que tolerar ruído. Se você quer diversidade, tem que arriscar erro. Os modelos que são mais seguros também são os mais iguais. Os modelos que são mais diferentes também são os mais propensos a dizer algo estranho.
 
