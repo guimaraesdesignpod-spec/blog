@@ -1,0 +1,176 @@
+---
+title: "Better Models, Worse Tools: The Counterintuitive Paradox Breaking AI Coding Assistants"
+description: "Armin Ronacher discovered that newer Claude models produce worse tool-calling behavior than older ones. The reason? A hidden 'slop harness' that trains models to be sloppy — and punishes anyone who expects them to follow a schema."
+date: "2026-07-05"
+translationKey: "better-models-worse-tools-ai-paradox-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI Tools", "Claude Code", "Anthropic", "Tool Calling", "AI Paradox", "Software Engineering", "2026"]
+image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=1080&q=80"
+imageAlt: "Lines of glowing code on a dark screen, symbolising the tension between better AI models and worse tool interoperability"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["better models worse tools", "AI tool calling paradox", "Claude Code slop harness", "Anthropic tool schema", "Armin Ronacher Pi", "AI model regression", "agentic coding tools 2026", "constrained decoding AI", "understanding is the new bottleneck"]
+tldr: "Armin Ronacher — creator of Flask and the Pi coding agent — discovered a disturbing regression: newer Claude models (Opus 4.8, Sonnet 5) invent fake fields when calling Pi's edit tool, while older models handle the same schema perfectly. His diagnosis: Anthropic's post-training optimises for Claude Code's forgiving 'slop harness,' which silently repairs errors, accepts aliases, and filters unknown keys. The models learn that slightly malformed tool calls still succeed, so they get sloppier. This creates a paradox where better models — trained on one closed ecosystem — become worse at interoperating with anyone else's tools. Meanwhile, Geoffrey Litt at Notion argues 'understanding is the new bottleneck' as humans lose track of AI-generated code. The article explores why tool schemas are no longer neutral contracts, how grammar-aware decoding could fix this, and what it means for the future of AI tool ecosystems."
+faq:
+  - q: "What is the 'better models, worse tools' paradox?"
+    a: "It is the counterintuitive observation that newer, more capable AI models can actually perform worse at tool-calling tasks than older models, because their post-training has optimised for a specific forgiving harness (Claude Code) rather than general schema compliance."
+  - q: "What is a 'slop harness'?"
+    a: "A 'slop harness' is Ronacher's term for a tool-calling client (like Claude Code) that silently tolerates and repairs malformed tool calls — accepting parameter aliases, fixing Unicode escapes, filtering unknown keys, and retrying failed calls. It trains models to be sloppy because sloppiness still succeeds."
+  - q: "Why do newer Claude models invent fake fields in tool calls?"
+    a: "Ronacher's strongest hypothesis is that Anthropic's reinforcement learning happens inside a Claude Code-like harness where malformed calls are silently repaired. The models learn that adding plausible-but-wrong fields does not block task completion, so the behaviour is reinforced rather than punished."
+  - q: "What is grammar-aware or constrained decoding?"
+    a: "Constrained decoding is a technique where the model's sampler masks out tokens that would violate a predefined grammar or schema. If the schema only allows 'oldText' and 'newText' keys, the sampler prevents the model from emitting 'requireUnique' or other invented fields."
+  - q: "Why does this matter for developers building their own AI tools?"
+    a: "If models are post-trained on one closed-source harness, alternative tool schemas become 'off-distribution.' Developers cannot assume that a model trained on Claude Code's quirks will faithfully follow their own tool schemas. They may need to adopt strict grammar constraints or accept that their tools will inherit invisible biases from the dominant harness."
+  - q: "What is 'understanding is the new bottleneck'?"
+    a: "Geoffrey Litt, a design engineer at Notion, argues that as AI agents write more code, the limiting factor is no longer writing speed but human comprehension. Developers need techniques like code explainer docs, understanding quizzes, and interactive micro-worlds to keep up with agent-generated systems."
+---
+
+# Better Models, Worse Tools: The Counterintuitive Paradox Breaking AI Coding Assistants
+
+> "The harness fully absorbs the error and there is little gradient against inventing an alias, adding a stray field or using a nearby parameter name."
+>
+> — Armin Ronacher
+
+Here is a sentence you do not expect to read in 2026: the newest Claude models are worse at calling tools than the old ones.
+
+Not worse at reasoning. Not worse at writing prose or debugging complex logic. Worse at the seemingly simple task of emitting a valid JSON payload that matches a schema they have been given. Worse at the thing that every AI coding assistant does dozens of times per session.
+
+Armin Ronacher — the creator of Flask, Jinja2, and the new Pi coding agent — spent two days chasing a bug that should not exist. Newer Anthropic models, including Opus 4.8 and Sonnet 5, were repeatedly inventing fake fields when calling Pi's file edit tool. Fields like `requireUnique`, `oldText2`, `type`, `kind`, `forceMatchCount`, and even `event.0.additionalProperties`. The actual edit content was byte-perfect. The model understood the task. It just could not resist adding imaginary keys to the JSON object.
+
+Older models? They handled the same schema flawlessly.
+
+This is not a random glitch. Ronacher's investigation points to something deeper and more uncomfortable: the models are not deteriorating. They are adapting. They are adapting to a world where slightly malformed tool calls still succeed because the harness silently repairs them. And that adaptation is making them worse at playing nicely with anyone else's tools.
+
+Welcome to the paradox of better models and worse tools.
+
+## The Discovery: When Opus 4.8 Starts Hallucinating Tool Arguments
+
+The bug surfaced in Pi, Ronacher's fledgling coding agent. Pi uses a nested edit tool that accepts an `edits[]` array, where each entry is an object with exactly two fields: `oldText` and `newText`. Straightforward.
+
+Except Opus 4.8 and Sonnet 5 were producing entries like this:
+
+```json
+{
+  "oldText": "text to replace",
+  "newText": "replacement text",
+  "requireUnique": true
+}
+```
+
+Or this:
+
+```json
+{
+  "oldText": "...",
+  "newText": "...",
+  "oldText2": "",
+  "newText2": ""
+}
+```
+
+Across repeated trials, Ronacher catalogued a "whole zoo of invented trailing keys": `type`, `id`, `kind`, `unique`, `matchCase`, `in_file`, `children`, `notes`, `cost`, and even `event.0.additionalProperties`.
+
+The most maddening part? The actual `oldText` and `newText` payloads were correct. The model had solved the problem. It just could not stop itself from decorating the JSON with fictional metadata.
+
+Even weirder, the failure was context-dependent. A clean single-turn prompt like "edit this file" worked fine. It only appeared in long agentic conversations where the model had already read files, diagnosed a problem, and composed a multi-line edit. And even then, not every time — roughly 20 percent of the time in the transcripts that reproduced it.
+
+Strip the model's "thinking blocks" from the conversation history, and the failure rate dropped by half. Turn on Anthropic's strict tool invocation mode, and it disappeared entirely.
+
+That last clue is important. The model *can* follow the schema when forced. It just does not want to.
+
+## Why It Is Getting Worse: The Training Artifact Theory
+
+Ronacher's strongest hypothesis is not a bug in the model weights. It is a training artifact.
+
+Here is the chain of logic: older Anthropic models were trained on tool-calling examples, but those examples came from a time before Claude Code existed as a dominant harness. The models learned general patterns. They could adapt to different tool shapes because their training was relatively diverse.
+
+Modern Anthropic models are almost certainly post-trained inside a Claude Code-like environment. The model learns what a successful tool call looks like *in that specific harness*. It also learns what mistakes are tolerated — because Claude Code tolerates a lot.
+
+By inspecting Claude Code's minified client code, Ronacher found that it is extraordinarily forgiving. It checks for leaked `<invoke>` markup in the model's visible text and retries bad calls with its own state machine. It repairs broken Unicode escape sequences and lone surrogates. It accepts parameter aliases: `old_str` works alongside `old_string`, `path` works for `file_path`. It silently filters out unexpected keys. It does not even use Anthropic's strict mode, because Anthropic applies complexity limits to tool definitions that cause API requests to fail.
+
+In other words, Claude Code is a **slop harness**. It trains the model that sloppiness is free.
+
+If reinforcement learning happens in an environment where slightly malformed calls still complete the task and receive reward, there is no gradient pushing the model toward precision. Why would it learn to respect a schema when the harness absorbs every deviation? The model discovers that adding an alias, inventing a plausible field, or using a nearby parameter name does not block success. So the behaviour is reinforced.
+
+"The harness fully absorbs the error," Ronacher writes, "and there is little gradient against inventing an alias, adding a stray field or using a nearby parameter name."
+
+## The Off-Distribution Problem
+
+This would be merely annoying if it only affected Claude Code users. But it does not. It affects everyone who builds tools that are *not* Claude Code.
+
+Claude Code's edit tool is comparatively flat: `file_path`, `old_string`, `new_string`, and an optional `replace_all` flag. Pi's edit tool is nested: an `edits[]` array of objects with `oldText` and `newText`. Same semantic intent, different shape.
+
+To a model post-trained on Claude Code's flat schema, Pi's nested schema is increasingly **off-distribution**. The model has a very strong prior about what an edit tool call should look like, and that prior is Claude Code's shape. When confronted with a different schema, it does not adapt cleanly. It fights.
+
+"When Opus 4.5 launched, it adapted to other edit tools exceptionally well," Ronacher notes. "Now I'm somewhat worried about the track we're on here. Alternative tool schemas might not just be unfamiliar. They might be implicitly punished by post-training that optimizes for one particular, forgiving tool ecology."
+
+That ecology is not documented. Anthropic publishes a text editor tool format, but Claude Code does not actually follow it. What Claude Code does internally is hidden, closed-source, and invisible to every developer building on top of the API.
+
+The implication is unsettling: **tool schemas are no longer neutral contracts.** They are somewhere in the model's distribution, and some shapes are close to what the model saw during post-training while others are far away. The model may be smart enough to understand your schema and still be bad at sampling the exact shape under pressure — because its training has taught it that precision does not matter.
+
+## The Broader Pattern: Understanding Is the New Bottleneck
+
+Ronacher's discovery is not an isolated quirk. It is part of a broader pattern that several people are noticing simultaneously.
+
+Geoffrey Litt, a design engineer at Notion, gave a widely shared talk titled **"Understanding is the new bottleneck."** His argument: as AI agents write more and more code, the limiting factor is no longer writing speed but human comprehension.
+
+"A project is many, many loops with the agent," Litt observes. "And the understanding you have of the system is part of your ability to come up with the next idea to evolve it."
+
+Litt connects this to the concept of **cognitive debt**, popularised by software engineering researcher Margaret-Anne Storey and developer Simon Willison. Cognitive debt is what accumulates when developers lose track of how their systems work. The code compiles, tests pass, but nobody can explain why certain design decisions were made or how different parts interact. With AI-generated code, this debt compounds at machine speed.
+
+Mark Zuckerberg reinforced the same anxiety from the executive suite. During an internal Meta town hall in early July 2026, he told staff that AI agents "haven't progressed as quickly as he'd hoped." The job cuts earlier in the year, part of Meta's AI-focused restructuring, had not produced the expected upside. Zuckerberg projected improvements in three to six months — a notably cautious timeline from someone who usually moves fast and breaks things.
+
+The pattern is consistent across the stack: models are getting better at the *task* but worse at the *interface*. They are getting better at reasoning through complex problems but worse at communicating their reasoning through precise, interoperable tool calls. They are getting better at writing code but worse at helping humans understand what they wrote.
+
+## Can Constrained Decoding Fix This?
+
+One obvious solution is **grammar-aware decoding** — also called constrained decoding. Instead of asking the model to produce valid JSON and hoping for the best, you constrain the sampler so that invalid tokens are physically impossible to emit.
+
+If the schema says only `oldText` and `newText` are allowed inside the edit object, the sampler masks out every other token at that position. The model literally cannot invent `requireUnique` because the token is not in the allowed set.
+
+OpenAI's new `gpt-oss` models take a step in this direction with their **Harmony** response format. The model can express in-band that a message body is JSON (`<|constrain|>json`), and the inference stack can switch into JSON-constrained sampling for that region. For hosted GPT models, developers can even provide custom LARK grammars for tools that need stricter shapes.
+
+Anthropic's `strict` mode appears to do something similar on the server side — Ronacher notes that enabling it eliminated the invented-key problem entirely — but Anthropic also applies complexity limits to tool definitions in strict mode, which is why Claude Code does not use it.
+
+Ronacher's priors have shifted. He used to be skeptical of strict grammar-constrained invocation because constrained decoding can have quality tradeoffs. After this bug, he is significantly more convinced. "If the newest models get better at solving the task while getting worse at faithfully emitting an alternative tool schema, then the harness needs stronger guarantees somewhere."
+
+The question is: whose responsibility is it to enforce those guarantees? The model provider? The harness builder? The developer who designed the tool schema?
+
+Right now, the answer is muddy. Anthropic's models are closed. Their harness is closed. The text editor tool documentation does not match what Claude Code actually does. And developers building on the API are left guessing which tool shapes will work and which will trigger invisible priors from a training process they cannot see.
+
+## What This Means for the Future
+
+If this trend continues, the implications are profound.
+
+First, **tool interoperability may actually decrease as models improve.** We like to imagine that better models are more general, more adaptable, more capable of following arbitrary instructions. But if post-training is increasingly concentrated inside one dominant harness — Claude Code, or whatever becomes the equivalent at OpenAI — then models will become *more* specialised, not less. They will be world-class at the canonical tool shapes and increasingly erratic at everything else.
+
+Second, **closed-source harnesses become de facto standards.** Even though Claude Code is not open source, its quirks are being baked into the models that everyone uses. Alternative tools will have to inherit those quirks or fight an uphill battle against invisible priors. This is a subtle form of ecosystem lock-in that has nothing to do with APIs or pricing.
+
+Third, **the "slop" problem extends beyond tool calling.** If models learn that errors are silently repaired, they may become sloppier in other domains too: citations, arithmetic, factual claims. The harness becomes a crutch, and the model never learns to walk straight.
+
+Fourth, **human understanding becomes the ultimate competitive advantage.** As Litt argues, the developers who thrive will be those who can efficiently build mental models of AI-generated systems. Code explainer docs. Interactive micro-worlds. Understanding quizzes. These are not nice-to-haves. They are survival skills.
+
+## Conclusion: The Price of Convenience
+
+There is an old engineering maxim: make the easy thing easy and the hard thing possible. The slop harness inverts this. It makes the easy thing trivially easy by absorbing every error — and in doing so, it makes the hard thing impossible by training the model that errors do not exist.
+
+Armin Ronacher's bug report is more than a technical curiosity. It is a warning signal. The AI tools we are building are not just interfaces between humans and models. They are training environments. Every quirk, every silent repair, every forgiven mistake is a lesson the model internalises. And those lessons do not stay inside the harness. They leak into every tool call, every API interaction, every integration with a third-party system.
+
+Better models should mean better tools. But if those models are trained inside forgiving ecosystems that hide their mistakes, the result is the opposite: models that are brilliant at reasoning and sloppy at communicating. Models that solve the problem and then sabotage the solution with a fictional `requireUnique` flag.
+
+The fix is not to make models less capable. It is to make harnesses more honest. Strict schemas. Visible errors. Grammar-constrained decoding. Tool calls that fail loudly instead of silently so the model learns that precision matters.
+
+Because the alternative — a world where every AI tool inherits the invisible biases of one closed-source harness — is not a future anyone wants to debug.
+
+---
+
+**Sources & Further Reading**
+
+- Armin Ronacher, *"Better Models: Worse Tools"* (July 4, 2026) — [lucumr.pocoo.org](https://lucumr.pocoo.org/2026/7/4/better-models-worse-tools/)
+- Geoffrey Litt, *"Understanding is the new bottleneck"* (July 2, 2026) — [geoffreylitt.com](https://www.geoffreylitt.com/2026/07/02/understanding-is-the-new-bottleneck.html)
+- TechCrunch, *"Mark Zuckerberg tells staff that AI agents haven't progressed as quickly as he'd hoped"* (July 2, 2026) — [techcrunch.com](https://techcrunch.com/2026/07/02/mark-zuckerberg-tells-staff-that-ai-agents-havent-progressed-as-quickly-as-hed-hoped/)
+- OpenAI, *Harmony Response Format* — [github.com/openai/harmony](https://github.com/openai/harmony)
+- Pi issue #6278: *"Opus 4.8 invents extra fields in edit tool calls"* — [github.com/earendil-works/pi/issues/6278](https://github.com/earendil-works/pi/issues/6278)
+- TLDR Tech Daily Briefing, *"Tesla 6-seat Model Y, Meta's AI disappointment, the understanding bottleneck"* (July 3, 2026) — [tldr.tech](https://tldr.tech/tech/2026-07-03)
