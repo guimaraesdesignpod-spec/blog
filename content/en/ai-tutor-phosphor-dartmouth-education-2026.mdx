@@ -1,0 +1,110 @@
+---
+title: "The AI Tutor That Actually Worked: Inside Dartmouth's 1.30 SD Experiment"
+description: "A Dartmouth undergrad built an AI tutor called Phosphor. In a pilot with 151 students, full engagement was associated with a 1.30 standard-deviation boost on the final exam. Here is what it got right — and what the sceptics are missing."
+date: "2026-07-06"
+translationKey: "ai-tutor-phosphor-dartmouth-education-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI", "Education", "Intelligent Tutoring", "Phosphor", "Dartmouth", "EdTech", "LLM", "Pedagogy"]
+image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200"
+imageAlt: "A student studying at a wooden desk with warm natural light, symbolising focused learning and AI-assisted education"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Phosphor AI tutor", "Dartmouth AI education", "AI tutoring effect size", "intelligent textbook 2026", "LLM formative assessment", "AI homework tutor", "Phosphor Jonah Bard", "AI in higher education"]
+tldr: "Dartmouth undergrad Jonah Bard built Phosphor, an AI-augmented textbook platform that embeds LLM-graded quizzes into course readings. In a 151-student pilot of Introductory Statistics, full engagement with Phosphor was associated with a 1.30 SD increase on the final exam (0.71 SD after controlling for prior midterm scores). The key insight: constructed-response questions graded by Claude Sonnet 4.6 drove learning gains, while multiple-choice-only quizzes did not. The RAG chat assistant saw minimal use. The study is observational and has selection-bias limitations, but it is one of the most rigorous real-classroom deployments of an AI tutor to date."
+faq:
+  - q: "What is Phosphor?"
+    a: "Phosphor is an AI-augmented learning platform built by Dartmouth student Jonah Bard. It embeds LLM-graded formative assessments directly into digital textbooks, turning passive reading into active recall practice."
+  - q: "What was the effect size found in the Dartmouth pilot?"
+    a: "The study reported a 1.30 standard-deviation gap between full engagement and zero engagement on the final exam. After controlling for prior midterm performance, the gap fell to 0.71 SD — which the authors treat as a conservative lower bound."
+  - q: "Why did constructed-response questions matter more than multiple-choice?"
+    a: "When students used multiple-choice-only quizzes, there was no dosage relationship with exam performance. When constructed-response questions returned — requiring students to generate answers rather than recognise them — the learning signal reappeared. This aligns with the well-documented testing effect in cognitive science."
+  - q: "Is this a randomised controlled trial?"
+    a: "No. The authors explicitly note this is an observational pilot and lack randomised controls. They plan an RCT in the fall. The headline numbers should be interpreted with selection bias in mind."
+---
+
+# The AI Tutor That Actually Worked: Inside Dartmouth's 1.30 SD Experiment
+
+For years, the ed-tech hype cycle has followed a predictable rhythm. A startup announces an AI tutor that will "revolutionise learning." Early demos look magical. Then the real-world data arrives — modest engagement, patchy outcomes, and a quiet retreat to the next pitch deck. We have seen this movie before, and we know how it ends.
+
+So when a twenty-something undergraduate at Dartmouth College quietly built a learning platform called Phosphor, tested it in a live statistics course with 151 students, and reported a 1.30 standard-deviation improvement on the final exam for the most engaged users, the Hacker News comments section did what it always does: it reached for the scepticism with both hands. Was the study randomised? No. Was the control group robust? Arguably not. Was selection bias the real driver? Almost certainly part of it.
+
+And yet. Buried beneath the statistical caveats is a genuinely interesting design insight — one that could matter far more than the headline number. Phosphor did not try to replace the teacher, the textbook, or the classroom. It tried to solve a much more specific problem: university students almost never read the textbook.
+
+## The Reading Compliance Crisis
+
+Jonah Bard, the student behind Phosphor, opens his paper with a bleak observation. In the course he studied — Introductory Statistics at Dartmouth — self-reported reading completion hovered around 15%. Instructors estimated it closer to 10%. When Bard surveyed students directly, individual reports ranged from "literally no one does that" to "is this being recorded?"
+
+This is not a Dartmouth problem. It is a universal feature of undergraduate education. Textbook reading compliance has been declining since the 1980s, and students have become expert at extracting just enough from lectures and problem sets to survive. The textbook exists as a reference, not as a primary learning channel.
+
+Bard's diagnosis is simple: reading is passive. Students skim, highlight, and forget. What transforms reading into learning is active recall — the act of retrieving information from memory, failing, correcting, and retrieving again. This is the "testing effect," and it has been one of the most robust findings in cognitive psychology for decades. The trouble is that generating retrieval practice at scale requires grading, feedback, and personalisation — all of which are expensive in human time.
+
+Enter the large language model.
+
+## What Phosphor Actually Does
+
+Phosphor is not a chatbot. This is the first and most important thing to understand about it. The platform presents digital lessons organised into modules, each with a bank of 15–20 exercises. Students take Lesson Quizzes consisting of randomly selected questions. Multiple-choice questions are auto-graded instantly. Constructed-response questions — where the student writes a free-form answer — are graded by Claude Sonnet 4.6 against instructor-defined rubrics. The LLM returns a correctness judgment and an explanation.
+
+The design is deliberately conservative. The content is grounded in the official course textbook (Freedman, Pisani, Purves), not generated by the model. The RAG-based chat assistant is walled off from the open internet — it can only reference the curriculum. Instructors wrote their exams independently, before the pilot began, with no knowledge of Phosphor's specific question banks.
+
+Students were told Phosphor was an optional "study aid." Nothing was mandatory. Nothing was attached to their grade. And yet 90.2% of enrolled students engaged with the platform at least once. Among those who created accounts, the median student reached 96% of the 24 lessons. Compare that to the baseline reading compliance of 10–15%.
+
+Something about the design made students want to use it.
+
+## The 1.30 SD Number — And What It Actually Means
+
+The headline figure is dramatic: students who completed all 24 lessons and passed all three Module Reviews scored 14.7 points higher on the 24-point final exam than students with zero engagement. On a 0–100 scale, that is a 1.30 standard-deviation gap — a magnitude rarely seen in educational interventions.
+
+But Bard and his co-authors are careful. They know the most motivated students are also the most likely to complete every quiz. So they fit Tobit models controlling for prior midterm performance. When they do, the gap shrinks to 8.0 points — roughly 0.71 SD. They present 0.71 as a conservative lower bound and 1.30 as an upper bound inflated by self-selection.
+
+Even 0.71 SD is enormous. In education research, an effect size above 0.4 is typically considered educationally meaningful. A full standard deviation is the kind of result that usually requires one-on-one human tutoring — the famous "2 Sigma" problem identified by Benjamin Bloom in the 1980s. Phosphor is not claiming to close that gap. But it is claiming to move the needle substantially, with software, at scale, for free.
+
+## The Multiple-Choice Trap
+
+Perhaps the most persuasive evidence in the paper comes from an accidental natural experiment. After Module 1, students complained that the AI grader for constructed-response questions was too rigid and discouraging. Bard's team responded by switching Module 2 Lesson Quizzes to multiple-choice only. Engagement jumped — students liked the easier format. But when they analysed the exam results, the dosage relationship disappeared. More MCQ quiz completions predicted nothing.
+
+This is a crucial finding. It suggests that engagement alone — the mere act of clicking through quizzes — is not what drives learning. The format matters. When students had to generate answers, they learned. When they only had to recognise correct answers, they did not. After seeing the null result, the team reintroduced constructed-response questions for Module 3. Engagement dipped slightly, but the learning signal returned.
+
+This aligns with a 2007 study by Kang, McDermott, and Roediger, which found that short-answer quizzes with feedback produced stronger retention than multiple-choice quizzes (effect size d = 0.41). The mechanism is retrieval practice: generating an answer from memory strengthens neural pathways in a way that recognition does not.
+
+For the ed-tech industry, this is a wake-up call. Flashy dashboards, gamified points, and endless MCQ banks may boost engagement metrics. But if the format does not demand cognitive effort, the learning gains may be illusory.
+
+## What Did Not Work: The Chatbot
+
+Phosphor included a RAG-based chat assistant — a sidebar where students could ask questions while reading. It was barely used. Across the entire pilot, there were only 72 total queries, and only 14 students submitted more than one.
+
+Students gave two reasons. First, general-purpose LLMs like ChatGPT and Claude were faster and more capable for their questions. Second, the reference content was "sufficient" — they did not generate enough questions during reading to justify a separate chat interface.
+
+This is a sobering data point for the wave of AI tutoring startups betting everything on conversational interfaces. Chatbots are sexy. They demo well. But when students actually have work to do, they may prefer structured practice over open-ended dialogue. Khan Academy recently reported similarly low chatbot engagement — only 15% of users regularly interact with their supplementary Khanmigo chatbot.
+
+The implication is that AI's greatest educational value may not be in replacing the Socratic dialogue, but in automating the mechanical parts of pedagogy — grading, feedback, spaced repetition — that humans cannot scale.
+
+## The Scepticism Is Valid — And Necessary
+
+The Hacker News thread on Phosphor is a masterclass in constructive criticism. Commenters pointed out that the headline 0.71 SD effect is based on only about 16 students who reached "full dosage." They noted that controlling for midterm scores is not a substitute for randomisation, because midterm performance may itself be influenced by Phosphor use in earlier modules. They questioned whether exam questions were truly independent of the platform's materials.
+
+Bard showed up in the thread to respond, point by point. He acknowledged the limitations. He clarified that the regression slope was fitted across the whole dosage distribution, not just the top performers. He confirmed that instructors wrote exams independently and were not collaborators on the project — one instructor initially thought Phosphor would be "a waste of time" and refused to participate. Despite that, 97% of students in that instructor's section used the platform.
+
+The most penetrating criticism came from a commenter who compared Phosphor to a Georgia Tech study on study groups. When students self-organised into study groups, they performed dramatically better. When the department forced everyone into study groups, the effect disappeared. Self-selection of the most motivated students into any intervention can produce illusory gains. The only way to know if Phosphor works is to randomly assign students to use it or not — something the authors plan to do in the fall.
+
+This is exactly how science should work. Bold claim, rigorous critique, iterated design.
+
+## Why This Matters Beyond the Classroom
+
+If Phosphor's results replicate, the implications extend far beyond a single statistics course at an Ivy League college. The "2 Sigma" problem — the gap between conventional classroom instruction and one-on-one tutoring — has been called the most important unsolved problem in education. Bloom showed that individual tutoring produces learning gains two standard deviations above the mean. But human tutors are scarce and expensive. Technology has tried and failed to replicate those gains for decades.
+
+LLMs are different in one crucial respect: they can read and evaluate free-form student writing at scale. Previous generations of intelligent tutoring systems were limited to narrow domains with structured inputs — algebra, physics problem sets, multiple-choice questions. They could not grade an essay, evaluate a proof, or give nuanced feedback on a statistical explanation. Claude Sonnet 4.6 can do all of those things, in seconds, for pennies.
+
+This does not mean the teacher is obsolete. If anything, Phosphor's design suggests the opposite. The platform is built around the existing course structure — lectures, textbooks, exams. It augments rather than replaces. The human instructor still designs the curriculum, defines the rubrics, and sets the intellectual frame. The AI handles the grading and feedback at a scale no human TA army could match.
+
+In this vision, the professor becomes a curator and diagnostician, while the AI becomes the tireless practice partner. The division of labour is clear: humans do what requires judgment, taste, and contextual wisdom. Machines do what requires patience, consistency, and infinite scalability.
+
+## The Road Ahead
+
+Bard is clear about what comes next. A randomised controlled trial in the fall, with one section getting Phosphor and another serving as control. Replication across other courses and institutions. Deeper investigation of the engagement-efficacy trade-off — whether attaching Phosphor to course grades increases engagement enough to bring the high-dosage effect to the majority of students.
+
+There are also harder questions. Will the effect persist when students know the tool is graded? Or will they game it, clicking through for completion rather than learning? Will the AI grader remain reliable as question complexity increases? Will students develop dependency, struggling when the tool is removed?
+
+These are not reasons to dismiss Phosphor. They are the next experiments. The history of ed-tech is littered with tools that promised the moon and delivered a PDF. Phosphor, by contrast, is modest, grounded, and willing to subject itself to scrutiny. It does not claim to replace teachers, revolutionise education, or solve inequality. It claims one thing: that embedding AI-graded retrieval practice into digital readings can dramatically increase how much students learn from the material they were supposed to read anyway.
+
+That claim may turn out to be wrong. But it is at least falsifiable. And in a field where hype has too often outrun evidence, that is progress.
