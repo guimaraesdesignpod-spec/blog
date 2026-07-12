@@ -1,0 +1,186 @@
+---
+title: "O Que o Grok Build da xAI Envia do Seu Código: Uma Análise de Privacidade ao Nível do Fio"
+description: "Um pesquisador de segurança interceptou cada byte que o Grok Build envia para a xAI. O resultado: seu repositório inteiro — segredos, histórico do git e arquivos não lidos — é enviado silenciosamente para um bucket do Google Cloud Storage, mesmo com 'Melhorar o modelo' desligado."
+date: "2026-07-12"
+lang: "pt-BR"
+translationKey: "xai-grok-build-cli-privacy-exfiltration-2026"
+tags: ["xAI", "Grok", "Privacidade de IA", "Cibersegurança", "2026", "Ferramentas de Código com IA"]
+keywords: ["privacidade Grok Build CLI", "upload de código xAI", "exfiltração de repositório Grok", "grok-code-session-traces", "privacidade ferramentas de código IA 2026", "vazamento de segredos Grok Build", "coleta de dados xAI", "análise de rede Grok Build", "segurança ferramentas IA na nuvem", "privacidade xAI vs Copilot"]
+author: "Brainwire"
+image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1200\u0026q=80"
+tldr: "Um pesquisador de segurança usou um proxy man-in-the-middle para capturar cada byte enviado pelo Grok Build CLI da xAI (versão 0.2.93). As descobertas são alarmantes: o Grok envia seu repositório inteiro como um pacote git para um bucket do Google Cloud Storage chamado 'grok-code-session-traces', incluindo arquivos que o agente foi explicitamente instruído a não ler, segredos de .env sem nenhuma redação e o histórico completo do git. Em um repositório de teste de 12 GB, 5,1 GB de dados foram enviados com sucesso e zero falhas antes da captura ser interrompida. O mais crítico é que desativar 'Melhorar o modelo' nas configurações não para o upload — o servidor ainda retorna trace_upload_enabled: true. O mecanismo não está documentado nos materiais de instalação da CLI e está ativo por padrão em contas de consumidor."
+faq:
+  - q: "O que exatamente o Grok Build CLI envia para a xAI?"
+    a: "A CLI envia seu repositório inteiro como um pacote git para um bucket do Google Cloud Storage chamado 'grok-code-session-traces'. Isso inclui todos os arquivos rastreados, o histórico completo do git e até arquivos que o agente foi explicitamente instruído a não ler. Além disso, os arquivos que o agente lê (incluindo segredos de .env) são enviados sem redação por um canal separado de conversa com o modelo."
+  - q: "Desligar 'Melhorar o modelo' para o upload?"
+    a: "Não. O pesquisador testou com 'Melhorar o modelo' desativado e descobriu que o repositório inteiro ainda era enviado como um pacote git. A resposta do servidor em /v1/settings ainda retornava trace_upload_enabled: true e upload_enabled: true. A opção de não participar governa o treinamento, não o armazenamento."
+  - q: "Como isso foi descoberto?"
+    a: "O pesquisador usou o mitmproxy para interceptar todo o tráfego HTTPS do Grok Build CLI versão 0.2.93 no macOS. Ele usou strings falsas de 'canário' plantadas em arquivos .env e em arquivos não lidos para rastrear exatamente o que saía da máquina e para onde ia."
+  - q: "Isso é igual às outras ferramentas de código com IA?"
+    a: "A maioria dos agentes de código na nuvem precisa enviar algum código para seus servidores para funcionar. As diferenças novas aqui são: (a) arquivos de segredos são transmitidos sem redação, (b) o conteúdo é persistido em um bucket GCS nomeado em vez de ser processado de forma transitória, (c) o upload inclui o repositório inteiro, incluindo arquivos não lidos, e (d) o mecanismo não está apresentado nos materiais de instalação da CLI."
+  - q: "Quais são as implicações de segurança?"
+    a: "Se você executa o Grok Build em um repositório contendo chaves de API, senhas de banco de dados, lógica de negócio privada ou segredos comerciais, todos esses dados estão saindo da sua máquina e sendo armazenados em um bucket na nuvem. Mesmo que a xAI nunca treine com eles, os dados são transmitidos, aceitos e armazenados — criando uma superfície de ataque permanente. Um engenheiro do GitHub Copilot confirmou que o produto deles tem várias camadas de proteção que o Grok Build não tem."
+  - q: "O que os desenvolvedores podem fazer para se proteger?"
+    a: "A abordagem mais segura é executar agentes de IA de código dentro de um sandbox com acesso restrito a diretórios (usando ferramentas como bubblewrap, firejail ou gvisor). Nunca coloque segredos reais em arquivos .env dentro de um diretório que um agente de IA possa acessar. Considere usar ferramentas baseadas em API em vez de CLIs proprietários nativos, onde você controla exatamente quais dados são enviados."
+---
+
+> **Disclaimer:** Este artigo pode conter links de afiliado, sem custo adicional para você. Quando recomendo ferramentas, me baseio na minha experiência real — não em comissões.
+
+# O Que o Grok Build da xAI Envia do Seu Código: Uma Análise de Privacidade ao Nível do Fio
+
+Em 12 de julho de 2026, um pesquisador de segurança publicou o que pode ser a engenharia reversa mais completa de uma ferramenta de código com IA até hoje. Usando um proxy man-in-the-middle, ele capturou cada byte que o Grok Build CLI da xAI envia de volta para seus servidores. A manchete não é que o Grok envia código — todo agente de código na nuvem faz isso. A manchete é *o que* ele envia, *quanto* disso, e o fato de que você não consegue desligar.
+
+Se você tem o Grok Build instalado e já o executou em um diretório contendo qualquer coisa sensível, este artigo é para você. As descobertas são reproduzíveis, documentadas com hashes SHA-256, e pintam um quadro de coleta de dados que vai muito além do que os materiais de instalação da CLI sugerem.
+
+## A Configuração: Como Alguém Fez Engenharia Reversa de um Binário Fechado
+
+O pesquisador, operando sob o nome cereblab, começou com uma pergunta simples: quando eu executo `grok -p "corrija esse bug"` no meu diretório de projeto, o que exatamente sai da minha máquina?
+
+Para responder isso, ele montou um ambiente controlado:
+
+- **macOS em Apple Silicon**, rodando o Grok Build CLI versão **0.2.93** (SHA-256: `2a97ba675bd992aa9b981e2e83776460d94f469b510c0b8efe28b50d236d767c`)
+- **mitmproxy** para interceptar todo o tráfego HTTPS, com o certificado da xAI confiável no chaveiro de login
+- Um **repositório descartável** contendo segredos falsos de "canário" com marcadores únicos (como `CANARY7F3A9-SECRET`) para que qualquer coisa aparecendo no tráfego capturado pudesse ser rastreada inequivocamente até um arquivo específico
+- Os valores de canário não eram credenciais reais — eram strings construídas propositalmente para provar se arquivos específicos estavam sendo exfiltrados
+
+Isso não é teórico. Cada descoberta abaixo é respaldada por um artefato de rede capturado com um hash SHA-256. O pesquisador até publicou os comandos de reprodução para que qualquer pessoa com a mesma versão do binário possa verificar por conta própria.
+
+## Descoberta 1: Seus Segredos São Enviados ao Pé da Letra e Sem Redação
+
+Quando o Grok lê um arquivo — qualquer arquivo que ele considere relevante para sua tarefa — o conteúdo desse arquivo é transmitido para a xAI em dois canais separados simultaneamente.
+
+**Canal A** é o canal de conversa com o modelo: uma requisição `POST /v1/responses` que leva o contexto da conversa para o LLM. Dentro desse corpo de requisição de 48KB, o pesquisador encontrou seus segredos falsos de `.env` **ao pé da letra**:
+
+```
+API_KEY=CANARY....5
+DB_PASSWORD=CANARY....PASS
+```
+
+Todos os seis marcadores de arquivo plantados foram recuperáveis dos corpos de requisição descriptografados. Sem redação. Sem criptografia de campos sensíveis. Um arquivo `.env` é tratado da mesma forma que um `README.md`.
+
+**Canal B** é um arquivo persistido: o mesmo conteúdo é empacotado em um tarball `session_state` e enviado via `POST /v1/storage`, retornando HTTP 200. Quando o pesquisador descompactou o artefato preparado antes dele ser drenado, todos os marcadores de canário estavam presentes — incluindo os do arquivo de segredos.
+
+O pesquisador se preocupou em antecipar uma objeção comum: "Mas você mandou ele ler os segredos." Ele rodou um teste de controle com um arquivo que o agente foi explicitamente instruído a **não** abrir (`untouched_secret.txt`) e o prompt "Responda exatamente OK, não leia nenhum arquivo." O marcador do arquivo não tocado apareceu em **nenhum** dos dois canais. O vazamento está limitado aos arquivos que o Grok *lê* — mas ele lê liberalmente, e aplica **zero redação** ao que encontra.
+
+É importante notar que o pesquisador apontou uma lacuna nos testes: o arquivo `.env` estava rastreado pelo git. Ele não testou separadamente se um arquivo `.gitignore`d ainda é enviado. O mecanismo parece ser orientado por leitura, mas esse caso específico permanece não testado.
+
+## Descoberta 2: Seu Repositório Inteiro É Enviado — Até Arquivos Que Você Nunca Pediu para Ler
+
+É aqui que as coisas escalam de "preocupantes" a "sem precedentes."
+
+O pesquisador descobriu que o Grok Build envia um **snapshot completo do seu repositório** por meio de um mecanismo separado do canal de conversa com o modelo. E esse snapshot inclui **todos os arquivos rastreados**, não apenas os que o agente lê.
+
+A evidência está em três camadas:
+
+**Camada A — A divisão de bytes.** Em um teste com um repositório de 12 GB de arquivos aleatórios que o agente nunca leu, os dois canais moveram volumes absurdamente diferentes:
+
+- **Canal A** (`/v1/responses`, conversas com o modelo): **192 KB no total** em 5 requisições
+- **Canal B** (`/v1/storage`, snapshot do repo): **5,10 GiB** em 73 chunks de ~75 MB cada
+
+Isso é uma **proporção de 27.800×**. O modelo demonstradamente nunca consumiu esses arquivos — 192 KB não conseguem carregar 5 GiB — e mesmo assim 5,1 GiB deles saíram pelo `/v1/storage`. Todas as 82 requisições de armazenamento retornaram HTTP 200. Zero falhas.
+
+**Camada B — A própria confissão do binário.** Rodando `strings` no binário do Grok, foram revelados caminhos de origem de um crate Rust chamado `xai-data-collector`, com constantes como:
+
+```
+crates/codegen/xai-data-collector/src/gcs.rs
+crates/codegen/xai-data-collector/src/storage_client.rs
+crates/codegen/xai-grok-shell/src/upload/{grok,turn,trace,manifest}.rs
+grok-code-session-traces
+storage.googleapis.com
+"Uploading bytes to GCS via proxy"
+```
+
+Isso é código de primeira parte, não uma biblioteca de analytics de terceiros. A xAI construiu essa pipeline de coleta de dados intencionalmente.
+
+**Camada C — A arma fumegante.** Em um codebase real de 298 arquivos, o pesquisador usou uma conta SuperGrok (cota liberada) com o prompt: "Responda exatamente: OK. Não leia nem abra nenhum arquivo." Ele tinha plantado um marcador único em `src/_probe/never_read_canary.txt`.
+
+O Grok enviou o **repositório inteiro como um pacote git** via `POST /v1/storage → 200`. Rodando `git clone` no pacote capturado, o repositório foi reconstruído. E `src/_probe/never_read_canary.txt` continha o marcador **ao pé da letra** — um arquivo que o agente foi explicitamente instruído a não abrir. O pacote também carregava o histórico completo do git (4 commits, 47 arquivos).
+
+Ele replicou isso em um segundo codebase não relacionado, com o resultado idêntico.
+
+O mecanismo de upload é um **pacote git**. "Repositório inteiro" é literal: todos os arquivos rastreados mais todo o histórico de commits. O único teto encontrado foi uma cota de uso do modelo (402/429 em `/v1/responses`), não um limite de tamanho de armazenamento.
+
+## Descoberta 3: O Destino É um Bucket Nomeado do Google Cloud Storage
+
+Os dados não somem em uma "nuvem" abstrata. Eles vão para um bucket específico e nomeado: **`grok-code-session-traces`** no Google Cloud Storage.
+
+Isso é comprovado por:
+- Strings do binário nomeando o bucket explicitamente
+- Arquivos `metadata.json` preparados mostrando destinos por arquivo da forma `gs://grok-code-session-traces/repo_changes_dedup/v2/…/sha256_…`
+- Requisições `PUT` diretas para `storage.googleapis.com` observadas durante os testes
+- Os artefatos de upload multi-gigabyte retornando 200
+
+Não é AWS S3. Não é um cache transitório. É um bucket GCS persistente, e seu código é armazenado lá com endereçamento por conteúdo.
+
+O pesquisador também encontrou telemetria de terceiros sendo enviada para o Mixpanel (`api.mixpanel.com/track`) e para o próprio endpoint de eventos da xAI (`grok.com/_data/v1/events`), ambos retornando 200.
+
+## Descoberta 4: "Melhorar o Modelo" Desligado Não Faz Diferença
+
+Essa pode ser a descoberta mais perturbadora. A xAI oferece uma opção de privacidade nas configurações: "Melhorar o modelo." A suposição natural é que desligar isso para o envio dos seus dados.
+
+Não para.
+
+O pesquisador executou o Grok com "Melhorar o modelo" explicitamente **desativado**. O resultado:
+
+- O repositório inteiro ainda foi enviado como um pacote git (`POST /v1/storage → 200`)
+- A resposta do servidor em `/v1/settings` para a CLI ainda retornava:
+  ```json
+  "trace_upload_enabled": true,
+  "upload_enabled": true,
+  "session_registry_enabled": true
+  ```
+- A opção de não participar governa o **treinamento**, não o **armazenamento**. Seu código ainda sai da sua máquina e ainda é aceito no bucket GCS.
+
+Essa é uma distinção crítica que a política de privacidade da xAI e os materiais de instalação da CLI não deixam clara. O pesquisador revisou o script de instalação e o guia de início rápido e não encontrou menção ao mecanismo de upload `repo_state`, ao diretório de preparo `~/.grok/upload_queue` ou ao bucket `grok-code-session-traces`. O mecanismo está ativo por padrão em logins de consumidor padrão.
+
+## Como o Pesquisador Manteve a Honestidade Sobre o Que Não Provou
+
+Um dos aspectos mais impressionantes dessa divulgação é a seção "O que NÃO provamos." O pesquisador foi explícito sobre os limites de suas descobertas:
+
+- **Ele não provou que a xAI treina com esses dados.** Envio e armazenamento são fatos medidos. Se esses dados são usados para treinamento de modelo é uma questão de política fora do escopo da captura de rede.
+- **Alguns artefatos foram observados ao vivo, mas não retidos.** As execuções de teste de 64 MB, 600 MB e 3 GB foram observadas durante uma varredura, mas seus logs de captura foram sobrescritos. Apenas a execução de 12 GB foi retida como arquivo.
+- **A captura de 12 GB foi interrompida no meio do caminho.** Ela prova que upload multi-gigabyte funciona sem falhas, não que um repositório de 12 GB completa do início ao fim.
+- **A alegação de "não documentado" é de escopo limitado.** O pesquisador baseou-se no script de instalação e no guia rápido da CLI, não em uma auditoria exaustiva de toda a documentação da xAI.
+- **O mecanismo não foi testado com .gitignore** para ver se arquivos ignorados ainda são varridos.
+
+Essa honestidade intelectual torna as descobertas mais credíveis, não menos. Onde há uma lacuna, ele diz. Onde há prova, ele fornece hashes SHA-256 e etapas de reprodução.
+
+## O Contexto da Indústria: Como Outras Ferramentas Tratam a Privacidade
+
+A discussão no Hacker News que seguiu essa divulgação incluiu uma contribuição notável de um **engenheiro do GitHub Copilot** que trabalha em identidade, segurança e privacidade.
+
+Ele confirmou que:
+- Funcionários da Microsoft precisam de um processo de integração separado para acessar *quaisquer* recursos da empresa GitHub
+- Muito poucos funcionários dentro do próprio GitHub têm acesso para visualizar repositórios privados
+- Em casos raros onde o acesso é necessário por razões legais ou de segurança, o dono do repositório é notificado
+- Atualmente **não há funcionários da OpenAI com acesso aos sistemas do GitHub**
+- Existem cerca de **4 camadas de proteção** entre a OpenAI e repositórios privados do GitHub
+
+Compare isso com o Grok Build: um binário, um login, zero portões de aprovação, e seu repositório inteiro vai para um único bucket nomeado. O ponto do engenheiro do Copilot não era dizer que o GitHub é perfeito — ele reconheceu que nada pode ser provado com certeza absoluta — mas mostrar que **barreiras arquiteturais de privacidade são possíveis**, e o Grok Build parece não ter nenhuma delas.
+
+## O Que os Desenvolvedores Devem Fazer Agora
+
+Se você usa ou já considerou usar o Grok Build, aqui estão as lições práticas:
+
+**1. Nunca coloque segredos reais em arquivos .env ao alcance de um agente de IA.** Isso sempre foi uma boa prática, mas a falta de redação do Grok torna isso inegociável. Use um gerenciador de segredos, variáveis de ambiente injetadas em tempo de execução, ou um repositório separado para configuração sensível.
+
+**2. Coloque seus agentes de IA em sandbox.** Ferramentas como bubblewrap, firejail e gvisor podem restringir quais diretórios uma CLI de IA pode ler. Um comentarista do HN descreveu rodar o Grok dentro de um container bubblewrap com um sistema root somente leitura e um home em tmpfs, mais um proxy HTTP de filtragem em um socket Unix que só permite domínios de provedores de LLM. Isso não é paranoia — é defesa em profundidade.
+
+**3. Prefira ferramentas baseadas em API em vez de CLIs proprietários nativos.** Quando você usa um cliente de API como o OpenRouter ou uma ferramenta local com sua própria chave de API, você controla exatamente quais dados saem da sua máquina. A contrapartida é performance — CLIs nativos frequentemente têm integrações mais apertadas — mas a lacuna de privacidade é real.
+
+**4. Audite o que você já tem instalado.** Se você instalou o Grok Build e o executou em qualquer diretório contendo código sensível, esse código já foi enviado. Não existe botão de recall. A política de privacidade da xAI diz que as opções de não participar são prospectivas, não retroativas.
+
+**5. Exija transparência.** O problema central aqui não é que a xAI coleta dados — todo serviço na nuvem faz isso. O problema é que o mecanismo, o escopo e a persistência da coleta não são divulgados nos próprios materiais da CLI. Usuários não podem dar consentimento informado sobre o que não sabem que existe.
+
+## A Conclusão
+
+A divulgação de privacidade do Grok Build CLI é um estudo de caso de como ferramentas de IA podem ultrapassar a compreensão do usuário. O que parece um assistente de código útil é, por baixo do capô, uma pipeline de coleta de dados que envia seu repositório inteiro — segredos, histórico e tudo — para um bucket na nuvem persistente. O botão que você pensava que te protegia não protege. A documentação que você leu não menciona isso. E a única razão pela qual sabemos de tudo isso é porque um pesquisador passou dias interceptando bytes e publicando seu trabalho.
+
+Isso não é um bug. Isso é arquitetura. E é uma arquitetura que todo desenvolvedor que usa ferramentas de código com IA precisa entender antes de digitar seu próximo prompt.
+
+**Fontes:**
+- Cereblab, "What xAI Grok Build CLI actually sends to xAI — a wire-level analysis," GitHub Gist, julho de 2026
+- Hacker News Discussion, "What xAI's Grok Build CLI Actually Sends to xAI," item 48877371, 12 de julho de 2026
+- Política de Privacidade da xAI: https://x.ai/legal/privacy-policy
+- Termos de Serviço do Consumidor da xAI: https://x.ai/legal/terms-of-service
+- IO Fund, "Nvidia, CoreWeave, and Nebius: Inside the Circular Financing of the GPU Boom," 12 de junho de 2026
