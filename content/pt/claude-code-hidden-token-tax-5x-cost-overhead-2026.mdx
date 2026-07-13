@@ -1,0 +1,80 @@
+---
+title: "O Imposto de 33 Mil Tokens: Por Que o Claude Code Custa Cinco Vezes Mais Do Que Você Pensa"
+description: "Um novo estudo empírico revela que o Claude Code, da Anthropic, envia 33 mil tokens antes mesmo de ler seu prompt — quase 5 vezes mais que o OpenCode —, e a ineficiência de cache deixa o custo real ainda pior."
+date: "2026-07-13"
+translationKey: "claude-code-hidden-token-tax-5x-cost-overhead-2026"
+lang: "pt"
+tags: ["IA", "Claude Code", "OpenCode", "economia de tokens", "agentes de código IA", "Anthropic", "2026"]
+keywords: ["sobrecarga de tokens Claude Code", "Claude Code vs OpenCode custo", "custos ocultos agentes de código IA", "imposto de tokens agentes IA 2026", "ineficiência de cache Claude Code", "custo de subagentes", "inchaço de tokens MCP server"]
+tldr: "Um estudo de nível de rede da Systima AI descobriu que o Claude Code envia cerca de 33 mil tokens de prompt de sistema, schemas de ferramentas e scaffolding antes de processar uma única solicitação do usuário — quase 5 vezes a linha de base de ~7 mil tokens do OpenCode. Pior: o Claude Code reescreve seu prefixo de cache no meio da sessão a uma taxa de até 54 vezes a do OpenCode, e os subagentes multiplicam os custos em 4,2 vezes. O detalhe: em tarefas multi-etapa, o agrupamento paralelo do Claude Code pode superar a abordagem serial do OpenCode. A lição não é evitar o Claude Code, mas instrumentar o tráfego do seu agente — porque se você não sabe o que seu harness envia, não sabe o que ele custa."
+faq:
+  - q: "O Claude Code realmente envia 33 mil tokens antes de ler meu prompt?"
+    a: "Sim, segundo a medição de nível de rede da Systima AI usando um proxy de logs entre o harness e a API da Anthropic. O payload inclui prompts de sistema, 27 definições de ferramentas, blocos de lembrete injetados e scaffolding — cerca de 32.800 tokens no total na primeira solicitação. O OpenCode, no mesmo modelo, envia cerca de 6.900 tokens."
+  - q: "Por que o cache do Claude Code custa tanto mais que o do OpenCode?"
+    a: "O cache de prompt funciona re-lendo um prefixo estável a um décimo do preço de escrita. O prefixo do OpenCode permanece byte a byte idêntico em cada solicitação, então ele paga uma vez e lê barato depois. O Claude Code reescreve seu prefixo no meio da sessão — até 54 vezes mais tokens de escrita de cache que o OpenCode na mesma tarefa — porque seu scaffolding muda entre os turnos e as sessões. As escritas de cache são cobradas com taxa premium, e é por isso que o painel de uso dispara."
+  - q: "Quanto os subagentes aumentam a conta de tokens?"
+    a: "Uma tarefa pequena que custou 121 mil tokens feita diretamente custou 513 mil tokens quando distribuída para dois subagentes — um multiplicador de 4,2 vezes. Cada subagente tem seu próprio custo de bootstrap, e o agente pai depois consome a transcrição do subagente. Esse foi o maior multiplicador de custo que o estudo mediu."
+  - q: "O Claude Code alguma vez ganha em custo total?"
+    a: "Sim, em uma tarefa multi-etapa. O Claude Code agrupou chamadas de ferramentas paralelas em menos solicitações, enquanto o OpenCode fez uma chamada por turno e pagou sua linha de base menor a cada vez. O Claude Code usou 3 solicitações totalizando ~121 mil tokens; o OpenCode usou 9 solicitações totalizando ~132 mil. Uma linha de base grande que agrupa de forma agressiva pode superar uma linha de base pequena que serializa."
+  - q: "Como posso auditar o que meu agente de IA realmente envia?"
+    a: "A Systima AI recomenda inserir um proxy de logs entre seu harness e o endpoint do modelo. O proxy captura os payloads exatos das solicitações e os blocos de uso retornados. Com esses dados, você pode separar a sobrecarga do harness dos seus prompts reais, verificar o comportamento do cache e quantificar o custo de cada servidor MCP, arquivo de instrução e subagente."
+image: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?w=1200"
+imageAlt: "Padrão abstrato de placa de circuito simbolizando custos computacionais ocultos em sistemas de IA"
+imageCredit: "Shubham Dhage"
+imageCreditUrl: "https://unsplash.com/@onefifteen"
+author: "Elisio Guimarães"
+---
+
+# O Imposto de 33 Mil Tokens: Por Que o Claude Code Custa Cinco Vezes Mais Do Que Você Pensa
+
+Você abre o terminal, digita "Corrige o bug de autenticação" e o Claude Code entra em ação. Em segundos ele está lendo arquivos, pesquisando a base de código e propondo um patch. Eficiente, elegante, invisível. O que você não vê — e que nenhum painel de uso mostra em texto claro — é a montanha de tokens que chegou antes mesmo de seus doze caracteres de prompt alcançarem o modelo. Segundo um novo estudo empírico, essa montanha tem 33 mil tokens de altura. E o agente ao lado, o OpenCode, sobe um morro de apenas 7 mil.
+
+O estudo vem da Systima AI, uma consultoria que constrói sistemas agenticos para empresas europeias. Não é um comunicado à imprensa nem um artigo de opinião. É uma medição de nível de rede: eles colocaram um proxy de logs entre o harness e a API da Anthropic, capturaram cada payload JSON e compararam o que o Claude Code e o OpenCode realmente enviam quando você pede a mesma coisa. Os resultados são desconfortáveis, esclarecedores e — para quem opera IA agentica em produção — absolutamente essenciais.
+
+## O Payload Invisível
+
+O experimento começa com a tarefa mais simples possível. O usuário digita "Responda exatamente: OK." São vinte e dois caracteres. Eis o que cada harness envia junto para o passeio.
+
+O Claude Code chega com um prompt de sistema de mais de 27 mil caracteres, dividido em três blocos. Ele carrega definições para 27 ferramentas — não apenas as habituais ler, escrever e pesquisar, mas um conjunto completo de orquestração incluindo `CronCreate`, `Monitor`, agentes de tarefa em segundo plano, gerenciamento de worktree e notificações push. Antes da mensagem do usuário, o Claude Code injeta três blocos de lembrete catalogando tipos de agentes, habilidades disponíveis e contexto do usuário. No total, o payload do primeiro turno pesa cerca de 32.800 tokens.
+
+O OpenCode, por outro lado, abre com um único bloco de sistema que diz, resumidamente: "Você é o OpenCode, o melhor agente de código do planeta." Ele carrega dez ferramentas clássicas de código. E depois seu prompt. Total: cerca de 6.900 tokens.
+
+Os schemas de ferramentas dominam ambos os payloads — cerca de 24 mil tokens da sobrecarga do Claude Code são definições de ferramentas, contra aproximadamente 4.800 do OpenCode. Tire as ferramentas por completo e o conjunto de instruções básicas do Claude Code ainda pesa 6.500 tokens; o do OpenCode, 2.000. Mesmo nu, o bootstrap do Claude Code é mais de três vezes mais pesado.
+
+Por que isso importa? Porque cada um desses tokens é reenviado — ou relido do cache — a cada turno de cada sessão. Uma linha de base de 33 mil tokens significa que antes de você adicionar uma única linha de código à conversa, já consumiu um sexto de uma janela de contexto de 200 mil tokens. O espaço restante é para seu projeto real. E à medida que a conversa cresce, a compactação eventualmente entra em ação, gastando ainda mais tokens para resumir o que veio antes.
+
+## A Armadilha do Cache
+
+As APIs modernas de LLM oferecem cache de prompt: o prefixo da sua solicitação é escrito uma vez, com um pequeno premium, e relido a um décimo do preço pelo resto da sessão. Em teoria, isso deveria tornar a sobrecarga quase gratuita após a primeira solicitação. Na prática, só funciona se o prefixo permanecer idêntico.
+
+O prefixo do OpenCode é byte a byte idêntico em cada solicitação e em cada execução. Três sessões de teste separadas produziram os mesmos bytes de ferramentas, os mesmos bytes de sistema e os mesmos bytes de mensagem. Ele paga sua escrita de cache uma vez, e cada solicitação subsequente a relê por pouco.
+
+O Claude Code, por outro lado, reescreveu dezenas de milhares de tokens de cache de prompt no meio da sessão, execução após execução. Na mesma tarefa de leitura de arquivo, o Claude Code escreveu 53.839 tokens de cache em cinco solicitações, incluindo uma reescrita completa no meio da tarefa de seu prefixo de 43 mil tokens. O OpenCode escreveu 1.003. Isso é uma diferença de 54 vezes. E as escritas de cache são cobradas a taxas premium — 1,25× a taxa base para o tier de cinco minutos, 2× para o tier de uma hora.
+
+Os pesquisadores repetiram o teste no Claude Fable 5 para verificar se o comportamento era específico do modelo. Não era. A lacuna diminuiu para cerca de 3,3× porque o Claude Code envia modelos mais recentes com um prompt de sistema menor, mas as reescritas de cache no meio da sessão se reproduziram quase exatamente. Dependendo da temperatura do cache, o volume de escrita de cache do Claude Code variou de 5,9× a 54× o do OpenCode. Se você já viu um medidor de uso subir misteriosamente com o Claude Code enquanto permanecia estável com o OpenCode no mesmo modelo, esse é o mecanismo.
+
+## Os Multiplicadores: De Irritante a Astronômico
+
+O piso — 33 mil tokens antes de você digitar qualquer coisa — é apenas o começo. Projetos reais empilham multiplicadores por cima.
+
+Um arquivo de instrução `AGENTS.md` ou `CLAUDE.md` de produção adiciona cerca de 20 mil tokens a cada solicitação. No estudo, um arquivo de instrução de 72KB elevou o OpenCode de 13 mil para 33 mil tokens e o Claude Code de 39 mil para 59 mil. Cinco servidores MCP modestos adicionam mais 5 a 7 mil tokens por solicitação. A configuração completa do OpenCode dos pesquisadores, com onze servidores MCP e o arquivo de instrução, enviou 90.817 tokens antes do primeiro prompt do usuário. A configuração real do Claude Code atingiu cerca de 75 mil tokens com 118 ferramentas.
+
+Depois vêm os subagentes. Quando os pesquisadores pediram a cada harness para distribuir o trabalho para dois subagentes paralelos, os resultados foram claros. Uma tarefa que custou 121 mil tokens feita diretamente custou 513 mil tokens quando delegada — um multiplicador de 4,2 vezes. Cada subagente paga seu próprio custo de bootstrap, e o agente pai depois consome a transcrição do subagente. Comentaristas do Hacker News ecoaram a descoberta: um desenvolvedor relatou dar ao Claude Code uma tarefa grande, apenas para vê-lo lançar imediatamente sete subagentes e queimar todo o orçamento antes que um sequer terminasse.
+
+A única descoberta favorável ao Claude Code no estudo veio em uma tarefa multi-etapa. O Claude Code agrupou duas escritas de arquivo e duas execuções de script em uma única rodada de ferramentas paralelas, usando três solicitações e cerca de 121 mil tokens. O OpenCode fez uma chamada de ferramenta por turno, usou nove solicitações e totalizou cerca de 132 mil tokens. A lição: uma linha de base grande que agrupa de forma agressiva pode superar uma linha de base pequena que serializa. O medidor começa mais alto; como a sessão se desenrola é quem decide quem gasta mais.
+
+## Por Que Isso Importa Para Todo Mundo
+
+A sobrecarga de tokens não é uma preocupação abstrata para contadores de laboratórios de IA. É custo, latência e orçamento de contexto. Cada token de payload de harness é um token de contexto de trabalho que você não pode gastar em código. Cada reescrita de cache é dinheiro gasto em conteúdo que o modelo já viu. Cada distribuição de subagentes é uma decisão que deveria ser tomada com dados, não com otimismo.
+
+Para equipes operando sob a Lei de IA da UE, há um ângulo de conformidade também. O Artigo 12 espera que as organizações registrem e compreendam o comportamento de seus sistemas. "O que meu agente realmente envia?" é uma pergunta que você deve responder com payloads capturados, não com folclore. A auditoria do conjunto de dados do estudo da Systima AI — 185 registros de solicitação/resposta escritos em um log com hash encadeado à prova de adulteração — demonstra uma forma de fazer isso.
+
+As ressalvas do estudo valem a pena ser notadas. É uma máquina, um par de versões, amostras pequenas, e os prompts de harness mudam com frequência. Os números são um instantâneo de julho de 2026; o método é o artefato durável. Mas a direção das descobertas é robusta: o Claude Code carrega significativamente mais scaffolding, esse scaffolding é menos estável em cache, e a delegação multiplica custos de formas fáceis de subestimar.
+
+## O Que Você Deve Fazer?
+
+Nada disso significa que o Claude Code é uma ferramenta ruim. Seus agentes em segundo plano, habilidades e superfície de orquestração podem muito bem valer seus tokens em tarefas de engenharia complexas. Os pesquisadores explicitamente não mediram qualidade — eles escolheram tarefas em que ambos os harnesses completaram o trabalho corretamente, então a lacuna de tokens representa o custo de um resultado idêntico. Se o premium compra uma saída melhor em tarefas mais difíceis é uma pergunta separada que merece seu próprio benchmark.
+
+O que o estudo significa é que você deve instrumentar o tráfego do seu agente. Insira um proxy. Capture payloads. Verifique qual nome de arquivo seu harness realmente lê para instruções — o estudo descobriu que o Claude Code 2.1.207 ignorava silenciosamente `AGENTS.md` e só assimilava `CLAUDE.md`. Verifique se seus servidores MCP estão anexados; o Claude Code ignorou silenciosamente um `.mcp.json` no escopo do projeto até receber uma flag explícita. Saiba que uma pausa de cinco minutos re-prime a pilha de cache completa a taxas de escrita. E trate a delegação de subagentes como uma decisão de orçamento, não uma conveniência.
+
+O imposto de 33 mil tokens não é um bug. É o preço de uma plataforma que tenta fazer mais — orquestração, monitoramento, agentes em segundo plano, notificações push — antes de você pedir para ela fazer qualquer coisa. Se esse preço vale a pena pagar depende do que você está construindo. Mas você deveria saber o preço antes de pagá-lo.
