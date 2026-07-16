@@ -1,0 +1,96 @@
+---
+title: "Inkling: The American Open-Weights AI Model Built to Be Customized"
+description: "Thinking Machines Labs released Inkling, a 975B-parameter open-weights model with multimodal reasoning, controllable thinking effort, and fine-tuning tools. It is the first competitive non-Chinese open-weights model since Llama 3."
+date: "2026-07-16"
+translationKey: "inkling-thinking-machines-open-weights-model-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI", "Open Weights", "Thinking Machines", "Inkling", "2026", "Frontier Models"]
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80"
+imageAlt: "A glowing neural network visualization in dark space"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Inkling AI model", "Thinking Machines Inkling", "open weights model 2026", "non-Chinese open AI model", "Inkling multimodal AI", "Tinker fine-tuning AI", "Inkling 975B parameters"]
+tldr: "Thinking Machines Labs released Inkling, a 975B-parameter Mixture-of-Experts open-weights model with 41B active parameters, 1M token context window, and native multimodal reasoning. It is the first competitive non-Chinese open-weights model since Llama 3. Inkling features controllable thinking effort, strong safety benchmarks, and is available for fine-tuning on the Tinker platform — positioning it as a customizable foundation model rather than a one-size-fits-all product."
+faq:
+  - q: "What is Inkling?"
+    a: "Inkling is an open-weights AI model developed by Thinking Machines Labs (founded by Mira Murati). It is a Mixture-of-Experts transformer with 975B total parameters and 41B active parameters, supporting a 1M token context window."
+  - q: "How does Inkling compare to other open-weights models?"
+    a: "Inkling is competitive with leading open-weights models like GLM-5.2, DeepSeek V4, and Qwen3 on many benchmarks. It is particularly notable as the first strong non-Chinese open-weights model since Llama 3."
+  - q: "What makes Inkling different from closed models like GPT-5.6?"
+    a: "Inkling's full weights are available for download and customization. It supports fine-tuning on the Tinker platform, features controllable thinking effort to balance speed and accuracy, and emphasizes multimodal collaboration rather than autonomous task completion."
+  - q: "What is 'controllable thinking effort'?"
+    a: "Inkling allows developers to adjust how much compute the model uses per task. Lower effort settings sacrifice some accuracy for much faster, cheaper responses. This makes it practical for real-time collaboration and large-scale deployment."
+  - q: "Is Inkling safe to use?"
+    a: "Inkling was trained to internal safety specifications and evaluated by external testers. It scores above 98% on StrongREJECT (refusing harmful requests) and shows strong performance on FORTRESS, a benchmark that tests refusal of weapons and violence-related requests."
+  - q: "What is the Thinking Machines mission?"
+    a: "The company aims to build AI that extends human will and judgment. They believe AI should be customized by the people and organizations it serves, rather than controlled by a handful of centralized labs."
+---
+
+# Inkling: The American Open-Weights AI Model Built to Be Customized
+
+For the past two years, the most powerful open-weights models have come from a handful of Chinese labs — DeepSeek, Qwen, GLM, Kimi. American open-source AI has been stuck in a frustrating holding pattern: Meta's Llama 4 was widely criticized as underwhelming, and no US startup had managed to train a truly competitive frontier model from scratch and release the weights.
+
+That changed this week. Thinking Machines Labs — the startup founded by former OpenAI CTO Mira Murati — released **Inkling**, an open-weights Mixture-of-Experts model that instantly became the most talked-about story on Hacker News. With 862 points and over 200 comments, it is the first genuinely competitive non-Chinese open-weights model the community has seen in a long time.
+
+Inkling is not just another model dump. It is a deliberate statement about what AI should become: customizable, multimodal, and designed to collaborate with humans rather than replace them. In a landscape where most labs treat their best models as proprietary products, Thinking Machines is betting that the future belongs to models people can shape for themselves.
+
+## The Model by the Numbers
+
+Inkling is a Mixture-of-Experts transformer with **975 billion total parameters** and **41 billion active parameters** per forward pass. It supports a context window of up to **1 million tokens** — the same class as Gemini's longest-context variants. The model was pretrained on **45 trillion tokens** spanning text, images, audio, and video.
+
+Alongside the main model, Thinking Machines released a preview of **Inkling-Small**, a lighter variant with 12 billion active parameters. It is designed for applications where latency and cost matter more than raw capability — edge devices, real-time assistants, and high-throughput services.
+
+The architecture is not revolutionary in isolation. What makes it interesting is the combination of scale, multimodal training, and — critically — the company's emphasis on making the model adaptable after release.
+
+## Controllable Thinking: Speed vs. Smarts, on Demand
+
+One of Inkling's signature features is something the team calls **"controllable thinking effort."** Instead of running every query at maximum compute, developers can dial the model's reasoning intensity up or down.
+
+On coding benchmarks like Terminal Bench 2.1, Inkling matches the performance of Nemotron 3 Ultra using roughly one-third the tokens. On instruction-following tasks, it can hit a given accuracy target at a fraction of the latency of comparable open-weights models. This is not just a nice-to-have — it changes the economics of running large models in production.
+
+The idea is straightforward: not every task needs a model's full cognitive firepower. A quick email draft should not consume the same compute as debugging a distributed systems failure. By exposing this dial to developers, Thinking Machines is acknowledging a reality that many closed labs ignore — that cost and latency are often the binding constraints in real-world deployments.
+
+## Multimodal from the Ground Up
+
+Inkling was trained natively across text, images, and audio. The vision pipeline uses a four-layer hMLP encoder processing 40x40 pixel patches. Audio inputs are represented as dMel spectrograms, fed into the same transformer backbone alongside text tokens.
+
+The results are competitive with specialist omni models. On VoiceBench, Inkling scores 91.4%, placing it among the strongest open-weights audio models. For vision, it handles charts, diagrams, and mathematical visual reasoning — and can invoke a Python tool to zoom, crop, and analyze images programmatically.
+
+This multimodal capability is not an afterthought. It is designed to serve as the background reasoning engine for Thinking Machines' **"interaction models"** — a research direction focused on real-time, bidirectional human-AI collaboration across voice, video, and text. The long-term bet is that AI should feel less like querying a database and more like working alongside a colleague.
+
+## Built for Fine-Tuning, Not Just Inference
+
+Most open-weights models are released with a polite nod toward fine-tuning and then left to the community to figure out. Thinking Machines is taking a different approach.
+
+Inkling is available for fine-tuning on the company's **Tinker** platform from day one. The platform includes the Inkling Playground, a developer-facing chat interface for testing the base model before committing to customization. The company has also published research recipes and training cookbooks to lower the barrier for organizations that want to adapt the model to their specific domains.
+
+This matters because fine-tuning is where open weights unlock their real value. A generic frontier model can write code, summarize documents, and answer trivia. But a model fine-tuned on a company's internal documentation, codebase, and communication style becomes something genuinely proprietary — an asset that improves with use rather than a rented API endpoint.
+
+The Hacker News discussion reflected this hunger. Commenters noted that America desperately needs its own DeepSeek or Z.ai — not because Chinese models are inherently worse, but because geopolitical concentration of AI capability creates unacceptable risk. Having a strong US open-weights alternative provides insurance against export controls, policy shifts, and the fragility of relying on a handful of closed APIs.
+
+## Safety Without Lock-In
+
+Open-weights models carry a well-known safety dilemma: once the weights are public, anyone can remove safety guardrails through fine-tuning. Thinking Machines addresses this with a two-pronged approach.
+
+First, they trained Inkling to an internal safety specification across all modalities. On FORTRESS — a benchmark that tests refusal of harmful requests alongside benign analogs — Inkling scores 78% on adversarial tests while maintaining 95.9% on benign queries, outperforming comparable open-weights models. On StrongREJECT, a stricter refusal test, it scores above 98%, in line with both open and closed frontier models.
+
+Second, the company is actively studying how safety behavior evolves during fine-tuning on Tinker. Rather than pretending the problem does not exist, they are measuring it — a refreshing departure from the "release and pray" attitude that has characterized some previous open-weights launches.
+
+## The Business Model Question
+
+The Hacker News thread spent considerable energy debating a question that has haunted every open-weights company: how do you make money?
+
+The honest answer is that nobody has fully solved this yet. DeepSeek's path — government-backed research lab transitioning to commercial API services — is not available to a US startup. Meta can afford to open-source models because it sells ads, not AI. Smaller labs like Reflection AI have raised billions but are still searching for product-market fit.
+
+Thinking Machines' approach combines three revenue streams: managed hosting of fine-tuned models, the Tinker platform subscription, and enterprise customization services. Whether this is enough to sustain frontier-model training costs remains to be seen. But the community's appetite for the product is undeniable — the release dominated Hacker News for most of a day, and the Tinker platform saw significant sign-up traffic.
+
+## Why This Release Matters
+
+Inkling is not the best model in the world. GPT-5.6 Sol, Claude Fable 5, and Gemini 3.1 Pro still lead on several pure-reasoning benchmarks. But Inkling does not need to be the best model in the world. It needs to be the best model that organizations can actually own, customize, and run on their own terms.
+
+In that dimension, it is already competitive. The combination of open weights, multimodal training, controllable compute, and a fine-tuning platform represents a genuinely different product philosophy from the closed labs. OpenAI, Anthropic, and Google are racing to build the most capable autonomous agent. Thinking Machines is racing to build the most capable collaborative partner — one that gets better the more you work with it.
+
+The Hacker News community's enthusiasm is telling. After years of watching American open-source AI fall behind, there is real appetite for a credible alternative. Whether Thinking Machines can sustain the momentum — and the burn rate — to keep releasing competitive models will determine whether Inkling is remembered as a milestone or a moment.
+
+For now, it is the most interesting AI release of July 2026. And it arrives with a clear message: the future of intelligence should not be rented from a handful of companies in San Francisco. It should be owned by the people and organizations that use it.

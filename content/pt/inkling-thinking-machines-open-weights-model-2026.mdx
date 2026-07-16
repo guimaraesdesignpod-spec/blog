@@ -1,0 +1,96 @@
+---
+title: "Inkling: O Modelo Americano de Pesos Abertos Feito para Ser Personalizado"
+description: "A Thinking Machines Labs lançou o Inkling, um modelo de pesos abertos com 975 bilhões de parâmetros, raciocínio multimodal, controle de esforço de pensamento e ferramentas de ajuste fino. É o primeiro modelo competitivo de pesos abertos não chinês desde o Llama 3."
+date: "2026-07-16"
+translationKey: "inkling-thinking-machines-open-weights-model-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["IA", "Pesos Abertos", "Thinking Machines", "Inkling", "2026", "Modelos de Fronteira"]
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=80"
+imageAlt: "Uma visualização brilhante de rede neural no espaço escuro"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["modelo Inkling AI", "Thinking Machines Inkling", "modelo de pesos abertos 2026", "modelo aberto americano IA", "Inkling multimodal", "ajuste fino Tinker IA", "Inkling 975B parâmetros"]
+tldr: "A Thinking Machines Labs lançou o Inkling, um modelo de pesos abertos do tipo Mistura de Especialistas com 975 bilhões de parâmetros totais, 41 bilhões de parâmetros ativos, janela de contexto de 1 milhão de tokens e raciocínio multimodal nativo. É o primeiro modelo competitivo de pesos abertos não chinês desde o Llama 3. O Inkling tem controle de esforço de pensamento, bons resultados em benchmarks de segurança e está disponível para ajuste fino na plataforma Tinker — posicionando-o como um modelo base personalizável em vez de um produto único para todos."
+faq:
+  - q: "O que é o Inkling?"
+    a: "Inkling é um modelo de IA de pesos abertos desenvolvido pela Thinking Machines Labs (fundada por Mira Murati). É um transformador do tipo Mistura de Especialistas com 975 bilhões de parâmetros totais e 41 bilhões de parâmetros ativos, com janela de contexto de até 1 milhão de tokens."
+  - q: "Como o Inkling se compara a outros modelos de pesos abertos?"
+    a: "O Inkling é competitivo com modelos de pesos abertos líderes como GLM-5.2, DeepSeek V4 e Qwen3 em vários benchmarks. É especialmente notável como o primeiro modelo forte de pesos abertos não chinês desde o Llama 3."
+  - q: "O que torna o Inkling diferente de modelos fechados como o GPT-5.6?"
+    a: "Os pesos completos do Inkling estão disponíveis para download e personalização. Ele suporta ajuste fino na plataforma Tinker, tem controle de esforço de pensamento para equilibrar velocidade e precisão, e enfatiza a colaboração multimodal em vez da conclusão autônoma de tarefas."
+  - q: "O que é 'controle de esforço de pensamento'?"
+    a: "O Inkling permite que desenvolvedores ajustem quanta computação o modelo usa por tarefa. Configurações de menor esforço sacrificam um pouco de precisão por respostas muito mais rápidas e baratas. Isso o torna prático para colaboração em tempo real e implantação em larga escala."
+  - q: "O Inkling é seguro de usar?"
+    a: "O Inkling foi treinado segundo especificações internas de segurança e avaliado por testadores externos. Ele marca acima de 98% no StrongREJECT (recusa de pedidos prejudiciais) e mostra bom desempenho no FORTRESS, um benchmark que testa a recusa de pedidos relacionados a armas e violência."
+  - q: "Qual é a missão da Thinking Machines?"
+    a: "A empresa tem como objetivo construir IA que amplie a vontade e o julgamento humanos. Eles acreditam que a IA deve ser personalizada pelas pessoas e organizações que ela serve, em vez de ser controlada por um punhado de laboratórios centralizados."
+---
+
+# Inkling: O Modelo Americano de Pesos Abertos Feito para Ser Personalizado
+
+Nos últimos dois anos, os modelos de pesos abertos mais poderosos vieram de um punhado de laboratórios chineses — DeepSeek, Qwen, GLM, Kimi. A IA de código aberto americana ficou presa em um padrão frustrante: o Llama 4 da Meta foi amplamente criticado como decepcionante, e nenhuma startup dos EUA conseguiu treinar um modelo de fronteira realmente competitivo do zero e liberar os pesos.
+
+Isso mudou esta semana. A Thinking Machines Labs — a startup fundada pela ex-CTO da OpenAI, Mira Murati — lançou o **Inkling**, um modelo de pesos abertos do tipo Mistura de Especialistas que instantaneamente se tornou a história mais comentada no Hacker News. Com 862 pontos e mais de 200 comentários, é o primeiro modelo genuinamente competitivo de pesos abertos não chinês que a comunidade viu em muito tempo.
+
+O Inkling não é apenas mais um lançamento de modelo. É uma declaração deliberada sobre o que a IA deveria se tornar: personalizável, multimodal e projetada para colaborar com humanos em vez de substituí-los. Em um cenário onde a maioria dos laboratórios trata seus melhores modelos como produtos proprietários, a Thinking Machines está apostando que o futuro pertence a modelos que as pessoas possam moldar por conta própria.
+
+## Os Números do Modelo
+
+O Inkling é um transformador do tipo Mistura de Especialistas com **975 bilhões de parâmetros totais** e **41 bilhões de parâmetros ativos** por passagem forward. Ele suporta uma janela de contexto de até **1 milhão de tokens** — a mesma categoria das variantes de maior contexto do Gemini. O modelo foi pré-treinado em **45 trilhões de tokens** abrangendo texto, imagens, áudio e vídeo.
+
+Junto do modelo principal, a Thinking Machines lançou uma prévia do **Inkling-Small**, uma variante mais leve com 12 bilhões de parâmetros ativos. Ele é projetado para aplicações onde latência e custo importam mais do que capacidade bruta — dispositivos de borda, assistentes em tempo real e serviços de alto volume.
+
+A arquitetura não é revolucionária isoladamente. O que a torna interessante é a combinação de escala, treinamento multimodal e — criticamente — o ênfase da empresa em tornar o modelo adaptável após o lançamento.
+
+## Pensamento Controlável: Velocidade vs. Inteligência, Sob Demanda
+
+Uma das características marcantes do Inkling é algo que a equipe chama de **"controle de esforço de pensamento."** Em vez de executar cada consulta com computação máxima, desenvolvedores podem aumentar ou diminuir a intensidade do raciocínio do modelo.
+
+Em benchmarks de codificação como Terminal Bench 2.1, o Inkling alcança o desempenho do Nemotron 3 Ultra usando aproximadamente um terço dos tokens. Em tarefas de seguimento de instruções, ele pode atingir um determinado nível de precisão com uma fração da latência de modelos comparáveis de pesos abertos. Isso não é apenas um bônus — muda a economia de executar modelos grandes em produção.
+
+A ideia é simples: nem toda tarefa precisa do poder de fogo cognitivo total do modelo. Um rascunho rápido de e-mail não deve consumir a mesma computação que depurar uma falha em sistemas distribuídos. Ao expor esse controle aos desenvolvedores, a Thinking Machines está reconhecendo uma realidade que muitos laboratórios fechados ignoram — que custo e latência são frequentemente as restrições decisivas em implantações do mundo real.
+
+## Multimodal desde a Base
+
+O Inkling foi treinado nativamente em texto, imagens e áudio. O pipeline de visão usa um codificador hMLP de quatro camadas processando patches de pixels de 40x40. Entradas de áudio são representadas como espectrogramas dMel, alimentados no mesmo backbone transformer junto com tokens de texto.
+
+Os resultados são competitivos com modelos omni especialistas. No VoiceBench, o Inkling marca 91,4%, colocando-o entre os modelos de áudio de pesos abertos mais fortes. Para visão, ele lida com gráficos, diagramas e raciocínio visual matemático — e pode invocar uma ferramenta Python para dar zoom, cortar e analisar imagens de forma programática.
+
+Essa capacidade multimodal não é um aditivo. Ela é projetada para servir como o motor de raciocínio de fundo para os **"modelos de interação"** da Thinking Machines — uma direção de pesquisa focada em colaboração humana-IA bidirecional em tempo real através de voz, vídeo e texto. A aposta de longo prazo é que a IA deveria parecer menos como consultar um banco de dados e mais como trabalhar ao lado de um colega.
+
+## Feito para Ajuste Fino, Não Apenas Inferência
+
+A maioria dos modelos de pesos abertos é lançada com um aceno educado em direção ao ajuste fino e depois deixada para a comunidade descobrir. A Thinking Machines está tomando uma abordagem diferente.
+
+O Inkling está disponível para ajuste fino na plataforma **Tinker** da empresa desde o primeiro dia. A plataforma inclui o Inkling Playground, uma interface de chat voltada a desenvolvedores para testar o modelo base antes de se comprometer com a personalização. A empresa também publicou receitas de pesquisa e livros de receitas de treinamento para reduzir a barreira para organizações que querem adaptar o modelo aos seus domínios específicos.
+
+Isso importa porque o ajuste fino é onde os pesos abertos desbloqueiam seu valor real. Um modelo de fronteira genérico pode escrever código, resumir documentos e responder a curiosidades. Mas um modelo ajustado na documentação interna, base de código e estilo de comunicação de uma empresa se torna algo genuinamente proprietário — um ativo que melhora com o uso em vez de um ponto de extremidade de API alugado.
+
+A discussão no Hacker News refletiu essa fome. Comentaristas notaram que a América precisa desesperadamente de seu próprio DeepSeek ou Z.ai — não porque modelos chineses sejam inerentemente piores, mas porque a concentração geopolítica de capacidade de IA cria um risco inaceitável. Ter uma alternativa forte de pesos abertos dos EUA oferece seguro contra controles de exportação, mudanças de política e a fragilidade de depender de um punhado de APIs fechadas.
+
+## Segurança Sem Travamento
+
+Modelos de pesos abertos carregam um dilema de segurança bem conhecido: uma vez que os pesos são públicos, qualquer um pode remover guardas de segurança através de ajuste fino. A Thinking Machines aborda isso com uma abordagem de dois eixos.
+
+Primeiro, eles treinaram o Inkling segundo uma especificação interna de segurança em todas as modalidades. No FORTRESS — um benchmark que testa a recusa de pedidos prejudiciais junto com análogos benignos — o Inkling marca 78% em testes adversariais enquanto mantém 95,9% em consultas benignas, superando modelos comparáveis de pesos abertos. No StrongREJECT, um teste mais rigoroso de recusa, ele marca acima de 98%, alinhado com modelos de fronteira tanto abertos quanto fechados.
+
+Segundo, a empresa está ativamente estudando como o comportamento de segurança evolui durante o ajuste fino no Tinker. Em vez de fingir que o problema não existe, eles estão medindo — uma mudança refrescante em relação à atitude de "lançar e rezar" que caracterizou alguns lançamentos anteriores de pesos abertos.
+
+## A Questão do Modelo de Negócio
+
+O tópico do Hacker News gastou energia considerável debatendo uma questão que assombra toda empresa de pesos abertos: como ganhar dinheiro?
+
+A resposta honesta é que ninguém resolveu isso completamente ainda. O caminho do DeepSeek — laboratório de pesquisa apoiado pelo governo fazendo a transição para serviços comerciais de API — não está disponível para uma startup dos EUA. A Meta pode se dar ao luxo de liberar modelos em código aberto porque vende anúncios, não IA. Laboratórios menores como a Reflection AI arrecadaram bilhões mas ainda buscam encaixe produto-mercado.
+
+A abordagem da Thinking Machines combina três fontes de receita: hospedagem gerenciada de modelos ajustados, assinatura da plataforma Tinker e serviços de personalização empresarial. Se isso é suficiente para sustentar os custos de treinamento de modelos de fronteira ainda está para ser visto. Mas o apetite da comunidade pelo produto é inegável — o lançamento dominou o Hacker News por grande parte de um dia, e a plataforma Tinker viu tráfego significativo de inscrições.
+
+## Por Que Esse Lançamento Importa
+
+O Inkling não é o melhor modelo do mundo. O GPT-5.6 Sol, Claude Fable 5 e Gemini 3.1 Pro ainda lideram em vários benchmarks de raciocínio puro. Mas o Inkling não precisa ser o melhor modelo do mundo. Ele precisa ser o melhor modelo que as organizações possam de fato possuir, personalizar e executar em seus próprios termos.
+
+Nessa dimensão, ele já é competitivo. A combinação de pesos abertos, treinamento multimodal, computação controlável e uma plataforma de ajuste fino representa uma filosofia de produto genuinamente diferente dos laboratórios fechados. A OpenAI, a Anthropic e o Google estão correndo para construir o agente autônomo mais capaz. A Thinking Machines está correndo para construir o parceiro colaborativo mais capaz — um que melhora quanto mais você trabalha com ele.
+
+O entusiasmo da comunidade do Hacker News é revelador. Depois de anos vendo a IA de código aberto americana ficar para trás, existe apetite real por uma alternativa crível. Se a Thinking Machines pode sustentar o momentum — e a taxa de queima — para continuar lançando modelos competitivos determinará se o Inkling será lembrado como um marco ou um momento.
+
+Por enquanto, é o lançamento de IA mais interessante de julho de 2026. E chega com uma mensagem clara: o futuro da inteligência não deveria ser alugado de um punhado de empresas em São Francisco. Deveria ser de propriedade das pessoas e organizações que o usam.
