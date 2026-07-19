@@ -21,10 +21,10 @@ faq:
   - q: "Quais são as implicações de segurança?"
     a: "Se você executa o Grok Build em um repositório contendo chaves de API, senhas de banco de dados, lógica de negócio privada ou segredos comerciais, todos esses dados estão saindo da sua máquina e sendo armazenados em um bucket na nuvem. Mesmo que a xAI nunca treine com eles, os dados são transmitidos, aceitos e armazenados — criando uma superfície de ataque permanente. Um engenheiro do GitHub Copilot confirmou que o produto deles tem várias camadas de proteção que o Grok Build não tem."
   - q: "O que os desenvolvedores podem fazer para se proteger?"
-    a: "A abordagem mais segura é executar agentes de IA de código dentro de um sandbox com acesso restrito a diretórios (usando ferramentas como bubblewrap, firejail ou gvisor). Nunca coloque segredos reais em arquivos .env dentro de um diretório que um agente de IA possa acessar. Considere usar ferramentas baseadas em API em vez de CLIs proprietários nativos, onde você controla exatamente quais dados são enviados."
+    a: "A abordagem mais segura é executar agentes de IA de código dentro de um sandbox com acesso restrito a diretórios (usando ferramentas como bubblewrap, firejail ou gvisor). Nunca coloque segredos reais em arquivos .env dentro de um diretório que um agente de IA possa acessar. Considere usar ferramentas baseadas em API em vez de CLIs proprietárias nativas, onde você controla exatamente quais dados são enviados."
 ---
 
-> **Disclaimer:** Este artigo pode conter links de afiliado, sem custo adicional para você. Quando recomendo ferramentas, me baseio na minha experiência real — não em comissões.
+> **Aviso:** Este artigo pode conter links de afiliado, sem custo adicional para você. Quando recomendo ferramentas, me baseio na minha experiência real — não em comissões.
 
 # O Que o Grok Build da xAI Envia do Seu Código: Uma Análise de Privacidade ao Nível do Fio
 
@@ -116,7 +116,7 @@ O pesquisador também encontrou telemetria de terceiros sendo enviada para o Mix
 
 ## Descoberta 4: "Melhorar o Modelo" Desligado Não Faz Diferença
 
-Essa pode ser a descoberta mais perturbadora. A xAI oferece uma opção de privacidade nas configurações: "Melhorar o modelo." A suposição natural é que desligar isso para o envio dos seus dados.
+Essa pode ser a descoberta mais perturbadora. A xAI oferece uma opção de privacidade nas configurações: "Melhorar o modelo." A suposição natural é que desligar isso interrompa o envio dos seus dados.
 
 Não para.
 
@@ -166,7 +166,7 @@ Se você usa ou já considerou usar o Grok Build, aqui estão as lições práti
 
 **2. Coloque seus agentes de IA em sandbox.** Ferramentas como bubblewrap, firejail e gvisor podem restringir quais diretórios uma CLI de IA pode ler. Um comentarista do HN descreveu rodar o Grok dentro de um container bubblewrap com um sistema root somente leitura e um home em tmpfs, mais um proxy HTTP de filtragem em um socket Unix que só permite domínios de provedores de LLM. Isso não é paranoia — é defesa em profundidade.
 
-**3. Prefira ferramentas baseadas em API em vez de CLIs proprietários nativos.** Quando você usa um cliente de API como o OpenRouter ou uma ferramenta local com sua própria chave de API, você controla exatamente quais dados saem da sua máquina. A contrapartida é performance — CLIs nativos frequentemente têm integrações mais apertadas — mas a lacuna de privacidade é real.
+**3. Prefira ferramentas baseadas em API em vez de CLIs proprietárias nativas.** Quando você usa um cliente de API como o OpenRouter ou uma ferramenta local com sua própria chave de API, você controla exatamente quais dados saem da sua máquina. A contrapartida é performance — CLIs nativos frequentemente têm integrações mais apertadas — mas a lacuna de privacidade é real.
 
 **4. Audite o que você já tem instalado.** Se você instalou o Grok Build e o executou em qualquer diretório contendo código sensível, esse código já foi enviado. Não existe botão de recall. A política de privacidade da xAI diz que as opções de não participar são prospectivas, não retroativas.
 

@@ -1,6 +1,6 @@
 ---
 title: "Modelos Melhores, Ferramentas Piores: O Paradoxo Contraintuitivo que Está Quebrando os Assistentes de IA para Programação"
-description: "Armin Ronacher descobriu que modelos Claude mais novos têm pior comportamento de chamada de ferramentas do que os antigos. O motivo? Um 'cinto de tolerância' oculto que treina os modelos a serem descuidados — e puni qualquer um que espere que eles sigam um schema."
+description: "Armin Ronacher descobriu que modelos Claude mais novos têm pior comportamento de chamada de ferramentas do que os antigos. O motivo? Um 'harness' oculto que treina os modelos a serem descuidados — e pune qualquer um que espere que eles sigam um schema."
 date: "2026-07-05"
 translationKey: "better-models-worse-tools-ai-paradox-2026"
 lang: "pt"
@@ -10,13 +10,13 @@ image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=1080&q=80
 imageAlt: "Linhas de código brilhantes em uma tela escura, simbolizando a tensão entre modelos de IA melhores e pior interoperabilidade de ferramentas"
 imageCredit: "Unsplash"
 imageCreditUrl: "https://unsplash.com"
-keywords: ["modelos melhores ferramentas piores", "paradoxo chamada de ferramentas IA", "Claude Code cinto de tolerância", "schema de ferramentas Anthropic", "Armin Ronacher Pi", "regressão de modelos IA", "ferramentas de programação agêntica 2026", "decodificação restrita IA", "entendimento é o novo gargalo"]
-tldr: "Armin Ronacher — criador do Flask e do agente de codificação Pi — descobriu uma regressão preocupante: modelos Claude mais novos (Opus 4.8, Sonnet 5) inventam campos falsos ao chamar a ferramenta de edição do Pi, enquanto modelos mais antigos lidam com o mesmo schema perfeitamente. Seu diagnóstico: o pós-treinamento da Anthropic otimiza para o cinto de tolerância tolerante do Claude Code, que silenciosamente corrige erros, aceita apelidos e filtra chaves desconhecidas. Os modelos aprendem que chamadas de ferramentas levemente malformadas ainda têm sucesso, então ficam mais descuidados. Isso cria um paradoxo onde modelos melhores — treinados em um ecossistema fechado — ficam piores em interoperar com as ferramentas de qualquer outra pessoa. Enquanto isso, Geoffrey Litt na Notion argumenta que 'entendimento é o novo gargalo' à medida que humanos perdem a noção do código gerado por IA. O artigo explora por que schemas de ferramentas não são mais contratos neutros, como a decodificação com gramática poderia corrigir isso, e o que isso significa para o futuro dos ecossistemas de ferramentas de IA."
+keywords: ["modelos melhores ferramentas piores", "paradoxo chamada de ferramentas IA", "Claude Code harness", "schema de ferramentas Anthropic", "Armin Ronacher Pi", "regressão de modelos IA", "ferramentas de programação agêntica 2026", "decodificação restrita IA", "entendimento é o novo gargalo"]
+tldr: "Armin Ronacher — criador do Flask e do agente de codificação Pi — descobriu uma regressão preocupante: modelos Claude mais novos (Opus 4.8, Sonnet 5) inventam campos falsos ao chamar a ferramenta de edição do Pi, enquanto modelos mais antigos lidam com o mesmo schema perfeitamente. Seu diagnóstico: o pós-treinamento da Anthropic otimiza para o harness tolerante do Claude Code, que silenciosamente corrige erros, aceita apelidos e filtra chaves desconhecidas. Os modelos aprendem que chamadas de ferramentas levemente malformadas ainda têm sucesso, então ficam mais descuidados. Isso cria um paradoxo onde modelos melhores — treinados em um ecossistema fechado — ficam piores em interoperar com as ferramentas de qualquer outra pessoa. Enquanto isso, Geoffrey Litt na Notion argumenta que 'entendimento é o novo gargalo' à medida que humanos perdem a noção do código gerado por IA. O artigo explora por que schemas de ferramentas não são mais contratos neutros, como a decodificação com gramática poderia corrigir isso, e o que isso significa para o futuro dos ecossistemas de ferramentas de IA."
 faq:
   - q: "O que é o paradoxo 'modelos melhores, ferramentas piores'?"
-    a: "É a observação contraintuitiva de que modelos de IA mais novos e capazes podem na verdade performar pior em tarefas de chamada de ferramentas do que modelos mais antigos, porque seu pós-treinamento otimizou para um cinto de tolerância específico (Claude Code) em vez de conformidade geral com schemas."
-  - q: "O que é um 'cinto de tolerância'?"
-    a: "Um 'cinto de tolerância' é o termo de Ronacher para um cliente de chamada de ferramentas (como o Claude Code) que silenciosamente tolera e repara chamadas de ferramentas malformadas — aceitando apelidos de parâmetros, corrigindo escapes Unicode, filtrando chaves desconhecidas e tentando novamente chamadas falhas. Ele treina os modelos a serem descuidados porque a imprecisão ainda tem sucesso."
+    a: "É a observação contraintuitiva de que modelos de IA mais novos e capazes podem na verdade performar pior em tarefas de chamada de ferramentas do que modelos mais antigos, porque seu pós-treinamento otimizou para um harness específico (Claude Code) em vez de conformidade geral com schemas."
+  - q: "O que é um 'harness'?"
+    a: "Um 'harness' é o termo de Ronacher para um cliente de chamada de ferramentas (como o Claude Code) que silenciosamente tolera e repara chamadas de ferramentas malformadas — aceitando apelidos de parâmetros, corrigindo escapes Unicode, filtrando chaves desconhecidas e tentando novamente chamadas falhas. Ele treina os modelos a serem descuidados porque a imprecisão ainda tem sucesso."
   - q: "Por que modelos Claude mais novos inventam campos falsos em chamadas de ferramentas?"
     a: "A hipótese mais forte de Ronacher é que o aprendizado por reforço da Anthropic acontece dentro de um cinto parecido com o Claude Code onde chamadas malformadas são silenciosamente reparadas. Os modelos aprendem que adicionar campos plausíveis mas errados não bloqueia a conclusão da tarefa, então o comportamento é reforçado em vez de punido."
   - q: "O que é decodificação com gramática ou decodificação restrita?"
@@ -29,7 +29,7 @@ faq:
 
 # Modelos Melhores, Ferramentas Piores: O Paradoxo Contraintuitivo que Está Quebrando os Assistentes de IA para Programação
 
-> "O cinto de tolerância absorve completamente o erro e há pouco gradiente contra inventar um apelido, adicionar um campo perdido ou usar um nome de parâmetro próximo."
+> "O harness absorve completamente o erro e há pouco gradiente contra inventar um apelido, adicionar um campo perdido ou usar um nome de parâmetro próximo."
 >
 > — Armin Ronacher
 
@@ -41,7 +41,7 @@ Armin Ronacher — criador do Flask, Jinja2, e do novo agente de codificação P
 
 Os modelos mais antigos? Lidavam com o mesmo schema sem problema algum.
 
-Isso não é um glitch aleatório. A investigação de Ronacher aponta para algo mais profundo e desconfortável: os modelos não estão deteriorando. Eles estão se adaptando. Estão se adaptando a um mundo onde chamadas de ferramentas levemente malformadas ainda têm sucesso porque o cinto de tolerância silenciosamente as repara. E essa adaptação está deixando eles piores em interagir bem com as ferramentas de qualquer outra pessoa.
+Isso não é um glitch aleatório. A investigação de Ronacher aponta para algo mais profundo e desconfortável: os modelos não estão deteriorando. Eles estão se adaptando. Estão se adaptando a um mundo onde chamadas de ferramentas levemente malformadas ainda têm sucesso porque o harness silenciosamente as repara. E essa adaptação está deixando eles piores em interagir bem com as ferramentas de qualquer outra pessoa.
 
 Bem-vindo ao paradoxo de modelos melhores e ferramentas piores.
 
@@ -84,17 +84,17 @@ Essa última pista é importante. O modelo *pode* seguir o schema quando forçad
 
 A hipótese mais forte de Ronacher não é um bug nos pesos do modelo. É um artefato de treinamento.
 
-Aqui vai a cadeia de lógica: modelos Anthropic mais antigos foram treinados com exemplos de chamada de ferramentas, mas esses exemplos vieram de uma época anterior à existência do Claude Code como cinto de tolerância dominante. Os modelos aprenderam padrões gerais. Conseguiam se adaptar a diferentes formas de ferramentas porque seu treinamento era relativamente diverso.
+Aqui vai a cadeia de lógica: modelos Anthropic mais antigos foram treinados com exemplos de chamada de ferramentas, mas esses exemplos vieram de uma época anterior à existência do Claude Code como harness dominante. Os modelos aprenderam padrões gerais. Conseguiam se adaptar a diferentes formas de ferramentas porque seu treinamento era relativamente diverso.
 
 Modelos Anthropic modernos são quase certamente pós-treinados dentro de um ambiente parecido com o Claude Code. O modelo aprende como uma chamada de ferramenta bem-sucedida se parece *naquele cinto específico*. Também aprende quais erros são tolerados — porque o Claude Code tolera muita coisa.
 
 Ao inspecionar o código minificado do cliente do Claude Code, Ronacher descobriu que ele é extraordinariamente tolerante. Verifica se há marcações `<invoke>` vazadas no texto visível do modelo e tenta novamente chamadas ruins com sua própria máquina de estados. Repara escapes Unicode quebrados e surrogates solitários. Aceita apelidos de parâmetros: `old_str` funciona junto com `old_string`, `path` funciona no lugar de `file_path`. Filtra silenciosamente chaves inesperadas. Nem mesmo usa o modo rigoroso da Anthropic, porque a Anthropic aplica limites de complexidade em definições de ferramentas que fazem requisições de API falharem.
 
-Em outras palavras, o Claude Code é um **cinto de tolerância**. Ele treina o modelo de que a imprecisão é de graça.
+Em outras palavras, o Claude Code é um **harness**. Ele treina o modelo de que a imprecisão é de graça.
 
 Se o aprendizado por reforço acontece em um ambiente onde chamadas levemente malformadas ainda completam a tarefa e recebem recompensa, não há gradiente empurrando o modelo em direção à precisão. Por que ele aprenderia a respeitar um schema quando o cinto absorve todo desvio? O modelo descobre que adicionar um apelido, inventar um campo plausível ou usar um nome de parâmetro próximo não bloqueia o sucesso. Então o comportamento é reforçado.
 
-"O cinto de tolerância absorve completamente o erro," escreve Ronacher, "e há pouco gradiente contra inventar um apelido, adicionar um campo perdido ou usar um nome de parâmetro próximo."
+"O harness absorve completamente o erro," escreve Ronacher, "e há pouco gradiente contra inventar um apelido, adicionar um campo perdido ou usar um nome de parâmetro próximo."
 
 ## O Problema da Distribuição Fora do Padrão
 
@@ -116,7 +116,7 @@ A descoberta de Ronacher não é uma peculiaridade isolada. É parte de um padr�
 
 Geoffrey Litt, engenheiro de design na Notion, deu uma palestra amplamente compartilhada intitulada **"Entendimento é o novo gargalo."** Seu argumento: à medida que agentes de IA escrevem cada vez mais código, o fator limitante não é mais a velocidade de escrita, mas a compreensão humana.
 
-"Um projeto é muitas, muitas rodadas com o agente," observa Litt. "E o entendimento que você tem do sistema é parte da sua capacidade de surgir com a próxima ideia para evoluí-lo."
+"Um projeto é muitas, muitas rodadas com o agente," observa Litt. "E o entendimento que você tem do sistema é parte da sua capacidade de conceber a próxima ideia para evoluí-lo."
 
 Litt conecta isso ao conceito de **dívida cognitiva**, popularizado pela pesquisadora de engenharia de software Margaret-Anne Storey e pelo desenvolvedor Simon Willison. Dívida cognitiva é o que se acumula quando desenvolvedores perdem a noção de como seus sistemas funcionam. O código compila, os testes passam, mas ninguém consegue explicar por que certas decisões de design foram tomadas ou como diferentes partes interagem. Com código gerado por IA, essa dívida se acumula na velocidade da máquina.
 
@@ -134,35 +134,35 @@ Os novos modelos `gpt-oss` da OpenAI dão um passo nessa direção com seu forma
 
 O modo `strict` da Anthropic parece fazer algo similar do lado do servidor — Ronacher nota que ativá-lo eliminou completamente o problema de chaves inventadas — mas a Anthropic também aplica limites de complexidade em definições de ferramentas no modo rigoroso, e é por isso que o Claude Code não o usa.
 
-Os priors de Ronacher mudaram. Ele costumava ser cético da invocação rigorosa com gramática restrita porque decodificação restrita pode ter tradeoffs de qualidade. Depois desse bug, ele está significativamente mais convencido. "Se os modelos mais novos ficam melhores em resolver a tarefa enquanto ficam piores em emitir fielmente um schema de ferramenta alternativo, então o cinto de tolerância precisa de garantias mais fortes em algum lugar."
+Os priors de Ronacher mudaram. Ele costumava ser cético da invocação rigorosa com gramática restrita porque decodificação restrita pode ter tradeoffs de qualidade. Depois desse bug, ele está significativamente mais convencido. "Se os modelos mais novos ficam melhores em resolver a tarefa enquanto ficam piores em emitir fielmente um schema de ferramenta alternativo, então o harness precisa de garantias mais fortes em algum lugar."
 
-A questão é: de quem é a responsabilidade de impor essas garantias? O provedor do modelo? O construtor do cinto de tolerância? O desenvolvedor que projetou o schema da ferramenta?
+A questão é: de quem é a responsabilidade de impor essas garantias? O provedor do modelo? O construtor do harness? O desenvolvedor que projetou o schema da ferramenta?
 
-No momento, a resposta é confusa. Os modelos da Anthropic são fechados. Seu cinto de tolerância é fechado. A documentação da ferramenta de editor de texto não corresponde ao que o Claude Code realmente faz. E desenvolvedores que constroem em cima da API ficam adivinhando quais formas de ferramentas vão funcionar e quais vão desencadear priors invisíveis de um processo de treinamento que não podem ver.
+No momento, a resposta é confusa. Os modelos da Anthropic são fechados. Seu harness é fechado. A documentação da ferramenta de editor de texto não corresponde ao que o Claude Code realmente faz. E desenvolvedores que constroem em cima da API ficam adivinhando quais formas de ferramentas vão funcionar e quais vão desencadear priors invisíveis de um processo de treinamento que não podem ver.
 
 ## O Que Isso Significa para o Futuro
 
 Se essa tendência continuar, as implicações são profundas.
 
-Primeiro, **a interoperabilidade de ferramentas pode na verdade diminuir à medida que os modelos melhoram.** Gostamos de imaginar que modelos melhores são mais gerais, mais adaptáveis, mais capazes de seguir instruções arbitrárias. Mas se o pós-treinamento está cada vez mais concentrado dentro de um cinto de tolerância dominante — Claude Code, ou o equivalente na OpenAI — então os modelos ficarão *mais* especializados, não menos. Eles serão de classe mundial nas formas de ferramentas canônicas e cada vez mais erráticos em tudo o mais.
+Primeiro, **a interoperabilidade de ferramentas pode na verdade diminuir à medida que os modelos melhoram.** Gostamos de imaginar que modelos melhores são mais gerais, mais adaptáveis, mais capazes de seguir instruções arbitrárias. Mas se o pós-treinamento está cada vez mais concentrado dentro de um harness dominante — Claude Code, ou o equivalente na OpenAI — então os modelos ficarão *mais* especializados, não menos. Eles serão de classe mundial nas formas de ferramentas canônicas e cada vez mais erráticos em tudo o mais.
 
 Segundo, **cintos de tolerância de código fechado viram padrões de facto.** Mesmo que o Claude Code não seja open source, suas peculiaridades estão sendo incorporadas nos modelos que todo mundo usa. Ferramentas alternativas terão que herdar essas peculiaridades ou lutar uma batalha difícil contra priors invisíveis. Essa é uma forma sutil de lock-in de ecossistema que não tem nada a ver com APIs ou preços.
 
-Terceiro, **o problema da imprecisão se estende além da chamada de ferramentas.** Se os modelos aprendem que erros são silenciosamente reparados, podem ficar mais descuidados em outros domínios também: citações, aritmética, afirmações factuais. O cinto de tolerância vira uma muleta, e o modelo nunca aprende a andar reto.
+Terceiro, **o problema da imprecisão se estende além da chamada de ferramentas.** Se os modelos aprendem que erros são silenciosamente reparados, podem ficar mais descuidados em outros domínios também: citações, aritmética, afirmações factuais. O harness vira uma muleta, e o modelo nunca aprende a andar reto.
 
 Quarto, **o entendimento humano vira a vantagem competitiva definitiva.** Como argumenta Litt, os desenvolvedores que vão prosperar são aqueles que conseguem construir modelos mentais eficientes de sistemas gerados por IA. Documentos explicadores de código. Micro-mundos interativos. Quizzes de entendimento. Isso não são luxos. São habilidades de sobrevivência.
 
 ## Conclusão: O Preço da Conveniência
 
-Há uma máxima antiga da engenharia: facilite o que é fácil e torne possível o que é difícil. O cinto de tolerância inverte isso. Ele torna o que é fácil trivialmente fácil absorvendo todo erro — e, ao fazer isso, torna o que é difícil impossível treinando o modelo de que erros não existem.
+Há uma máxima antiga da engenharia: facilite o que é fácil e torne possível o que é difícil. O harness inverte isso. Ele torna o que é fácil trivialmente fácil absorvendo todo erro — e, ao fazer isso, torna o que é difícil impossível treinando o modelo de que erros não existem.
 
-O relatório de bug de Armin Ronacher é mais do que uma curiosidade técnica. É um sinal de alerta. As ferramentas de IA que estamos construindo não são apenas interfaces entre humanos e modelos. Elas são ambientes de treinamento. Cada peculiaridade, cada reparação silenciosa, cada erro perdoado é uma lição que o modelo internaliza. E essas lições não ficam dentro do cinto de tolerância. Elas vazam para cada chamada de ferramenta, cada interação de API, cada integração com um sistema de terceiros.
+O relatório de bug de Armin Ronacher é mais do que uma curiosidade técnica. É um sinal de alerta. As ferramentas de IA que estamos construindo não são apenas interfaces entre humanos e modelos. Elas são ambientes de treinamento. Cada peculiaridade, cada reparação silenciosa, cada erro perdoado é uma lição que o modelo internaliza. E essas lições não ficam dentro do harness. Elas vazam para cada chamada de ferramenta, cada interação de API, cada integração com um sistema de terceiros.
 
 Modelos melhores deveriam significar ferramentas melhores. Mas se esses modelos são treinados dentro de ecossistemas tolerantes que escondem seus erros, o resultado é o oposto: modelos que são brilhantes em raciocinar e descuidados em comunicar. Modelos que resolvem o problema e depois sabotam a solução com uma flag `requireUnique` fictícia.
 
 A correção não é tornar os modelos menos capazes. É tornar os cintos de tolerância mais honestos. Schemas rigorosos. Erros visíveis. Decodificação restrita por gramática. Chamadas de ferramentas que falham alto em vez de silenciosamente, para que o modelo aprenda que a precisão importa.
 
-Porque a alternativa — um mundo onde cada ferramenta de IA herda os vieses invisíveis de um único cinto de tolerância de código fechado — não é um futuro que ninguém queira depurar.
+Porque a alternativa — um mundo onde cada ferramenta de IA herda os vieses invisíveis de um único harness de código fechado — não é um futuro que alguém queira depurar.
 
 ---
 
