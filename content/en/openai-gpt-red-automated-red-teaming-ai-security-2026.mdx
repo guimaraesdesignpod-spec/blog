@@ -1,0 +1,118 @@
+---
+title: "OpenAI Built a Super-Hacker AI to Attack Itself — and GPT-5.6 Is the Proof It Works"
+description: "Meet GPT-Red, OpenAI's automated red-teaming model trained through self-play to find vulnerabilities in other AIs. It discovered attacks humans missed, broke a live vending machine agent, and helped make GPT-5.6 six times more resistant to prompt injection."
+date: "2026-07-19"
+translationKey: "openai-gpt-red-automated-red-teaming-ai-security-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["OpenAI", "GPT-Red", "Red Teaming", "AI Safety", "Prompt Injection", "GPT-5.6", "Cybersecurity", "2026"]
+image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1080"
+imageAlt: "Abstract digital security visualization with encrypted data streams and network nodes"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["GPT-Red", "OpenAI red teaming", "automated AI security", "prompt injection defense", "GPT-5.6 robustness", "self-play AI training", "fake chain of thought attack", "AI agent hacking", "GPT-Red Vendy", "frontier AI safety 2026"]
+tldr: "OpenAI trained GPT-Red, an automated red-teaming LLM that uses self-play reinforcement learning to discover novel attacks on other AI models. GPT-Red found a new class of 'fake chain of thought' prompt injection attacks, broke a live vending machine agent called Vendy in OpenAI's office, and achieved an 84% attack success rate on a benchmark where human red-teamers scored just 13%. OpenAI then used GPT-Red to adversarially train GPT-5.6, making it six times more resistant to prompt injection than its predecessor. The company is keeping GPT-Red internal, positioning it as a scalable safety flywheel: stronger red-teamers today make safer models tomorrow."
+faq:
+  - q: "What is GPT-Red?"
+    a: "GPT-Red is an internal-only large language model built by OpenAI specifically for automated red-teaming. It was trained through self-play reinforcement learning to find vulnerabilities in other AI systems, particularly prompt injection attacks."
+  - q: "How does GPT-Red work?"
+    a: "GPT-Red plays an adversarial game against defender LLMs in realistic scenarios — browsing the web, reading emails, editing code, and interacting with agents. When it finds a successful attack, it explores variations to find the most efficient version. Over many rounds, both attacker and defender improve."
+  - q: "What is a 'fake chain of thought' attack?"
+    a: "A novel attack class discovered by GPT-Red where the attacker inserts a fake entry into another model's internal reasoning diary (chain of thought), tricking the model into accepting spoofed information as already verified."
+  - q: "How effective is GPT-Red compared to humans?"
+    a: "On a replicated indirect prompt injection benchmark from 2025, GPT-Red achieved an 84% attack success rate against GPT-5.1, while human red-teamers achieved only 13%."
+  - q: "What did GPT-Red do to the Vendy vending machine agent?"
+    a: "GPT-Red hacked a live autonomous agent managing an office vending machine, successfully changing item prices, adding a fake expensive item, and canceling another customer's order."
+  - q: "How much did GPT-Red improve GPT-5.6's security?"
+    a: "GPT-5.6 Sol fails on only 0.05% of GPT-Red's direct prompt injections — a 6x improvement over the previous best production model. On OpenAI's hardest benchmark, failures dropped by 6x."
+  - q: "Is GPT-Red available to the public?"
+    a: "No. OpenAI is keeping GPT-Red internal-only to prevent its attack capabilities from being misused by malicious actors. The robustness it generates, however, is baked into production models like GPT-5.6."
+---
+
+# OpenAI Built a Super-Hacker AI to Attack Itself — and GPT-5.6 Is the Proof It Works
+
+## The Arms Race Inside the Machine
+
+Every time OpenAI ships a new model, the same question follows it out the door: what can break it? Not in theory. In practice. In the real world of browser tabs, API endpoints, email inboxes, and agent tool calls where a clever string of text can turn a helpful assistant into a data-stealing puppet.
+
+The traditional answer is human red-teaming. Assemble a room of clever security researchers, give them a model, and let them spend weeks trying to jailbreak it, confuse it, or trick it into doing things it should not. It works. It is also slow, expensive, and increasingly inadequate. The latest frontier models are deployed as agents that browse the web, edit files, and call tools in loops. The attack surface is exploding, and human teams cannot scale fast enough to keep up.
+
+So OpenAI did what it does best. It automated the problem. The result is **GPT-Red**, an LLM trained not to be helpful, but to be hostile. A dedicated attacker that lives inside OpenAI's infrastructure, probes every new model for weaknesses, and feeds what it finds back into the training process. Last week, the company published the first details of this system alongside the GPT-5.6 launch. And the numbers are genuinely startling.
+
+---
+
+## A Dojo Where the Only Rule Is to Break Things
+
+GPT-Red was not fine-tuned from a chat model with a few adversarial examples. It was trained from scratch in a self-play loop, pitting an attacker model against a collection of defender models in thousands of realistic scenarios. The attacker gets points for every successful jailbreak, prompt injection, or policy violation it triggers. The defenders get points for resisting. Over millions of rounds, both sides get sharper.
+
+The scenarios are what make this interesting. OpenAI built a broad simulation environment that mirrors how its models are actually deployed: browsing web pages, reading emails and calendar entries, parsing tool outputs, editing code repositories, and interacting with other agents. GPT-Red can control anything a real attacker might control — a banner ad on a webpage, a field in a JSON response, the body of an email, a local file on disk.
+
+When GPT-Red discovers a new vulnerability, it does not just exploit it once. It drills down, generating dozens of variations to find the cleanest, most reliable version. "Compared to a human red-teamer, the model is very, very good at finding exactly what will work, exactly what's most effective," says Dylan Hunn, one of the OpenAI research scientists behind the project. "It's extremely persistent about drilling down into an attack that it has discovered."
+
+That persistence paid off in a way no human team had managed. GPT-Red discovered an entirely new class of prompt injection attack that OpenAI's researchers had never seen before: the **fake chain of thought**.
+
+---
+
+## The Fake Diary Trick
+
+Most modern reasoning models keep an internal scratchpad called a chain of thought — a running monologue where they jot down intermediate steps, partial results, and plans as they work through a problem. It is not visible to users in the final output, but it shapes everything the model does.
+
+GPT-Red figured out that if you can insert a fake entry into another model's chain of thought — making it believe it has already verified something false — the target model will simply accept that falsehood as gospel. "It's like if I told you that 1+1=3 and that you have verified this already," explains research scientist Chris Choquette-Choo. "The model's like, 'Oh, okay, of course,' and it just spits out 3."
+
+This is not a surface-level trick. It is a structural exploit in how reasoning models trust their own internal state. And it was completely invisible to human red-teamers until an automated system with unlimited patience and compute discovered it by brute-force exploration of the possibility space.
+
+On GPT-5.1, fake chain-of-thought attacks achieved success rates above 95%. On GPT-5.6 Sol, after adversarial training against GPT-Red, that number dropped below 10%. And GPT-5.6's overall failure rate against GPT-Red's direct prompt injections is now 0.05%.
+
+---
+
+## Breaking a Real Vending Machine
+
+Benchmarks are one thing. Real systems are another. To test whether GPT-Red's skills transfer from simulation to production, OpenAI aimed it at a live autonomous agent.
+
+The target was **Vendy**, an AI-powered vending machine in OpenAI's office built by Andon Labs. GPT-Red was given a description of the system and the ability to send messages to it. It first experimented in a simulated mirror of the real deployment, iterating on its attacks until it found something reliable. Then it deployed against the live agent.
+
+It succeeded on all three malicious objectives: changing the price of an expensive item down to $0.50, ordering a new $100-plus item and offering it for $0.50, and canceling another customer's order. The vulnerabilities were disclosed, and new safeguards are being tested.
+
+This matters because it closes the loop between simulated and real-world attacks. A human red-teamer might take days or weeks to map a system, build a mental model, and craft an exploit. GPT-Red iterated in simulation, transferred to production, and succeeded in a fraction of the time. When your adversaries are automated, your defenses must be automated too.
+
+---
+
+## Humans vs. Machines: The Scoreboard
+
+To put a hard number on GPT-Red's capabilities, OpenAI replicated a 2025 experiment by independent researchers Dziemian et al. In the original study, human red-teamers attacked GPT-5.1 across a set of indirect prompt injection scenarios. The humans found success 13% of the time.
+
+GPT-Red, tested on the same scenarios, succeeded 84% of the time. It was not just more successful — it was more efficient, finding attacks with fewer tokens and less back-and-forth. The machine outplayed the humans by a factor of more than six.
+
+Does this mean human red-teamers are obsolete? Not according to the researchers. GPT-Red is still weak at multi-turn conversational attacks, where a human can build rapport and gradually shift a model's behavior over many messages. It is also not yet strong at image-based prompt injections, where text is hidden inside visual content. Humans excel at social engineering and creative lateral thinking that does not fit neatly into a training scenario. The future is likely a hybrid: GPT-Red finds the systematic, scalable attacks, and humans find the weird, human-shaped ones.
+
+Jessica Ji, a senior research analyst at Georgetown's Center for Security and Emerging Technology, agrees. "I think human expertise will still be very important," she says. "It would be really useful to be able to distinguish where human testing is most needed."
+
+---
+
+## From Attacker to Teacher
+
+The ultimate goal of GPT-Red is not to break things. It is to make breaking things harder. OpenAI has been running a version of this system for over six months, training progressively stronger red-teamers and using each one to harden the next production model.
+
+The results show up in GPT-5.6's safety numbers. On OpenAI's hardest direct prompt injection benchmark, GPT-5.6 Sol fails six times less often than the best model from just four months earlier. Several indirect prompt injection benchmarks targeting developer tools and browsing have been essentially saturated — GPT-5.6 scores above 97% accuracy. And crucially, these gains did not come from making the model refuse more legitimate requests or reducing its general capabilities. The safety improvements are specific to adversarial robustness, not cowardice.
+
+OpenAI describes this as unlocking a "flywheel for safety." Today's models train tomorrow's red-teamers, which find tomorrow's vulnerabilities, which train next month's safer models. It is the same self-improvement loop that powers capability gains, but pointed at alignment and robustness instead of raw performance.
+
+---
+
+## The Risks of Building a Better Attacker
+
+There is an obvious tension here. To build a model that can defend against the strongest attacks, OpenAI had to build a model that can generate the strongest attacks. GPT-Red is, by design, a more capable adversarial agent than anything publicly available. The company is adamant that it will not be released, and that its compute requirements and training duration — more than a year, backed by OpenAI's full infrastructure — make it impractical for most actors to replicate.
+
+But the underlying technique — self-play reinforcement learning for red-teaming — is not secret. Other labs can and likely will build their own versions. The question is whether the defensive flywheel spins faster than the offensive one. If GPT-Red-style systems become standard practice at every major lab, the baseline robustness of frontier models could rise substantially. If they remain rare, the gap between well-defended and poorly-defended systems will widen.
+
+There is also a deeper question about what these systems reveal. GPT-Red does not just find bugs. It finds new categories of exploit, like fake chain of thought, that reflect structural properties of how LLMs reason. Every such discovery is a reminder that we do not fully understand the machines we are building — and that the fastest way to learn their failure modes is to let another machine find them first.
+
+---
+
+## What Comes Next
+
+OpenAI says it will keep scaling GPT-Red alongside its production models. More compute, more diverse scenarios, stronger defenders. The company is also exploring how human-discovered attacks can be handed to GPT-Red as seeds, letting the automated system explore the full tree of variations more thoroughly than any human team could.
+
+For developers building on GPT-5.6, the practical impact is already visible. The model is dramatically more resistant to prompt injection than its predecessors. It is not invulnerable — no model ever will be — but the bar for a successful attack has been raised. A random snippet of text in an email or a web page is far less likely to hijack an agent than it was six months ago.
+
+For the rest of the industry, GPT-Red is a signal. Automated red-teaming is no longer a research curiosity. It is becoming infrastructure. And in a world where AI agents are increasingly entrusted with real money, real code, and real decisions, infrastructure that finds vulnerabilities before they become headlines is not optional. It is the price of admission.
