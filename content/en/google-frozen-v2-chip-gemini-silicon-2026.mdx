@@ -1,0 +1,89 @@
+---
+title: "Google's Frozen v2: The Chip That Is the Model"
+description: "Google is reportedly building a chip with Gemini's architecture literally baked into the silicon. Meet Frozen v2 — where the model and the metal become one, and custom AI silicon moves from general-purpose to model-specific."
+date: "2026-07-22"
+lang: "en"
+translationKey: "google-frozen-v2-chip-gemini-silicon-2026"
+tags: ["AI", "Google", "Gemini", "Custom Silicon", "TPU", "Hardware", "2026"]
+keywords: ["Google Frozen v2 chip", "Gemini baked silicon", "model-specific AI chip", "Google custom silicon 2026", "frozen chip Gemini architecture", "AI chip efficiency 6-10x", "Taalas Hardcore chip", "Google Cloud capacity crunch", "AI vertical integration", "Nvidia alternative Google"]
+tldr: "Google is reportedly building Frozen v2, a chip that hardwires Gemini's neural architecture into silicon for 6-10x efficiency gains per token. Unlike general-purpose chips, the model's blueprint is etched into the circuitry itself — weights can be updated, but the structure stays fixed. Google Cloud's capacity crunch makes this urgent: the company has turned away outside customers and faces internal tension over scarce compute. Startup Taalas is already shipping a similar concept with its Hardcore chip. The risk is rigidity: AI evolves fast, and a chip frozen in 2026 could look dated by 2028."
+faq:
+  - q: "What is Google's Frozen v2 chip?"
+    a: "Frozen v2 is a reported Google project to build an AI chip with Gemini's neural-network architecture literally baked into the silicon circuitry. Unlike general-purpose chips that load any model, Frozen v2 hardwires the model's structure into the hardware. Engineers can still update weights, but the underlying architecture stays fixed."
+  - q: "How much more efficient would Frozen v2 be?"
+    a: "The Information reports that Frozen v2 could be 6 to 10 times more efficient than Google's latest custom AI chips, measured by tokens served per unit of power."
+  - q: "Why is Google doing this now?"
+    a: "Google is reportedly facing a severe AI capacity crunch internally. Google Cloud has turned away some outside customers, and internal teams are competing for scarce compute. A model-specific chip would dramatically improve efficiency and reduce the compute needed to serve Gemini at scale."
+  - q: "How is this different from a TPU?"
+    a: "TPUs are general-purpose AI accelerators designed to run many different models. Frozen v2 would be model-specific — the hardware is shaped around Gemini's exact architecture. It would be a separate product line, not a replacement for TPUs."
+  - q: "Is anyone else doing model-specific chips?"
+    a: "Yes. A startup called Taalas is already selling Hardcore, a chip that prints a model's weights and architecture directly onto silicon. Taalas claims up to 17,000 tokens per second with no expensive high-bandwidth memory."
+  - q: "What is the risk of a frozen architecture?"
+    a: "AI architectures evolve quickly. A chip designed around today's Gemini could be outdated by its expected 2028 deployment. Google's approach mitigates this by keeping weights updatable, but the architecture itself is still locked in place."
+  - q: "Does this mean Google is leaving Nvidia behind?"
+    a: "Not entirely. Google already designs its own TPUs to reduce reliance on Nvidia. Frozen v2 would push that independence further. But Nvidia still dominates training, and Google likely uses Nvidia GPUs for some workloads. This is about deepening vertical integration, not cutting all ties."
+image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200"
+imageAlt: "Close-up of a glowing silicon wafer with circuit patterns, symbolizing the fusion of AI models and hardware"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+---
+
+Most AI chips are blank slates. You load a model onto them, and they run it. The flexibility is the point — one chip, any architecture, weights swapped in and out as needed. But that flexibility costs something. It costs power. It costs time. It costs the overhead of shuttling data back and forth between memory and compute, of generalizing what could be specialized.
+
+Google is reportedly trying something different. Something almost heretical. A chip where the model is not loaded onto the silicon but baked into it.
+
+The project is informally called Frozen v2, and the idea is as simple as it is radical: take Gemini's neural-network architecture and etch it directly into the chip's circuitry. Engineers can still refresh the model by loading new weights, but the underlying structure — the way data flows, the layers, the connections — stays fixed. Frozen, if you will. Alphabet's stock jumped as much as 3.7 percent when the news broke.
+
+This is not a TPU replacement. It is a new line entirely. And it signals a broader shift in the AI silicon race: from chips that run any model to chips that are one model.
+
+## The capacity squeeze
+
+The timing is not random. The Information, which first reported the project, says Frozen v2 is partly a response to an AI capacity crisis inside Google. The squeeze is severe enough that Google Cloud has reportedly turned away some outside customers. Internal teams are competing for scarce compute, and tensions are rising.
+
+In other words, Google built all this infrastructure, and now it is not enough. The models are bigger, the traffic is higher, and the cost of serving each token is climbing faster than the revenue from it. If you cannot build more data centers overnight — and you cannot, because the power grid, the permits, and the chip supply chains will not allow it — then the only lever left is efficiency. Make each watt do more work. Make each chip waste less effort on things it does not need to do.
+
+A general-purpose chip carries overhead because it is general. It has to handle every possible model architecture, every possible data format, every possible operation. A model-specific chip can strip all that away. It knows exactly what operations Gemini needs, and it optimizes for them. The result, according to the report, is a chip that could serve 6 to 10 times more tokens per unit of power than Google's current custom silicon.
+
+That is the difference between building ten data centers and building one. Between turning customers away and welcoming them in.
+
+## How frozen works
+
+To understand why this matters, you have to understand how AI chips spend their time. A modern GPU or TPU spends a surprising amount of energy not on the actual math of running the model but on moving data around. Weights live in memory. Activations live in memory. The compute units need to fetch them, process them, and write them back. Every shuffle costs power and adds latency.
+
+A frozen architecture removes much of that shuffling. Because the chip knows the model's structure in advance, it can optimize the data paths. It can pre-allocate memory in the exact shapes the model needs. It can pipeline operations so that one layer's output feeds directly into the next layer's input without ever leaving the chip. In hardware design, this is called spatial computing, and it is the holy grail of efficiency.
+
+The tradeoff is flexibility. If next year Google invents a fundamentally new architecture for Gemini — a new attention mechanism, a new layer type — the frozen chip cannot run it. The weights can be updated, but the skeleton is set. Google is reportedly still deciding exactly how much of the model gets hardwired and how much stays configurable. The more they freeze, the more efficient. The less they freeze, the more future-proof.
+
+It is a familiar tension in hardware design. The history of computing is full of specialized chips that dominated their niche until the general-purpose chip caught up. Fixed-function graphics accelerators gave way to programmable GPUs. ASICs for Bitcoin mining were incredible until the algorithm changed. The question for Google is whether the efficiency gain is worth the risk of obsolescence.
+
+## The Taalas precedent
+
+Google is not the only company chasing this idea. A startup called Taalas is already shipping a chip that takes the concept even further. Their product, called Hardcore, prints not just the architecture but the actual weights of a model directly onto silicon.
+
+The claimed numbers are staggering. Taalas says its chip serves up to 17,000 tokens per second. For comparison, a high-end Nvidia GPU serves roughly 150 tokens per user under typical load. And because the weights are literally part of the chip, Taalas says it needs no expensive high-bandwidth memory — the very component that is currently causing a supply crunch across the industry.
+
+Taalas is betting on a future where the most popular models are relatively stable, and the value is in serving them as cheaply and quickly as possible. If you are running a version of Llama or Qwen that does not change its architecture for a year, a hardcoded chip makes sense. If models keep evolving at the pace they have for the past two years, it is a much riskier bet.
+
+Google's approach splits the difference. By freezing the architecture but keeping the weights updatable, they get most of the efficiency gain without locking themselves into today's exact model parameters. It is a compromise that reflects Google's position: they need to ship this at scale, not as a niche experiment, and they cannot afford to replace their silicon every time the research team publishes a new paper.
+
+## The strategic angle
+
+There is more going on here than just efficiency. Google has been quietly building its independence from Nvidia for years. TPUs were the first step. Spreading chip orders across Intel, TSMC, and Samsung was the second. Frozen v2 is the third, and it is the most aggressive yet.
+
+Nvidia's dominance rests on the fact that its GPUs are the default platform for AI. Everyone trains on them. Everyone optimizes for them. The CUDA ecosystem is a moat that competitors have spent years trying to cross. But if the future of AI serving is not "run any model on a general GPU" but "run one specific model on a custom chip," Nvidia's moat starts to look narrower. A chip built for Gemini does not need CUDA. It does not need to be compatible with PyTorch or JAX in the general sense. It just needs to run Gemini.
+
+This is vertical integration, and it is the same playbook Apple has used for a decade. Apple designs its own chips for its own devices to run its own software. The result is efficiency and performance that no general-purpose competitor can match. Google is now trying to do the same thing for cloud AI services. Own the model, own the chip, own the data center, own the serving stack. Every layer optimized for every other layer.
+
+The risk, as always, is that vertical integration is a bet on the future. If the future looks like today — big models, stable architectures, massive scale — it pays off handsomely. If the future is something else entirely — smaller models, on-device inference, a new architecture paradigm — the investment becomes a costly mistake.
+
+## What it means for the rest of us
+
+For developers and startups, the frozen chip trend is a mixed signal. On one hand, more efficient serving means lower costs for everyone using Google's APIs. If Gemini becomes dramatically cheaper to run, Google can pass some of that savings on to customers, or it can keep the margin and invest it in something else. Either way, the economics of using Gemini improve.
+
+On the other hand, model-specific chips deepen the moats around the biggest players. A startup cannot build a frozen chip for its model unless it has Google's scale, Google's capital, and Google's manufacturing relationships. The barrier to entry for custom silicon is enormous. This is a game that only a handful of companies can play, and Google just made it clear it intends to play.
+
+For the broader AI industry, Frozen v2 is a signal that the easy gains are over. The first phase of the AI boom was about scaling up: more chips, more data, more parameters. The next phase is about scaling smart: better chips, better architectures, better integration. The companies that can optimize across the full stack — from model design to silicon to data center — will pull ahead. The companies that cannot will find themselves paying more for each token than their competitors.
+
+Google has not confirmed Frozen v2. A spokesperson said only that its teams experiment with high-efficiency ideas, and that not every lab project reaches production. But the direction is clear enough. The race for custom AI silicon is no longer about who can run the most models. It is about who can fuse the right model with the right metal.
+
+And Google just placed a very large bet on Gemini being the right model.
