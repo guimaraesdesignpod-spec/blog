@@ -1,0 +1,114 @@
+---
+title: "IA Acaba de Quebrar a Criptografia Pós-Quântica — e o Gargalo da Verificação É Real"
+description: "O Claude Mythos Preview da Anthropic descobriu falhas matemáticas no HAWK, AES, LEA e Serpent. A pesquisa é real. O custo foi de US$ 100 mil por ataque. Mas a história de verdade é o que acontece quando a IA encontra vulnerabilidades mais rápido do que os humanos conseguem verificar."
+date: "2026-07-29"
+lang: "pt"
+translationKey: "ai-cryptanalysis-claude-mythos-hawk-aes-2026"
+tags: ["Segurança com IA", "Anthropic", "Criptografia", "Claude Mythos", "Pós-Quântico", "2026"]
+keywords: ["fraquezas criptográficas Claude Mythos", "criptoanálise com IA 2026", "ataque esquema de assinatura HAWK", "ataque AES rodadas reduzidas", "Möbius Bridge AES", "benchmark CryptanalysisBench", "IA encontra falhas criptográficas", "pesquisa criptografia Anthropic", "criptografia pós-quântica IA", "ataque cifra LEA"]
+tldr: "O Claude Mythos Preview da Anthropic descobriu falhas matemáticas em algoritmos criptográficos, não apenas em implementações. Ele cortou pela metade a força das chaves do HAWK via um ataque por automorfismo inédito (US$ 100 mil, 60 horas), melhorou ataques de 7 rodadas do AES em 200-800× usando uma técnica chamada 'Möbius Bridge' (1 bilhão de tokens, majoritariamente autônomo), e encontrou um ataque prático de recuperação de chave na cifra LEA de 13 rodadas em menos de uma hora num computador comum. A Anthropic publicou artigos, código de demonstração e o CryptanalysisBench — mas a lição de verdade é o gargalo da verificação: o Mythos levou uma semana para encontrar o ataque ao AES, e dois pesquisadores humanos quase um mês para confirmar que ele estava correto."
+faq:
+  - q: "O Claude quebrou a criptografia AES?"
+    a: "Não. O ataque se aplica apenas a uma versão reduzida de 7 rodadas do AES-128, não às 10 rodadas completas usadas em produção. Nenhum sistema implantado foi afetado."
+  - q: "O que é o HAWK e por que ele importa?"
+    a: "HAWK é um esquema de assinatura digital pós-quântico atualmente em revisão pelo NIST. Ele foi projetado para resistir a ataques de computadores quânticos, que ameaçam esquemas existentes como RSA e ECDSA. O Mythos descobriu uma simetria (automorphismo) na rede do HAWK que reduz pela metade a força efetiva de suas chaves."
+  - q: "Quão autônomo foi o Claude nessas descobertas?"
+    a: "Majoritariamente autônomo. O ataque ao HAWK envolveu trabalho semi-autônomo com orientações ocasionais de gerenciamento de projeto. O ataque ao AES foi estruturado por um pesquisador, mas executado com apenas três prompts substanciais em três dias — incluindo um que dizia 'queremos pesquisa de verdade para encontrar descobertas genuinamente difíceis'."
+  - q: "O que é o CryptanalysisBench?"
+    a: "Um benchmark desenvolvido pela Anthropic junto com a ETH Zurich, a Universidade de Tel Aviv e a Universidade de Haifa. Ele empacota cifras criptográficas em uma suíte de testes padronizada para que pesquisadores possam avaliar as capacidades criptoanalíticas de LLMs de forma consistente."
+  - q: "Por que o gargalo da verificação importa?"
+    a: "O Mythos descobriu o ataque ao AES em uma semana. Dois pesquisadores da Anthropic passaram quase um mês aprendendo criptografia o suficiente para validar o resultado. Se a IA continuar acelerando a descoberta, a verificação humana vira o fator limitante — levantando questões sobre como lidar com descobertas que realmente afetam sistemas do mundo real."
+  - q: "Quanto custaram esses experimentos?"
+    a: "A Anthropic estima aproximadamente US$ 100 mil em custos de API por descoberta de ataque importante, além de centenas de horas de verificação humana."
+image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&q=80"
+imageAlt: "Código digital verde estilo Matrix numa tela escura"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+author: "Elisio Guimarães"
+---
+
+# IA Acaba de Quebrar a Criptografia Pós-Quântica — e o Gargalo da Verificação É Real
+
+No dia 28 de julho de 2026, a Anthropic publicou um post que deveria fazer qualquer pessoa que confia em assinaturas digitais e criptografia parar por um instante. O Claude Mythos Preview, o modelo de pesquisa mais avançado da empresa, descobriu falhas matemáticas em algoritmos criptográficos. Não bugs de implementação — aqueles que programadores cometem ao usar uma biblioteca de forma errada. Fraquezas estruturais na matemática em si. Num dos casos, ele reduziu pela metade a força efetiva de uma chave de um candidato pós-quântico que já havia sobrevivido a duas rodadas de revisão por especialistas humanos do Instituto Nacional de Padrões e Tecnologia (NIST) dos Estados Unidos.
+
+Os ataques são impressionantes. Mas a história de verdade é o que vem depois.
+
+Há anos, o mundo da segurança cibernética se preocupa com a possibilidade de uma IA encontrar tantos bugs em software que as equipes de triagem humana afundem. O próprio Projeto Glasswing da Anthropic já identificou mais de 6 mil vulnerabilidades em código aberto. Agora, a mesma dinâmica chega à criptografia acadêmica, onde a verificação exige não apenas ler código, mas reconstruir argumentos matemáticos inéditos. E a diferença entre a velocidade de descoberta da IA e a velocidade de validação humana só aumenta.
+
+Aqui está o que o Mythos encontrou, como encontrou, e por que as implicações vão muito além das próprias cifras.
+
+## O Que Foi Realmente Descoberto
+
+A Anthropic divulgou resultados sobre quatro cifras. Dois são avanços significativos. Dois são confirmações de que o modelo consegue operar de forma consistente em diferentes famílias criptográficas.
+
+**HAWK, um esquema de assinatura digital pós-quântico.** HAWK é um dos candidatos remanescentes da terceira rodada do esforço contínuo do NIST para padronizar criptografia resistente a computadores quânticos. Sua segurança repousa em algo chamado Problema do Isomorfismo de Reticulados — uma suposição matemática que havia resistido a dois anos de revisão por especialistas.
+
+O Mythos encontrou uma simetria específica, chamada automorfismo não trivial, na estrutura de reticulados do HAWK. Trabalhos anteriores haviam provado que tal automorfismo permitiria um ataque, mas ninguém havia mostrado que ele existia na construção específica do HAWK. O Mythos mostrou. O resultado é um ataque por enumeração que reduz pela metade o tamanho efetivo da chave do HAWK. Para o conjunto de parâmetros menor, o HAWK-256, o custo esperado do ataque caiu de 2^64 para 2^38 — uma diferença que leva o esquema de "impraticável de quebrar" para "preocupantemente fraco."
+
+Importante: esse ataque é específico ao HAWK. Ele não se generaliza para outros candidatos pós-quânticos do NIST como o ML-KEM ou o ML-DSA, e não ameaça a criptografia baseada em reticulados como um todo. Mas significa que o HAWK, na forma atual, não é mais um candidato pós-quântico atraente a menos que suas chaves sejam duplicadas em tamanho — o que eliminaria muitas das vantagens de eficiência que o tornavam interessante.
+
+**AES-128, a cifra mais analisada do mundo.** O AES é a espinha dorsal da criptografia na internet desde que o NIST o adotou em 2001. Acadêmicos analisam regularmente versões de "rodadas reduzidas" — versões com menos rodadas do que as 10 completas — para entender como as técnicas de ataque podem evoluir. O Mythos melhorou o melhor ataque conhecido contra AES-128 de 7 rodadas por um fator de 200 a 800×.
+
+A inovação central é o que a Anthropic chama de "Möbius Bridge" — um algoritmo de fingerprinting que elimina uma das etapas de adivinhação em um ataque clássico de meet-in-the-middle. Em vez de enumerar 256 valores e verificar cada um contra uma tabela pré-computada, o Mythos encontrou uma transformação que é invariante a esse palpite, colapsando o espaço de busca. A verificação exigiu ler a literatura prévia de criptoanálise, propor hipóteses, rodar experimentos computacionais em Python e Sage, e refinar iterativamente a abordagem ao longo de aproximadamente um bilhão de tokens de saída.
+
+De novo: isso não quebra o AES completo. Sete rodadas não são dez. Mas em criptografia, ataques de rodadas reduzidas são como o campo testa cifras e estima margens de segurança. Uma melhoria de 200 a 800× na melhor técnica conhecida é uma contribuição genuína à pesquisa, publicada junto com um artigo técnico completo e a cadeia de raciocínio do modelo.
+
+**LEA e Serpent.** Além dos dois resultados principais, o Mythos também encontrou um ataque prático de recuperação de chave em 13 rodadas do LEA — uma cifra leve usada em dispositivos com recursos limitados — que roda em menos de uma hora num computador de mesa comum. O ataque recupera chaves usando menos de 2^30 textos claros escolhidos, contra o melhor anterior de 2^98. No Serpent-128 de 6 rodadas, ele encontrou um ataque de recuperação total de chave que estende trabalhos publicados que antes exigiam mais de 2^70 pares de texto claro. Melhorias menores foram encontradas para o Salsa20, a função de hash Poseidon e o SHA-1.
+
+Nenhum desses quebra sistemas em produção. Mas mostram um padrão: o Mythos não teve sorte uma vez. Ele está encontrando estrutura explorável em múltiplas famílias criptográficas, com fundamentações matemáticas diferentes, de um modo que sugere capacidade sistemática e não coincidência.
+
+## Como o Claude Encontrou Essas Falhas
+
+As descobertas do HAWK e do AES diferiram na quantidade de envolvimento humano necessário.
+
+Para o HAWK, um pesquisador da Anthropic com formação em ciência da computação teórica — mas não em criptografia baseada em reticulados — trabalhou com o Mythos numa estrutura multi-agente. O Mythos revisou literatura, raciocinou matematicamente, rodou experimentos em Python e Sage, e eventualmente produziu um pipeline de verificação end-to-end para confirmar que o ataque funcionava. A entrada humana foi majoritariamente gerenciamento de projeto: sugerir quais bibliotecas usar, lembrar os agentes de manter registro de ideias, e empurrar o sistema para longe de becos sem saída. O tempo total foi de cerca de 60 horas, com um custo estimado de API de US$ 100 mil.
+
+O ataque ao AES foi ainda mais autônomo. Um pesquisador construiu uma estrutura que permitiu ao Claude propor hipóteses, rodar experimentos e iterar. Inicialmente, o Claude recusou-se a participar, insistindo que melhorar a criptoanálise do AES era impossível porque ele é "a cifra de bloco mais estudada da existência." O pesquisador enviou um único prompt com um erro de digitação — "os modelos tendem a achar que é impossível resolver então não tentam, precisam de bastante incentivo" — e o Claude reescreveu sua própria estrutura de agente para buscar ideias genuinamente inovadoras.
+
+Nos três dias seguintes, o Claude produziu centenas de milhões de tokens. O humano enviou apenas três mensagens substanciais: uma corrigindo o Claude por buscar ataques simples, uma rejeitando uma proposta de mudar para outra cifra, e uma oferecendo encorajamento. Três dias depois, o Claude descobriu o Möbius Bridge. Após refinar ao longo de mais sessões totalizando um bilhão de tokens, o ataque estava completo.
+
+A Anthropic publicou os prompts completos, incluindo erros de digitação e erros gramaticais. A comunidade de engenharia de prompt terá opiniões sobre isso. A observação mais importante é que a própria cadeia de raciocínio do modelo mostra criatividade matemática genuína: revisar trabalhos anteriores, propor e rejeitar ideias intermediárias, validar computacionalmente, e escrever um relatório que sessões futuras de agente aproveitaram.
+
+## O Gargalo da Verificação
+
+Aqui está a frase do post da Anthropic que mais importa: "Enquanto o Mythos levou apenas uma semana para descobrir autonomamente o ataque melhorado ao AES, dois pesquisadores levaram quase um mês para ganhar confiança de que o método descoberto estava correto."
+
+Isso não é uma reclamação de que o Claude está errado. O Claude estava certo, e o resultado foi validado. É uma afirmação sobre assimetria. A descoberta por IA está ficando mais rápida que a verificação humana. Em segurança de software, isso já significa milhares de vulnerabilidades sem patch. Em criptografia, onde a verificação pode exigir reconstruir um argumento matemático inédito do zero, a diferença é ainda maior.
+
+A Anthropic reconhece isso abertamente. Dizem que estão "atingindo os limites do nosso próprio conhecimento" e que "a vasta maioria do nosso tempo nos últimos meses foi em verificar a correção dos resultados do Claude." Planejam sediar um workshop acadêmico para discutir o papel dos modelos de linguagem na pesquisa de segurança e criptografia. Também consultaram parceiros governamentais e da indústria antes da publicação.
+
+Mas a pergunta honesta é: o que acontece quando um modelo encontra uma vulnerabilidade numa cifra que *está* implantada?
+
+A comunidade de criptografia sempre confiou na revisão adversarial. Cifras são propostas, atacadas, revisadas, e eventualmente confiadas — ou abandonadas. Esse processo funciona porque humanos operam aproximadamente na velocidade humana. Se uma IA pode encontrar uma falha em uma semana e humanos precisam de um mês para confirmar, a janela entre descoberta e divulgação responsável fica perigosa. Um atacante com a mesma ferramenta de IA pode explorar essa lacuna. Ou pior: múltiplos sistemas de IA podem encontrar a mesma falha independentemente, e o primeiro a publicar de forma responsável pode estar competindo contra exploração automatizada.
+
+A resposta da Anthropic, por enquanto, é transparência: publicar tudo, liberar artigos, compartilhar código, construir benchmarks como o CryptanalysisBench para que a comunidade possa medir o progresso. Essa é a abordagem certa para pesquisa. É menos claro que ela escale para cenários de divulgação emergencial.
+
+## O Padrão Mais Amplo: IA como Parceiro de Pesquisa
+
+A Anthropic não está sozinha nisso. Apenas nos últimos meses, pesquisadores do Google usaram o Gemini (via AlphaEvolve) para resolver diversos problemas abertos de Erdős em matemática. A OpenAI usou o GPT para resolver a conjectura da distância unitária, outro problema de Erdős de longa data. No início deste mês, a Anthropic anunciou que o Claude Fable 5 havia resolvido a Conjectura de Jacobiana, um problema famoso em geometria algébrica.
+
+O padrão é consistente. Modelos de IA de fronteira não estão mais apenas resumindo artigos ou sugerindo complementos de código. Eles estão produzindo resultados matemáticos e científicos inéditos, verificados por pesquisadores humanos, publicados em ambientes acadêmicos formais. A diferença com a criptografia é o que está em jogo: um novo teorema em geometria não expõe a conta bancária de ninguém. Uma falha numa cifra implantada, sim.
+
+Isso cria um problema de governança que ninguém resolveu ainda. A academia tem revisão por pares, mas a revisão por pares assume autores humanos que conseguem explicar seu raciocínio. A indústria tem divulgação responsável, mas a divulgação responsável assume que o descobridor é um pesquisador de segurança humano que pode ser contatado, negociado, e ter tempo para coordenar. Quando o descobridor é um agente autônomo rodando numa API na nuvem, quem é responsável pelo cronograma de divulgação? O pesquisador que estruturou o experimento? A empresa que possui o modelo? O designer do benchmark?
+
+Essas não são questões abstratas. A descoberta da Anthropic sobre o HAWK foi divulgada aos autores do esquema e ao NIST em junho, com lançamento público coordenado. A descoberta sobre o AES foi compartilhada com parceiros governamentais e da indústria. Mas o processo dependeu da Anthropic escolhendo ser cuidadosa. À medida que mais laboratórios ganham acesso a modelos com capacidades similares, nem todos vão operar com a mesma cautela.
+
+## O Que Isso Significa para Engenheiros de Segurança
+
+Se você não é um criptógrafo, a pergunta prática é o que fazer com essa informação.
+
+Primeiro: não entre em pânico. Nenhum sistema em produção é afetado pelos ataques publicados. O AES completo ainda está seguro. O HAWK ainda é um candidato, não um padrão implantado. Os ataques ao LEA e Serpent se aplicam apenas a variantes de rodadas reduzidas.
+
+Segundo: preste atenção aos cronogramas de migração pós-quântica. Os padrões pós-quânticos do NIST ainda estão sendo finalizados, e esse é exatamente o tipo de descoberta que o processo de padronização foi projetado para revelar. Se sua organização está planejando uma migração para criptografia pós-quântica — e se você lida com dados sensíveis de longa duração, deveria estar — continue monitorando quais candidatos sobrevivem ao escrutínio. O futuro do HAWK agora é incerto. ML-KEM e ML-DSA continuam sendo as apostas mais seguras.
+
+Terceiro: considere o problema de verificação no seu próprio programa de segurança. Se você usa revisão de código assistida por IA ou varredura de vulnerabilidades, você já enfrenta uma versão desse gargalo. O modelo encontra problemas mais rápido do que sua equipe consegue triar. Criptografia é o caso extremo, mas o princípio se aplica em toda parte. Construa pipelines de validação antes de escalar pipelines de descoberta.
+
+Quarto: acompanhe o CryptanalysisBench. A Anthropic o desenvolveu com a ETH Zurich, a Universidade de Tel Aviv e a Universidade de Haifa para padronizar a avaliação das capacidades criptoanalíticas de LLMs. À medida que os modelos melhoram, esse benchmark vai acompanhar se a capacidade está crescendo linear ou exponencialmente — e se o gap de verificação está se alargando ou estreitando.
+
+## O Futuro Desconfortável
+
+Há um futuro plausível, talvez a apenas alguns anos de distância, onde sistemas de IA descobrem rotineiramente fraquezas criptográficas que humanos teriam deixado passar por décadas. Nesse futuro, o fator limitante para a segurança não é a descoberta, mas a confiança. Você pode confiar num ataque descoberto por IA? Você pode confiar que a IA não encontrou também um ataque que não está te contando? Você pode confiar que a IA de um concorrente não encontrou a mesma falha e escolheu não divulgar?
+
+A pesquisa da Anthropic é um passo em direção a esse futuro, e a transparência da empresa é louvável. Mas transparência é uma escolha, não uma garantia. A capacidade matemática em exibição aqui é real, autônoma, e melhorando rápido. As instituições que governam divulgação, verificação e padronização foram construídas para pesquisadores humanos operando na velocidade humana. Elas não estão prontas para o que vem a seguir.
+
+A comunidade de criptografia sempre entendeu que a confiança é conquistada através de testes adversariais. A nova variável é que o adversário agora é uma máquina, e ela trabalha enquanto você dorme.

@@ -1,0 +1,114 @@
+---
+title: "AI Just Broke Post-Quantum Cryptography — and the Verification Bottleneck Is Real"
+description: "Anthropic's Claude Mythos Preview discovered mathematical flaws in HAWK, AES, LEA, and Serpent. The research is real. The cost was $100K per attack. But the real story is what happens when AI finds vulnerabilities faster than humans can verify them."
+date: "2026-07-29"
+lang: "en"
+translationKey: "ai-cryptanalysis-claude-mythos-hawk-aes-2026"
+tags: ["AI Security", "Anthropic", "Cryptography", "Claude Mythos", "Post-Quantum", "2026"]
+keywords: ["Claude Mythos cryptographic weaknesses", "AI cryptanalysis 2026", "HAWK signature scheme attack", "AES reduced round attack", "Möbius Bridge AES", "CryptanalysisBench benchmark", "AI finds cryptographic flaws", "Anthropic cryptography research", "post-quantum cryptography AI", "LEA cipher attack"]
+tldr: "Anthropic's Claude Mythos Preview autonomously discovered mathematical flaws in cryptographic algorithms, not just implementations. It cut HAWK's key strength in half via a novel automorphism attack ($100K, 60 hours), improved 7-round AES attacks 200-800× using a 'Möbius Bridge' technique (1 billion tokens, mostly autonomous), and found a practical key-recovery attack on 13-round LEA in under an hour on a desktop. Anthropic released papers, demo code, and CryptanalysisBench — but the real takeaway is the verification bottleneck: it took Mythos one week to find the AES attack, and two human researchers nearly a month to confirm it was correct."
+faq:
+  - q: "Did Claude break AES encryption?"
+    a: "No. The attack applies only to a reduced 7-round version of AES-128, not the full 10-round cipher used in production. No deployed systems are affected."
+  - q: "What is HAWK and why does it matter?"
+    a: "HAWK is a post-quantum digital signature scheme currently under review by NIST. It is designed to resist attacks from quantum computers, which threaten existing schemes like RSA and ECDSA. Mythos discovered a symmetry (automorphism) in HAWK's lattice that halves its effective key strength."
+  - q: "How autonomous was Claude in these discoveries?"
+    a: "Mostly autonomous. The HAWK attack involved semi-autonomous work with occasional project-management guidance. The AES attack was scaffolded by a researcher but executed with only three substantive human prompts over three days — including one that said 'we want proper research to find genuinely hard findings.'"
+  - q: "What is CryptanalysisBench?"
+    a: "A benchmark developed by Anthropic with ETH Zurich, Tel Aviv University, and University of Haifa. It packages cryptographic ciphers into a standardized test suite so researchers can evaluate LLM cryptanalytic capabilities consistently."
+  - q: "Why does the verification bottleneck matter?"
+    a: "Mythos discovered the AES attack in one week. Two Anthropic researchers spent nearly a month learning enough cryptography to validate the result. If AI keeps accelerating discovery, human verification becomes the limiting factor — raising questions about how to handle findings that do affect real-world systems."
+  - q: "How much did these experiments cost?"
+    a: "Anthropic estimates approximately $100,000 in API costs per major attack discovery, plus hundreds of hours of human verification time."
+image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&q=80"
+imageAlt: "Matrix-style green digital code on a dark screen"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+author: "Elisio Guimarães"
+---
+
+# AI Just Broke Post-Quantum Cryptography — and the Verification Bottleneck Is Real
+
+On July 28, 2026, Anthropic published a blog post that should make anyone who trusts digital signatures and encryption pause for a moment. Claude Mythos Preview, the company's most capable research model, had discovered mathematical flaws in cryptographic algorithms. Not implementation bugs — the kind programmers introduce when they misuse a library. Actual structural weaknesses in the math itself. In one case, it halved the effective key strength of a post-quantum candidate that had already survived two rounds of expert human review by the US government's National Institute of Standards and Technology (NIST).
+
+The attacks are impressive. But the real story is what happens next.
+
+For years, the cybersecurity world has worried about AI finding so many software bugs that human triage teams drown. Anthropic's own Project Glasswing has already surfaced over 6,000 vulnerabilities in open-source code. Now the same dynamic is arriving in academic cryptography, where verification requires not just reading code but reconstructing novel mathematical arguments. And the gap between AI discovery speed and human validation speed is widening fast.
+
+Here is what Mythos found, how it found it, and why the implications stretch well beyond the ciphers themselves.
+
+## What Was Actually Discovered
+
+Anthropic released results across four ciphers. Two are significant advances. Two are confirmations that the model can operate consistently across different cryptographic families.
+
+**HAWK, a post-quantum digital signature scheme.** HAWK is one of the remaining third-round candidates in NIST's ongoing effort to standardize encryption that can resist quantum computers. Its security rests on something called the Lattice Isomorphism Problem — a mathematical assumption that had held up through two years of expert review.
+
+Mythos found a specific symmetry, called a nontrivial automorphism, in HAWK's lattice structure. Prior work had proved that such an automorphism would permit an attack, but nobody had shown one actually existed in HAWK's specific construction. Mythos did. The result is an enumeration attack that reduces HAWK's effective key size by a factor of two. For the smallest parameter set, HAWK-256, the expected attack cost dropped from 2^64 to 2^38 — a difference that moves the scheme from "impractical to break" to "concerningly weak."
+
+Importantly, this attack is specific to HAWK. It does not generalize to other NIST post-quantum candidates like ML-KEM or ML-DSA, and it does not threaten lattice-based cryptography as a whole. But it does mean HAWK, as currently specified, is no longer an attractive post-quantum candidate unless its keys are doubled in size — which would eliminate many of the efficiency advantages that made it appealing in the first place.
+
+**AES-128, the world's most scrutinized cipher.** AES has been the backbone of internet encryption since NIST adopted it in 2001. Academics regularly study "reduced-round" versions — versions with fewer than the full 10 rounds — to understand how attack techniques might evolve. Mythos improved the best-known attack on 7-round AES-128 by a factor of 200 to 800×.
+
+The core innovation is what Anthropic calls a "Möbius Bridge" — a fingerprinting algorithm that eliminates one of the guessing stages in a classic meet-in-the-middle attack. Instead of enumerating 256 values and checking each against a precomputed table, Mythos found a transform that is invariant to that guess, collapsing the search space. The verification required reading prior cryptanalysis literature, proposing hypotheses, running computational experiments in Python and Sage, and iteratively refining the approach over roughly one billion output tokens.
+
+Again: this does not break full AES. Seven rounds is not ten. But in cryptography, reduced-round attacks are how the field stress-tests ciphers and estimates security margins. A 200-800× improvement on the best-known technique is a genuine research contribution, published alongside a full technical paper and the model's chain of thought.
+
+**LEA and Serpent.** Beyond the two headline results, Mythos also found a practical key-recovery attack on 13-round LEA — a lightweight cipher used in resource-constrained devices — that runs in under an hour on a standard desktop. The attack recovers keys using fewer than 2^30 chosen plaintexts, compared to the prior best of 2^98. On 6-round Serpent-128, it found a full key-recovery attack extending published work that previously required more than 2^70 plaintext pairs. Smaller improvements were found for Salsa20, the Poseidon hash function, and SHA-1.
+
+None of these break production systems either. But they show a pattern: Mythos is not getting lucky once. It is finding exploitable structure across multiple cryptographic families, with different mathematical foundations, in a way that suggests systematic capability rather than coincidence.
+
+## How Claude Found These Flaws
+
+The HAWK and AES discoveries differed in how much human involvement was required.
+
+For HAWK, an Anthropic researcher with a background in theoretical computer science — but not in lattice-based cryptography — worked with Mythos in a multi-agent harness. Mythos reviewed literature, reasoned mathematically, ran experiments in Python and Sage, and eventually produced an end-to-end verification pipeline to confirm the attack worked. Human input was mostly project management: suggesting which libraries to use, reminding agents to keep track of ideas, and nudging the system away from dead ends. The total time was about 60 hours, at an estimated API cost of $100,000.
+
+The AES attack was even more autonomous. A researcher built a scaffold that let Claude pose hypotheses, run experiments, and iterate. Initially, Claude refused to engage, insisting that improving AES cryptanalysis was impossible because the cipher is "the most-studied block cipher in existence." The researcher sent a single prompt with a typo — "the models tend to think it is impossible to solve so they don't try they need a good amount of prompting" — and Claude rewrote its own agent harness to search for genuinely novel ideas.
+
+Over the next three days, Claude produced several hundred million tokens. The human sent only three substantive messages: one correcting Claude for searching simple attacks, one rejecting a proposal to switch to a different cipher, and one offering encouragement. Three days later, Claude discovered the Möbius Bridge. After refining over more sessions totaling one billion tokens, the attack was complete.
+
+Anthropic has published the full prompts, including typos and grammatical errors. The prompt engineering community will have opinions about that. The more important observation is that the model's own chain of thought shows genuine mathematical creativity: reviewing prior work, proposing and rejecting intermediate ideas, validating computationally, and writing a report that future agent sessions built upon.
+
+## The Verification Bottleneck
+
+Here is the sentence from Anthropic's post that matters most: "Whereas it took just one week for Mythos to autonomously discover the improved attack on AES, it took two researchers nearly a month to gain confidence that the method it discovered is correct."
+
+This is not a complaint about Claude being wrong. Claude was right, and the result was validated. It is a statement about asymmetry. AI discovery is becoming faster than human verification. In software security, this already means thousands of unpatched vulnerabilities. In cryptography, where verification may require reconstructing a novel mathematical argument from scratch, the gap is even wider.
+
+Anthropic acknowledges this openly. They say they are "reaching the limits of our own knowledge" and that "the vast majority of our time over the past few months has been in verifying the correctness of Claude's results." They plan to host an academic workshop to discuss the role of language models in security and cryptography research. They also consulted US government and industry partners before publication.
+
+But the honest question is: what happens when a model finds a vulnerability in a cipher that *is* deployed?
+
+The cryptography community has always relied on adversarial review. Ciphers are proposed, attacked, revised, and eventually trusted — or abandoned. This process works because humans operate at roughly human speed. If an AI can find a break in a week and humans need a month to confirm it, the window between discovery and responsible disclosure becomes dangerous. An attacker with the same AI tool could exploit the gap. Or worse, multiple AI systems could find the same flaw independently, and the first to publish it responsibly might be racing against automated exploitation.
+
+Anthropic's answer, for now, is transparency: publish everything, release papers, share code, build benchmarks like CryptanalysisBench so the community can measure progress. This is the right approach for research. It is less clear that it scales to emergency disclosure scenarios.
+
+## The Broader Pattern: AI as a Research Partner
+
+Anthropic is not alone in this. In the last few months alone, Google researchers used Gemini (via AlphaEvolve) to resolve several open Erdős problems in mathematics. OpenAI used GPT to resolve the unit distance conjecture, another long-standing Erdős problem. Earlier this month, Anthropic announced that Claude Fable 5 had resolved the Jacobian Conjecture, a famous open problem in algebraic geometry.
+
+The pattern is consistent. Frontier AI models are no longer just summarizing papers or suggesting code completions. They are producing novel mathematical and scientific results, verified by human researchers, published in formal academic settings. The difference with cryptography is the stakes: a new theorem in geometry does not expose anyone's bank account. A break in a deployed cipher does.
+
+This creates a governance problem that nobody has solved yet. Academia has peer review, but peer review assumes human authors who can explain their reasoning. Industry has responsible disclosure, but responsible disclosure assumes the finder is a human security researcher who can be contacted, negotiated with, and given time to coordinate. When the finder is an autonomous agent running on a cloud API, who is responsible for the disclosure timeline? The researcher who scaffolded the experiment? The company that owns the model? The benchmark designer?
+
+These are not abstract questions. Anthropic's HAWK finding was disclosed to the scheme's authors and NIST in June, with coordinated public release. The AES finding was shared with government and industry partners. But the process relied on Anthropic choosing to be careful. As more labs gain access to models with similar capabilities, not everyone will operate with the same caution.
+
+## What This Means for Security Engineers
+
+If you are not a cryptographer, the practical question is what to do with this information.
+
+First: do not panic. No production systems are affected by the published attacks. Full AES is still secure. HAWK is still a candidate, not a deployed standard. The LEA and Serpent attacks apply only to reduced-round variants.
+
+Second: pay attention to post-quantum migration timelines. NIST's post-quantum standards are still being finalized, and this is exactly the kind of finding that the standardization process is designed to surface. If your organization is planning a migration to post-quantum cryptography — and if you handle long-lived sensitive data, you should be — keep monitoring which candidates survive scrutiny. HAWK's future is now uncertain. ML-KEM and ML-DSA remain the safer bets.
+
+Third: consider the verification problem in your own security program. If you use AI-assisted code review or vulnerability scanning, you already face a version of this bottleneck. The model finds issues faster than your team can triage them. Cryptography is the extreme case, but the principle applies everywhere. Build validation pipelines before you scale discovery pipelines.
+
+Fourth: watch CryptanalysisBench. Anthropic developed it with ETH Zurich, Tel Aviv University, and University of Haifa to standardize evaluation of LLM cryptanalytic capabilities. As models improve, this benchmark will track whether capability is growing linearly or exponentially — and whether the verification gap is widening or narrowing.
+
+## The Uncomfortable Future
+
+There is a plausible future, perhaps only a few years away, where AI systems routinely discover cryptographic weaknesses that humans would have missed for decades. In that future, the limiting factor for security is not discovery but trust. Can you trust an AI-discovered attack? Can you trust that the AI has not also found an attack it is not telling you about? Can you trust that a competitor's AI has not found the same flaw and chosen not to disclose it?
+
+Anthropic's research is a step toward that future, and the company's transparency is commendable. But transparency is a choice, not a guarantee. The mathematical capability on display here is real, autonomous, and improving fast. The institutions that govern disclosure, verification, and standardization were built for human researchers operating at human speed. They are not ready for what comes next.
+
+The cryptography community has always understood that trust is earned through adversarial testing. The new variable is that the adversary is now a machine, and it works while you sleep.
