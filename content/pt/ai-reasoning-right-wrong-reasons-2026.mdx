@@ -1,0 +1,104 @@
+---
+title: "A IA Está Certa pelos Motivos Errados? A Ciência das Mnemônicas Ilusórias"
+description: "Um artigo viral da Quanta Magazine faz uma pergunta difícil: a inteligência artificial pode ser brilhante e, ao mesmo tempo, fundamentalmente mal-entendida? Veja o que a pesquisa realmente diz — e por que a resposta importa para tudo que a IA deveria fazer a seguir."
+date: "2026-08-01"
+lang: "pt"
+translationKey: "ai-reasoning-right-wrong-reasons-2026"
+tags: ["Raciocínio de IA", "LLM", "LRM", "Cadeia de Pensamento", "Machine Learning", "OpenAI", "Anthropic", "2026"]
+keywords: ["IA raciocínio certo motivos errados", "mnemônicas ilusórias", "cadeia de pensamento não fiel", "ilusão raciocínio LLM", "modelo grande raciocínio", "tokens intermediários LRM", "Apple Ilusion of Thinking", "Subbarao Kambhampati raciocínio", "Melanie Mitchell atalhos IA", "debate raciocínio IA 2026"]
+tldr: "Um artigo viral da Quanta Magazine escrito por um jornalista de IA explora um paradoxo: modelos grandes de raciocínio (LRMs) conseguem resolver problemas da Olimpíada de Matemática e refutar conjecturas de 80 anos, mas pesquisas da Apple, NYU, Northeastern/Berkeley e do Instituto Santa Fé mostram que suas 'cadeias de pensamento' podem não ser nem significativas nem causalmente ligadas às suas respostas. A peça introduz 'mnemônicas ilusórias' — um conceito de 1976 do pioneiro da IA Drew McDermott — como a lente pela qual entender por que antropomorfizamos o raciocínio da IA mesmo quando a ciência diz que não deveríamos. O debate coloca Sébastien Bubeck, da OpenAI, contra críticos como Kambhampati e Mitchell, e o que está em jogo é nada menos do que a confiabilidade dos sistemas de IA em domínios não-verificáveis como medicina, direito e tomada de decisão autônoma."
+faq:
+  - q: "O que são 'mnemônicas ilusórias' em IA?"
+    a: "Um termo cunhado pelo pioneiro da IA Drew McDermott em 1976. Refere-se a dar nomes como UNDERSTAND ou GOAL a programas de IA, fazendo-os parecer mais capazes do que realmente são. O pesquisador que usa esses nomes está 'apenas supondo o que quer provar' e pode enganar a si mesmo e aos outros sobre o que o programa realmente faz."
+  - q: "As cadeias de raciocínio realmente refletem o que os modelos de IA estão pensando?"
+    a: "Pesquisas da NYU, Northeastern/Berkeley e do Instituto Santa Fé sugerem que talvez não. Estudos mostram: (1) substituir traços corretos por incorretos não prejudica o desempenho; (2) 30-60% das 'etapas de pensamento' têm impacto causal mínimo; (3) até tokens de preenchimento sem sentido (como pontos) podem funcionar no lugar de cadeias de pensamento legíveis."
+  - q: "Os modelos de IA ainda podem ser úteis mesmo que seus traços de raciocínio não sejam fiéis?"
+    a: "Sim. Pesquisadores comparam com o AlphaFold: não entendemos totalmente suas associações estatísticas internas, mas ele funciona. O perigo está em aplicar modelos a domínios onde a verificação não é possível — como medicina, direito ou sistemas autônomos — onde 'certo pelos motivos errados' não é suficiente."
+  - q: "O que Sébastien Bubeck, da OpenAI, disse sobre as críticas?"
+    a: "Bubeck chamou os resultados anteriores da Apple de 'errados', atribuindo-os a peculiaridades de treinamento em modelos obsoletos. Ele argumenta que modelos modernos a partir do GPT-5.5 não sofrem desses problemas, e que é mais produtivo discutir o que os modelos conseguem fazer do que ficar obcecado com como fazem."
+  - q: "O que é o artigo 'Ilusion of Thinking' da Apple?"
+    a: "Publicado em 2025, pesquisadores da Apple mostraram que modelos de raciocínio de fronteira enfrentam 'colapso completo de precisão' além de certas complexidades de problema, e exibem um limite de escala contra-intuitivo onde o esforço de raciocínio diminui apesar de orçamento de tokens adequado. Eles identificaram três regimes: baixa complexidade (modelos padrão superam LRMs), média (LRMs mostram vantagem) e alta (ambos colapsam)."
+image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=1200&q=80"
+imageAlt: "Close-up de um modelo de cérebro humano iluminado contra um fundo escuro"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+author: "Elisio Guimarães"
+---
+
+# A IA Está Certa pelos Motivos Errados? A Ciência das Mnemônicas Ilusórias
+
+Em maio de 2026, um modelo de raciocínio interno da OpenAI refutou a conjectura de distância unitária de Erdős — um problema em aberto de 80 anos na geometria discreta. A demonstração foi verificada pelo medalhista Fields Tim Gowers. Em 2025, modelos de raciocínio conquistaram medalhas de ouro na Olimpíada Internacional de Matemática, um feito tão desafiador que "até matemáticos e cientistas muito bem-sucedidos podem muito bem destacá-lo em seus currículos para o resto da vida," como o crítico de IA Gary Marcus escreveu na época.
+
+E aí, tão rapidamente, outro artigo mostrou que os mesmos modelos podiam ser enganados a falhar em tarefas simples de raciocínio apenas adicionando uma única variável de distração. Pesquisadores da Apple demonstraram um "colapso completo de precisão" quando os problemas ficavam apenas o suficientemente complexos. Um estudo do Instituto Santa Fé descobriu que modelos de raciocínio estavam dominando benchmarks de quebra-cabeças visuais usando meros "atalhos superficiais." Então o Google DeepMind e Terence Tao usaram IA para aprimorar soluções de 67 problemas de análise, combinatória, geometria e teoria dos números. Então outro estudo mostrou que 30 a 60 por cento das "etapas de pensamento" de um modelo tinham impacto causal mínimo em suas respostas.
+
+Se você está sentindo uma espécie de torção intelectual, não está sozinho. Um artigo viral da Quanta Magazine publicado em 31 de julho de 2026 faz a pergunta que tem incomodado pesquisadores, jornalistas e engenheiros há meses: a inteligência artificial pode ser brilhante e fundamentalmente mal-entendida ao mesmo tempo? E, se sim, o que diabos isso significa para a tecnologia que estamos construindo?
+
+## A Parábola da Cadeia de Pensamento
+
+Para entender o debate, você precisa entender o que um "modelo grande de raciocínio" (LRM) realmente faz. Modelos de linguagem grandes padrão preveem o próximo token com base em padrões nos dados de treinamento. Os LRMs — começando com o o1 da OpenAI em 2024 — são treinados para gerar "traços de raciocínio" intermediários ou "cadeias de pensamento" antes de chegar a uma resposta. A ideia é que, se você fizer o modelo escrever seu raciocínio passo a passo, ele produzirá respostas melhores e mais confiáveis para problemas complexos.
+
+O conceito foi descoberto como um truque de prompting em 2022: simplesmente peça a um modelo para "pensar passo a passo" e seu desempenho em problemas de lógica e matemática melhora drasticamente. Os LRMs automatizam isso gerando tokens de raciocínio e alimentando-os de volta em si mesmos. O resultado parece um rastro de papel do processo de pensamento do modelo.
+
+Exceto que talvez não seja.
+
+## O Que a Pesquisa Realmente Diz
+
+Em 2025, pesquisadores da Universidade Estadual do Arizona liderados por Subbarao Kambhampati mostraram que substituir os traços de raciocínio corretos de um modelo por incorretos ou irrelevantes não degradou seu desempenho em tarefas formais de raciocínio. Enquanto isso, treinar um modelo apenas em dados de traços corretos ainda o levou a gerar ocasionalmente registros inválidos de seu raciocínio — mesmo quando produzia a resposta final correta. Um artigo de 2024 da Universidade de Nova York mostrou que "tokens de preenchimento sem sentido" — literalmente strings de pontos — podiam funcionar efetivamente no lugar de uma cadeia de pensamento legível por humanos.
+
+Um dos autores da NYU, William Merrill, agora no Instituto Tecnológico Toyota de Chicago, foi direto: "Não há garantia de que a cadeia de pensamento tenha que ser significativa em nenhum sentido." Outro pesquisador da NYU, Pavel Izmailov, que também trabalha na Anthropic, disse que duvida que o aprendizado por reforço até mesmo incentive os modelos a produzir cadeias de pensamento fiéis. "Quero dizer, talvez incentive. Mas eu diria que as chances não são muito altas."
+
+Depois veio o estudo da Northeastern University e da UC Berkeley em 2025. Eles examinaram LRMs de fronteira de código aberto e descobriram que entre 30 e 60 por cento de suas "etapas de pensamento" tinham "impacto causal mínimo" nas respostas que os modelos produziram para questões de matemática de benchmark. Corte metade das etapas e o desempenho mal sofre. Como a coautora Weiyan Shi alertou: "Temos que ter cuidado quando revisamos esses prompts de cadeia de pensamento porque eles podem não estar ligados à saída final."
+
+O grupo de Kambhampati foi direto no título de seu artigo de posição, apresentado no ICML 2026: "Parem de Antropomorfizar Tokens Intermediários como Traços de Raciocínio/Pensamento!"
+
+## A Defesa: O Lado da OpenAI
+
+Sébastien Bubeck, membro da equipe técnica da OpenAI e um defensor proeminente dos modelos de raciocínio da empresa, não ficou impressionado. Ele chamou os resultados anteriores da Apple de "errados," alegando que eram devidos a peculiaridades de treinamento em modelos agora obsoletos. "Modelos modernos a partir do GPT-5.5 não sofrem desse problema," ele disse. "Seria interessante revisitar esses resultados."
+
+Quando o jornalista da Quanta perguntou a Bubeck se a famosa prova de distância unitária da OpenAI foi produzida com ferramentas de verificação externas como o Lean — um provador de teoremas automatizado — ele achou a pergunta quase sem sentido. "Não é como se estivéssemos fazendo mistério. Nós liberamos a cadeia de pensamento. Você pode simplesmente ir lá e olhar. O ponto todo é que o modelo está raciocinando como um humano raciocinaria. E quando humanos raciocinam, não usam Lean."
+
+A posição de Bubeck é prática: os modelos funcionam. Eles resolvem problemas que importam. É mais produtivo falar sobre o que conseguem fazer do que ficar obcecado com a mecânica de como fazem. "Minha perspectiva é: estamos tentando ser úteis. Estamos tentando construir esses modelos para que possam resolver problemas que importam, para que realmente aceleremos a pesquisa científica."
+
+## O Caso dos Céticos: É Recuperação Aproximada
+
+Kambhampati, ex-presidente da Associação para o Avanço da Inteligência Artificial, não nega que os LRMs funcionam. "Estamos em tempos maravilhosos," ele disse ao jornalista. A preocupação dele é que estamos entendendo *por que* eles funcionam de forma errada.
+
+Sua hipótese de trabalho é que um LRM, como seus precursores LLM, realiza o que ele chama de "recuperação aproximada" em seu vasto corpus de treinamento — "algum lugar no meio" entre correspondência de padrões e raciocínio, mas mais próximo do primeiro. O papel dos "tokens de pensamento," então, não é narrar uma cadeia de pensamento real (porque não existe uma). Em vez disso, é carregar a janela de contexto do modelo de uma forma que torna mais provável prever, ou "recuperar aproximadamente," strings de texto em formato de raciocínio.
+
+Ele compara isso a murmurar palavras para si mesmo para estimular a memória: mal importa quais são as palavras, desde que elas soltem algo útil. Sob essa visão, os tokens poderiam ser pedaços de outras línguas, exclamações falsas como "aha," ou apenas pontos. "Se a embedding realmente corresponde a uma única palavra ou não — muito menos a um processo de raciocínio fiel — é irrelevante."
+
+Essa formulação ajuda a explicar tanto a estranheza de algumas cadeias de pensamento quanto o fato de que elas ainda conseguem gerar saídas precisas. Em "domínios verificáveis" como código e matemática, onde um resultado está correto ou não, o modelo não precisa aprender um processo de raciocínio geral. Ele só precisa absorver exemplos suficientes de como as etapas *parecem* para imitá-las de forma preditiva no caminho para "costurar" um resultado plausível.
+
+## O Problema Filosófico: Isso Importa?
+
+Melanie Mitchell, pesquisadora do Instituto Santa Fé e uma das vozes mais claras em IA hoje, diz que a resposta é: depende.
+
+"Pense no AlphaFold," ela disse, referindo-se à ferramenta de previsão de estrutura de proteínas do Google. "Ele está fazendo algum tipo de associações estatísticas incrivelmente complexas. Não sabemos o que são, mas parecem funcionar. Essas coisas já são caixas-pretas, mesmo sem um 'traço de raciocínio.'" Se os LRMs puderem impulsionar a pesquisa matemática da forma que o AlphaFold fez pela biologia, por que não abraçá-los e simplesmente verificar os resultados?
+
+Mas como Mitchell também aponta, a possibilidade de que um LRM esteja "certo pelos motivos errados" tem relevância óbvia para domínios onde a verificação não é tão fácil. "Você quer a resposta certa pelo motivo certo, para poder confiar nessas coisas." Tal Linzen, pesquisador da NYU e do Google, concorda: "Você quer que um sistema de IA seja capaz de aplicar um algoritmo de forma confiável, independentemente de chamar isso de raciocínio ou não."
+
+Em domínios não-verificáveis — medicina, direito, veículos autônomos, tomada de decisão militar — "certo pelos motivos errados" é uma receita para catástrofe. Um modelo que dá sorte nos dados de treinamento pode falhar catastroficamente quando confrontado com um cenário ligeiramente diferente. Tratar cadeias de pensamento com excesso de reverência também poderia impedir cientistas de descobrir formas melhores de enviesar LRMs em direção a saídas precisas. "Podemos estar deixando algumas oportunidades inexploradas," disse Pradeep Dasigi do Allen Institute for AI.
+
+## O Fantasma de 1976: Mnemônicas Ilusórias
+
+O artigo da Quanta introduz um conceito que faz sentido de toda a confusão: "mnemônicas ilusórias." A frase vem de um artigo de 1976 do pioneiro da IA Drew McDermott, intitulado com uma mal-humorada épica: "Artificial Intelligence Meets Natural Stupidity."
+
+McDermott escreveu: "Uma fonte importante de ingenuidade em programas de IA é o uso de mnemônicas como UNDERSTAND ou GOAL para se referir a programas e estruturas de dados. ... Se um pesquisador chama o loop principal de seu programa de UNDERSTAND, ele está (até prova em contrário) apenas supondo o que quer provar. Ele pode enganar muitas pessoas, principalmente a si mesmo."
+
+O jornalista da Quanta aplica isso diretamente aos LRMs. "LRMs, cadeias de pensamento, tokens de pensamento: são mnemônicas ilusórias do começo ao fim — uma mistura embriagante de abreviação e ceticismo suspenso, como manifestação ao estilo Oprah com um viés de ciência da computação."
+
+A solução proposta por McDermott era chamar as coisas por nomes chatos — "G0034" em vez de "UNDERSTAND" — e ver se alguém conseguia ser convencido de que G0034 implementa alguma parte do entendimento. O ponto não era ser cínico. Era evitar se enganar.
+
+## Onde Isso Nos Deixa
+
+Ninguém que eu conheça está argumentando que deveríamos parar de usar modelos de raciocínio. Eles são úteis demais para isso. A questão é se os entendemos bem o suficiente para implantá-los com responsabilidade.
+
+O caso otimista: modelos mais novos estão genuinamente empurrando o "horizonte de inferência" mais adiante, resolvendo problemas mais difíceis de forma mais confiável, e a lacuna entre correspondência de padrões e raciocínio pode estar diminuindo mais rápido do que os céticos esperavam. O caso pessimista: estamos confundindo um truque estatístico com cognição, e o próximo modo de falha será um que não vimos chegando porque estávamos ocupados demais admirando a cadeia de pensamento.
+
+Kambhampati comparou levar a sério o significado dos traços de raciocínio da IA a acreditar no geocentrismo ou no éter luminífero — ideias que faziam sentido intuitivo na época, até que não fizeram mais. Nos anos 1990, era difícil imaginar como busca de força bruta poderia vencer Garry Kasparov no xadrez. Em 2023, era difícil intuir como multiplicações de matrizes poderiam escrever em pentâmetro iâmbico. "Para a maioria de nós, esses simplesmente não eram pensamentos pensáveis. Até que, de repente, eram."
+
+A resposta honesta é que ainda não sabemos totalmente. Mas o debate não é acadêmico. À medida que modelos de raciocínio se movem de competições de matemática para salas de hospital, tribunais e centros de comando, a diferença entre "funciona quando verificado" e "funciona porque entende" se torna a diferença entre uma ferramenta útil e um passivo perigoso.
+
+Até termos uma explicação científica mais clara do que está acontecendo sob o capô, o conselho do jornalista parece o correto: considere sua potência de cavalo num espírito similar ao como consideramos o motor de um carro. Sabemos que vai rápido. Sabemos que precisa de combustível e emite escape. Mas não acreditamos que haja pequenos cascos batendo sob o capô.
+
+E talvez isso seja suficiente — desde que lembremos quais partes verificamos e quais partes ainda estamos aceitando na fé.

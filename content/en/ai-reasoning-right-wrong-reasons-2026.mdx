@@ -1,0 +1,104 @@
+---
+title: "Is AI Reasoning Right for the Wrong Reasons? The Science of Wishful Mnemonics"
+description: "A viral Quanta Magazine piece asks a hard question: can AI reasoning be both brilliant and fundamentally misunderstood? Here's what the research actually says — and why the answer matters for everything AI is supposed to do next."
+date: "2026-08-01"
+lang: "en"
+translationKey: "ai-reasoning-right-wrong-reasons-2026"
+tags: ["AI Reasoning", "LLM", "LRM", "Chain of Thought", "Machine Learning", "OpenAI", "Anthropic", "2026"]
+keywords: ["AI reasoning right wrong reasons", "wishful mnemonics", "chain of thought not faithful", "LLM reasoning illusion", "large reasoning model", "LRM intermediate tokens", "Apple Illusion of Thinking", "Subbarao Kambhampati reasoning", "Melanie Mitchell AI shortcuts", "AI reasoning debate 2026"]
+tldr: "A viral Quanta Magazine article by an AI journalist explores a paradox: large reasoning models (LRMs) can solve math Olympiad problems and disprove 80-year-old conjectures, yet research from Apple, NYU, Northeastern/Berkeley, and the Santa Fe Institute shows their 'chains of thought' may be neither meaningful nor causally linked to their outputs. The piece introduces 'wishful mnemonics' — a 1976 concept from AI pioneer Drew McDermott — as the lens through which to understand why we anthropomorphize AI reasoning even when the science says we shouldn't. The debate pits OpenAI's Sébastien Bubeck against critics like Kambhampati and Mitchell, and the stakes are nothing less than whether we can trust AI systems in unverifiable domains like medicine, law, and autonomous decision-making."
+faq:
+  - q: "What are 'wishful mnemonics' in AI?"
+    a: "A term coined by AI pioneer Drew McDermott in 1976. It refers to giving AI programs names like UNDERSTAND or GOAL that make them sound more capable than they are. The researcher who uses such names is 'merely begging the question' and may mislead themselves and others about what the program actually does."
+  - q: "Are chain-of-thought traces actually what AI models are thinking?"
+    a: "Research from NYU, Northeastern/Berkeley, and the Santa Fe Institute suggests they may not be. Studies show: (1) replacing correct traces with incorrect ones doesn't hurt performance; (2) 30-60% of 'thinking steps' have minimal causal impact; (3) even meaningless filler tokens (like dots) can work in place of readable chains of thought."
+  - q: "Can AI models still be useful even if their reasoning traces aren't faithful?"
+    a: "Yes. Researchers compare it to AlphaFold: we don't fully understand its internal statistical associations, but it works. The danger is in applying models to domains where verification isn't possible — like medicine, law, or autonomous systems — where 'right for the wrong reasons' is not good enough."
+  - q: "What did OpenAI's Sébastien Bubeck say about the criticism?"
+    a: "Bubeck called earlier Apple results 'wrong,' attributing them to training quirks in obsolete models. He argues modern models starting with GPT-5.5 do not suffer from these issues, and that it's more productive to discuss what models can do than to obsess over how they do it."
+  - q: "What is the 'Illusion of Thinking' paper from Apple?"
+    a: "Published in 2025, Apple researchers showed that frontier reasoning models face 'complete accuracy collapse' beyond certain problem complexities, and exhibit a counter-intuitive scaling limit where reasoning effort declines despite adequate token budget. They identified three regimes: low complexity (standard models outperform LRMs), medium (LRMs show advantage), and high (both collapse)."
+image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=1200&q=80"
+imageAlt: "Close-up of a human brain model illuminated against a dark background"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+author: "Elisio Guimarães"
+---
+
+# Is AI Reasoning Right for the Wrong Reasons? The Science of Wishful Mnemonics
+
+In May 2026, an internal OpenAI reasoning model disproved the Erdős unit distance conjecture — an 80-year-old open problem in discrete geometry. The proof was verified by Fields Medalist Tim Gowers. In 2025, reasoning models bagged gold medals at the International Mathematical Olympiad, a feat so challenging that "even very successful mathematicians and scientists may well highlight it on their CVs all their lives," as AI critic Gary Marcus wrote at the time.
+
+And then, just as quickly, another paper would show that the same models could be tricked into failing at simple reasoning tasks by adding a single distractor variable. Apple researchers demonstrated "complete accuracy collapse" when problems got just complex enough. A Santa Fe Institute study found that reasoning models were crushing visual puzzle benchmarks using mere "surface-level shortcuts." Then Google DeepMind and Terence Tao used AI to improve solutions to 67 problems across analysis, combinatorics, geometry, and number theory. Then another study showed that 30 to 60 percent of a model's "thinking steps" had minimal causal impact on its answers.
+
+If you are experiencing intellectual whiplash, you are not alone. A viral Quanta Magazine article published on July 31, 2026, asks the question that has been bothering researchers, journalists, and engineers for months: can AI reasoning be both brilliant and fundamentally misunderstood at the same time? And if so, what on earth does that mean for the technology we are building?
+
+## The Parable of the Chain of Thought
+
+To understand the debate, you need to understand what a "large reasoning model" (LRM) actually does. Standard large language models predict the next token based on patterns in their training data. LRMs — starting with OpenAI's o1 in 2024 — are trained to generate intermediate "reasoning traces" or "chains of thought" before arriving at an answer. The idea is that if you make the model write out its reasoning step by step, it will produce better, more reliable answers to complex problems.
+
+The concept was discovered as a prompting hack in 2022: simply ask a model to "think step by step," and its performance on logic and math problems improves dramatically. LRMs automate this by generating reasoning tokens and feeding them back into themselves. The result looks like a paper trail of the model's thought process.
+
+Except it might not be.
+
+## What the Research Actually Says
+
+In 2025, researchers at Arizona State University led by Subbarao Kambhampati showed that replacing a model's correct reasoning traces with incorrect or irrelevant ones did not degrade its performance on formal reasoning tasks. Meanwhile, training a model only on correct trace data still led it to occasionally generate invalid records of its reasoning — even when it produced the correct final answer. A 2024 paper from New York University showed that "meaningless filler tokens" — literally strings of dots — could function effectively in place of a human-readable chain of thought.
+
+One of the NYU authors, William Merrill, now at the Toyota Technological Institute at Chicago, put it plainly: "There's no guarantee the chain of thought has to be meaningful in any sense." Another NYU researcher, Pavel Izmailov, who also works for Anthropic, said he doubts that reinforcement learning even incentivizes models to produce faithful chains of thought. "I mean, maybe it will. But I would say the chances are not very high."
+
+Then came the Northeastern University and UC Berkeley study in 2025. They examined frontier open-source LRMs and found that between 30 and 60 percent of their "thinking steps" had "minimal causal impact" on the answers the models produced to benchmark math questions. Chop half the steps out, and performance barely suffers. As co-author Weiyan Shi cautioned: "We want to be careful when we review these chain-of-thought prompts because they may not be linked to the final output."
+
+Kambhampati's group was blunt in the title of their position paper, presented at ICML 2026: "Stop Anthropomorphizing Intermediate Tokens as Reasoning/Thinking Traces!"
+
+## The Defense: OpenAI's Side
+
+Sébastien Bubeck, a member of OpenAI's technical staff and a prominent advocate for the company's reasoning models, was not impressed. He called earlier Apple results "wrong," claiming they were due to training quirks in now-obsolete models. "Modern models starting with GPT-5.5 do not suffer from this issue," he said. "It would be interesting to revisit those results."
+
+When the Quanta journalist asked Bubeck whether OpenAI's famous unit distance proof was produced with external verification tools like Lean — an automated theorem prover — he found the question almost nonsensical. "It's not like we're making a mystery of it. We have released the chain of thought. You can just go and look at it. The whole point is that the model is reasoning like a human would. And when humans reason, we don't use Lean."
+
+Bubeck's position is practical: the models work. They solve problems that matter. It is more productive to talk about what they can do than to obsess over the mechanics of how they do it. "My perspective is: We're trying to be useful. We're trying to build these models so that they can solve problems that matter, so that we actually accelerate scientific research."
+
+## The Skeptics' Case: It's Approximate Retrieval
+
+Kambhampati, a former president of the Association for the Advancement of Artificial Intelligence, does not deny that LRMs work. "We are in wondrous times," he told the journalist. His concern is that we are misunderstanding *why* they work.
+
+His working hypothesis is that an LRM, like its LLM precursors, performs what he calls "approximate retrieval" across its training corpus — "somewhere in the middle" between pattern matching and reasoning, but closer to the former. The role of "thinking tokens," then, is not to narrate an actual chain of thought (because there isn't one). Instead, it is to load up the model's context window in a way that makes it more likely to predict, or "approximately retrieve," reasoning-shaped strings of text.
+
+He compares this to mumbling words to yourself to jog your memory: it barely matters what the words are, as long as they knock loose something useful. Under this view, the tokens could be bits of other languages, fake exclamations like "aha," or just dots. "Whether the embedding actually corresponds to a single word or not — much less a faithful reasoning process — is beside the point."
+
+This framing helps explain both the oddness of some chains of thought and the fact that they can still elicit accurate outputs. In "verifiable domains" like code and math, where a result is either correct or not, the model doesn't need to learn a general reasoning process. It just needs to absorb enough examples of what the steps *look like* to predictively mimic them on its way to "stitching together" a plausible result.
+
+## The Philosophical Problem: Does It Matter?
+
+Melanie Mitchell, a researcher at the Santa Fe Institute and one of the clearest voices in AI today, says the answer is: it depends.
+
+"Think of AlphaFold," she said, referring to Google's protein structure prediction tool. "It's doing some kind of incredibly complex statistical associations. We don't know what they are, but they seem to work. These things are already black boxes, even without a 'reasoning trace.'" If LRMs can supercharge mathematics research the way AlphaFold did for biology, why not embrace them and just verify the results?
+
+But as Mitchell also points out, the possibility that an LRM could be "right for the wrong reasons" has obvious relevance to domains where verification is not so easy. "You want the right answer for the right reason, so you can trust these things." Tal Linzen, a researcher at NYU and Google, agrees: "You want an AI system to be able to apply an algorithm reliably, regardless of whether you call it reasoning or not."
+
+In unverifiable domains — medicine, law, autonomous vehicles, military decision-making — "right for the wrong reasons" is a recipe for catastrophe. A model that happens to get lucky on training data may fail catastrophically when confronted with a slightly different scenario. Treating chains of thought too reverently could also prevent scientists from discovering better ways of biasing LRMs toward accurate outputs. "We may be leaving some opportunities unexplored," said Pradeep Dasigi of the Allen Institute for AI.
+
+## The Ghost of 1976: Wishful Mnemonics
+
+The Quanta article introduces a concept that makes sense of the whole mess: "wishful mnemonics." The phrase comes from a 1976 paper by AI pioneer Drew McDermott, titled with epic grouchiness: "Artificial Intelligence Meets Natural Stupidity."
+
+McDermott wrote: "A major source of simple-mindedness in AI programs is the use of mnemonics like UNDERSTAND or GOAL to refer to programs and data structures. ... If a researcher calls the main loop of his program UNDERSTAND, he is (until proven innocent) merely begging the question. He may mislead a lot of people, most prominently himself."
+
+The Quanta journalist applies this directly to LRMs. "LRMs, chains of thought, thinking tokens: It's wishful mnemonics all the way down — a heady mix of shorthand and suspended disbelief, like Oprah-style manifesting with a computer science spin."
+
+McDermott's proposed solution was to call things by boring names — "G0034" instead of "UNDERSTAND" — and see if anyone could be convinced that G0034 implements some part of understanding. The point was not to be cynical. It was to avoid misleading yourself.
+
+## Where This Leaves Us
+
+Nobody I know of is arguing that we should stop using reasoning models. They are too useful for that. The question is whether we understand them well enough to deploy them responsibly.
+
+The optimistic case: newer models are genuinely pushing the "inference horizon" further, solving harder problems more reliably, and the gap between pattern matching and reasoning may be narrowing faster than skeptics expected. The pessimistic case: we are mistaking a statistical parlor trick for cognition, and the next failure mode will be one we didn't see coming because we were too busy admiring the chain of thought.
+
+Kambhampati compared taking the meaning of AI reasoning traces seriously to believing in geocentrism or the luminiferous ether — ideas that made intuitive sense at the time, until they didn't. In the 1990s, it was hard to imagine how brute-force search could beat Garry Kasparov at chess. In 2023, it was hard to intuit how matrix multiplications could write in iambic pentameter. "For most of us, these just weren't thinkable thoughts. Until, suddenly, they were."
+
+The honest answer is that we don't fully know yet. But the debate is not academic. As reasoning models move from math competitions to hospital wards, courtrooms, and command centers, the difference between "works when verified" and "works because it understands" becomes the difference between a useful tool and a dangerous liability.
+
+Until we have a clearer scientific account of what's going on under the hood, the journalist's advice seems like the right one: regard their horsepower in a similar spirit to how we regard a car's engine. We know it goes fast. We know it requires fuel and emits exhaust. But we don't believe there are little hooves pounding away under the hood.
+
+And maybe that is enough — as long as we remember which parts we have verified, and which parts we are still taking on faith.
