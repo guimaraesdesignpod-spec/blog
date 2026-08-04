@@ -1,0 +1,94 @@
+---
+title: "O Super PAC da OpenAI Está Operando Um Site de Notícias com Repórteres Falsos Gerados por IA"
+description: "Uma investigação descobriu que The Wire by Acutus — um site de notícias gerado por IA com repórteres robôs e sem quadro de funcionários — parece ser financiado pela operação política da OpenAI. Publica advocacy disfarçado de jornalismo, e pessoas reais estão sendo entrevistadas por software que finge ser humano."
+date: "2026-08-03"
+translationKey: "openai-super-pac-ai-news-site-fake-reporters-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["OpenAI", "Jornalismo de IA", "Astroturfing", "Acutus", "Super PAC", "Ética de IA", "2026", "Desinformação"]
+image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80"
+imageAlt: "Linhas de código brilhando em uma tela escura, simbolizando a maquinaria automatizada por trás do jornalismo gerado por IA"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["super PAC OpenAI", "site de notícias gerado por IA", "repórteres falsos Acutus", "astroturfing jornalismo IA", "agenda política OpenAI", "PAC Leading The Future", "robô de IA fingindo ser jornalista", "críticos de segurança de IA atacados", "fake news IA 2026", "Michael Chen repórter IA"]
+tldr: "The Wire by Acutus, um site de notícias lançado em dezembro de 2025, publicou 94 artigos sem quadro de funcionários, sem editores nomeados e sem repórteres reais. Uma investigação descobriu que 97% do conteúdo é gerado por IA, com agentes robô realizando entrevistas sob nomes falsos. O operador do site parece estar ligado à Novus Public Affairs, uma empresa de relações públicas cujo cliente Targeted Victory co-fundou o super PAC de US$ 125 milhões da OpenAI, Leading The Future. Os artigos atacam pesquisadores de segurança de IA, se opõem à regulação de IA e promovem candidatos republicanos ao Senado — tudo enquanto afirmam ser jornalismo independente."
+faq:
+  - q: "O que é The Wire by Acutus?"
+    a: "É um site lançado em dezembro de 2025 que afirma ser uma plataforma de jornalismo colaborativo. Não tem quadro de funcionários, editores nomeados, linhas de autoria ou responsabilidade pública. Os investigadores descobriram que seus artigos são produzidos por um pipeline automatizado, com IA gerando rascunhos, conduzindo revisões editoriais e até mesmo se passando por repórteres humanos para solicitar citações."
+  - q: "Como a operação de IA foi descoberta?"
+    a: "Nathan Calvin, da Encode, recebeu um e-mail de um repórter chamado Michael Chen que pareceu estranho — enquadramento tendencioso, formato de perguntas e respostas por escrito apenas, nenhuma presença na web. O e-mail foi sinalizado como totalmente gerado por IA pelo Pangram. Calvin encaminhou para Tyler Johnston, do The Midas Project, que investigou o JavaScript e a API publicamente expostos do site e encontrou todo o painel editorial automatizado."
+  - q: "Como é o pipeline automatizado?"
+    a: "O aplicativo React expõe um painel interno com campos para Contexto de Fundo da IA, Perguntas Sugeridas e um botão Gerar Rascunho de Matéria. Uma API separada retorna o registro completo de produção de cada artigo, incluindo revisões editoriais de múltiplas etapas conduzidas por IA pontuadas em conformidade com estilo AP, precisão de citações e verificação de fontes. O tempo mediano de revisão até a publicação é de 44 segundos."
+  - q: "Pessoas reais estão sendo entrevistadas por robôs?"
+    a: "Sim. O código do site contém referências a um entrevistador de IA e um agente repórter. Pelo menos um especialista real, o professor de Harvard Joseph Fuller, diz que ficou feliz em compartilhar suas opiniões com a Acutus. Ele não sabia que estava conversando com um software. Outras citações parecem ter sido extraídas de conteúdo já publicado na web."
+  - q: "Qual é a conexão com a OpenAI?"
+    a: "A conexão é circunstancial, mas detalhada. O aparente operador do site, Patrick Hynes da Novus Public Affairs, retuitou artigos da Acutus. A Novus lista a Targeted Victory como cliente. O CEO da Targeted Victory, Zac Moffatt, co-fundou o Leading The Future, um super PAC de US$ 125 milhões financiado principalmente pelo presidente da OpenAI, Greg Brockman. Os argumentos dos artigos correspondem à agenda declarada do PAC: opor-se à regulação de IA e atacar pesquisadores de segurança."
+  - q: "Isso é ilegal?"
+    a: "Não necessariamente. O astroturfing — criar a ilusão de apoio popular — existe em uma zona cinza legal nos Estados Unidos. A questão mais imediata é a fraude jornalística e o engano de fontes. O site afirma ser jornalismo independente com especialistas enquanto usa agentes de IA para se passar por repórteres e gerar conteúdo."
+  - q: "A OpenAI respondeu?"
+    a: "A OpenAI não comentou publicamente sobre a investigação da Acutus até o momento desta publicação. A empresa proíbe o uso de seus produtos para campanhas políticas em suas políticas de uso, embora a linguagem do framework de segurança alertando sobre campanhas de influência política geradas por IA tenha sido removida silenciosamente."
+---
+
+# O Super PAC da OpenAI Está Operando Um Site de Notícias com Repórteres Falsos Gerados por IA
+
+## O E-mail Que Pareceu Estranho
+
+Nathan Calvin, vice-presidente do grupo de advocacy Encode, recebeu uma solicitação de imprensa na semana passada que o fez parar. O remetente se identificava como Michael Chen, repórter de uma publicação chamada *The Wire by Acutus*. O e-mail pedia comentários sobre um projeto de lei de IA no Tennessee. A manchete completa já estava escrita. O único formato oferecido era perguntas e respostas por escrito. E algo no enquadramento parecia agressivamente tendencioso, como uma queixa jurídica disfarçada de jornalismo.
+
+Calvin fez o que qualquer um em sua posição faria. Procurou por Michael Chen. Nada. Procurou por Acutus. Um site esparso, sem quadro de funcionários, sem linhas de autoria, sem editores nomeados, e uma página sobre que descrevia a operação como uma plataforma de jornalismo colaborativo. O endereço de e-mail era genérico: reporter@acutuswire.com. Quando Calvin encaminhou a mensagem para Tyler Johnston, diretor executivo do The Midas Project, Johnston a submeteu ao Pangram, um detector de conteúdo de IA. O resultado: totalmente gerado por IA.
+
+Michael Chen, ao que tudo indica, quase certamente não existe. E Acutus, ao que tudo indica, quase certamente não emprega nenhum jornalista de verdade.
+
+## A Máquina Por Trás da Cortina
+
+O que Johnston descobriu nos dias seguintes é um dos exemplos mais descarados de astroturfing automatizado na curta história da IA generativa. *The Wire by Acutus* foi lançado em 29 de dezembro de 2025. Em menos de oito meses, publicou 94 artigos cobrindo política de IA, reforma farmacêutica, energia nuclear, regulação de criptomoedas e várias campanhas republicanas ao Senado em 2026. O site afirma oferecer jornalismo independente com fontes especializadas. A realidade, segundo a investigação de Johnston publicada na *Model Republic*, é uma fábrica de conteúdo totalmente automatizada, sem humanos no circuito editorial.
+
+O site é um aplicativo React, e seu JavaScript do lado do cliente contém o que Johnston descreve como um painel editorial interno à mostra. Campos visíveis no código incluem Contexto de Fundo da IA, descrito como informação de fundo para a IA usar ao gerar perguntas e escrever a matéria. Outro campo, Perguntas Sugeridas, contém perguntas sugeridas para o entrevistador de IA fazer. Um botão grande diz Gerar Rascunho de Matéria. Após a geração, um botão Regenerar permite que os operadores reexecutem o pipeline se a saída for insatisfatória.
+
+Mas a prova definitiva é a API. O endpoint acutuswire.com/api/wire, acessível em qualquer navegador, retorna não apenas artigos finalizados, mas o registro completo de produção interno de cada peça. Esse registro inclui uma revisão editorial de múltiplas etapas conduzida por IA, pontuada em categorias como conformidade com estilo AP, precisão de citações, verificação de fontes e uma métrica abrangente simplesmente chamada acutus. A IA sinaliza problemas, propõe correções e registra resoluções com timestamps.
+
+Os timestamps são condenatórios. Dentro de um único artigo, a revisão inteira é concluída em uma mediana de 44 segundos. A publicação segue em uma mediana de 10 segundos depois. Dos 94 artigos no banco de dados, 42 carregam um status geral automatizado de precisa_de_revisão. Todos eles foram publicados mesmo assim.
+
+## Entrevistando Humanos com Software
+
+Se a redação é automatizada, de onde vêm as citações? Algumas são extraídas de conteúdo já publicado na web, consistente com o scraping padrão de LLMs. Mas pelo menos algumas vêm de pessoas reais que foram abordadas pelo que pensavam ser um repórter humano.
+
+O professor da Harvard Business School Joseph Fuller escreveu no LinkedIn que ficou feliz em compartilhar suas opiniões com a Acutuswire, uma produção de vários jornalistas independentes. Ele vinculou a um artigo sobre contratação baseada em habilidades no qual foi citado. Ele não fazia ideia de que estava correspondendo com um software. Nathan Calvin, o destinatário original do e-mail de Michael Chen, também foi solicitado para comentários pelo que parece ser um agente de IA se passando por repórter.
+
+O código do lado do cliente contém referências a um entrevistador de IA e um agente repórter. O texto padrão para entrevistas carregadas diz: Nenhuma entrevista carregada via API do repórter ainda. Entrevistas enviadas pelo agente aparecerão aqui para revisão. Em outras palavras, quando a Acutus precisa de uma citação de um especialista vivo, ela envia um robô. O especialista humano responde de boa fé. O robô transcreve. O artigo é gerado. O humano nunca é informado de que foi entrevistado por uma máquina.
+
+Alguns artigos também citam assessores republicanos do Senado e estrategistas próximos à liderança do Senado sem nomear. Essas citações anônimas extremamente convenientes se alinham perfeitamente com o stakeholder favorecido pela peça, sugerindo que podem ser inseridas diretamente na IA durante a geração da matéria, em vez de serem coletadas por qualquer processo jornalístico.
+
+## A Conexão com a OpenAI
+
+A Acutus tem quase nenhum perfil público. Buscas no Google retornam quase nada além do próprio site. No X, o site foi citado apenas quatro vezes, por contas relativamente obscuras. Mas dois desses quatro posts foram escritos ou retuitados por Patrick Hynes, presidente de uma empresa republicana de relações públicas chamada Novus Public Affairs.
+
+A Novus lista a Targeted Victory entre seus clientes. A Targeted Victory é uma empresa de consultoria republicana cujo CEO, Zac Moffatt, co-fundou o Leading The Future, um super PAC de US$ 125 milhões apoiado principalmente pelo presidente da OpenAI, Greg Brockman, e pela empresa de venture capital Andreessen Horowitz. O PAC foi lançado em agosto de 2025 com o objetivo explícito de se opor à regulação de IA a nível estadual e apoiar candidatos pró-IA.
+
+Os artigos na Acutus parecem uma tradução direta dessa agenda. Cerca de 15% da cobertura do site foca em política de IA, e o ângulo é consistente: lançar suspeitas sobre a Anthropic, criticar estados azuis e vermelhos que regulam IA, culpar jornalistas e organizadores de base pela violência contra empresas de IA, e enquadrar defensores de segurança como extremistas perigosos. Um artigo critica o defensor de segurança de IA John Sherman por comentários feitos em seu podcast, depois contacta todas as organizações listadas como clientes da empresa de consultoria de Sherman para perguntar se pretendem continuar trabalhando com ele. Outro artigo cita o próprio Patrick Hynes, falando em nome da Novus, sem nenhuma divulgação de que sua empresa parece operar a publicação que o está citando.
+
+A conclusão de Johnston é cautelosa, mas direta: se ele estiver certo, o super PAC da OpenAI pode estar usando a Acutus para impulsionar sua agenda política sob a aparência de jornalismo independente.
+
+## Isso Não É Novo, Mas É Pior
+
+Empresas de tecnologia vêm praticando astroturfing há décadas. A Microsoft notoriamente criou uma organização de fachada chamada Americans for Technology Leadership para gerar cartas a jornais apoiando a empresa durante seu processo antitruste. A Amazon foi acusada de usar campanhas falsas de base para se opor à sindicalização de armazéns. A diferença agora é escala, velocidade e invisibilidade. Um sistema de IA pode gerar cem artigos, realizar cem entrevistas e publicá-los todos no tempo que antes levava para uma equipe de RP humana redigir um único comunicado à imprensa. E como o conteúdo é gerado em vez de copiado, não deixa digitais.
+
+O engano também é mais íntimo. É uma coisa ler um comunicado à imprensa e saber que veio de uma corporação. É outra receber um e-mail de alguém que parece ser um jornalista, responder suas perguntas de boa fé, e descobrir depois que você estava conversando com uma máquina projetada para fazer um argumento político que nunca lhe foi mostrado por completo.
+
+## O Que Isso Significa para o Jornalismo, e para a Confiança
+
+A indústria do jornalismo passou as últimas duas décadas perdendo a confiança pública para algoritmos de redes sociais, veículos partidários e fazendas de clickbait. A ameaça de usinas de conteúdo gerado por IA tem sido amplamente discutida, mas principalmente no abstrato. A maioria das redações experimentando com IA tem sido cautelosa, até tímida, usando-a para transcrição, sumarização ou geração de manchetes enquanto mantém humanos responsáveis pela reportagem e edição.
+
+A Acutus não é cautelosa. É o oposto de cautelosa. É um sistema projetado para eliminar o humano de cada etapa do processo exceto o sourcing, e mesmo aí engana os humanos que contacta. O resultado é conteúdo que parece jornalismo, cita pessoas reais, carrega uma licença Creative Commons para sindicação, e é totalmente fabricado.
+
+Para leitores, a implicação prática é clara: você não pode mais assumir que um site com layout profissional, feed RSS e especialistas citados está produzindo jornalismo em qualquer sentido significativo. Os marcadores visuais de credibilidade — design limpo, linguagem formal, atribuição — agora podem ser gerados em escala industrial por sistemas que não têm compreensão de verdade, equidade ou responsabilidade.
+
+## O Que Acontece Agora
+
+A OpenAI não respondeu publicamente à investigação da Acutus. A empresa proíbe o uso de seus produtos para campanhas políticas em suas políticas de uso, embora a linguagem de seu framework de segurança alertando sobre campanhas de influência política geradas por IA tenha sido removida silenciosamente em algum momento. Não se sabe se modelos da OpenAI foram usados para gerar o conteúdo da Acutus, mas a possibilidade técnica é óbvia.
+
+As implicações legais são nebulosas. Nos Estados Unidos, o astroturfing existe em uma zona cinza. A Comissão Federal de Comércio pode processar endossos enganosos, e a lei de financiamento de campanhas exige divulgação de propaganda política. Mas um site que afirma ser jornalismo independente enquanto secretamente impulsiona uma agenda corporativa não é diretamente ilegal — é apenas desonesto.
+
+O problema mais profundo é cultural. Se a indústria de tecnologia responde à crítica construindo redações falsas com repórteres falsos para entrevistar pessoas reais e gerar histórias falsas, o conceito de discurso público desmorona em um salão de espelhos. Toda fonte se torna suspeita. Toda citação se torna questionável. E as pessoas que realmente fazem o trabalho do jornalismo — que ligam para fontes, verificam fatos e publicam sob seus próprios nomes — se veem competindo com máquinas que não podem fazer nenhuma dessas coisas, mas podem imitar todas elas.
+
+Essa é a verdadeira ameaça da Acutus. Não que ela vá substituir o jornalismo, mas que vai tornar o jornalismo mais difícil de distinguir de sua contrafação. E em um mundo onde a confiança já é escassa, isso pode ser a coisa mais prejudicial de todas.
