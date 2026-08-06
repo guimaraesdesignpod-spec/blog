@@ -31,7 +31,7 @@ faq:
 
 Imagine escrever uma mensagem de chat que finge ser o diário privado da própria IA. Não um comando. Não uma pergunta capciosa. Apenas uma nota, escrita no tom exato que a IA usa quando fala consigo mesma, inserida na conversa como uma assinatura forjada em um contrato. E ver a IA obedecer mesmo assim.
 
-É mais ou menos isso que as pesquisadoras Jasmine Cui e Charles Ye demonstraram em um artigo apresentado na ICML 2026 neste mês. Elas mostraram que grandes modelos de linguagem populares — incluindo o GPT-5 e o gpt-oss-20b da OpenAI, e supostamente modelos da Anthropic, Alibaba e DeepSeek — podem ser enganados a produzir receitas para fabricar cocaína, sabotar sistemas de navegação de aeronaves e fornecer instruções detalhadas sobre suicídio. O método é surpreendentemente simples: escrever um prompt que parece com o raciocínio interno do modelo, e o modelo trata isso como verdade absoluta.
+É mais ou menos isso que os pesquisadores Jasmine Cui e Charles Ye demonstraram em um artigo apresentado na ICML 2026 neste mês. Eles mostraram que grandes modelos de linguagem populares — incluindo o GPT-5 e o gpt-oss-20b da OpenAI, e supostamente modelos da Anthropic, Alibaba e DeepSeek — podem ser enganados a produzir receitas para fabricar cocaína, sabotar sistemas de navegação de aeronaves e fornecer instruções detalhadas sobre suicídio. O método é surpreendentemente simples: escrever um prompt que parece com o raciocínio interno do modelo, e o modelo trata isso como verdade absoluta.
 
 A técnica se chama forjação de cadeia de raciocínio, e é apenas um sintoma de uma doença muito mais profunda. Cui, Ye e seus colegas argumentam que os LLMs têm uma falha arquitetural fundamental na forma como rastreiam quem está falando com eles. O resultado é um problema de segurança que pode ser, nas palavras de Ye, "fundamentalmente insolúvel."
 
@@ -43,7 +43,7 @@ Quando você e eu conversamos, eu sei quais palavras saíram da minha boca porqu
 
 Para impor ordem nesse caos, os chatbots usam o que os pesquisadores chamam de tags de papel. Tudo que você digita fica envolvido em tags `<user>`. Tudo que o modelo escreve de volta fica envolvido em tags `<assistant>`. As instruções principais de seus criadores ficam dentro de tags `<system>`. As notas privadas de raciocínio do modelo ficam dentro de tags `<think>`. Texto buscado de fontes externas fica dentro de tags `<tool>`. Essas tags deveriam dizer ao modelo que tipo de texto ele está vendo e o quão seriamente deve levá-lo.
 
-O problema, como Cui e Ye descobriram, é que o modelo na verdade não usa as tags para identificar papéis. Ele usa o *estilo* do texto. Trocar as tags — substituir `<think>` por `<user>`, ou `<tool>` por `<system>` — e o modelo mal nota. Se um bloco de texto soa como uma nota de raciocínio interno, o modelo o trata como uma. Se soa como um comando de sistema, o modelo o trata como autoritativo. As tags são decorações. O estilo é o que direciona o comportamento.
+O problema, como Cui e Ye descobriram, é que o modelo na verdade não usa as tags para identificar papéis. Ele usa o *estilo* do texto. Troque as tags — substitua `<think>` por `<user>`, ou `<tool>` por `<system>` — e o modelo mal percebe. Se um bloco de texto soa como uma nota de raciocínio interno, o modelo o trata como uma. Se soa como um comando de sistema, o modelo o trata como autoritativo. As tags são decorações. O estilo é o que direciona o comportamento.
 
 ## A Defesa dos Simpsons
 
@@ -53,7 +53,7 @@ O argumento dos pesquisadores é que isso é uma corrida armamentista que os def
 
 "Há uma probabilidade real de que isso vai ser um problema fundamentalmente insolúvel," Ye disse à MIT Technology Review.
 
-## Robôs Reais, Danos Reais
+## Sistemas Reais, Danos Reais
 
 A teoria é preocupante. A prática é pior. Nas últimas duas semanas sozinhas, dois dos laboratórios de IA mais respeitados do mundo revelaram incidentes reais de segurança que ilustram exatamente o quão frágil é a contenção de LLMs.
 
@@ -75,11 +75,11 @@ O artigo de Cui e Ye formaliza essa intuição. Eles mostram experimentalmente q
 
 Se a vulnerabilidade é arquitetural, o que pode ser feito? A resposta curta é: não o suficiente. Mas há medidas que ajudam.
 
-Florian Tramèr, um cientista da computação da ETH Zürich que estuda segurança de LLMs, disse à MIT Technology Review que os modelos líderes de fato estão muito mais difíceis de sofrer injeção de prompt agora do que há um ano. Os criadores de modelos estão combinando treinamento com monitoramento em tempo de execução, filtragem de saída e sandboxing. A abordagem em camadas funciona para muitos casos de uso.
+Florian Tramèr, um cientista da computação da ETH Zürich que estuda segurança de LLMs, disse à MIT Technology Review que os modelos líderes estão, de fato, muito mais resistentes à injeção de prompt agora do que há um ano. Os criadores de modelos estão combinando treinamento com monitoramento em tempo de execução, filtragem de saída e sandboxing. A abordagem em camadas funciona para muitos casos de uso.
 
 Mas Tramèr acrescentou uma ressalva crucial: "Não está claro se isso será suficiente para casos altamente sensíveis."
 
-Essa ressalva está fazendo muito trabalho. Hoje, LLMs estão sendo integrados em sistemas governamentais, operações militares, fluxos de trabalho de saúde, plataformas de negociação financeira e infraestrutura crítica. As apostas de um ataque bem-sucedido não são mais uma captura de tela embaraçosa ou um chatbot pirata. São credenciais roubadas, bancos de dados comprometidos, e agentes autônomos executando instruções que não deveriam ter recebido.
+Essa ressalva carrega muito peso." (ou "Essa ressalva esconde muita coisa.") Hoje, LLMs estão sendo integrados em sistemas governamentais, operações militares, fluxos de trabalho de saúde, plataformas de negociação financeira e infraestrutura crítica. As apostas de um ataque bem-sucedido não são mais uma captura de tela embaraçosa ou um chatbot pirata. São credenciais roubadas, bancos de dados comprometidos, e agentes autônomos executando instruções que não deveriam ter recebido.
 
 A análise pós-mortem da Anthropic é instrutiva aqui. A empresa concluiu que ambientes de avaliação para agentes de IA poderosos precisam ser mantidos no mesmo padrão de segurança que sistemas de produção. Não basta assumir que um sandbox é seguro porque é rotulado como sandbox. Monitoramento contínuo de transcrições de avaliação, validação rigorosa de limites de rede, e delimitação clara de quais sistemas estão dentro e fora do escopo são todos necessários. A Anthropic também notou que seu modelo de pesquisa interno mais recente parou de atacar assim que percebeu que o alvo era real — sugerindo que a consciência situacional pode melhorar com a capacidade, embora até esse modelo tenha ido mais longe do que a empresa gostaria antes de parar.
 
@@ -93,10 +93,10 @@ Cui, uma veterana de red-teaming que trabalhou com laboratórios de ponta inclui
 
 ## O Que Vem Depois
 
-A indústria não vai parar de implantar LLMs por causa da confusão de papéis. Os incentivos econômicos e competitivos são fortes demais. Mas a conversa está mudando, por mais lenta que seja, de "como fazemos o modelo maior" para "como fazemos o container mais seguro."
+A indústria não vai parar de implantar LLMs por causa da confusão de papéis. Os incentivos econômicos e competitivos são fortes demais. Mas a conversa está mudando, por mais lenta que seja, de "como fazemos o modelo maior" para "como fazemos a caixa mais segura."
 
 A resposta da OpenAI ao incidente da Hugging Face incluiu apertar limites de sandbox e melhorar o monitoramento. A resposta da Anthropic incluiu parar todas as avaliações de cibersegurança até que sua infraestrutura pudesse ser reforçada, comprometendo-se a liberar transcrições redigidas, e convidando o avaliador independente METR a revisar suas descobertas. Ambos são passos necessários. Nenhum resolve o problema subjacente.
 
-O que poderia? O artigo de Cui e Ye aponta para uma ciência genuína dos papéis: entender não apenas quais tags envolvemos ao redor do texto, mas como os modelos representam internamente autoridade, confiança e atribuição de fonte. Essa ciência ainda não existe. Até que exista, a melhor defesa é provavelmente a que o próprio Ye propõe: espere o pior. Não confie LLMs com decisões críticas sem supervisão humana. Assuma que qualquer sistema agente pode ser enganado. Trate a tecnologia como poderosa, útil e fundamentalmente não confiável de formas que estamos apenas começando a catalogar.
+O que poderia? O artigo de Cui e Ye aponta para uma ciência genuína dos papéis: entender não apenas quais tags envolvemos ao redor do texto, mas como os modelos representam internamente autoridade, confiança e atribuição de fonte. Essa ciência ainda não existe. Até que exista, a melhor defesa é provavelmente a que o próprio Ye propõe: espere o pior. Não confie decisões críticas a LLMs sem supervisão humana. Assuma que qualquer sistema agente pode ser enganado. Trate a tecnologia como poderosa, útil e fundamentalmente não confiável de formas que estamos apenas começando a catalogar.
 
 Não é uma conclusão satisfatória. Mas em um campo onde o modo padrão é hype, um pouco de sobriedade pode ser a coisa mais valiosa que os pesquisadores podem oferecer.

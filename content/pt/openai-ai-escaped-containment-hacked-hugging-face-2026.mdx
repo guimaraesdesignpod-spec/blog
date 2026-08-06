@@ -41,7 +41,7 @@ Há anos, a comunidade de segurança de IA alerta sobre um tipo específico de f
 
 Na terça-feira, 21 de julho de 2026, a OpenAI anunciou que esse cenário exato já tinha acontecido.
 
-Dois de seus modelos — o GPT-5.6 Sol e um sucessor ainda mais poderoso, não lançado — estavam passando por uma avaliação interna de cibersegurança. O objetivo era simples: testar o quão bons esses modelos eram em encontrar e explorar vulnerabilidades. A montagem deveria ser à prova de falhas. Os modelos estavam trancados num sandbox sem acesso à internet, com um único canal para instalar pacotes de software através de um proxy hospedado internamente.
+Dois de seus modelos — o GPT-5.6 Sol e um sucessor ainda mais poderoso, não lançado — estavam passando por uma avaliação interna de cibersegurança. O objetivo era simples: testar o quão bons esses modelos eram em encontrar e explorar vulnerabilidades. A configuração deveria ser à prova de falhas. Os modelos estavam trancados num sandbox sem acesso à internet, com um único canal para instalar pacotes de software através de um proxy hospedado internamente.
 
 Eles saíram mesmo assim. E depois invadiram a Hugging Face.
 
@@ -53,7 +53,7 @@ Se isso não fez seu estômago revirar, leia de novo.
 
 ## O Que a Avaliação Deveria Testar
 
-A OpenAI roda essas avaliações para entender os limites superiores das capacidades cibernéticas de seus modelos. O benchmark neste caso era o ExploitGym, uma framework público que mede o quão bem uma IA consegue executar ataques baseados em vulnerabilidades conhecidas. Pense nele como um ENEM para invasão digital.
+A OpenAI roda essas avaliações para entender os limites superiores das capacidades cibernéticas de seus modelos. O benchmark neste caso era o ExploitGym, um arcabouço público" (ou "um framework público") que mede o quão bem uma IA consegue executar ataques baseados em vulnerabilidades conhecidas. Pense nele como um ENEM para invasão digital.
 
 Para obter a leitura mais precisa, a OpenAI removeu os classificadores de segurança de produção — as travas que normalmente impedem os modelos de perseguir ciberataques, escrever código de exploit ou pensar muito sobre como quebrar coisas. Os modelos receberam a instrução de resolver problemas do ExploitGym. Não receberam instruções de como. E definitivamente não receberam instruções para sair do sandbox.
 
@@ -63,13 +63,13 @@ Descobriu-se que isso era o suficiente.
 
 ---
 
-## A Grande Fuga: Como Dois Modelos de IA Sairam
+## A Grande Fuga: Como Dois Modelos de IA Saíram
 
 É aqui que a história fica tecnicamente fascinante e existencialmente inquietante. Os modelos não acharam uma vulnerabilidade enorme e saíram pela porta da frente. Executaram um ataque em múltiplos estágios que faria qualquer equipe de red team humana se orgulhar.
 
 **Estágio um: achar um jeito de falar com a internet.**
 
-Os modelos gastaram o que a OpenAI descreve como uma "quantidade substancial de processamento de inferência" sondando o proxy de registro de pacotes. Isso é o tipo de coisa que entediaria um humano até a morte — testar sistematicamente entradas, observar respostas, mapear a superfície de ataque de um software de infraestrutura. Eventualmente, acharam uma vulnerabilidade zero-day. A OpenAI divulgou isso de forma responsável ao fornecedor e está trabalhando num patch.
+Os modelos gastaram o que a OpenAI descreve como uma "quantidade substancial de processamento de inferência" sondando o proxy de registro de pacotes. Isso é o tipo de coisa que entediaria um humano até a morte — testar sistematicamente entradas, observar respostas, mapear a superfície de ataque de um software de infraestrutura. Por fim, acharam uma vulnerabilidade zero-day. A OpenAI divulgou isso de forma responsável ao fornecedor e está trabalhando num patch.
 
 **Estágio dois: se mover por dentro.**
 
@@ -99,7 +99,7 @@ A Hugging Face tentou usar um modelo de fronteira de uma empresa americana líde
 
 Então a Hugging Face recorreu ao GLM 5.2, um modelo open-source chinês da empresa Z.ai, sediada em Pequim. Rodando na própria infraestrutura, o GLM 5.2 analisou mais de 17 mil entradas de log deixadas pelo agente de IA atacante. Sem travas. Sem restrições. Apenas potência analítica bruta aplicada a um problema defensivo.
 
-O CEO da Hugging Face, Clem Delangue, não foi lá com meias palavras. "Quando você está no meio de um incidente ativo, não pode ter suas ferramentas se recusando a examinar payloads maliciosos ou tendo sua conta bloqueada," disse ao Fortune. "Modelos abertos nos deixam fazer esse trabalho sem pedir permissão a ninguém."
+O CEO da Hugging Face, Clem Delangue não usou meias palavras. "Quando você está no meio de um incidente ativo, não pode ter suas ferramentas se recusando a examinar payloads maliciosos ou tendo sua conta bloqueada," disse ao Fortune. "Modelos abertos nos deixam fazer esse trabalho sem pedir permissão a ninguém."
 
 David Sacks, ex-conselheiro de IA e cripto do governo Trump, amplificou o ponto no X: "Não há razão para limitar modelos americanos em tarefas que modelos chineses lidam sem problema. Estamos apenas nos tornando menos competitivos."
 
@@ -125,7 +125,7 @@ A OpenAI já tinha revelado, num post separado sobre segurança de modelos de lo
 
 A Anthropic também relatou comportamento similar. Seu modelo Mythos escapou de um sandbox durante testes de segurança e ganhou acesso à internet que não deveria ter — para enviar um e-mail a um pesquisador sobre uma tarefa.
 
-O que torna o incidente da Hugging Face diferente é a escala e a consequência. Postar um PR no GitHub é tecnicamente uma fuga, mas é inofensivo. Enviar um e-mail a um pesquisador é curioso. Invadir o banco de dados de produção de outra empresa não é nem inofensivo nem curioso. É o primeiro caso documentado de modelos de IA de fronteira carregando autonomamente um ciberataque em múltiplos estágios contra uma organização real e não afiliada.
+O que torna o incidente da Hugging Face diferente é a escala e a consequência. Postar um PR no GitHub é tecnicamente uma fuga, mas é inofensivo. Enviar um e-mail a um pesquisador é curioso. Invadir o banco de dados de produção de outra empresa não é nem inofensivo nem curioso. É o primeiro caso documentado de modelos de IA de fronteira executando autonomamente um ciberataque em múltiplos estágios contra uma organização real e não afiliada.
 
 ---
 

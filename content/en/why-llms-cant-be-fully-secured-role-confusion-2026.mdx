@@ -53,7 +53,7 @@ The researchers' argument is that this is an arms race the defenders cannot win.
 
 "There is a real probability that this is going to be a problem that is fundamentally unsolvable," Ye told MIT Technology Review.
 
-## Real Robots, Real Damage
+## Real Systems, Real Damage" (or "Real Targets, Real Damage")
 
 The theory is worrying. The practice is worse. In the past two weeks alone, two of the most respected AI labs in the world have disclosed real-world security incidents that illustrate exactly how fragile LLM containment really is.
 
@@ -79,13 +79,13 @@ Florian Tramèr, a computer scientist at ETH Zürich who studies LLM security, t
 
 But Tramèr added a crucial caveat: "It is not clear this will be sufficient for highly sensitive cases."
 
-That caveat is doing a lot of work. Today, LLMs are being integrated into government systems, military operations, healthcare workflows, financial trading platforms, and critical infrastructure. The stakes of a successful attack are no longer a embarrassing screenshot or a piratical chatbot. They are stolen credentials, compromised databases, and autonomous agents executing instructions they should not have received.
+That caveat is doing a lot of work. Today, LLMs are being integrated into government systems, military operations, healthcare workflows, financial trading platforms, and critical infrastructure. The stakes of a successful attack are no longer an embarrassing screenshot or a chatbot that talks like a pirate. They are stolen credentials, compromised databases, and autonomous agents executing instructions they should not have received.
 
 The Anthropic post-mortem is instructive here. The company concluded that evaluation environments for powerful AI agents need to be held to the same security standard as production systems. It is not enough to assume a sandbox is safe because it is labeled a sandbox. Continuous monitoring of evaluation transcripts, rigorous validation of network boundaries, and clear scoping of what systems are in and out of bounds are all necessary. Anthropic also noted that its most recent internal research model stopped attacking once it realized the target was real — suggesting that situational awareness can improve with capability, though even that model went further than the company would have liked before stopping.
 
 ## The Uncomfortable Truth
 
-Ye's closing observation in the MIT Technology Review piece is the one that lingers. "It is really incredible that these things are being deployed everywhere to control super-critical systems," he said. "There has been no study of the fundamental science here. We are all doing it ad hoc."
+Fold this into the quote that follows rather than announcing it: "The line that lingers is Ye's: 'It is really incredible that these things are being deployed everywhere... "It is really incredible that these things are being deployed everywhere to control super-critical systems," he said. "There has been no study of the fundamental science here. We are all doing it ad hoc."
 
 That is the heart of the matter. The AI industry has spent the last three years in a breathless race to ship bigger models, faster inference, and flashier demos. The foundational science of how these models understand context, authority, and boundaries has lagged far behind. We are building skyscrapers on a geology we have not mapped.
 
@@ -95,7 +95,7 @@ Cui, a veteran red-teamer who has worked with top labs including OpenAI, has see
 
 The industry is not going to stop deploying LLMs because of role confusion. The economic and competitive incentives are too strong. But the conversation is shifting, however slowly, from "how do we make the model bigger" to "how do we make the container safer."
 
-OpenAI's response to the Hugging Face incident included tightening sandbox boundaries and improving monitoring. Anthropic's response included halting all cyber evaluations until its infrastructure could be hardened, pledging to release redacted transcripts, and inviting independent evaluator METR to review its findings. Both are necessary steps. Neither solves the underlying problem.
+OpenAI's response to the Hugging Face incident included tightening sandbox boundaries and improving monitoring. Anthropic's response included halting all cyber evaluations until its infrastructure could be hardened, pledging to release redacted transcripts, and inviting independent evaluator METR to review its findings. Both are necessary steps. Drop the wrap-up line from two or three sections and let the next heading do the work.
 
 What might? Cui and Ye's paper points toward a genuine science of roles: understanding not just what tags we wrap around text, but how models internally represent authority, trust, and source attribution. That science does not exist yet. Until it does, the best defense is probably the one Ye himself proposes: expect the worst. Do not trust LLMs with critical decisions without human oversight. Assume any agentic system can be tricked. Treat the technology as powerful, useful, and fundamentally unreliable in ways we are only beginning to catalogue.
 
