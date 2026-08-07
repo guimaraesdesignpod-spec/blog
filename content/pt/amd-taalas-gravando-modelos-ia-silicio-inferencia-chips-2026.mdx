@@ -1,0 +1,122 @@
+---
+title: "A AMD Acabou de Comprar uma Startup que Grava Modelos de IA Direto no Silício — e Isso Pode Mudar Tudo na Forma Como Executamos IA"
+description: "A AMD adquiriu a Taalas, uma startup de Toronto que grava os pesos dos modelos de IA diretamente nos transistores do chip. O resultado: velocidades de inferência 10 a 50 vezes superiores às de GPUs, com uma fração da energia. Veja por que a indústria de chips está de olho."
+date: "2026-08-07"
+translationKey: "amd-taalas-etching-ai-models-silicon-inference-chips-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["AMD", "Taalas", "Inferência de IA", "Silício", "Design de Chips", "Nvidia", "Hardware", "2026"]
+image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1080"
+imageAlt: "Close extremo de uma wafer de silício com circuitos de microprocessador visíveis"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["aquisição AMD Taalas", "gravar modelos de IA no silício", "chips de inferência hard-coded", "circuito integrado específico de modelo MSIC", "AMD vs Nvidia inferência", "Taalas HC1 HC2", "performance inferência IA", "pesos de IA em chip de silício", "rack AMD Helios", "test-time scaling inferência"]
+tldr: "A AMD adquiriu a Taalas, startup de Toronto que grava os pesos dos modelos de IA diretamente nos transistores de silício, em vez de armazená-los em memória. Essa abordagem de 'circuito integrado específico de modelo' (MSIC) alcançou 16.960 tokens por segundo no Llama 3.1 8B em benchmarks iniciais — cerca de 48 vezes mais rápido que GPUs da Nvidia na época. A contrapartida é a inflexibilidade: mudar o modelo exige um redesenho do chip. A AMD planeja parear aceleradores Taalas com GPUs Instinct nos sistemas em rack Helios, usando GPUs para processamento do prompt e chips Taalas para geração de tokens. O acordo deve ser concluído no Q4 de 2026."
+faq:
+  - q: "O que a AMD comprou e por quê?"
+    a: "A AMD adquiriu a Taalas, startup de Toronto fundada em 2023 que desenvolve silício especializado para inferência de IA. A aquisição fortalece o portfólio de inferência da AMD com uma arquitetura radicalmente diferente que grava os pesos dos modelos diretamente nos transistores do chip, prometendo melhorias de desempenho de ordem de magnitude sobre GPUs convencionais."
+  - q: "Como funciona a tecnologia da Taalas?"
+    a: "Em vez de armazenar os pesos dos modelos em memória HBM como fazem as GPUs, a Taalas os grava diretamente em uma 'malha de memória ROM mascarada' no chip. Uma região adjacente de SRAM cuida do cache KV e dos adaptadores de fine-tuning. Como os pesos e as operações de multiplicação associadas ficam em um único transistor, o chip elimina o gargalo de memória que atrapalha arquiteturas convencionais."
+  - q: "Quão rápido é em comparação com GPUs?"
+    a: "Em fevereiro de 2026, o chip de teste HC1 da Taalas no processo de 6nm da TSMC serviu o Llama 3.1 8B a 16.960 tokens por segundo. Na época, isso era aproximadamente 48 vezes mais rápido que GPUs da Nvidia e 8,5 vezes mais rápido que aceleradores wafer-scale da Cerebras. A próxima geração HC2 visa 20 bilhões de parâmetros por chip."
+  - q: "Qual é a principal desvantagem?"
+    a: "Uma vez implantado, você fica essencialmente preso àquele modelo. Qualquer mudança significativa além de um pequeno adaptador LoRA exige redesenhar e fabricar novos chips. Porém, a Taalas afirma que apenas duas camadas de metal precisam ser alteradas para um respin, tornando o processo muito mais barato e rápido que um redesenho completo."
+  - q: "Como a AMD vai integrar essa tecnologia?"
+    a: "A AMD planeja uma arquitetura desagregada: o processamento pesado do prompt roda em GPUs Instinct, enquanto a geração de tokens é transferida para aceleradores baseados na Taalas, tudo dentro dos sistemas em rack Helios. Isso dá aos clientes flexibilidade para validar modelos em GPUs primeiro e depois migrar para aceleradores de função fixa quando estiverem confiantes."
+  - q: "Quem são as pessoas por trás da Taalas?"
+    a: "Os três cofundadores são Ljubisa Bajic (CEO, ex-fundador da Tenstorrent e arquiteto de chips da AMD), Lejla Bajic (COO, ex-gerente sênior de engenharia de sistemas da AMD) e Drago Ignjatovic (CTO, ex-diretor de design de ASIC da AMD). A equipe de 25 pessoas inclui engenheiros da Apple, Google, Nvidia e Tenstorrent."
+  - q: "Quando a aquisição será concluída?"
+    a: "O acordo está sujeito à aprovação regulatória e condições habituais de fechamento, com a AMD esperando concluí-lo no quarto trimestre de 2026."
+---
+
+# A AMD Acabou de Comprar uma Startup que Grava Modelos de IA Direto no Silício — e Isso Pode Mudar Tudo na Forma Como Executamos IA
+
+Em 6 de agosto de 2026, a AMD anunciou que havia alcançado um acordo definitivo para adquirir a Taalas, uma startup sediada em Toronto que vinha operando quase no modo stealth por dois anos e meio. A notícia caiu com pouco alarde em alguns círculos e como um trovão em outros. Porque o que a Taalas está fazendo não é uma melhoria incremental no hardware de IA. É uma forma fundamentalmente diferente de pensar a relação entre os modelos e as máquinas que os executam.
+
+A versão curta: a Taalas não armazena os pesos dos modelos de IA em memória. Ela os grava diretamente nos transistores do chip.
+
+Se isso soa radical, é. E se soa limitador, também é. Mas os números de performance são impossíveis de ignorar, e a decisão da AMD de comprar a empresa de vez — em vez de licenciar a tecnologia, em vez de fazer parceria, em vez de investir — sinaliza que a Casa do Zen acredita que essa arquitetura tem um lugar real no futuro da infraestrutura de IA.
+
+## O Gargalo de Memória É o Problema
+
+Se você tem acompanhado as guerras de chips entre Nvidia e AMD, sabe que o principal campo de batalha é a inferência: não o treinamento dos modelos, mas o serviço deles a milhões de usuários em escala. Cada consulta no ChatGPT, cada resposta do Claude, cada sugestão do GitHub Copilot, cada imagem do Midjourney — tudo isso passa por pipelines de inferência atualmente dominados por GPUs da Nvidia.
+
+A razão pela qual a Nvidia domina não é apenas o bloqueio de software pelo CUDA. É também que as GPUs são propósito geral o suficiente para lidar com qualquer nova arquitetura de modelo que chegue no mês seguinte. Elas carregam pesos da memória de alta largura de banda (HBM), processam números em paralelo e cospem tokens. A flexibilidade é seu superpoder.
+
+Mas flexibilidade tem um custo. Toda vez que uma GPU precisa de um valor de peso, ela tem que buscá-lo na memória. Mesmo com HBM3E empurrando mais de um terabyte por segundo de largura de banda, o gargalo de memória — o limite físico de quão rápido você consegue mover dados entre armazenamento e computação — continua sendo o empecilho. Empresas como Groq e Cerebras atacaram esse problema com arquiteturas de fluxo de dados e motores wafer-scale que mantêm os pesos mais próximos da computação. Elas conseguiram grandes melhorias. Mas a Taalas fez uma pergunta mais extrema: e se a gente simplesmente eliminasse a busca por completo?
+
+## O Que "Inferência Hard-Coded" Significa na Prática
+
+A Taalas chama sua abordagem de Hard Coded Inference. O conceito é desarmadoramente simples depois que você ouve: em vez de armazenar os pesos dos modelos em um banco de memória separado e buscá-los durante a computação, você codifica os pesos diretamente no layout físico do chip. Os pesos se tornam parte do próprio circuito.
+
+O chip tem duas regiões principais. A primeira é a malha de memória ROM mascarada, onde os pesos do modelo são literalmente gravados no silício. A segunda é uma malha de SRAM que cuida do cache KV — a memória contínua de uma conversa — além de quaisquer adaptadores de fine-tuning LoRA que você queira aplicar. Quando uma consulta chega, ela flui pelo circuito fixo, e a computação acontece no nível físico sem nunca precisar buscar um valor de peso da memória.
+
+Em uma entrevista com o The Next Platform no início deste ano, o CEO Ljubisa Bajic — que fundou a Tenstorrent antes de criar a Taalas, e que passou anos como arquiteto de chips na AMD e na Nvidia — explicou a vantagem de densidade em termos impressionantes: "A gente consegue armazenar quatro bits e fazer a multiplicação relacionada a eles — tudo — com um único transistor." Isso não é erro de digitação. Um transistor, quatro bits, operação completa de multiplicação e acumulação. Em comparação, uma GPU precisa de um subsistema de memória inteiro, hierarquia de cache e tensor core só para realizar o mesmo trabalho.
+
+Bajic foi sincero sobre como chegaram lá: "O que a gente inventou não é particularmente difícil, também. É só uma coisa inteligente que ninguém viu porque ninguém seguiu por esse caminho." A equipe da Taalas, que inclui sua esposa Lejla Bajic como COO e o ex-colega da AMD Drago Ignjatovic como CTO, essencialmente voltou ao estilo de design de chips dos anos 1970. Layouts manuais. Tudo customizado. Nenhum IP pronto. O tipo de design de chip que as grandes empresas pararam de fazer décadas atrás porque não escala para computação de propósito geral — mas que acontece de ser perfeito para uma carga de trabalho fixa e conhecida, como executar um modelo de IA específico.
+
+## Os Números São Reais
+
+Em fevereiro de 2026, a Taalas revelou seu primeiro chip de teste, o HC1, fabricado no processo de 6nm da TSMC. Era um chip de tamanho reticle — ou seja, empurrava os limites físicos do que pode ser impresso em uma única exposição — e foi projetado para provar o conceito, não para ser enviado a clientes.
+
+O benchmark: rodar o Llama 3.1 8B da Meta, um modelo que agora parece quase antiquado, mas era o estado da arte quando o chip estava sendo projetado. O resultado: 16.960 tokens por segundo.
+
+Na época, isso era aproximadamente 48 vezes mais rápido que as GPUs da Nvidia comumente usadas para inferência, e 8,5 vezes mais rápido que os aceleradores wafer-scale da Cerebras. O HC1 conseguia armazenar 8 bilhões de parâmetros em sua seção hard-wired. O HC2, que deve sair neste verão, mira 20 bilhões de parâmetros por chip.
+
+Agora, 20 bilhões de parâmetros pode não parecer muito quando modelos frontier são medidos em trilhões. Mas inferência em escala não acontece em um único chip. Você divide os modelos entre muitos aceleradores usando paralelismo em pipeline. A 20 bilhões de parâmetros por chip, você precisaria de apenas 50 aceleradores Taalas para servir um modelo de trilhão de parâmetros. Os sistemas em rack Helios da AMD acomodam isso com folga — e usariam muito menos espaço e energia que a configuração equivalente da Nvidia LPX, que exigiria algumas dezenas de GPUs e pelo menos 2.000 LPUs da Groq para o mesmo modelo.
+
+Paresh Kharya, VP de produtos da Taalas e ex-líder de infraestrutura de IA do Google Cloud, resumiu de forma direta: "Mesmo com trilhões de parâmetros, a gente está falando de poucas dezenas de chips, o que é bem, bem pequeno comparado a qualquer outra coisa no mercado hoje."
+
+## A Ressalva — e Ela É Grande
+
+Se você está pensando, "Isso parece bom demais para ser verdade," você está certo em desconfiar. Tem uma ressalva gigantesca, e qualquer pessoa da indústria vai identificá-la imediatamente: uma vez que você grava um modelo no silício, você está casado com aquele modelo.
+
+No cenário atual de IA, novos modelos frontier são lançados praticamente todo mês. O Llama 3.1 já é história antiga. GPT-5.6, Claude 4, Gemini 3 — seja qual for o favorito do seu laboratório — exigiria um chip totalmente novo se você quisesse rodá-lo em hardware Taalas. E fabricar chips não é um projeto de fim de semana. Mesmo com cadeias de suprimento de semicondutores modernas, um respin completo leva meses e custa milhões.
+
+A Taalas argumenta que a situação não é tão grave quanto parece. Como apenas a camada de máscara ROM contém os pesos do modelo, e como esses pesos são implementados em apenas duas camadas de metal, um respin não significa começar do zero. Você muda duas camadas, re-fabrica, e tem um chip novo para o modelo novo. A empresa afirma que isso é 100 vezes menos caro que treinar um modelo frontier do zero — o que é verdade, mas também uma comparação meio de maçã com laranja.
+
+Ainda assim, a inflexibilidade é real. Essa tecnologia não vai atrair empresas que querem experimentar os modelos mais recentes todo mês. Ela vai atrair desenvolvedores de modelos — OpenAI, Anthropic, Meta, Google — que sabem exatamente qual modelo precisam servir em escala massiva, e que estão dispostos a se comprometer com ele por um ciclo de produção. Vai atrair provedores de inferência hyperscale que rodam um pequeno número de modelos muito grandes para milhões de usuários. E vai atrair qualquer um para quem o custo da inferência, medido em dólares por milhão de tokens e megawatts de data center, se tornou a principal restrição econômica.
+
+## Por Que a AMD Comprou em Vez de Licenciar
+
+A estratégia de aquisição da AMD aqui é reveladora. A empresa não fez uma parceria. Não assinou um acordo de licenciamento como os US$ 20 bilhões da Nvidia com a Groq em dezembro passado. Comprou a Taalas de vez.
+
+O comunicado à imprensa enquadra a aquisição como fortalecimento da "folha de rota de IA de longo prazo da AMD com tecnologia de inferência diferenciada e expertise de engenharia de classe mundial." Vamsi Boppana, VP sênior de IA da AMD, disse que a empresa está "construindo uma plataforma de IA full-stack que dá aos clientes a flexibilidade de implantar as soluções de computação certas para cada carga de trabalho de IA."
+
+Essa última palavra — flexibilidade — está carregando muito peso. Porque os chips da Taalas são o oposto de flexíveis. Eles são a arquitetura de computação mais rígida que você pode imaginar. Mas a aposta da AMD parece ser em um futuro desagregado onde flexibilidade e especialização coexistem.
+
+A arquitetura provável, baseada em reportagens do The Register e nas próprias declarações da AMD: racks Helios usam GPUs Instinct para a fase pesada de processamento do prompt, onde o modelo precisa entender e codificar a consulta do usuário. Depois, para a fase de geração de tokens — a parte que realmente produz palavras, código ou pixels — a carga de trabalho é transferida para aceleradores Taalas que conseguem cospem tokens num ritmo que nenhuma GPU alcança.
+
+Em outras palavras, você tem o melhor dos dois mundos. GPUs lidam com a parte bagunçada, dinâmica e agnóstica a modelos. Chips Taalas cuidam da parte repetitiva, estruturada e específica de modelo. E como a AMD possui ambas as camadas, ela pode otimizar a transmissão de formas que nenhuma integração de terceiros conseguiria.
+
+Há também uma possibilidade de ciclo tick-tock: os clientes implantam e validam modelos em GPUs Instinct primeiro, e uma vez confiantes de que o modelo é o certo para sua carga de trabalho, migram para aceleradores de função fixa da Taalas para serviço em produção. Isso dá às empresas um caminho de migração sem forçá-las a apostar tudo numa arquitetura não comprovada no primeiro dia.
+
+## As Implicações para o Desenvolvimento de Modelos
+
+Tem um efeito de segunda ordem aqui que merece atenção. Uma das técnicas mais promissoras para reduzir alucinações de IA é o test-time scaling — essencialmente deixar o modelo "pensar mais" antes de responder, explorando múltiplos caminhos de raciocínio e selecionando o melhor. A pegadinha é que isso consome vastamente mais tokens, tornando-o caro e lento.
+
+Se a integração Taalas da AMD conseguir reduzir o custo por token em uma ordem de magnitude enquanto aumenta o throughput em 10 ou 20 vezes, os desenvolvedores de modelos podem escolher estender o tempo de raciocínio ainda mais. Um assistente de código que atualmente pensa por cinco segundos pode conseguir pensar por um minuto, explorando dezenas de caminhos de solução, e ainda entregar uma experiência de usuário mais rápida que os sistemas de hoje. A qualidade das saídas de IA poderia melhorar não porque o modelo base ficou maior, mas porque o hardware tornou acessível usar o modelo existente de forma mais aprofundada.
+
+Isso é uma dinâmica genuinamente nova. Nos últimos três anos, a curva de melhoria de IA foi definida por modelos maiores, mais dados e treinamentos mais longos. A Taalas abre a porta para um eixo diferente: usar o mesmo modelo de forma mais inteligente, porque o custo de fazê-lo despencou.
+
+## A Equipe por Trás dos Chips
+
+Vale a pena parar nas pessoas aqui, porque a equipe fundadora da Taalas parece uma reunião dos maiores sucessos da AMD.
+
+Ljubisa Bajic, o CEO, projetou codificadores de vídeo no início dos anos 2000, passou anos na AMD subindo até arquiteto e gerente sênior de designs híbridos CPU-GPU. Fez uma temporada na Nvidia como arquiteto sênior, voltou para a AMD, e depois saiu para fundar a Tenstorrent em 2016. Quando Jim Keller foi trazido para liderar a Tenstorrent em 2022, Bajic tirou seis meses de folga e depois criou a Taalas com uma ideia completamente diferente.
+
+Lejla Bajic, a COO, foi engenheira sênior na ATI — a fabricante canadense de GPUs que a AMD comprou por US$ 5,4 bilhões em 2006 — e subiu na engenharia da AMD antes de se juntar ao marido na Tenstorrent e depois na Taalas.
+
+Drago Ignjatovic, o CTO, foi o sucessor de Bajic como diretor de design de ASIC na AMD antes de ir para a Tenstorrent como VP de engenharia de hardware, e depois co-fundar a Taalas.
+
+Paresh Kharya, VP de produtos, gerenciou a infraestrutura de IA do Google Cloud por três anos antes de pular para o mundo das startups.
+
+A equipe de engenharia de 25 pessoas inclui ex-alunos da Apple, Google, Nvidia e Tenstorrent. Esses não são fundadores de primeira viagem com um PowerPoint e um sonho. São pessoas que já fabricaram chips que alimentam bilhões de dispositivos.
+
+## O Que Acontece Agora
+
+O acordo deve ser concluído no Q4 de 2026, sujeito à aprovação regulatória. Quando isso acontecer, a AMD ganhará não apenas uma tecnologia, mas uma equipe com expertise profunda em um estilo de design de chip que essencialmente foi esquecido pela indústria de semicondutores mainstream.
+
+Se a abordagem da Taalas se torna uma solução de nicho para hyperscalers ou uma arquitetura de inferência genuinamente mainstream depende de algumas variáveis. O processo de respin pode ser comprimido de meses para semanas? Os desenvolvedores de modelos vão estabilizar em torno de um conjunto menor de modelos fundamentais que valem a pena gravar em silício? A pilha de software da AMD — ROCm, ainda o azarão contra o CUDA — consegue tornar a integração suave o suficiente para os clientes realmente adotarem?
+
+Nenhuma dessas perguntas tem respostas claras ainda. Mas a direção da indústria é inegável. A inferência está se tornando o custo dominante em IA. Todo grande player — Nvidia com a Groq, AMD com a Taalas, Google com TPUs, Amazon com Trainium — está buscando formas de torná-la mais barata, mais rápida e menos energivora. Gravar modelos no silício é a solução mais extrema que alguém propôs até agora. E a AMD acabou de apostar que é extrema o suficiente para funcionar.
