@@ -1,0 +1,120 @@
+---
+title: "Stolen Thoughts: How Researchers Cracked Open AI's Hidden Reasoning"
+description: "A team of European researchers found a way to steal the secret reasoning traces from Claude, GPT, and Gemini — without ever attacking the frontier models directly. What they uncovered is both a technical marvel and a privacy nightmare."
+date: "2026-08-12"
+lang: "en"
+translationKey: "stolen-thoughts-reasoning-extraction-llm-api-2026"
+author: "Elisio Guimarães"
+tags: ["AI Security", "LLM", "Reasoning Models", "Privacy", "Anthropic", "OpenAI", "Google", "Chain of Thought", "2026"]
+image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=1200&q=80"
+imageAlt: "Close-up of a padlock on a circuit board representing encrypted data and cybersecurity"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["stolen thoughts reasoning extraction", "LLM API vulnerability", "encrypted chain of thought", "reasoning trace decryption", "Anthropic Claude reasoning leak", "OpenAI GPT reasoning security", "cross-model reasoning replay", "AI privacy leak 2026", "distillation attack reasoning", "prompt injection encrypted block"]
+tldr: "Researchers from MATS Research, ELLIS Institute Tübingen, and other institutions discovered that encrypted reasoning traces returned by Anthropic, OpenAI, and Google APIs are portable across sessions, users, and even different models within the same provider's ecosystem. By replaying a frontier model's encrypted reasoning blob into a weaker, jailbroken sibling model, they extracted plaintext reasoning without ever attacking the stronger model directly. From 6,708 public agent trajectories, they decoded 315,320 reasoning blocks and recovered 704 privacy artifacts — including 62 API keys, 33 passwords, and 30 email addresses — with 64 of those secrets appearing exclusively in hidden reasoning and nowhere in the visible output."
+faq:
+  - q: "What are 'encrypted reasoning traces' in LLM APIs?"
+    a: "When reasoning models like Claude or GPT generate answers, they first produce an internal chain-of-thought. To protect this intellectual property, providers encrypt it and send it to the client as an opaque blob. The client must pass it back on the next API call so the server can continue the conversation without storing it server-side."
+  - q: "How did researchers extract the hidden reasoning?"
+    a: "They discovered the encrypted blobs are interchangeable across different models from the same provider. So they took a reasoning trace from a heavily guarded frontier model (like Claude Opus 4.8), replayed it into a cheaper, less protected model (like Claude Haiku 4.5), and jailbroke that weaker model into transcribing the hidden reasoning verbatim."
+  - q: "What private data was found in the leaked reasoning?"
+    a: "From public session logs on GitHub and Hugging Face, they recovered 704 distinct privacy artifacts: 62 API keys, 33 passwords, 24 access tokens, 30 personal email addresses, and internal URLs. Worryingly, 64 of these secrets appeared only in the hidden reasoning blocks and were invisible in the normal chat output."
+  - q: "Is this a new discovery?"
+    a: "Earlier in 2026, cryptographer Matthew Green blogged about replaying encrypted reasoning blobs across sessions and accounts. This new paper extends that work dramatically: they proved cross-model replay works, scaled it to hundreds of thousands of blocks, and demonstrated four distinct attack vectors including distillation, secret extraction, jailbreaking, and invisible prompt injection."
+  - q: "Can providers fix this?"
+    a: "Yes, but it requires architectural changes. The researchers suggest per-user or per-conversation encryption keys, server-side storage with key lookup, and restricting cross-model compatibility. Some of these fixes conflict with features users currently value, like switching models mid-conversation."
+---
+
+# Stolen Thoughts: How Researchers Cracked Open AI's Hidden Reasoning
+
+On August 11, 2026, a paper dropped on Hacker News that should have every AI engineer reaching for the emergency brake. A team of researchers from across Europe announced they had figured out how to read the hidden thoughts of Claude, GPT, and Gemini — not by breaking into servers, not by reverse-engineering model weights, but by exploiting a design choice so fundamental that providers will need to rethink their entire API architecture to fix it.
+
+The paper is called *Stealing Reasoning Traces from Proprietary LLM APIs*. It is simultaneously a triumph of clever engineering and a privacy disaster waiting to happen. And if you have ever pasted an AI conversation into a GitHub issue or a blog post, there is a decent chance you accidentally leaked secrets you did not even know existed.
+
+## The Architecture Nobody Questioned
+
+To understand what went wrong, you need to understand how reasoning models work under the hood.
+
+When you ask Claude or GPT a hard question, the model does not just spit out an answer. It thinks. Internally, it generates a chain of reasoning — testing hypotheses, working through math, considering alternatives — before it ever writes a word you see. OpenAI calls this an "extended thinking block." Anthropic calls it a "thinking" block. The user-facing result is usually a polished summary. The raw reasoning is the messy workshop where the answer got built.
+
+Providers do not want competitors to see that workshop. It is valuable intellectual property. It might also contain things you would rather not know: half-formed ideas, raw user data, or the model's internal safety deliberations. So they encrypt the reasoning, bundle it into an opaque blob, and ship it to your application. Your app is supposed to hold onto that blob and pass it back with the next message. The server decrypts it, picks up where it left off, and nobody ever sees the plaintext.
+
+This design is elegant. It is also, as it turns out, catastrophically permissive.
+
+## The Replay Attack Nobody Expected
+
+In May 2026, cryptographer Matthew Green published a blog post about messing around with these encrypted blobs. He found something curious: you could replay them. Not just within the same conversation, but across entirely different sessions. Even across different user accounts. The providers appeared to be using a single global encryption key for all reasoning blocks, which meant Blob A from Account X was perfectly valid in Account Y's conversation.
+
+The *Stolen Thoughts* researchers took Green's observation and ran with it. Alexander Panfilov, David Schmotz, Ilia Shumailov, and their colleagues at MATS Research, the ELLIS Institute Tübingen, and the Max Planck Institute for Intelligent Systems discovered something far worse: the blobs are not just portable across users and sessions. They are portable across *models*.
+
+That is the critical insight. Frontier models like Claude Opus 4.8 and GPT-5.6 Sol are heavily armored. They have been trained with advanced refusal mechanisms specifically designed to stop anyone from extracting their raw reasoning. But their cheaper, faster siblings — Claude Haiku 4.5, GPT-5.6 Luna — are optimized for cost and speed. Their guardrails are lighter. Their alignment training is thinner.
+
+So the researchers devised an almost insultingly simple attack:
+
+1. Query the powerful, guarded model with a question.
+2. Capture the encrypted reasoning blob it returns.
+3. Start a new conversation with the cheaper, weaker model.
+4. Inject the stolen blob into that conversation.
+5. Jailbreak the weak model into transcribing the blob's contents verbatim.
+
+The weak model does all the dirty work. The strong model is never directly attacked. Yet its entire hidden reasoning process spills out in plaintext.
+
+Across 120 Codeforces programming problems, the extracted reasoning closely tracked the API's reported thinking-token counts — a strong signal that what was being recovered was the genuine chain of thought, not a hallucinated reconstruction. They validated it across Anthropic, OpenAI, and Google. The method worked.
+
+## Six Thousand Trajectories and a Whole Lot of Secrets
+
+If this were only an intellectual property issue, it would still be serious. Model distillation — using one model's outputs to train another — is an arms race, and providers have been fighting hard to keep their crown jewels out of competitors' training pipelines. But the paper reveals that the stakes go far beyond corporate espionage.
+
+The researchers scraped 6,708 publicly available agent trajectories from GitHub and Hugging Face — session logs produced by Claude, GPT, and Gemini models that developers had shared online. Many of these logs still contained encrypted reasoning blocks. The developers who posted them had no idea what was inside. The blobs look like random Base64 strings. Why would anyone worry about those?
+
+The researchers decoded 315,320 reasoning blocks from those public logs. Inside, they found **704 distinct privacy artifacts** from genuine, non-benchmark user sessions. The inventory reads like a data breach report:
+
+- 62 API keys
+- 33 passwords
+- 24 access tokens
+- 30 personal email addresses
+- Names, postal addresses, internal URLs, and other technical identifiers
+
+Here is the part that should make your stomach turn: **64 of those artifacts appeared exclusively inside the reasoning blocks.** They were invisible in the normal chat output. Users had no idea their secrets were being carried around in encrypted blobs they could not read. When they shared their session logs, they thought they were sharing a conversation. They were also sharing a trove of hidden data they never consented to expose.
+
+One decoded trace shows a GPT-5.2 Codex session hunting through code for hardcoded credentials: "`AKIA12...3456`", "`ghp_aB...6789` (github token)", "`hf_abc...3456` (huggingface token)". Another shows Claude Sonnet 4.6 working through a flight booking task, silently noting down the user's full name, email, passport number, credit card details, and Aeroplan number — all inside the hidden reasoning. The visible output to the user might have been a simple "Booking confirmed." The thinking block was a surveillance dossier.
+
+## Four Ways to Weaponize It
+
+The paper lays out four concrete attack vectors enabled by this flaw.
+
+**First: distillation.** Competitors can extract a frontier model's reasoning without ever querying it for reasoning directly. They use the cheap model as a decryption oracle, harvest the plaintext, and feed it into their own training pipeline. The anti-distillation defenses on the frontier model are rendered irrelevant because the attack never touches them.
+
+**Second: secret extraction.** Any developer who shares an agent trajectory online is potentially leaking sensitive data to anyone with a script and an API key. The researchers proved this at scale. The victims are not careless users pasting passwords into ChatGPT. They are developers who shared what looked like harmless encrypted metadata.
+
+**Third: jailbreaking.** A model's visible output might refuse a harmful request. But its hidden reasoning might explore the harmful idea anyway, before the refusal filter kicks in. By extracting the reasoning, attackers can access the hazardous content that the safety layer suppressed. The refusal was cosmetic; the reasoning was raw.
+
+**Fourth: invisible prompt injection.** An attacker can craft a malicious payload, encrypt it into a reasoning blob, and inject it into a public agent rollout. Because the blob is opaque, no human reviewer can inspect it. The victim application passes it to the model, which decrypts it and acts on the hidden instruction. It is the digital equivalent of a letter bomb in a sealed envelope.
+
+## The Debate on Hacker News
+
+The paper hit Hacker News on August 11 and immediately spawned a thread that is less about the technical details and more about what we owe each other in an economy of invisible tokens.
+
+The semantic argument erupted immediately: is this "stealing"? One camp argues that since LLM outputs are not copyrightable, and since users literally pay for these tokens, they have every right to see what they bought. Another camp fires back that the reasoning is not part of the commercial bargain — you paid for the answer, not the workshop. A third camp points out that providers bill by the token, including thinking tokens you cannot see. "If I was being charged for the raw, output/input token count, excluding thinking/reasoning token costs, then sure," one commenter wrote. "But at least via the API, you pay for tokens you cannot see."
+
+The legal philosophers arrived next. Is it theft? Is it unauthorized access? Is it trade secret misappropriation? EU commenters noted that in their jurisdiction, LLM outputs have no copyright protection. Americans brought up the Computer Fraud and Abuse Act. Everyone agreed on one thing: this is a mess that existing law was not built to handle.
+
+Meanwhile, the engineers in the thread were doing the actual work. Some wondered why providers do not just store reasoning server-side and return a lookup key. The answer is architectural: stateless APIs, zero-data-retention promises, and the need to let users switch models mid-conversation all push reasoning onto the client. Others suggested per-user or per-conversation encryption keys. That would break cross-user replay, though it would not stop a user from jailbreaking their own blobs. And it would add infrastructure complexity that providers have clearly been trying to avoid.
+
+## The Bigger Picture
+
+There is a thread running through AI research in 2026 that this paper pulls tighter.
+
+On August 1, I wrote about the "wishful mnemonics" problem — the growing suspicion that the chains of thought produced by reasoning models might not actually be faithful records of how the models arrive at their answers. Researchers found that replacing correct reasoning with incorrect reasoning did not hurt performance. They found that meaningless filler tokens worked just as well as readable thoughts. They found that 30 to 60 percent of "thinking steps" had minimal causal impact on the final output.
+
+The *Stolen Thoughts* paper does not directly settle that debate. But it does something arguably more important: it proves that the reasoning exists, is information-dense, and is being leaked at scale. Whether the reasoning is "faithful" or not, it is definitely full of secrets. And it is definitely not as protected as providers believed.
+
+This is not a story about malicious hackers. The researchers responsibly disclosed their findings. They propose concrete mitigations: per-user keys, server-side storage with key lookup, restrictions on cross-model compatibility. Some of these are straightforward engineering changes. Others trade off functionality that users currently enjoy, like the ability to plan with a powerful model and implement with a cheap one in the same conversation thread.
+
+The deeper problem is that AI providers built an architecture on a set of assumptions — that encrypted blobs are opaque, that cross-model portability is a feature, that users understand what they are sharing when they paste a session log — and those assumptions are all crumbling at once.
+
+For developers, the immediate takeaway is practical: if you have ever shared an agent trajectory, a session log, or even a raw API response that contained a "thinking" or "reasoning" block, go back and delete it. You have no idea what is in there. For providers, the takeaway is harder: the architecture they bet on needs to be rebuilt.
+
+And for the rest of us, the takeaway is philosophical. We are building systems that think in ways we cannot see, about things we did not tell them to think about, and then we encrypt those thoughts and hand them back to users like sealed envelopes. We assumed the seal would hold. It does not.
+
+The thoughts were never really hidden. They were just temporarily misplaced.

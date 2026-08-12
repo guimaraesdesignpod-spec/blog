@@ -1,0 +1,120 @@
+---
+title: "Pensamentos Roubados: Como Pesquisadores Quebraram o Raciocínio Secreto das IAs"
+description: "Um time de pesquisadores europeus descobriu como roubar os rastros de raciocínio secretos do Claude, GPT e Gemini — sem nunca atacar os modelos de ponta diretamente. O que eles encontraram é ao mesmo tempo uma maravilha da engenharia e um pesadelo de privacidade."
+date: "2026-08-12"
+lang: "pt"
+translationKey: "stolen-thoughts-reasoning-extraction-llm-api-2026"
+author: "Elisio Guimarães"
+tags: ["Segurança de IA", "LLM", "Modelos de Raciocínio", "Privacidade", "Anthropic", "OpenAI", "Google", "Cadeia de Pensamento", "2026"]
+image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=1200&q=80"
+imageAlt: "Close de um cadeado sobre uma placa de circuito representando dados criptografados e cibersegurança"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["pensamentos roubados extração raciocínio", "vulnerabilidade API LLM", "cadeia de pensamento criptografada", "decodificação rastros raciocínio", "vazamento raciocínio Claude Anthropic", "segurança raciocínio OpenAI GPT", "repetição raciocínio entre modelos", "vazamento privacidade IA 2026", "ataque destilação raciocínio", "injeção prompt bloco criptografado"]
+tldr: "Pesquisadores do MATS Research, ELLIS Institute Tübingen e outras instituições descobriram que os rastros de raciocínio criptografados retornados pelas APIs da Anthropic, OpenAI e Google são portáteis entre sessões, usuários e até modelos diferentes dentro do mesmo ecossistema do provedor. Ao replicar o bloco criptografado de um modelo de ponta em um modelo irmão mais fraco e vulnerável, eles extraíram o raciocínio em texto puro sem nunca atacar o modelo mais forte diretamente. De 6.708 trajetórias públicas de agentes, decodificaram 315.320 blocos de raciocínio e recuperaram 704 artefatos de privacidade — incluindo 62 chaves de API, 33 senhas e 30 endereços de e-mail — sendo que 64 desses segredos apareciam apenas no raciocínio oculto e em lugar nenhum da saída visível."
+faq:
+  - q: "O que são 'rastros de raciocínio criptografados' nas APIs de LLM?"
+    a: "Quando modelos de raciocínio como Claude ou GPT geram respostas, primeiro produzem uma cadeia interna de pensamento. Para proteger essa propriedade intelectual, os provedores criptografam e enviam ao cliente como um bloco opaco. O cliente precisa devolvê-lo na próxima chamada da API para que o servidor continue a conversa sem precisar armazenar nada do lado dele."
+  - q: "Como os pesquisadores extraíram o raciocínio oculto?"
+    a: "Eles descobriram que os blocos criptografados são intercambiáveis entre modelos diferentes do mesmo provedor. Então pegaram um rastro de raciocínio de um modelo bem guardado (como o Claude Opus 4.8), replicaram em um modelo mais barato e menos protegido (como o Claude Haiku 4.5) e fizeram um jailbreak nesse modelo mais fraco para transcrever o raciocínio oculto palavra por palavra."
+  - q: "Que dados privados foram encontrados nos rastros vazados?"
+    a: "De logs públicos no GitHub e Hugging Face, recuperaram 704 artefatos de privacidade: 62 chaves de API, 33 senhas, 24 tokens de acesso, 30 endereços de e-mail pessoais e URLs internas. O mais preocupante é que 64 desses segredos apareciam apenas nos blocos de raciocínio ocultos e eram invisíveis na conversa normal."
+  - q: "Essa é uma descoberta nova?"
+    a: "No começo de 2026, o criptógrafo Matthew Green publicou um post sobre replicar blocos de raciocínio criptografados entre sessões e contas. Este novo artigo estendeu esse trabalho drasticamente: provou que a replicação entre modelos funciona, escalou para centenas de milhares de blocos e demonstrou quatro vetores de ataque distintos, incluindo destilação, extração de segredos, jailbreaking e injeção invisível de prompts."
+  - q: "Os provedores podem consertar isso?"
+    a: "Sim, mas exige mudanças na arquitetura. Os pesquisadores sugerem chaves de criptografia por usuário ou por conversa, armazenamento no servidor com busca de chaves e restrição à compatibilidade entre modelos. Algumas dessas correções entram em conflito com funcionalidades que os usuários valorizam hoje, como trocar de modelo no meio de uma conversa."
+---
+
+# Pensamentos Roubados: Como Pesquisadores Quebraram o Raciocínio Secreto das IAs
+
+No dia 11 de agosto de 2026, um artigo científico caiu no Hacker News como um balde de água fria. Todo engenheiro de IA deveria ter sentido um frio na barriga. Um time de pesquisadores espalhados pela Europa anunciou que havia descoberto como ler os pensamentos ocultos do Claude, do GPT e do Gemini — não invadindo servidores, não engenharia reversa nos pesos dos modelos, mas explorando uma escolha de design tão fundamental que os provedores vão precisar repensar toda a arquitetura das suas APIs para consertar.
+
+O artigo se chama *Stealing Reasoning Traces from Proprietary LLM APIs* — algo como "Roubando Rastros de Raciocínio de APIs Proprietárias de LLM". É ao mesmo tempo um triunfo de engenharia criativa e um desastre de privacidade esperando para acontecer. E se você já colou uma conversa com IA numa issue do GitHub ou num post de blog, existe uma boa chance de que tenha vazado segredos sem nem saber que existiam.
+
+## A Arquitetura que Ninguém Questionou
+
+Para entender o que deu errado, você precisa entender como os modelos de raciocínio funcionam por baixo do capô.
+
+Quando você faz uma pergunta difícil para o Claude ou o GPT, o modelo não simplesmente cospe a resposta. Ele pensa. Internamente, ele gera uma cadeia de raciocínio — testa hipóteses, faz contas, considera alternativas — antes de escrever uma única palavra que você vê. A OpenAI chama isso de "bloco de pensamento estendido". A Anthropic chama de bloco "thinking". O resultado que chega ao usuário costuma ser um resumo polido. O raciocínio bruto é a oficina bagunçada onde a resposta foi construída.
+
+Os provedores não querem que concorrentes vejam essa oficina. É propriedade intelectual valiosa. Também pode conter coisas que você preferiria não saber: ideias mal formadas, dados brutos do usuário, ou as deliberações internas de segurança do modelo. Então eles criptografam o raciocínio, empacotam num blob opaco e mandam para o seu aplicativo. Seu app deveria guardar esse blob e devolvê-lo junto com a próxima mensagem. O servidor descriptografa, continua de onde parou, e ninguém nunca vê o texto original.
+
+Esse design é elegante. Também é, como se descobriu, catastroficamente permissivo.
+
+## O Ataque de Replicação que Ninguém Esperava
+
+Em maio de 2026, o criptógrafo Matthew Green publicou um post de blog sobre brincar com esses blobs criptografados. Ele descobriu algo curioso: dava para replicá-los. Não só dentro da mesma conversa, mas em sessões completamente diferentes. Até em contas de usuários diferentes. Os provedores pareciam estar usando uma única chave de criptografia global para todos os blocos de raciocínio, o que significava que o Blob A da Conta X era perfeitamente válido na conversa da Conta Y.
+
+Os pesquisadores de *Stolen Thoughts* pegaram a observação do Green e aceleraram. Alexander Panfilov, David Schmotz, Ilia Shumailov e seus colegas do MATS Research, ELLIS Institute Tübingen e Max Planck Institute for Intelligent Systems descobriram algo muito pior: os blobs não são apenas portáteis entre usuários e sessões. Eles são portáteis entre *modelos*.
+
+Essa é a ideia crítica. Modelos de ponta como o Claude Opus 4.8 e o GPT-5.6 Sol são fortemente blindados. Eles foram treinados com mecanismos avançados de recusa especificamente desenhados para impedir que alguém extraia o raciocínio bruto. Mas seus irmãos mais baratos e rápidos — o Claude Haiku 4.5, o GPT-5.6 Luna — são otimizados para custo e velocidade. As grades de proteção deles são mais leves. O treinamento de alinhamento é mais fino.
+
+Então os pesquisadores criaram um ataque quase insultantemente simples:
+
+1. Faça uma pergunta ao modelo poderoso e bem protegido.
+2. Capture o blob de raciocínio criptografado que ele devolve.
+3. Inicie uma nova conversa com o modelo mais barato e fraco.
+4. Injete o blob roubado nessa conversa.
+5. Faça um jailbreak no modelo fraco para transcrever o conteúdo do blob palavra por palavra.
+
+O modelo fraco faz todo o trabalho sujo. O modelo forte nunca é atacado diretamente. Mesmo assim, todo o processo de raciocínio oculto dele vaza em texto puro.
+
+Em 120 problemas de programação do Codeforces, o raciocínio extraído acompanhou de perto a contagem de tokens de pensamento reportada pela API — um forte sinal de que o que estava sendo recuperado era a cadeia de pensamento genuína, não uma reconstrução alucinada. Eles validaram isso na Anthropic, na OpenAI e no Google. O método funcionou.
+
+## Seis Mil Trajetórias e Um Montão de Segredos
+
+Se isso fosse apenas uma questão de propriedade intelectual, já seria sério. A destilação de modelos — usar as saídas de um modelo para treinar outro — é uma corrida armamentista, e os provedores têm lutado para manter suas joias da coroa fora dos pipelines de treinamento de concorrentes. Mas o artigo mostra que os riscos vão muito além de espionagem corporativa.
+
+Os pesquisadores vasculharam 6.708 trajetórias públicas de agentes no GitHub e no Hugging Face — logs de sessão produzidos por modelos Claude, GPT e Gemini que desenvolvedores compartilharam online. Muitos desses logs ainda continham blocos de raciocínio criptografados. Os desenvolvedores que os postaram não faziam ideia do que havia dentro. Os blobs parecem strings aleatórias em Base64. Por que alguém se preocuparia com isso?
+
+Os pesquisadores decodificaram 315.320 blocos de raciocínio desses logs públicos. Dentro, encontraram **704 artefatos de privacidade** de sessões reais de usuários, fora de benchmarks. O inventário parece um relatório de vazamento de dados:
+
+- 62 chaves de API
+- 33 senhas
+- 24 tokens de acesso
+- 30 endereços de e-mail pessoais
+- Nomes, endereços postais, URLs internos e outros identificadores técnicos
+
+Aqui está a parte que deveria deixar você de estômago revirado: **64 desses artefatos apareciam exclusivamente dentro dos blocos de raciocínio.** Eles eram invisíveis na saída normal do chat. Os usuários não tinham ideia de que seus segredos estavam sendo carregados em blobs criptografados que eles não conseguiam ler. Quando compartilharam os logs de sessão, acharam que estavam compartilhando uma conversa. Na verdade, também estavam compartilhando um tesouro de dados ocultos que nunca consentiram em expor.
+
+Um rastro decodificado mostra uma sessão do GPT-5.2 Codex vasculhando código em busca de credenciais hardcoded: "`AKIA12...3456`", "`ghp_aB...6789` (github token)", "`hf_abc...3456` (huggingface token)". Outro mostra o Claude Sonnet 4.6 processando uma tarefa de reserva de voo, anotando silenciosamente o nome completo do usuário, e-mail, número do passaporte, dados do cartão de crédito e número do programa de fidelidade — tudo dentro do raciocínio oculto. A saída visível para o usuário pode ter sido um simples "Reserva confirmada." O bloco de pensamento era um dossiê de vigilância.
+
+## Quatro Formas de Transformar isso em Arma
+
+O artigo descreve quatro vetores de ataque concretos habilitados por essa falha.
+
+**Primeiro: destilação.** Concorrentes podem extrair o raciocínio de um modelo de ponta sem nunca consultá-lo diretamente para isso. Usam o modelo barato como um oráculo de decodificação, colhem o texto puro e alimentam no próprio pipeline de treinamento. As defesas anti-destilação do modelo de ponta são inúteis porque o ataque nunca as toca.
+
+**Segundo: extração de segredos.** Qualquer desenvolvedor que compartilhe uma trajetória de agente online está potencialmente vazando dados sensíveis para qualquer um com um script e uma chave de API. Os pesquisadores provaram isso em escala. As vítimas não são usuários descuidados colando senhas no ChatGPT. São desenvolvedores que compartilharam o que parecia ser metadados criptografados inofensivos.
+
+**Terceiro: jailbreaking.** A saída visível de um modelo pode recusar um pedido malicioso. Mas o raciocínio oculto dele pode explorar a ideia maliciosa mesmo assim, antes do filtro de recusa entrar em ação. Ao extrair o raciocínio, atacantes podem acessar o conteúdo perigoso que a camada de segurança suprimiu. A recusa foi cosmética; o raciocínio foi cru.
+
+**Quarto: injeção invisível de prompt.** Um atacante pode criar um payload malicioso, criptografá-lo num blob de raciocínio e injetá-lo num rollout público de agente. Como o blob é opaco, nenhum revisor humano consegue inspecioná-lo. O aplicativo vítima passa para o modelo, que descriptografa e age segundo a instrução oculta. É o equivalente digital de uma carta-bomba num envelope lacrado.
+
+## O Debate no Hacker News
+
+O artigo caiu no Hacker News em 11 de agosto e imediatamente gerou uma thread que fala menos dos detalhes técnicos e mais sobre o que devemos uns aos outros numa economia de tokens invisíveis.
+
+A discussão semântica explodiu na hora: isso é "roubo"? Um lado argumenta que, como as saídas de LLM não são protegidas por direitos autorais e os usuários literalmente pagam por esses tokens, eles têm todo o direito de ver o que compraram. Outro lado rebate que o raciocínio não faz parte do contrato comercial — você pagou pela resposta, não pela oficina. Um terceiro lado aponta que os provedores cobram por token, incluindo tokens de pensamento que você não consegue ver. "Se eu estivesse sendo cobrado pela contagem bruta de tokens de entrada e saída, excluindo os custos de tokens de pensamento/raciocínio, tudo bem", escreveu um comentarista. "Mas pelo menos via API, você paga por tokens que não consegue ver."
+
+Os filósofos do direito chegaram em seguida. É furto? É acesso não autorizado? É apropriação indevida de segredo comercial? Comentaristas da UE notaram que, na jurisdição deles, saídas de LLM não têm proteção de direitos autorais. Norte-americanos trouxeram a Computer Fraud and Abuse Act. Todos concordaram numa coisa: é uma bagunça que as leis existentes não foram feitas para resolver.
+
+Enquanto isso, os engenheiros na thread estavam fazendo o trabalho de verdade. Alguns se perguntaram por que os provedores não simplesmente armazenam o raciocínio no servidor e devolvem uma chave de busca. A resposta é arquitetural: APIs sem estado, promessas de retenção zero de dados e a necessidade de deixar usuários trocar de modelo no meio da conversa empurram o raciocínio para o cliente. Outros sugeriram chaves de criptografia por usuário ou por conversa. Isso quebraria a replicação entre usuários, embora não impedisse um usuário de fazer jailbreak nos próprios blobs. E adicionaria complexidade de infraestrutura que os provedores claramente têm tentado evitar.
+
+## O Quadro Geral
+
+Existe um fio correndo pela pesquisa de IA em 2026 que este artigo puxa mais firme.
+
+Em 1º de agosto, eu escrevi sobre o problema das "mnemônicas ilusórias" — a crescente suspeita de que as cadeias de pensamento produzidas por modelos de raciocínio podem não ser registros fiéis de como os modelos chegam às suas respostas. Pesquisadores descobriram que substituir raciocínio correto por raciocínio incorreto não prejudicava o desempenho. Descobriram que tokens de preenchimento sem sentido funcionavam tão bem quanto pensamentos legíveis. Descobriram que 30 a 60% das "etapas de pensamento" tinham impacto causal mínimo na saída final.
+
+O artigo *Stolen Thoughts* não resolve diretamente esse debate. Mas faz algo arguivelmente mais importante: prova que o raciocínio existe, é denso em informação e está vazando em escala. Se o raciocínio é "fiel" ou não, ele com certeza está cheio de segredos. E com certeza não está tão protegido quanto os provedores acreditavam.
+
+Essa não é uma história sobre hackers maliciosos. Os pesquisadores fizeram divulgação responsável das descobertas. Eles propõem mitigações concretas: chaves por usuário, armazenamento no servidor com busca de chaves, restrições à compatibilidade entre modelos. Algumas dessas são mudanças de engenharia diretas. Outras exigem trocar funcionalidades que os usuários curtem hoje, como a capacidade de planejar com um modelo poderoso e implementar com um barato no mesmo fio de conversa.
+
+O problema mais fundo é que os provedores de IA construíram uma arquitetura sobre um conjunto de premissas — que blobs criptografados são opacos, que a portabilidade entre modelos é uma funcionalidade, que usuários entendem o que estão compartilhando quando colam um log de sessão — e todas essas premissas estão desmoronando ao mesmo tempo.
+
+Para desenvolvedores, a lição prática é imediata: se você já compartilhou uma trajetória de agente, um log de sessão ou até uma resposta bruta da API que continha um bloco "thinking" ou "reasoning", volte e apague. Você não faz ideia do que tem ali. Para provedores, a lição é mais difícil: a arquitetura em que apostaram precisa ser reconstruída.
+
+E para o resto de nós, a lição é filosófica. Estamos construindo sistemas que pensam de formas que não conseguimos ver, sobre coisas que não pedimos para pensar, e depois criptografamos esses pensamentos e devolvemos aos usuários como envelopes lacrados. Achamos que o lacre resistiria. Ele não resiste.
+
+Os pensamentos nunca estiveram realmente escondidos. Apenas estavam temporariamente extraviados.
