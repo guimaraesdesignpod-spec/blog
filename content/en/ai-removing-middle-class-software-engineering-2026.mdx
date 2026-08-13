@@ -1,0 +1,136 @@
+---
+date: "2026-08-13"
+translationKey: "ai-removing-middle-class-software-engineering-2026"
+lang: "en"
+title: "AI Is Removing the Middle Class of Software Engineering"
+description: "A viral essay argues that AI doesn't just replace bad engineers—it makes them exponentially more dangerous. Here's why the 'middle class' of software engineering is vanishing, and what it means for the future of the profession."
+keywords: ["AI software engineering", "vibe coding", "AI replacing developers", "software engineering middle class", "AI code generation", "technical debt AI", "future of software engineering", "AI engineering culture", "bad engineers AI", "AI productivity paradox"]
+tldr: "A viral essay by Florian Herrengt ('AI is removing the middle class of software engineering,' 831 HN points) argues that AI doesn't replace good engineers—it eliminates the 'middle class' of developers who can ship code but can't architect systems. With AI, bad engineers can now generate 25,000-line PRs in an afternoon, creating technical debt faster than anyone can review it. The result: a polarized field where top engineers become 10x more valuable and everyone else becomes unemployable."
+faq:
+  - q: "What does 'middle class of software engineering' mean?"
+    a: "It refers to developers who can write functional code and ship features but lack the deeper judgment to make good architectural decisions, evaluate technical debt, or understand the systems they build. AI makes them appear more productive while actually amplifying their bad decisions."
+  - q: "How does AI make bad engineers more dangerous?"
+    a: "Before AI, a bad engineer's output was limited by their own typing speed and understanding. Now they can generate 20,000+ lines of code in an afternoon via AI agents, add unnecessary abstractions (Kafka, serverless), and merge convoluted systems before anyone can properly review them."
+  - q: "Is vibe coding really that bad?"
+    a: "The author argues vibe coding is 'technical debt on steroids.' It removes the natural speed limit that used to constrain bad decisions. While AI is a powerful tool for good engineers, in the hands of those who can't evaluate its output, it becomes a 'credit card for technical debt'—you see the fancy car, not the crushing payments."
+  - q: "What happens to software engineering salaries?"
+    a: "The author predicts AI will widen the salary gap. Good engineers become more valuable because AI lets them move faster. Bad engineers become 'much more expensive to hire' because they can now do damage at scale. The bar for employability rises to 'whatever the best AI model can do plus judgment.'"
+  - q: "Is this only happening in software engineering?"
+    a: "No. The author believes the same polarization will happen across most knowledge work. AI makes the best people much more productive and the bad ones almost impossible to hire, because bad decisions that used to be caught by teammates can now be automated at scale."
+tags: ["AI Trends", "Software Engineering", "Career"]
+image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200&q=80"
+imageAlt: "A developer working on multiple screens in a dark room, symbolizing the overwhelming pace of AI-generated code"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+author: "Elisio Guimarães"
+---
+
+# AI Is Removing the Middle Class of Software Engineering
+
+## The Monday Morning Nightmare
+
+It's 2020. You're the senior engineer on your team, the person everyone trusts to keep the codebase sane. You review pull requests carefully, you mentor juniors, you maintain the architecture. Then you go on holiday for two weeks. When you come back, the codebase is a mess: denormalized database tables, unnecessary infrastructure additions, PRs merged without real scrutiny. It's frustrating, but fixable. You roll up your sleeves and clean it up.
+
+Now it's 2026. You haven't been on holiday. It's just a normal Monday morning. You open your laptop and find seven pull requests waiting for review. You click on the first one: **+24,506 lines, -3,938 lines**. The description is AI-generated, vague, and confident. Somehow, your team made more changes since Friday than they used to make while you were away for weeks.
+
+Welcome to the new reality of software engineering.
+
+## AI Removed the Speed Limit
+
+This scenario comes from a [viral essay](https://blog.florianherrengt.com/ai-removing-middle-class-software-engineering.html) by Florian Herrengt that hit the front page of Hacker News this week, gathering over 830 upvotes and sparking nearly 800 comments. The tech community is paying attention because it names something many have felt but struggled to articulate: **AI isn't just changing how we code—it's removing the natural constraints that used to protect teams from their worst members.**
+
+The argument goes like this. There used to be a natural speed limit on how much damage a mediocre engineer could do. They could only type so fast, only introduce so many bad abstractions before someone noticed. The system was self-limiting. You couldn't accidentally add Kafka to the stack without at least being able to explain why you needed it.
+
+AI removes that speed limit entirely.
+
+Now, someone who doesn't understand distributed systems can ask an AI agent to "make it scalable" and end up with a Rube Goldberg machine of microservices, message queues, and serverless functions that *technically* works—for now. The PR is enormous, the description is polished, and the demo looks great. So it gets merged. And then another one. And another. Until the codebase becomes a "convoluted" labyrinth that no human can navigate.
+
+As Herrengt puts it: **"AI makes projects with weak engineering culture fail much faster."**
+
+## The Credit Card Analogy
+
+The essay's most biting insight is the comparison to consumer debt. Herrengt writes:
+
+> "Just like someone buying a new luxury car on a credit card. You don't see the debt. You just see the car that looks great."
+
+With AI-generated code, the technical debt is invisible at first. The feature works in the demo. The tests pass (well, the AI-generated tests pass). The velocity metrics look amazing. But underneath, the architecture is rotting. No one knows where the data comes from. No one understands the flow. When a bug appears—the kind of bug that requires understanding the system, not just asking Claude to try another fix—no one on the team can solve it.
+
+Herrengt describes the classic scene: an engineer is asked where the data for a feature comes from. They don't know. So they ask Claude. The team sits together watching "an endless wall of text appear on the screen. Neither of you has any idea whether any of it is true but Claude seems very confident."
+
+This is the new normal.
+
+## Why Good Engineers Are More Valuable Than Ever
+
+If this sounds like an argument against AI, it isn't. Herrengt is explicit: **"None of this means technical debt is always bad."** Technical debt is a tool. Sometimes you need to ship fast, take shortcuts, and clean up later. The problem is when the people taking the shortcuts don't know they're shortcuts—or worse, don't know enough to know what they don't know.
+
+The essay argues that AI will create a **bifurcated job market** in software engineering. On one side, the best engineers become dramatically more valuable. AI lets them move faster, automate boilerplate, and focus on the hard problems: architecture, system design, debugging complex interactions, and evaluating whether an AI-generated solution is actually correct.
+
+On the other side, engineers who were previously "good enough"—the ones who could implement a spec but couldn't design a system—become dangerous. Not just unproductive, but actively harmful. Because now they can generate complexity faster than anyone around them can review or understand it.
+
+As one Hacker News commenter [noted](https://news.ycombinator.com/item?id=49271994):
+
+> "With AI, 'bad' engineers can now amplify their 'bad' engineering x10 across the organization."
+
+Another commenter added a brutal historical parallel: **"The whole 'Learn to Code' push of the 2010s was one of the worst things that happened to our industry... we ended up with a lot of people that just can't do the job."**
+
+## The Vibe Coding Trap
+
+Herrengt explored this theme earlier in a companion essay about ["vibe coding"](https://blog.florianherrengt.com/vibe-coder-career-path.html)—the practice of delegating nearly all coding to AI agents. He tried it himself, setting up "the full AI coding workflow: Claude, Playwright and Postgres MCPs, multiple agents working on different branches."
+
+At first, it was magical. Features shipped fast. The barrier between thinking and implementing disappeared. Then reality set in. Claude got stuck in loops, repeated mistakes, and created branches that diverged in incompatible ways. The context switching became "brutal." He went from running 4-5 parallel AI branches down to one.
+
+The project shipped to three test users and "everything caught fire." Messages wouldn't sync. Users got assigned to wrong accounts. He found himself "begging Claude to fix bug after bug."
+
+His conclusion? **"I spent more time testing and writing instruction files for Claude than I've ever spent on any project of this size. I've worked with junior devs straight out of bootcamp and none required this level of hand-holding."**
+
+This is the trap. Vibe coding feels like having an army of junior developers available 24/7. But what you actually get is an army of juniors who never ask clarifying questions, never push back on bad ideas, and never truly understand what they're building. They just generate, and generate, and generate—until the system collapses under its own weight.
+
+## The Bar Is Rising
+
+Perhaps the most uncomfortable question the essay raises is: **what is software engineering actually worth?**
+
+Herrengt points out a logical inconsistency in how the industry talks about AI. Tech CEOs claim "software is solved" while simultaneously paying "top salaries to attract the best people." If AI could truly replace engineers, why are the most valuable companies in the world still in a bidding war for human talent?
+
+The answer, he suggests, is that **implementation was never the hard part.** Writing code that compiles is easy. Designing systems that scale, making good technology choices, communicating across teams, and building architectures where bugs are easy to find and fix—that's the hard part. And those skills are more valuable than ever, because now you're not just competing with other humans. You're competing with humans *plus* AI agents.
+
+The bar for employability is being redefined as "whatever the current best model can do, plus judgment." If you can't evaluate an LLM's recommendation, asking for "more judgment" from the LLM doesn't solve the problem. As Herrengt writes: **"At some point, someone still has to know what is going on. And that's the most valuable person on the team."**
+
+## The Broader Implications
+
+This isn't just about software engineering. Herrengt explicitly extends his argument to "most knowledge work." Lawyers, analysts, designers, marketers—anyone whose job involves making decisions under uncertainty—will face the same polarization. AI will make the best practitioners dramatically more productive while making mediocre ones dangerous, because bad judgment can now be automated and amplified at scale.
+
+The Hacker News discussion reflected this anxiety. Commenters debated whether the industry should "professionalize" with licensing boards (most were skeptical), whether bootcamps had flooded the market with unqualified developers, and whether the whole "10x engineer" debate had missed the real problem: the proliferation of **0.1x engineers** who drain team productivity.
+
+One particularly resonant comment captured the generational divide:
+
+> "I remember people used to debate all the time about if there were '10x' engineers or whatever. A few I'm sure, but I think the real problem is we have a lot of 0.1x engineers or worse."
+
+## What This Means for Developers
+
+If you're reading this as a software engineer, the natural question is: **which side of the divide am I on?**
+
+The uncomfortable truth is that AI is forcing a kind of reckoning that the industry has avoided for years. The "learn to code" movement and coding bootcamps created a large middle class of developers who could write functional code but never developed the deeper judgment that separates implementers from architects. AI is now making that distinction impossible to ignore.
+
+The engineers who will thrive are those who can:
+
+- **Evaluate AI output critically**, not just accept it because it looks plausible
+- **Architect systems** that remain understandable even as AI-generated code is added
+- **Communicate clearly** about trade-offs, risks, and technical debt
+- **Understand the business context** deeply enough to say "no" to features that don't make sense
+- **Debug complex systems** where the AI doesn't know what's wrong either
+
+These are the skills that AI can't replicate—not because AI isn't smart enough, but because they require judgment, experience, and the ability to hold complex systems in your head. They're the skills that make a senior engineer senior.
+
+## The Uncomfortable Future
+
+Herrengt's essay ends on a sobering note. He predicts that "the people who don't [know what's going on] will become much cheaper to hire or get replaced entirely while the money gets funnelled towards an increasingly smaller number of people who can actually be trusted."
+
+This is the real AI disruption in software engineering. Not that AI will replace all developers. Not that AI is useless. But that AI will **polarize** the profession, eliminating the comfortable middle where you could make a good living by being pretty good at writing code.
+
+In 2020, going on holiday meant coming back to a messy codebase. In 2026, staying at your desk doesn't protect you either—because the mess is being created in real-time, by AI agents working at machine speed, guided by humans who've forgotten how to say no.
+
+The question isn't whether AI will change software engineering. It's already doing that. The question is whether you'll be one of the people who understands what's happening—or one of the people asking Claude to explain the system you supposedly built.
+
+As Herrengt writes in the essay's closing line: **"The most valuable developers are the ones with a strong mental map of where things are and what they do."**
+
+In the age of AI, that mental map isn't just valuable. It's survival.
