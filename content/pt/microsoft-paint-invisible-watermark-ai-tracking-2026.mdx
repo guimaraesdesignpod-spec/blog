@@ -1,0 +1,102 @@
+---
+title: "O Microsoft Paint Está Marcando Invisivelmente Cada Imagem de IA que Você Cria"
+description: "Uma análise de engenharia reversa revela que o Microsoft Paint e o Fotos inserem marcas d'água invisíveis com GUIDs emitidos por servidores em imagens geradas localmente — mesmo quando você acha que tudo fica no seu computador."
+date: "2026-08-25"
+translationKey: "microsoft-paint-invisible-watermark-ai-tracking-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["IA", "Privacidade", "Microsoft", "Marca d'água", "C2PA", "Copilot", "Engenharia Reversa", "Windows"]
+image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80"
+imageAlt: "Uma lupa sobre pixels digitais revelando padrões ocultos"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Microsoft Paint marca d'água invisível", "Windows rastreamento imagens IA", "C2PA soft binding watermark", "Copilot+ PC geração local rastreio", "Microsoft Fotos marca d'água engenharia reversa", "Lei de IA da UE marca d'água", "rastreamento proveniência imagem IA privacidade"]
+tldr: "Um pesquisador fez engenharia reversa no Microsoft Paint e descobriu que até imagens 'geradas localmente' contêm uma marca d'água invisível com GUID emitido pelo servidor de moderação da Microsoft. A marca d'água sobrevive à edição, é assinada criptograficamente nos metadados C2PA e vincula cada imagem ao prompt do usuário e à conta Microsoft — levantando sérias preocupações de privacidade sobre IA 'local' nos PCs Copilot+."
+faq:
+  - q: "O que o pesquisador encontrou no Microsoft Paint?"
+    a: "O engenheiro de reversa Xusheng analisou a Watermarker.dll do Paint e descobriu que toda imagem gerada por IA contém uma marca d'água invisível nos pixels, incorporando um GUID de 16 bytes emitido pelo servidor de moderação da Microsoft. Isso acontece mesmo quando a geração de imagens roda localmente no NPU de um PC Copilot+."
+  - q: "Por que isso é diferente de uma marca d'água visível?"
+    a: "Marcas d'água visíveis são logotótipos óbvios que você consegue ver. Essa é invisível — modifica quase 200 mil pixels em uma imagem de 512x512 de formas imperceptíveis ao olho humano, mas detectáveis por algoritmos. Mais importante: ela está vinculada a um GUID único emitido pelo servidor, que conecta a imagem ao prompt específico e à sessão do usuário."
+  - q: "Isso afeta imagens geradas localmente também?"
+    a: "Sim. Nos PCs Copilot+, a inferência do Stable Diffusion roda localmente no NPU, mas o Paint ainda envia o prompt para o servidor de moderação da Microsoft, recebe um GUID e o incorpora nos pixels. 'Geração local' não significa 'geração offline' ou 'geração não rastreável.'"
+  - q: "O que é C2PA e como se relaciona?"
+    a: "C2PA (Content Credentials) é um padrão de metadados criptográficos para rastrear a proveniência do conteúdo. A Microsoft adiciona um manifesto C2PA a cada imagem de IA, e esse manifesto contém um 'soft binding' que referencia o mesmo GUID embutido na marca d'água invisível. Os dois sistemas — metadados do arquivo e marca d'água nos pixels — se reforçam mutuamente."
+  - q: "Os usuários podem desativar essa marca d'água?"
+    a: "Não. O Paint oferece uma configuração para desativar a marca d'água visível do Copilot, mas a marca d'água invisível é obrigatória. Se a Watermarker.dll falhar em incorporá-la, o Paint trata toda a geração da imagem como um erro e não devolve a imagem ao usuário."
+---
+
+# O Microsoft Paint Está Marcando Invisivelmente Cada Imagem de IA que Você Cria
+
+Toda história de privacidade tem aquele momento em que a premissa soa quase conspiratória. *A Microsoft está rastreando suas imagens geradas localmente.* *Seus rabiscos inocentes no Paint estão sendo identificados.* Parece o tipo de coisa que você leria numa thread do Reddit às duas da manhã e ignoraria. Mas desta vez, um pesquisador de segurança chamado Xusheng fez engenharia reversa no código real, rastreou as chamadas de rede e provou: se você já usou o Image Creator ou Cocreator do Microsoft Paint num PC com Windows 11 e Copilot+, existe um identificador único e invisível enterrado nos pixels da sua imagem — e a Microsoft sabe exatamente a qual prompt e sessão de usuário ele pertence.
+
+## A Descoberta na Engenharia Reversa
+
+A história começa com curiosidade. Xusheng, um engenheiro de reversa que já havia explorado recursos obscuros do Windows como UCPD e WHESVC, decidiu investigar como a nova geração de imagens por IA do Microsoft Paint funciona de verdade. A expectativa era simples: o Paint provavelmente chama uma API remota, envia seu prompt para a nuvem e recebe uma imagem pronta. É assim que a maioria das ferramentas de IA funciona. Mas o que ele encontrou foi mais interessante — e mais preocupante.
+
+O Paint vem com modelos de IA locais. Na pasta de instalação do WindowsApps, existem quatro arquivos de modelo `.onnxe` — modelos ONNX criptografados para segmentação e geração de imagens, incluindo um modelo Stable Diffusion de 302 MB chamado `mager.onnxe`. Num PC Copilot+ com NPU, a geração real da imagem acontece localmente no seu dispositivo, não na nuvem. Essa parte é verdade. Mas aí Xusheng encontrou algo inesperado: uma DLL de 1,67 MB chamada `Watermarker.dll`. Isso é um arquivo absurdamente grande para simplesmente adicionar um logotipo visível do Copilot no canto inferior direito da imagem. Grande demais para ser suspeito. Então Xusheng pediu a uma IA para analisar a DLL e procurar sinais de marca d'água invisível.
+
+O que surgiu foi um motor de marca d'água sofisticado. A `Watermarker.dll` exporta uma função chamada `WmkWriteWatermark` que recebe um payload de 18 bytes — um GUID mais um checksum — e o incorpora nos pixels da imagem usando o que parece ser um algoritmo adaptativo de conteúdo, no estilo SVD. O codificador modifica pequenos blocos da imagem, quantizando valores para codificar cada bit do payload. Num teste sintético de 512x512 pixels, 193.376 dos 262.144 pixels mudaram depois que a marca d'água foi aplicada. As modificações são matematicamente significativas, mas visualmente imperceptíveis.
+
+## De Onde Vem o GUID
+
+É aqui que a história passa de interessante para inquietante. O payload da marca d'água não é aleatório, e não é gerado localmente. Ele vem dos servidores remotos da Microsoft.
+
+Antes do Paint rodar o modelo local do Stable Diffusion, a `AIServices.dll` envia seu prompt para um endpoint do Azure:
+
+```
+https://apsaiservices-a0fqcjc6bzbhgdcd.b02.azurefd.net/v1/paint-cocreator/moderate-prompt
+```
+
+A requisição é um objeto JSON contendo seu prompt, o estilo escolhido e um ID de geração anterior. O servidor responde com um "prompt revisado," um ID de geração do prompt e, criticamente, um `watermarkId` — um GUID. O Paint interpreta esse GUID, rejeita valores zerados e o passa para o codificador da marca d'água. Se a etapa de marca d'água falhar por qualquer motivo, o Paint converte toda a geração em um erro em vez de devolver uma imagem sem marcação.
+
+Xusheng confirmou isso reutilizando a sessão autenticada do próprio Paint e enviando prompts de teste para o endpoint de moderação. Para o prompt *"a cobalt blue circle above a tiny orange square,"* o servidor devolveu o GUID de marca d'água `83424621-03cb-40e3-9808-a9fae837156d`. Para um prompt envolvendo um retrato humano, devolveu outro GUID e marcou `containsHumanReference` como verdadeiro. A Microsoft não está apenas moderando conteúdo — está emitindo identificadores únicos e rastreáveis para cada tentativa de geração.
+
+## A Camada do C2PA
+
+Marcas d'água invisíveis nos pixels são apenas metade do sistema. A Microsoft também anexa um manifesto de Content Credentials (C2PA) a cada imagem salva. C2PA é um padrão da indústria para assinar criptograficamente metadados de conteúdo, para que informações de proveniência — de onde veio algo, quem criou, quais ferramentas foram usadas — viajem junto com o arquivo.
+
+O Paint salva imagens geradas por IA com um manifesto assinado dentro de um chunk PNG `caBX` (ou segmentos JPEG `APP11`, ou extensões de aplicação GIF). Dentro desse manifesto existe uma asserção `c2pa.soft-binding` que cita o algoritmo `com.microsoft.invismark.1` da Microsoft e registra exatamente o mesmo GUID embutido nos pixels. O manifesto é assinado criptograficamente pela Microsoft. Se alguém remover os metadados C2PA do arquivo, a marca d'água invisível nos pixels permanece. Se alguém tentar remover ou alterar a marca d'água, o manifesto C2PA ainda pode atestar a proveniência original. Os dois sistemas se reforçam mutuamente.
+
+O manifesto C2PA também inclui metadados como a seed de geração, o nível de criatividade e as pontuações de moderação. Isso não é um simples rótulo de "esta imagem foi feita por IA." É um registro detalhado e assinado de proveniência, vinculado a um identificador emitido pelo servidor que a Microsoft pode correlacionar de volta à sua conta, ao seu dispositivo e ao seu prompt.
+
+## Por Que Isso Importa para a IA "Local"
+
+A Microsoft vende os PCs Copilot+ como tendo capacidades de IA local. A NPU roda o Stable Diffusion no seu dispositivo. Seus dados ficam locais. Esse é o discurso. Mas esta pesquisa mostra que "inferência local" não é a mesma coisa que "privacidade local." O prompt ainda viaja para o servidor de moderação da Microsoft. O servidor ainda emite um GUID. A marca d'água ainda é incorporada. E depois da geração, a imagem passa por um processo de *assinatura* C2PA *online* que envia a imagem e os metadados de volta para a Microsoft.
+
+Considere os dois caminhos que o Paint oferece. O Image Creator usa o Azure OpenAI ImageGen na nuvem — geração, marca d'água e empacotamento C2PA acontecem remotamente, e o Paint recebe uma imagem pronta. O Cocreator, o recurso de PC Copilot+, roda o Stable Diffusion localmente na NPU — mas ainda exige moderação remota do prompt, recebe um GUID, incorpora a marca d'água localmente e depois submete a imagem pronta para assinatura de proveniência online. Nos dois casos, "local" não significa "offline" ou "não rastreável."
+
+O Paint também restringe os formatos de salvamento para imagens geradas por IA. Você pode salvar em PNG, JPEG, GIF ou `.paint` — mas não em BMP. Por quê? Porque o C2PA menciona explicitamente o BMP como um formato que não consegue incorporar dados arbitrários de manifesto sem um arquivo de manifesto externo. A Microsoft projetou o caminho de salvamento em torno da preservação de proveniência. Eles querem que essa marca d'água sobreviva.
+
+## As Implicações de Privacidade e Política
+
+Isso não é necessariamente ilegal ou mesmo tecnicamente errado. A Microsoft divulga que o Paint usa filtragem remota de conteúdo e adiciona metadados C2PA. Mas a divulgação é incompleta. A página de suporte menciona "Content Credentials" e "manifesto C2PA" sem explicar que o manifesto contém um GUID vinculado a uma marca d'água invisível nos pixels, ou que o GUID é emitido durante a moderação do prompt e pode vincular requisições sucessivas. Um usuário lendo a documentação da Microsoft razoavelmente concluiria que "gerado localmente" significa "privado." A realidade é mais complexa — e menos privada.
+
+O momento também importa. O Artigo 50 da Lei de IA da UE, que entrou em vigor em 2 de agosto de 2026, exige que conteúdo gerado por IA carregue uma marca detectável e legível por máquinas. A marca d'água da Microsoft atende a esse requisito. Mas a regulamentação da UE não exige GUIDs específicos de prompt, rastreamento de usuário ou vinculação de requisições sucessivas de geração através do `lastPromptGenerationId`. Essas são escolhas arquiteturais que a Microsoft fez.
+
+Há também implicações práticas. Se um jornalista gera uma imagem localmente num PC Copilot+ e a publica, a marca d'água invisível e o manifesto C2PA podem identificar a conta Microsoft específica, o prompt usado e o momento da geração. Se um dissidente num regime de vigilância usa os recursos de IA do Paint, seus prompts estão sendo enviados para os servidores da Microsoft mesmo que a geração seja supostamente "local." O campo `lastPromptGenerationId` vincula explicitamente requisições sucessivas, criando uma linha do tempo de geração.
+
+## O que a Comunidade do Hacker News Disse
+
+Quando essa pesquisa chegou ao Hacker News, gerou 259 comentários e 647 upvotes — não um recorde, mas engajamento substancial. Os comentários principais se dividiram em dois campos. Um grupo argumentou que isso é essencialmente prática padrão: marcar imagens geradas por IA é uma medida de transparência responsável, e C2PA é um padrão aberto que a indústria está adotando amplamente. Se você não quer marcas d'água rastreáveis, rode o Stable Diffusion você mesmo.
+
+O outro campo achou o engodo mais preocupante. Usuários apontaram que o Paint mudou de uma ferramenta leve e offline para uma superfície de coleta de dados. Um comentarista notou que até o Bloco de Notas não é mais "apenas um editor de texto" — agora tem autocorreção, texto rico, integração com Copilot e persistência que parece estranha para quem usava o Bloco de Notas como um rascunho temporário seguro. A preocupação não é que a marca d'água exista, mas que ela seja obrigatória, invisível e vinculada à moderação remota numa ferramenta que os usuários historicamente confiavam como um utilitário local simples.
+
+A pesquisa também notou uma diferença sutil entre o Paint e o Fotos da Microsoft. Ambos usam a mesma `Watermarker.dll` e incorporam o mesmo tipo de GUID. Mas no Fotos, se o codificador da marca d'água falhar, o app registra um erro e continua — devolvendo a imagem sem marcação ao usuário. O Paint trata a falha da marca d'água como uma falha de geração. A Microsoft fez uma escolha explícita de tornar a marca d'água não opcional no Paint.
+
+## O Que Você Pode Fazer a Respeito
+
+A resposta curta é: não muito, se você quer usar as ferramentas de IA embutidas da Microsoft. A marca d'água é obrigatória. A moderação remota é obrigatória. Os metadados C2PA são obrigatórios. Você não consegue desativar nenhum disso nas configurações. A marca d'água visível do Copilot tem uma chave liga/desliga, mas a marca d'água invisível não tem.
+
+Se você quer geração de imagens por IA sem rastreamento, precisa contornar o Paint por completo. Rode o Stable Diffusion localmente via ComfyUI, Automatic1111 ou Forge. Use modelos de código aberto. Gere imagens em hardware que você controla, com software que não liga para casa para moderação ou marca d'água. Essa é a única forma de garantir que seus prompts e pixels permaneçam privados.
+
+Para o usuário médio do Windows, porém, isso é um problema de confiança. O Paint foi — durante três décadas — uma ferramenta que fazia exatamente o que prometia: você desenhava pixels, salvava e eles eram seus. Agora é um nó num sistema de vigilância distribuída que coleta prompts, emite GUIDs, incorpora impressões digitais invisíveis e assina criptograficamente registros de proveniência. A imagem pode ser gerada na sua NPU, mas o rastro de dados leva direto a Redmond.
+
+## O Panorama Geral
+
+Essa história é um microcosmo de uma tendência maior na implantação de IA. As empresas estão construindo recursos de IA "local" que na verdade não são locais em nenhum sentido significativo de privacidade. A inferência roda no seu dispositivo, mas a elaboração do prompt, a moderação, a marca d'água e a assinatura de proveniência acontecem através de serviços de nuvem. O resultado é uma arquitetura híbrida que dá aos usuários a *impressão* de privacidade enquanto mantém o controle corporativo e a rastreabilidade.
+
+Vale comparar a abordagem da Microsoft com outros sistemas de marca d'água. O SynthID do Google incorpora marcas d'água invisíveis em imagens geradas por IA, mas não necessariamente as vincula a sessões individuais de usuários ou a GUIDs de moderação de prompt. O Bing Image Creator também usa marcas d'água invisíveis, mas como um serviço de nuvem, os usuários esperam processamento remoto. O Paint é diferente porque é um app embutido do Windows com uma história de funcionalidade offline e local. O golpe não é técnico — é psicológico.
+
+À medida que a IA se incorpora em cada sistema operacional, navegador e pacote de produtividade, precisamos fazer perguntas mais difíceis sobre o que "local" realmente significa. É inferência local? Armazenamento local de dados? Ou é apenas um termo de marketing para "rodamos a rede neural no seu chip enquanto ainda coletamos todo o resto?" A resposta, no caso da Microsoft, parece ser a última.
+
+Por enquanto, se você gerar uma imagem no Paint, saiba: em algum lugar entre esses pixels, um GUID está escondido. A Microsoft sabe o que é. E se precisar, pode rastreá-lo de volta até você.

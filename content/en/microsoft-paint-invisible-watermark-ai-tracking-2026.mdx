@@ -1,0 +1,102 @@
+---
+title: "Microsoft Paint Is Secretly Watermarking Every AI Image You Make"
+description: "A reverse-engineering deep dive reveals that Microsoft Paint and Photos embed invisible, server-issued GUID watermarks into locally-generated AI images — even when you think everything stays on your device."
+date: "2026-08-25"
+translationKey: "microsoft-paint-invisible-watermark-ai-tracking-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI", "Privacy", "Microsoft", "Watermark", "C2PA", "Copilot", "Reverse Engineering", "Windows"]
+image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80"
+imageAlt: "A magnifying glass hovering over digital pixels revealing hidden patterns"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["Microsoft Paint invisible watermark", "Windows AI image watermark GUID", "C2PA soft binding watermark", "Copilot+ PC local AI generation tracking", "Microsoft Photos watermark reverse engineering", "EU AI Act watermark requirements", "AI image provenance tracking privacy"]
+tldr: "A researcher reverse-engineered Microsoft Paint and discovered that even 'locally' generated AI images contain an invisible GUID watermark issued by Microsoft's remote moderation server. The watermark survives editing, gets cryptographically signed in C2PA metadata, and links every generated image back to the user's prompt and Microsoft account — raising serious privacy concerns about 'local' AI on Copilot+ PCs."
+faq:
+  - q: "What did the researcher find in Microsoft Paint?"
+    a: "Reverse engineer Xusheng analyzed Microsoft Paint's Watermarker.dll and discovered that every AI-generated image contains an invisible pixel watermark embedding a server-issued 16-byte GUID. This happens even when image generation runs locally on a Copilot+ PC's NPU. The GUID originates from Microsoft's remote prompt moderation service."
+  - q: "Why is this different from a visible watermark?"
+    a: "Visible watermarks are obvious logos you can see. This watermark is invisible — it modifies nearly 200,000 pixels in a 512x512 image in ways invisible to the human eye, yet detectable by algorithms. More importantly, it's tied to a unique server-issued GUID that links the image to the specific prompt and user session."
+  - q: "Does this affect locally generated images too?"
+    a: "Yes. On Copilot+ PCs, the Stable Diffusion inference runs locally on the NPU, but Paint still sends the prompt to Microsoft's moderation server, receives a GUID, and embeds it into the pixels. 'Local generation' does not mean 'offline generation' or 'untracked generation.'"
+  - q: "What is C2PA and how does it relate?"
+    a: "C2PA (Content Credentials) is a cryptographic metadata standard for tracking content provenance. Microsoft adds a C2PA manifest to every AI image, and that manifest contains a 'soft binding' that references the same GUID embedded in the invisible watermark. The two systems — file metadata and pixel watermark — reinforce each other."
+  - q: "Can users disable this watermark?"
+    a: "No. Paint offers a setting to disable the visible Copilot logo watermark, but the invisible watermark is mandatory. If Watermarker.dll fails to embed it, Paint treats the entire image generation as a failure and does not return the image to the user."
+---
+
+# Microsoft Paint Is Secretly Watermarking Every AI Image You Make
+
+There is a moment in every privacy story where the premise sounds almost conspiratorial. *Microsoft is tracking your local image generation.* *Your innocent doodles in Paint are being fingerprinted.* It sounds like the kind of thing you'd read in a Reddit thread at 2 AM and dismiss. Except this time, a security researcher named Xusheng reverse-engineered the actual code, traced the network calls, and proved it. If you have used Microsoft Paint's Image Creator or Cocreator feature on a Windows 11 Copilot+ PC, there is a unique, invisible identifier buried inside your image pixels — and Microsoft knows exactly which prompt and user session it belongs to.
+
+## The Reverse Engineering Discovery
+
+The story begins with curiosity. Xusheng, a reverse engineer who had previously explored obscure Windows features like UCPD and WHESVC, decided to look at how Microsoft Paint's new AI image generation actually works. The expectation was straightforward: Paint probably calls a remote API, sends your prompt to the cloud, and returns a finished image. That is how most AI image tools work. But what Xusheng found was more interesting — and more concerning.
+
+Paint ships with local AI models. In the WindowsApps installation folder, there are four `.onnxe` model files — encrypted ONNX models for segmentation and image generation, including a 302 MB Stable Diffusion model called `mager.onnxe`. On a Copilot+ PC with an NPU, the actual image generation happens locally on your device, not in the cloud. That part is true. But then Xusheng found something unexpected: a 1.67 MB DLL named `Watermarker.dll`. That is an unusually large file for simply adding a visible Copilot logo to the bottom-right corner of an image. Suspiciously large, in fact. So Xusheng asked an AI assistant to analyze the DLL and look for signs of invisible watermarking.
+
+What emerged was a sophisticated watermarking engine. `Watermarker.dll` exports a function called `WmkWriteWatermark` that takes an 18-byte payload — a GUID plus a checksum — and embeds it into the image pixels using what appears to be a content-adaptive, SVD-style algorithm. The encoder modifies small blocks of the image, quantizing values to encode each bit of the payload. In a synthetic 512x512 test image, 193,376 of the 262,144 pixels changed after the watermark was applied. The modifications are mathematically significant but visually imperceptible.
+
+## Where the GUID Comes From
+
+Here is where the story shifts from interesting to unsettling. The watermark payload is not random, and it is not generated locally. It comes from Microsoft's remote servers.
+
+Before Paint runs the local Stable Diffusion model, `AIServices.dll` sends your prompt to an Azure endpoint:
+
+```
+https://apsaiservices-a0fqcjc6bzbhgdcd.b02.azurefd.net/v1/paint-cocreator/moderate-prompt
+```
+
+The request is a JSON object containing your prompt, your chosen style, and a previous generation ID. The server responds with a "revised prompt," a prompt generation ID, and critically, a `watermarkId` — a GUID. Paint parses this GUID, rejects zero values, and passes it to the watermark encoder. If the watermarking step fails for any reason, Paint converts the entire generation into an error rather than returning an unmarked image.
+
+Xusheng confirmed this by reusing Paint's own authenticated session and sending test prompts to the moderation endpoint. For the prompt *"a cobalt blue circle above a tiny orange square,"* the server returned a watermark GUID of `83424621-03cb-40e3-9808-a9fae837156d`. For a prompt involving a human portrait, it returned a different GUID and flagged `containsHumanReference` as true. Microsoft is not just moderating content — it is issuing unique, trackable identifiers for every generation attempt.
+
+## The C2PA Layer
+
+Invisible pixel watermarks are only half the system. Microsoft also attaches a C2PA Content Credentials manifest to every saved image. C2PA is an industry standard for cryptographically signing content metadata so that provenance information — where something came from, who created it, what tools were used — can travel with the file.
+
+Paint saves AI-generated images with a signed manifest inside a PNG `caBX` chunk (or JPEG `APP11` segments, or GIF application extensions). Inside that manifest is a `c2pa.soft-binding` assertion that names Microsoft's `com.microsoft.invismark.1` algorithm and records the exact same GUID embedded in the pixels. The manifest is cryptographically signed by Microsoft. If someone strips the C2PA metadata from the file, the invisible watermark in the pixels remains. If someone attempts to remove or alter the watermark, the C2PA manifest can still attest to the original provenance. The two systems reinforce each other.
+
+The C2PA manifest also includes metadata like the generation seed, creativity level, and moderation scores. This is not a simple "this image was made by AI" label. It is a detailed, signed provenance record linked to a server-issued identifier that Microsoft can correlate back to your account, your device, and your prompt.
+
+## Why This Matters for "Local" AI
+
+Microsoft markets Copilot+ PCs as having local AI capabilities. The NPU runs Stable Diffusion on your device. Your data stays local. That is the pitch. But this research shows that "local inference" is not the same as "local privacy." The prompt still travels to Microsoft's moderation server. The server still issues a GUID. The watermark still gets embedded. And after generation, the image goes through an *online* C2PA signing process that sends the image and metadata back to Microsoft.
+
+Consider the two paths Paint offers. Image Creator uses Azure OpenAI ImageGen in the cloud — generation, watermarking, and C2PA packaging all happen remotely, and Paint receives a finished image. Cocreator, the Copilot+ PC feature, runs Stable Diffusion locally on the NPU — but still requires remote prompt moderation, receives a GUID, embeds the watermark locally, and then submits the finished image for online provenance signing. In both cases, "local" does not mean "offline" or "untracked."
+
+Paint also restricts the save formats for AI-generated images. You can save as PNG, JPEG, GIF, or `.paint` — but not BMP. Why? Because C2PA explicitly calls out BMP as a format that cannot embed arbitrary manifest data without an external manifest file. Microsoft designed the save path around provenance preservation. They want that watermark to survive.
+
+## The Privacy and Policy Implications
+
+This is not necessarily illegal or even technically wrong. Microsoft discloses that Paint uses remote content filtering and adds C2PA metadata. But the disclosure is incomplete. The support page mentions "Content Credentials" and "C2PA manifest" without explaining that the manifest contains a GUID tied to an invisible pixel watermark, or that the GUID is issued during prompt moderation and can link successive requests. A user reading Microsoft's documentation would reasonably conclude that "locally generated" means "private." The reality is more nuanced — and less private.
+
+The timing matters too. Article 50 of the EU AI Act, which took effect on August 2, 2026, requires AI-generated content to carry a detectable, machine-readable mark. Microsoft's watermark satisfies that requirement. But the EU regulation does not require prompt-specific GUIDs, user tracking, or the linking of successive generation requests through `lastPromptGenerationId`. Those are architectural choices Microsoft made.
+
+There are also practical implications. If a journalist generates an image locally on a Copilot+ PC and publishes it, the invisible watermark and C2PA manifest can identify the specific Microsoft account, the prompt used, and the time of generation. If a dissident in a surveillance-heavy regime uses Paint's AI features, their prompts are being sent to Microsoft's servers even though the generation is supposedly "local." The `lastPromptGenerationId` field explicitly links successive requests, creating a generation timeline.
+
+## What the Hacker News Community Said
+
+When this research hit Hacker News, it generated 259 comments and 647 upvotes — not a record, but substantial engagement. The top comments split into two camps. One group argued that this is essentially standard practice: watermarking AI-generated content is a responsible transparency measure, and C2PA is an open standard that the industry is adopting broadly. If you don't want tracked watermarks, run Stable Diffusion yourself.
+
+The other camp found the deception more troubling. Users pointed out that Paint has changed from a lightweight, offline tool into a data-collection surface. One commenter noted that even Notepad is no longer "just a text editor" — it now has autocorrect, rich text, Copilot integration, and persistence that feels alien to anyone who used Notepad as a safe temporary scratchpad. The concern is not that watermarking exists, but that it is mandatory, invisible, and tied to remote moderation in a tool that users historically trusted as a simple local utility.
+
+The research also noted a subtle difference between Paint and Microsoft Photos. Both apps use the same `Watermarker.dll` and embed the same type of GUID. But in Photos, if the watermark encoder fails, the app logs an error and continues — returning the unmarked image to the user. Paint treats watermark failure as a generation failure. Microsoft made an explicit choice to make watermarking non-optional in Paint.
+
+## What Can You Do About It?
+
+The short answer is: not much, if you want to use Microsoft's built-in AI tools. The watermark is mandatory. The remote moderation is mandatory. The C2PA metadata is mandatory. You cannot toggle any of it off in the settings. The visible Copilot logo watermark has an on/off switch, but the invisible watermark does not.
+
+If you want untracked AI image generation, you need to bypass Paint entirely. Run Stable Diffusion locally via ComfyUI, Automatic1111, or Forge. Use open-source models. Generate images on hardware you control with software that does not phone home for moderation or watermarking. That is the only way to guarantee that your prompts and pixels remain private.
+
+For the average Windows user, though, this is a trust problem. Paint was — for three decades — a tool that did exactly what it said on the tin: you drew pixels, you saved them, and they were yours. Now it is a node in a distributed surveillance system that collects prompts, issues GUIDs, embeds invisible fingerprints, and cryptographically signs provenance records. The image may be generated on your NPU, but the data trail leads straight back to Redmond.
+
+## The Bigger Picture
+
+This story is a microcosm of a larger trend in AI deployment. Companies are building "local" AI features that are not actually local in any meaningful privacy sense. The inference runs on your device, but the prompting, moderation, watermarking, and provenance signing all happen through cloud services. The result is a hybrid architecture that gives users the *impression* of privacy while maintaining corporate control and traceability.
+
+It is worth comparing Microsoft's approach to other watermarking systems. Google's SynthID embeds invisible watermarks in AI-generated images but does not necessarily tie them to individual user sessions or prompt moderation GUIDs. Bing Image Creator also uses invisible watermarks, but as a cloud service, users expect remote processing. Paint is different because it is a built-in Windows app with a history of offline, local functionality. The bait-and-switch is not technical — it is psychological.
+
+As AI becomes embedded in every operating system, browser, and productivity suite, we need to ask harder questions about what "local" really means. Is it local inference? Local data storage? Or is it just a marketing term for "we run the neural network on your chip while still collecting everything else?" The answer, in Microsoft's case, appears to be the latter.
+
+For now, if you generate an image in Paint, just know: somewhere in those pixels, a GUID is hiding. Microsoft knows what it is. And if they ever need to, they can trace it back to you.
