@@ -1,0 +1,118 @@
+---
+title: "As 'Criaturinhas Rastejantes' Devorando a Internet: Como a Demanda por Dados de Treinamento de IA Transformou a Web Aberta em uma Botnet"
+description: "Dados impressionantes de um mantenedor do kernel Linux revelam que scrapers de treinamento de IA consomem mais recursos de servidor do que todos os usuários legítimos juntos. E os bots estão vindo da sua TV."
+date: "2026-08-31"
+translationKey: "creepy-crawlies-ai-scrapers-eating-internet-2026"
+lang: "pt"
+author: "Elisio Guimarães"
+tags: ["Scraping de IA", "Botnets", "Infraestrutura Web", "Linux Kernel", "Dados de Treinamento de IA", "Cibersegurança", "2026"]
+image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200"
+imageAlt: "Uma sala de servidores escura com fileiras de máquinas piscando, representando a guerra invisível entre scrapers de IA e defensores da web"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["scrapers de IA botnet", "rastreamento git.kernel.org", "mantenedor Linux kernel scrapers", "Anubis proof of work", "botnet proxy TV smart", "impacto scraping dados treinamento IA", "SDK proxy residencial", "custo infraestrutura web scraper", "empresas IA raspando web aberta", "economia botnet 2026"]
+tldr: "Em agosto de 2026, um mantenedor do kernel Linux publicou dados mostrando que scrapers de treinamento de IA consomem 98% do tráfego do git.kernel.org e ocupam 20% da capacidade total de servidor em cinco nós geo-distribuídos. Os scrapers começaram fingindo user agents, depois sub-redes inteiras, depois milhões de IPs residenciais — provavelmente de TVs smart e aplicativos móveis executando SDKs de proxy. Em resposta, a equipe do kernel implantou o Anubis, um desafio de prova de trabalho que inicialmente parou os bots. Mas os bots se adaptaram, resolvendo dificuldade 4, depois 5. Agora 33% das requisições passam. A web aberta está se tornando uma economia parasitária de botnet, e os hosts que fazem o scraping são dispositivos de consumo nas salas de estar das pessoas."
+faq:
+  - q: "Sobre o que é o artigo 'Creepy Crawlies'?"
+    a: "É um post detalhado de um mantenedor do kernel Linux (escrevendo como 'monsieuricon') publicado em 29 de agosto de 2026, documentando o impacto massivo de scrapers de treinamento de IA no git.kernel.org. O post inclui dados reais mostrando que scrapers consomem 98% do tráfego, ocupam 14-16 núcleos de CPU continuamente, e evoluíram de bots simples para uma botnet de proxy residencial."
+  - q: "Quanto do tráfego do git.kernel.org vem de scrapers?"
+    a: "Segundo os dados do mantenedor, aproximadamente 98% do tráfego do git.kernel.org vem de scrapers. Apenas cerca de 2% são requisições legítimas. Das 6 milhões de requisições diárias, 66% são bloqueadas pelo desafio de prova de trabalho Anubis, mas 33% agora resolvem o desafio e passam."
+  - q: "Por que empresas de IA estão raspando o git.kernel.org?"
+    a: "Empresas de treinamento de IA querem conteúdo de alta qualidade e pré-IA para treinar seus modelos. Treinar com conteúdo gerado por IA cria o que o mantenedor chama de 'doença priônica digital' — colapso de modelo. O histórico do git do kernel Linux é garantidamente 100% escrito por humanos e abrange décadas, tornando-o um dos datasets de treinamento puros mais valiosos da internet."
+  - q: "Por que os scrapers não usam 'git clone' em vez de raspar HTML?"
+    a: "Essa é a central absurdidade da situação. A equipe do kernel disponibiliza quase tudo gratuitamente para clonar via git. Um único 'git clone' daria ao scraper todo o histórico. Mas os scrapers em vez disso escolhem renderizar cada commit como HTML, criando bilhões de URLs únicos para o mesmo conteúdo. Isso é milhares de vezes menos eficiente e muito mais danoso para a infraestrutura."
+  - q: "O que é Anubis e como funciona?"
+    a: "Anubis é um sistema de desafio de prova de trabalho inspirado no Hashcash. Ele exige que visitantes resolvam um quebra-cabeça computacional (como encontrar um hash SHA-256 com zeros à esquerda) antes de acessar o site. Para usuários legítimos, isso adiciona alguns segundos de atraso. Para scrapers em massa executando milhares de requisições paralelas, o custo computacional se torna proibitivo. É uma solução temporária enquanto técnicas melhores de fingerprinting são desenvolvidas."
+  - q: "Como os scrapers evoluíram para derrotar o bloqueio?"
+    a: "Os scrapers passaram por várias fases: (1) bots óbvios com user agents identificáveis, (2) fingindo ser navegadores aleatórios, (3) se espalhando por sub-redes inteiras de data centers, (4) usando milhões de IPs residenciais e móveis que parecem vir de TVs smart e aplicativos móveis via SDKs de proxy. Cada evolução tornou o bloqueio por IP impossível sem prejudicar usuários legítimos."
+  - q: "O que são 'SDKs de proxy para TV smart' e por que são relevantes?"
+    a: "Alguns desenvolvedores de aplicativos monetizam incorporando SDKs que transformam os dispositivos dos usuários em nós de proxy. Quando alguém instala um aplicativo 'gratuito' na TV smart ou celular, o app pode rotear tráfego através do endereço IP residencial da pessoa. Isso dá aos scrapers acesso a milhões de IPs residenciais legítimos, tornando-os quase impossíveis de bloquear. Pesquisas da Spur sugerem que essa é uma indústria importante e em crescimento."
+  - q: "Qual é a importância mais ampla dessa história?"
+    a: "Este é um canário na mina de carvão para toda a web aberta. Se uma organização bem financiada e tecnicamente sofisticada como a equipe do kernel Linux está lutando para manter sua infraestrutura online contra scrapers de IA, que esperança os sites menores têm? O contrato social implícito da internet — que dados abertos estão disponíveis gratuitamente para uso razoável — está desmoronando sob o peso da extração automatizada em escala industrial."
+  - q: "O que a equipe do kernel está fazendo a respeito?"
+    a: "Eles implantaram o Anubis no nível de dificuldade 5, que agora está sendo resolvido por alguns bots. Eles estão reduzindo a área rastreável desativando recursos que geram URLs caras de renderizar. Eles podem exigir autenticação para mais acessos. O mantenedor é transparente de que não há soluções fáceis e que a situação está piorando."
+  - q: "Esse é um problema específico da IA, ou apenas bots ruins em geral?"
+    a: "A escala e sofisticação são o que tornam isso diferente. Scrapers tradicionais da web eram limitados por largura de banda e computação. Scrapers modernos de treinamento de IA operam em escala industrial com recursos substanciais, e evoluíram de scripts simples para botnets distribuídas usando proxies residenciais. O incentivo econômico — dados de treinamento são o combustível da indústria de IA — torna isso um adversário persistente e bem financiado, e não apenas um incômodo."
+---
+
+# As "Criaturinhas Rastejantes" Devorando a Internet: Como a Demanda por Dados de Treinamento de IA Transformou a Web Aberta em uma Botnet
+
+Existe uma guerra acontecendo na internet agora, e a maioria das pessoas não faz ideia de que está ocorrendo. Não está sendo travada com malware ou ransomware. Está sendo travada com requisições HTTP — bilhões delas, todos os dias, martelando a infraestrutura que sustenta a web aberta. Os atacantes não são hackers. São empresas de treinamento de IA, e suas armas são as TVs smart e os aplicativos de celular que estão na sua sala de estar.
+
+Em 29 de agosto de 2026, um mantenedor do kernel Linux publicou um post no blog intitulado ["Creepy Crawlies"](https://people.kernel.org/monsieuricon/creepy-crawlies) que deveria ter sido notícia de primeira página em todos os lugares. Não foi. O post é um relato meticulosamente documentado de como scrapers de treinamento de IA inundaram o git.kernel.org — o repositório central de desenvolvimento do kernel Linux, um dos projetos open-source mais importantes da história humana. Os números são impressionantes.
+
+## Os Números Que Deveriam Chocar Você
+
+Aqui está o que o mantenedor encontrou, com dados reais de servidores e gráficos:
+
+**A qualquer momento, em cinco nós geo-distribuídos, 14 a 16 núcleos de CPU estão fazendo nada além de renderizar commits de git como HTML para scrapers.** Isso é 20% da capacidade total em toda a infraestrutura. Não para compilar o kernel. Não para servir desenvolvedores. Para renderizar HTML que será alimentado em modelos de linguagem.
+
+**O git.kernel.org recebe aproximadamente 6 milhões de requisições por dia** pedindo para ver commits aleatórios. Dessas, 66% são bloqueadas pelo desafio de prova de trabalho Anubis. Mas 33% — cerca de 2 milhões de requisições por dia — agora resolvem o desafio e passam. Os bots estão ficando mais inteligentes.
+
+**Requisições legítimas são estimadas em cerca de 2% do tráfego total.** Todo o resto é scrapers. A infraestrutura do kernel Linux, que está rodando há décadas e já viu todo tipo de pico de tráfego imaginável, agora gasta seus recursos principalmente servindo máquinas que nem mesmo precisam do que estão pedindo.
+
+Isso não é um incômodo. É um ataque de exaustão de recursos acontecendo em câmera lenta, financiado por capital de risco e executado por eletrônicos de consumo.
+
+## Por Que o Kernel Linux? Por Que Agora?
+
+Para entender por que isso está acontecendo, você precisa entender o que as empresas de treinamento de IA realmente precisam. Modelos de linguagem são treinados com texto — quantidades enormes dele. Mas não qualquer texto. A qualidade dos dados de treinamento importa enormemente, e existe um problema aterrador que surgiu: **colapso de modelo.**
+
+Quando você treina um modelo de IA com conteúdo gerado por IA, o modelo perde a riqueza estatística do texto escrito por humanos. Ele produz resultados mais homogeneizados e menos variados. Pesquisadores demonstraram que treinar com dados sintéticos degrada o desempenho do modelo de formas difíceis de reverter. O mantenedor coloca perfeitamente: treinar com conteúdo gerado por IA dá a um modelo o equivalente de uma **"doença priônica digital."**
+
+O histórico do git do kernel Linux é o antídoto. É garantidamente 100% escrito por humanos. Abrange décadas de desenvolvimento por milhares de contribuidores. Contém documentação técnica, relatórios de bugs, comentários de código, mensagens de commit e discussões de listas de e-mail — tudo denso, de alta qualidade e inteiramente livre de contaminação gerada por IA. Para uma empresa de treinamento de IA, isso é uma mina de ouro de conhecimento humano puro.
+
+E aqui está o ponto crucial: **a equipe do kernel disponibiliza quase tudo isso para clonar gratuitamente.** Você pode executar um único comando `git clone` e obter todo o histórico. Eles encorajam explicitamente isso. "Aqui — clone os repositórios. Pegue uma cópia só para não sermos os únicos que temos tudo. Sério, é só um git clone de distância."
+
+Mas os scrapers não clonam. Eles escolhem a abordagem mais estúpida possível: renderizar cada commit como HTML, um por um, através de uma interface web. Só para o linux.git, que tem cerca de 1,48 milhão de commits, os scrapers geram bilhões de URLs únicos para requisitar o mesmo conteúdo repetidamente. Eles pedem patches, renderizações simples, diffs entre commits arbitrários. O mantenedor calcula que um único fork do linux.git pode gerar 1,2 bilhão de URLs válidos. E existem 922 forks no git.kernel.org.
+
+Os scrapers não estão baixando os dados de forma eficiente. Eles estão pulverizando a infraestrutura para obtê-los no formato mais caro possível.
+
+## A Evolução de uma Botnet
+
+A batalha da equipe do kernel contra os scrapers lê-se como um diário de escalada militar, e revela como a indústria de treinamento de IA profissionalizou sua extração de dados.
+
+**Fase 1: Os Bots Óbvios.** No início, os scrapers eram fáceis de identificar. Eles tinham strings de user-agent óbvias se identificando como crawlers. A equipe do kernel simplesmente os bloqueava por IP. Isso funcionou por um tempo.
+
+**Fase 2: Os Navegadores Falsos.** Os bots ficaram mais espertos e começaram a fingir ser navegadores vanilla aleatórios. Chrome no Windows. Firefox no macOS. A equipe do kernel se adaptou, bloqueando por padrões de comportamento de IP — um IP que pega cada commit em um fork abandonado há 8 anos não é um desenvolvedor real. Isso ainda funcionava, na maior parte.
+
+**Fase 3: Os Enxames de Sub-redes.** Os bots começaram a se espalhar por sub-redes inteiras de data centers. A equipe do kernel respondeu bloqueando números de sistemas autônomos (ASNs) inteiros — se um bloco de IPs vinha do Google Compute ou da Amazon Web Services, o ASN inteiro era banido. Isso foi agressivo, mas justificado. Alguns serviços automatizados legítimos ficaram na linha de fogo, mas os scrapers eram o problema maior.
+
+**Fase 4: A Botnet de Proxy Residencial.** É aqui que as coisas ficaram "muito, muito feias." Os scrapers começaram a aparecer de milhões de endereços IP residenciais e móveis aleatórios. Um IP fazia quatro ou cinco requisições e nunca mais aparecia. Bloquear era impossível — quando você identificava um bot, ele já tinha ido embora, e adicionar milhões de IPs a um firewall quebraria a própria infraestrutura.
+
+Esses IPs residenciais não vêm de botnets tradicionais de computadores infectados. Eles vêm de **TVs smart e aplicativos móveis** que os usuários instalaram voluntariamente. Alguns desenvolvedores monetizam seus aplicativos "gratuitos" incorporando SDKs de proxy que transformam o dispositivo do usuário em um relay de tráfego. O desenvolvedor do app é pago por requisição, e a empresa de treinamento de IA obtém acesso a milhões de IPs residenciais legítimos que são impossíveis de distinguir de usuários reais. Pesquisas da empresa de segurança Spur documentaram esse fenômeno extensivamente, chamando-o de ascensão da **"monetização de SDK de proxy."**
+
+Sua TV provavelmente está ajudando a treinar um modelo de IA agora, e você não faz ideia.
+
+## Anubis: A Última Linha de Defesa
+
+A resposta da equipe do kernel à botnet de proxy residencial foi implantar o **Anubis**, um sistema de desafio de prova de trabalho inspirado no Hashcash — o mesmo conceito que fundamenta o algoritmo de mineração do Bitcoin, embora muito menos intensivo computacionalmente.
+
+Funciona assim: antes de você acessar o git.kernel.org, seu navegador deve resolver um quebra-cabeça matemático. O desafio pede que você encontre uma string que, quando combinada com seu endereço IP e um segredo fornecido pelo servidor, produza um hash SHA-256 com um certo número de zeros à esquerda. Para um usuário humano legítimo visitando o site, isso leva alguns segundos e acontece uma vez. Para um scraper em massa executando milhares de requisições paralelas, o custo computacional se multiplica em algo genuinamente caro.
+
+Anubis foi imediatamente efetivo. Quando a equipe do kernel o implantou, os bots simplesmente desistiram. Por alguns meses, houve paz. Os usuários legítimos ficaram levemente incomodados com os poucos segundos de atraso, mas toleraram.
+
+Então os bots se adaptaram. Começaram a resolver o nível de dificuldade 4. A equipe do kernel aumentou a dificuldade para 5. Os usuários legítimos agora tinham que esperar mais, e seus celulares esquentavam desconfortavelmente fazendo as contas. Mas isso comprou mais alguns meses de paz.
+
+Então os bots começaram a resolver a dificuldade 5. Agora 33% das requisições estão passando.
+
+A abordagem Anubis não é sustentável. Toda vez que a dificuldade aumenta, usuários legítimos sofrem mais. O mantenedor reconhece isso abertamente: "Esta é uma solução temporária para que mais tempo possa ser gasto em fingerprinting e identificação de navegadores headless." O objetivo é eventualmente detectar bots por seu comportamento — peculiaridades de renderização de fontes, padrões de execução JavaScript, fingerprinting de canvas — sem forçar cada visitante humano a fazer matemática primeiro. Mas essa tecnologia ainda não está pronta, e os bots não estão esperando.
+
+## A Ironia da Revolução da IA
+
+Existe uma ironia profunda aqui. A revolução da IA é construída sobre dados abertos. Os grandes modelos de linguagem que alimentam o ChatGPT, o Claude e o Gemini foram treinados na Wikipedia, no GitHub, no Reddit, no arXiv — em todo o corpus de conhecimento humano que indivíduos e organizações generosos disponibilizaram gratuitamente. A indústria de IA extraiu trilhões de dólares de valor desses recursos compartilhados.
+
+E agora a extração está destruindo os recursos compartilhados.
+
+As empresas de treinamento de IA não são maliciosas. Elas estão simplesmente fazendo o que qualquer ator racional faria: adquirindo o recurso mais valioso para seu negócio ao menor custo possível. O problema é que o custo não é suportado por elas. É suportado pelos mantenedores, pelos voluntários, pelos projetos open-source e pelos sites pequenos que não podem pagar para servir milhões de requisições automatizadas por dia.
+
+O mantenedor do kernel termina o post com um pedido de desculpas: "Sorry. (Oblig. Canadian thing to say.)" Ele lamenta ter que tornar a web aberta menos aberta. E lamenta que não haja uma solução melhor no horizonte.
+
+## O Que Acontece Agora
+
+A corrida armamentista do Anubis continuará. Os bots resolverão níveis de dificuldade maiores. A equipe do kernel encontrará técnicas melhores de fingerprinting. E em algum lugar no meio, a web aberta continuará a se erodir.
+
+Este não é um problema que pode ser resolvido por uma única organização. É uma questão sistêmica que se encontra na intersecção da economia de IA, da economia de infraestrutura e da tragédia dos recursos digitais compartilhados. Soluções de longo prazo possíveis incluem frameworks legais que exigem que empresas de treinamento de IA compensem provedores de dados, ou padrões técnicos para acesso autenticado e limitado por taxa a datasets de alto valor. Nenhuma dessas é simples. Nenhuma está iminente.
+
+Enquanto isso, as criaturinhas rastejantes continuarão vindo — da sua TV, do seu celular, do aplicativo que você baixou de graça e nunca mais pensou — martelando os servidores que sustentam a web aberta, uma requisição HTTP de cada vez, até que algo quebre.
+
+O mantenedor do kernel está vendo isso acontecer em tempo real. Nós também deveríamos.

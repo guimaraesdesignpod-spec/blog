@@ -1,0 +1,118 @@
+---
+title: "The 'Creepy Crawlies' Eating the Internet: How AI Training Data Demand Turned the Open Web Into a Botnet"
+description: "A Linux kernel maintainer's stunning data reveals that AI training scrapers now consume more server resources than all legitimate users combined. And the bots are coming from your TV."
+date: "2026-08-31"
+translationKey: "creepy-crawlies-ai-scrapers-eating-internet-2026"
+lang: "en"
+author: "Elisio Guimarães"
+tags: ["AI Scraping", "Botnets", "Web Infrastructure", "Linux Kernel", "AI Training Data", "Cybersecurity", "2026"]
+image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200"
+imageAlt: "A dark server room with rows of blinking machines, representing the invisible infrastructure war between AI scrapers and web defenders"
+imageCredit: "Unsplash"
+imageCreditUrl: "https://unsplash.com"
+keywords: ["AI scrapers botnet", "git.kernel.org crawling", "Linux kernel maintainer scrapers", "Anubis proof of work", "smart TV proxy botnet", "AI training data scraping impact", "residential proxy SDK", "web scraper infrastructure cost", "AI companies scraping open web", "botnet economy 2026"]
+tldr: "In August 2026, a Linux kernel maintainer published data showing that AI training scrapers consume 98% of git.kernel.org's traffic and tie up 20% of total server capacity across five geo-distributed nodes. The scrapers started by faking user agents, then entire subnets, then millions of residential IPs — likely from smart TVs and mobile apps running proxy SDKs. In response, the kernel team deployed Anubis, a proof-of-work challenge that initially stopped the bots cold. But the bots adapted, solving difficulty 4, then 5. Now 33% of requests pass through. The open web is becoming a parasitic botnet economy, and the hosts doing the scraping are consumer devices in people's living rooms."
+faq:
+  - q: "What is the 'Creepy Crawlies' article about?"
+    a: "It is a detailed blog post by a Linux kernel maintainer (writing as 'monsieuricon') published on August 29, 2026, documenting the massive impact of AI training scrapers on git.kernel.org. The post includes real data showing that scrapers consume 98% of traffic, tie up 14-16 CPU cores continuously, and have evolved from simple bots to a distributed residential proxy botnet."
+  - q: "How much of git.kernel.org's traffic is from scrapers?"
+    a: "According to the maintainer's data, approximately 98% of git.kernel.org traffic is from scrapers. Only about 2% are legitimate requests. Of the 6 million daily requests, 66% are blocked by the Anubis proof-of-work challenge, but 33% now solve the challenge and get through."
+  - q: "Why are AI companies scraping git.kernel.org?"
+    a: "AI training companies want high-quality, pre-AI content to train their models. Training on AI-generated content creates what the maintainer calls 'digital prion disease' — model collapse. The Linux kernel git history is guaranteed to be 100% human-written and spans decades, making it one of the most valuable pure training datasets on the internet."
+  - q: "Why don't scrapers just use 'git clone' instead of scraping HTML?"
+    a: "That is the central absurdity of the situation. The kernel team makes almost everything freely clonable via git. A single 'git clone' would give a scraper the entire history. But the scrapers instead choose to render every commit as HTML, creating billions of unique URLs for the same content. This is thousands of times less efficient and far more damaging to the infrastructure."
+  - q: "What is Anubis and how does it work?"
+    a: "Anubis is a proof-of-work challenge system inspired by Hashcash. It requires visitors to solve a computational puzzle (like finding a SHA-256 hash with leading zeroes) before accessing the site. For legitimate human users, this adds a few seconds of delay. For mass scrapers running thousands of parallel requests, the computational cost becomes prohibitive. It is a placeholder solution while better fingerprinting techniques are developed."
+  - q: "How did the scrapers evolve to defeat blocking?"
+    a: "The scrapers went through several phases: (1) obvious bots with identifiable user agents, (2) faking random browser user agents, (3) spreading across entire data center subnets, (4) using millions of residential and mobile IPs that appear to come from smart TVs and mobile apps via proxy SDKs. Each evolution made IP-based blocking impossible without harming legitimate users."
+  - q: "What are 'smart TV proxy SDKs' and why are they relevant?"
+    a: "Some app developers monetize by embedding SDKs that turn users' devices into proxy nodes. When someone installs a 'free' app on their smart TV or phone, the app can route traffic through their home IP address. This gives scrapers access to millions of legitimate-looking residential IPs, making them nearly impossible to block. Research from Spur suggests this is a major and growing industry."
+  - q: "What is the broader significance of this story?"
+    a: "This is a canary in the coal mine for the entire open web. If a well-resourced, technically sophisticated organization like the Linux kernel team is struggling to keep its infrastructure online against AI scrapers, what hope do smaller sites have? The internet's implicit social contract — that open data is freely available for reasonable use — is breaking under the weight of industrial-scale automated extraction."
+  - q: "What is the kernel team doing about it?"
+    a: "They have deployed Anubis at difficulty level 5, which is now being solved by some bots. They are reducing crawlable surface area by turning off features that generate expensive-to-render URLs. They may require authentication for more access. The maintainer is transparent that there are no easy solutions and that the situation is getting worse."
+  - q: "Is this a problem with AI specifically, or just bad bots in general?"
+    a: "The scale and sophistication are what make this different. Traditional web scrapers were limited by bandwidth and compute. Modern AI training scrapers operate at industrial scale with substantial resources, and they have evolved from simple scripts to distributed botnets using residential proxies. The economic incentive — training data is the fuel of the AI industry — makes this a persistent, well-funded adversary rather than a nuisance."
+---
+
+# The "Creepy Crawlies" Eating the Internet: How AI Training Data Demand Turned the Open Web Into a Botnet
+
+There is a war happening on the internet right now, and most people have no idea it is even taking place. It is not being fought with malware or ransomware. It is being fought with HTTP requests — billions of them, every day, hammering at the infrastructure that holds the open web together. The attackers are not hackers. They are AI training companies, and their weapons are the smart TVs and mobile apps sitting in your living room.
+
+On August 29, 2026, a Linux kernel maintainer published a blog post titled ["Creepy Crawlies"](https://people.kernel.org/monsieuricon/creepy-crawlies) that should have been front-page news everywhere. It was not. The post is a meticulously documented account of how AI training scrapers have overwhelmed git.kernel.org — the central repository for Linux kernel development, one of the most important open-source projects in human history. The numbers are staggering.
+
+## The Numbers That Should Shock You
+
+Here is what the kernel maintainer found, backed by actual server data and graphs:
+
+**At any given moment, across five geo-distributed nodes, 14 to 16 CPU cores are doing nothing but rendering git commits as HTML for scrapers.** That is 20% of total capacity across the entire infrastructure. Not for building the kernel. Not for serving developers. For rendering HTML that will be fed into language models.
+
+**git.kernel.org receives approximately 6 million requests per day** demanding to see random commits. Of those, 66% are blocked by the Anubis proof-of-work challenge. But 33% — roughly 2 million requests per day — are now solving the challenge and getting through. The bots are getting smarter.
+
+**Legitimate requests are estimated at about 2% of total traffic.** Everything else is scrapers. The Linux kernel infrastructure, which has been running for decades and has seen every kind of traffic spike imaginable, is now spending its resources primarily on serving machines that do not even need what they are asking for.
+
+This is not a nuisance. This is a resource exhaustion attack happening in slow motion, funded by venture capital and executed by consumer electronics.
+
+## Why the Linux Kernel? Why Now?
+
+To understand why this is happening, you need to understand what AI training companies actually need. Language models are trained on text — enormous amounts of it. But not just any text. The quality of training data matters enormously, and there is a terrifying problem that has emerged: **model collapse.**
+
+When you train an AI model on AI-generated content, the model loses the statistical richness of human-generated text. It produces more homogenized, less varied output. Researchers have demonstrated that training on synthetic data degrades model performance in ways that are difficult to reverse. The maintainer puts it perfectly: training on AI-generated content gives a model the equivalent of a **"digital prion disease."**
+
+The Linux kernel git history is the antidote. It is guaranteed to be 100% human-written. It spans decades of development by thousands of contributors. It contains technical documentation, bug reports, code comments, commit messages, and mailing list discussions — all dense, high-quality, and entirely free of AI-generated contamination. To an AI training company, this is a goldmine of pure human knowledge.
+
+And here is the kicker: **the kernel team makes almost all of this freely clonable.** You can run a single `git clone` command and get the entire history. They explicitly encourage this. "Here — clone the repos. Grab a copy just so we're not the only ones who have it all. Seriously, it's just a git clone away."
+
+But the scrapers do not clone. They choose the stupidest possible approach: rendering every commit as HTML, one by one, through a web interface. For linux.git alone, which has about 1.48 million commits, the scrapers generate billions of unique URLs to request the same content over and over. They request patches, plain renders, diffs between arbitrary commits. The maintainer calculates that a single fork of linux.git can generate 1.2 billion valid URLs. And there are 922 forks on git.kernel.org.
+
+The scrapers are not downloading the data efficiently. They are pulverizing the infrastructure to get it in the most expensive possible format.
+
+## The Evolution of a Botnet
+
+The kernel team's battle against the scrapers reads like a military escalation diary, and it reveals how the AI training industry has professionalized its data extraction.
+
+**Phase 1: The Obvious Bots.** At first, the scrapers were easy to identify. They had obvious user-agent strings identifying themselves as crawlers. The kernel team simply blocked them by IP. This worked for a while.
+
+**Phase 2: The Fake Browsers.** The bots wised up and started pretending to be random vanilla browsers. Chrome on Windows. Firefox on macOS. The kernel team adapted, blocking by IP behavior patterns — an IP that grabs every commit in an 8-year-old abandoned fork is not a real developer. This still worked, mostly.
+
+**Phase 3: The Subnet Swarms.** The bots started fanning out across entire data center subnets. The kernel team responded by blocking entire Autonomous System Numbers (ASNs) — if a block of IPs was coming from Google Compute or Amazon Web Services, the whole ASN got banned. This was aggressive, but it was justified. Some legitimate automated services got caught in the crossfire, but the scrapers were the bigger problem.
+
+**Phase 4: The Residential Proxy Botnet.** This is where things turned "really, really ugly." The scrapers started appearing from millions of random residential and mobile IP addresses. An IP would make four or five requests and then never appear again. Blocking was impossible — by the time you identified a bot, it was already gone, and adding millions of IPs to a firewall would break the infrastructure itself.
+
+These residential IPs are not coming from traditional botnets of infected computers. They are coming from **smart TVs and mobile apps** that users voluntarily installed. Some developers monetize their "free" apps by embedding proxy SDKs that turn the user's device into a traffic relay. The app maker gets paid by the request, and the AI training company gets access to millions of legitimate-looking residential IPs that are impossible to distinguish from real users. Research from the security firm Spur has documented this phenomenon extensively, calling it the rise of **"proxy SDK monetization."**
+
+Your TV is probably helping train an AI model right now, and you have no idea.
+
+## Anubis: The Last Line of Defense
+
+The kernel team's response to the residential proxy botnet was to deploy **Anubis**, a proof-of-work challenge system inspired by Hashcash — the same concept that underpins Bitcoin's mining algorithm, though vastly less computationally intensive.
+
+Here is how it works: before you can access git.kernel.org, your browser must solve a mathematical puzzle. The challenge asks you to find a string that, when combined with your IP address and a server-provided secret, produces a SHA-256 hash with a certain number of leading zeroes. For a legitimate human visiting the site, this takes a few seconds and happens once. For a mass scraper running thousands of parallel requests, the computational cost multiplies into something genuinely expensive.
+
+Anubis was immediately effective. When the kernel team deployed it, the bots simply gave up. For a few months, there was peace. The legitimate users were mildly annoyed by the few seconds of delay, but they tolerated it.
+
+Then the bots adapted. They started solving difficulty level 4. The kernel team raised the difficulty to 5. Legitimate users now had to wait longer, and their phones got uncomfortably warm doing the number crunching. But it bought another few months of peace.
+
+Then the bots started solving difficulty 5. Now 33% of requests are getting through.
+
+The Anubis approach is not sustainable. Every time the difficulty goes up, legitimate users suffer more. The maintainer acknowledges this openly: "This is a placeholder solution so that more time can be spent on fingerprinting and identifying headless browsers." The goal is to eventually detect bots by their behavior — font rendering quirks, JavaScript execution patterns, canvas fingerprinting — without forcing every human visitor to do math first. But that technology is not ready yet, and the bots are not waiting.
+
+## The Irony of the AI Revolution
+
+There is a deep irony here. The AI revolution is built on open data. The large language models that power ChatGPT, Claude, and Gemini were trained on Wikipedia, on GitHub, on Reddit, on arXiv — on the entire corpus of human knowledge that generous individuals and organizations have made freely available. The AI industry has extracted trillions of dollars of value from this commons.
+
+And now the extraction is destroying the commons.
+
+The AI training companies are not malicious. They are simply doing what any rational actor would do: acquiring the most valuable resource for their business at the lowest possible cost. The problem is that the cost is not borne by them. It is borne by the maintainers, the volunteers, the open-source projects, and the small websites that cannot afford to serve millions of automated requests per day.
+
+The kernel maintainer ends the post with an apology: "Sorry. (Oblig. Canadian thing to say.)" They are sorry that they have to make the open web less open. And they are sorry that there is no better solution on the horizon.
+
+## What Happens Next
+
+The Anubis arms race will continue. The bots will solve higher difficulty levels. The kernel team will find better fingerprinting techniques. And somewhere in the middle, the open web will continue to erode.
+
+This is not a problem that can be solved by any single organization. It is a systemic issue that sits at the intersection of AI economics, infrastructure economics, and the tragedy of the digital commons. Possible long-term solutions include legal frameworks that require AI training companies to compensate data providers, or technical standards for authenticated and rate-limited access to high-value datasets. None of these are simple. None of them are imminent.
+
+In the meantime, the creepy crawlies will keep coming — from your TV, from your phone, from the app you downloaded for free and never thought about again — hammering away at the servers that hold the open web together, one HTTP request at a time, until something breaks.
+
+The kernel maintainer is watching it happen in real time. So should the rest of us.
